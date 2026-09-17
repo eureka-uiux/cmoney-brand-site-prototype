@@ -276,20 +276,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn-link .arrow{transition:transform .25s var(--ease)}
 .btn-link:hover .arrow{transform:translateX(4px)}
 
-.value-cards{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:100px;max-width:1000px;margin-inline:auto}
-.value-card{
-  background:#fff;border-radius:20px;padding:32px 24px;display:grid;gap:16px;align-content:start;
-  box-shadow:0 1px 2px rgba(9,16,28,.05);
-}
-.value-card h4{margin:0;font-size:24px;font-weight:600;letter-spacing:-.01em}
-.value-card p{margin:0;font-size:16px;line-height:1.5;color:var(--text-600);max-width:280px}
-.value-cards__link{
-  position:absolute;top:50%;translate:0 -50%;width:40px;height:40px;border-radius:50%;
-  background:#fff;border:1px solid var(--red-600);color:var(--red-600);
-  display:grid;place-items:center;font-size:17px;pointer-events:none;
-}
-.value-cards__link--1{left:calc(33.333% - 20px + 2.6px)}
-.value-cards__link--2{left:calc(66.666% - 20px + 5.3px)}
 
 /* ---------- Accordion ---------- */
 .accordion{margin-top:128px;background:#fff;padding-block:3px 18px;border:1px solid #f0f0f0}
@@ -749,8 +735,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .pillar__ghost{inset-inline-start:auto;inset-inline-end:0}
   .groups{grid-template-columns:1fr}
   .value-cols{grid-template-columns:1fr;gap:56px;margin-top:72px}
-  .value-cards{grid-template-columns:1fr;gap:12px}
-  .value-cards__link{display:none}
   .acc-head{grid-template-columns:1fr auto;gap:12px;padding:24px 20px}
   .acc-num{display:none}
   .acc-body{padding:28px 20px 40px}
@@ -1051,22 +1035,6 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
       </article>
     </div>
 
-    <div class="value-cards reveal">
-      <div class="value-card">
-        <h4>貢獻價值</h4>
-        <p>找到真正重要的問題，選擇最值得投入的方向。</p>
-      </div>
-      <div class="value-card">
-        <h4>自我超越</h4>
-        <p>當能力不夠，就學習、實驗、修正，突破自己的邊界。</p>
-      </div>
-      <div class="value-card">
-        <h4>身心靈一致</h4>
-        <p>把衝突攤開，讓想法、感受與行動真正對齊。</p>
-      </div>
-      <span class="value-cards__link value-cards__link--1" aria-hidden="true">→</span>
-      <span class="value-cards__link value-cards__link--2" aria-hidden="true">→</span>
-    </div>
 
     <!-- Accordion -->
     <!-- 價值觀：模擬桌面視覺（依回饋 ce3cddb2），三則價值觀以視窗彈開 -->
