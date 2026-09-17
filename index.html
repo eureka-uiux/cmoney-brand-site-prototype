@@ -516,7 +516,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* 展開內容 — 版面依 Figma 6471:11566（左 WHY／右 IN PRACTICE＋面試提問），
    卡片語彙沿用 prototype：白底、check 互動、工作現場文章卡 */
 .cmp__inner{padding:0;border-top:1px solid #ededed}
-.cmp__detail{display:grid;grid-template-columns:1fr 1fr}
+.cmp__detail{display:grid;grid-template-columns:1fr 1fr;align-items:start}
 .cmp__col{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start;min-width:0;padding:32px 30px 34px}
 .cmp__col--why{border-inline-end:1px solid #ededed}
 .cmp__block{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
@@ -539,7 +539,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__fitrow--yes svg{color:#12a150}
 .cmp__fitrow--no svg{color:#d98324}
 /* 二選一 check card */
-.cmp__pills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.cmp__pills{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
 .cmp__pill{
   display:flex;align-items:flex-start;gap:10px;text-align:start;
   border:1.5px solid #cfd8e3;border-radius:14px;padding:14px 16px;background:#fff;
@@ -573,12 +573,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__toastclose:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
 
 /* 你會感受到的差異：整條區塊，左欄標籤、右欄內容（設計稿 6366:70148） */
-.cmp-diff{display:grid;grid-template-columns:223px minmax(0,1fr);border-top:1px solid #ededed;background:#fafafa}
-.cmp-diff__label{
-  margin:0;padding:30px 24px 30px 34px;font-size:13px;font-weight:700;letter-spacing:.01em;color:var(--red-600);
-}
-.cmp-diff__body{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;min-width:0;padding:30px 30px 32px 0}
-.cmp__check{gap:0;margin-top:4px}
+.cmp__check{display:grid;gap:16px}
 
 /* 工作現場卡片 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401 */
 .cmp-field{display:flex;align-items:flex-start;gap:16px;background:#f6f6f6;border-radius:16px;padding:20px}
@@ -765,11 +760,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .cmp__detail{grid-template-columns:minmax(0,1fr)}
   .cmp__col{padding:24px 20px 26px;gap:16px}
   .cmp__col--why{border-inline-end:0;border-bottom:1px solid #ededed}
-  .cmp-diff{grid-template-columns:minmax(0,1fr)}
-  .cmp-diff__label{padding:22px 20px 0}
-  .cmp-diff__body{padding:14px 20px 24px}
   .cmp__title{font-size:21px}
-  .cmp__pills{grid-template-columns:1fr}
   .cmp-field{flex-direction:column;gap:14px}
   .cmp-field__img{width:100%;height:auto;aspect-ratio:215/143}
   .founder{grid-template-columns:1fr}
@@ -1288,13 +1279,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
               <p class="q">「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</p>
               </div>
-            </div>
-          </div>
-
-          <div class="cmp-diff">
-            <p class="cmp-diff__label">面試前，問問自己</p>
-            <div class="cmp-diff__body">
-              <div class="cmp__block cmp__check">
+                          <div class="cmp__block cmp__check">
+                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我喜歡自主定義問題，享有極大發揮空間</button>
                 <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我偏好職責固定，需要明確的安排</button>
@@ -1356,13 +1342,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
               <p class="q">「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</p>
               </div>
-            </div>
-          </div>
-
-          <div class="cmp-diff">
-            <p class="cmp-diff__label">面試前，問問自己</p>
-            <div class="cmp-diff__body">
-              <div class="cmp__block cmp__check">
+                          <div class="cmp__block cmp__check">
+                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我願意先小規模動手，用結果換取資源</button>
                 <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我習慣資源到齊、計畫獲准後再開始</button>
@@ -1381,7 +1362,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <h6 class="cmp-field__title">我們如何在兩個極端的害怕中做出決定：一個直播功能的真實文化案例</h6>
               <p class="cmp-field__desc">很多團隊在做新功能時都會卡關：「要做好一點嗎？要完整一點嗎？等流量大時怎麼辦？會不…</p>
               </div>
-              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+              <a class="cmp-field__link" href="https://blogs.cmoney.tw/product-decision" target="_blank" rel="noopener">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
               </div>
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
               </div>
@@ -1424,13 +1405,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
               <p class="q">「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</p>
               </div>
-            </div>
-          </div>
-
-          <div class="cmp-diff">
-            <p class="cmp-diff__label">面試前，問問自己</p>
-            <div class="cmp-diff__body">
-              <div class="cmp__block cmp__check">
+                          <div class="cmp__block cmp__check">
+                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我在意結果，願意為了結果推翻原計畫</button>
                 <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我希望按時完成交辦事項就算達標</button>
@@ -1449,7 +1425,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <h6 class="cmp-field__title">快速決策如何推動團隊成長：提升效率與成果的關鍵</h6>
               <p class="cmp-field__desc">在團隊中推動快速決策，不僅能提升執行力，更能有效解決進度卡關問題。</p>
               </div>
-              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+              <a class="cmp-field__link" href="https://blogs.cmoney.tw/quick-decision-making" target="_blank" rel="noopener">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
               </div>
               <!-- TODO 照片待替換：設計稿 20:3126 第 3 列使用另一張工作現場照，本環境的網路政策封鎖 figma.com,尚無法匯出 -->
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
@@ -1493,13 +1469,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
               <p class="q">「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</p>
               </div>
-            </div>
-          </div>
-
-          <div class="cmp-diff">
-            <p class="cmp-diff__label">面試前，問問自己</p>
-            <div class="cmp-diff__body">
-              <div class="cmp__block cmp__check">
+                          <div class="cmp__block cmp__check">
+                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我想要決策權，也願意承擔結果</button>
                 <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我想要自由，但不想承擔結果的責任</button>
@@ -1518,7 +1489,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <h6 class="cmp-field__title">如何鍛鍊「決策正確」的能力？</h6>
               <p class="cmp-field__desc">1. 決策的邊界：凡有標準答案的，都算不上是決策 · 2. 好決策的背後一定有目的，若沒有目的就無所謂好壞決策 · 3. 好決策 …</p>
               </div>
-              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+              <a class="cmp-field__link" href="https://blogs.cmoney.tw/make-proper-decision" target="_blank" rel="noopener">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
               </div>
               <!-- TODO 照片待替換：設計稿 20:3126 第 4 列使用另一張工作現場照，本環境的網路政策封鎖 figma.com,尚無法匯出 -->
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
