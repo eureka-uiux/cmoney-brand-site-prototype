@@ -262,21 +262,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .group:hover .group__more span{transform:translateX(4px)}
 
 /* ============================================================
-   Section: 價值觀
+   Section: 價值觀（node 6341:67665）
    ============================================================ */
 .values-head{text-align:center;max-width:900px;margin-inline:auto}
-.values-head .h2{font-size:clamp(38px,5.6vw,80px);line-height:1.1;letter-spacing:-.035em;color:var(--ink-900)}
+.values-head .h2{font-size:clamp(38px,5.6vw,80px);line-height:1.118;letter-spacing:-.081em;color:var(--ink-900)}
 .values-head .h2 .is-red{color:var(--red);display:block}
-.values-head p{margin:27px 0 0;font-size:17px;line-height:1.85;color:#606976}
+.values-head p{margin:25px 0 0;font-size:17px;line-height:1.85;color:#606976}
 
-.value-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:48px;margin-top:118px}
-.value-col{position:relative;display:flex;flex-direction:column}
-.value-col .btn-link{margin-top:auto;align-self:flex-start}
-.value-col__head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.value-col__name{margin:0;font-size:clamp(28px,2.5vw,36px);font-weight:700;letter-spacing:-.025em;color:var(--ink-900)}
-.value-col__num{font-size:clamp(48px,4.9vw,70px);font-weight:800;color:var(--line-200);line-height:.85;letter-spacing:-.02em}
-.value-col__claim{margin:64px 0 0;font-size:25px;font-weight:700;line-height:1.44;letter-spacing:-.015em}
-.value-col__body{margin:24px 0 34px;font-size:16px;line-height:1.75;color:var(--text-400)}
 .btn-link{
   display:inline-flex;align-items:center;gap:9px;
   border:1px solid var(--red-600);color:var(--red-600);border-radius:999px;
@@ -287,176 +279,49 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn-link .arrow{transition:transform .25s var(--ease)}
 .btn-link:hover .arrow{transform:translateX(4px)}
 
+/* ---------- 價值觀卡片：捲動堆疊 ---------- */
+/* --stack-top：黏住時距畫面上緣的距離（要閃開 75px 的固定 header）
+   --stack-peek：每張卡片往下錯開、露出上緣的高度          */
+.vstack{--stack-top:100px;--stack-peek:22px;padding-block:60px}
+.vstack__item{position:sticky;inset-block-start:calc(var(--stack-top) + var(--i) * var(--stack-peek))}
+.vstack__item + .vstack__item{margin-top:32px}
+/* sticky 的可黏範圍只算到容器的 content box，padding 撐不出來；
+   用這塊空白讓三張卡片疊好之後還能多停一段捲動距離 */
+.vstack__hold{height:220px}
 
-/* ---------- Accordion ---------- */
-.accordion{margin-top:128px;background:#fff;padding-block:3px 18px;border:1px solid #f0f0f0}
-.acc-item{border-bottom:1px solid var(--bg-soft)}
-.acc-item:last-child{border-bottom:0}
-.acc-head{
-  width:100%;display:grid;grid-template-columns:78px 1fr auto;align-items:center;gap:18px;
-  padding:30px;text-align:start;transition:background .3s var(--ease);
+.vcard{
+  position:relative;display:flex;gap:48px;align-items:flex-start;
+  background:var(--bg);border:1px solid rgba(13,23,40,.1);border-radius:20px;
+  padding:40px;overflow:hidden;
+  /* 只往上打的淡影：單張卡片時幾乎看不出來，疊起來時讓露出的上緣讀得出層次 */
+  box-shadow:0 -10px 24px rgba(13,23,40,.06);
+  transform-origin:top center;transition:transform .12s linear;
 }
-.acc-head:hover{background:#fafafa}
-.acc-item.is-open .acc-head{background:var(--line-200)}
-.acc-item.is-open .acc-head:hover{background:#dcdcdc}
-.acc-num{font-size:11px;font-weight:700;color:var(--red);padding-inline-start:30px}
-.acc-kicker{font-size:9px;font-weight:700;letter-spacing:.09em;color:#9299a3;text-transform:uppercase}
-.acc-title{margin:6px 0 4px;font-size:27px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
-.acc-sub{margin:0;font-size:14px;line-height:1.6;color:#67707c;max-width:640px}
-.acc-toggle{
-  width:32px;height:32px;border-radius:50%;display:grid;place-items:center;flex:0 0 auto;
-  border:1px solid rgba(240,51,44,.45);color:var(--red);font-size:18px;line-height:1;
-  transition:transform .35s var(--ease),background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease);
+/* 被上層卡片蓋住時淡入一層與底色同色的薄膜，做出往後退的景深 */
+.vcard::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:var(--bg-soft);opacity:var(--veil,0);transition:opacity .12s linear;
 }
-.acc-item.is-open .acc-toggle{background:var(--red);border-color:var(--red);color:#fff;transform:rotate(45deg)}
+.vcard__flag{flex:0 0 274px;display:flex;flex-direction:column;gap:16px}
+.vcard__num{font-size:56px;font-weight:800;line-height:1;color:var(--line-200)}
+.vcard__name{margin:0;font-size:32px;font-weight:700;line-height:1.2;color:var(--ink-900)}
+.vcard__sheet{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:20px}
+.vcard__claim{margin:0;font-size:24px;font-weight:700;line-height:34px;color:var(--ink-900)}
+.vcard__narrative{display:flex;flex-direction:column;gap:12px}
+.vcard__narrative p{margin:0;font-size:16px;line-height:28px;color:#606976}
+.vcard__quote{
+  margin:0;display:flex;align-items:center;min-height:54px;padding-block:12px;
+  padding-inline:24px 16px;border-radius:12px;background:var(--bg-soft);
+  border-inline-start:4px solid var(--red-600);
+}
+.vcard__quote p{margin:0;font-size:20px;font-weight:700;line-height:30px;color:var(--ink-900)}
+.vcard__sub{display:flex;flex-direction:column;gap:12px}
+.vcard__sub h4{margin:0;font-size:18px;font-weight:700;line-height:1.4;color:var(--ink-900)}
+.vcard__sub p{margin:0;font-size:15px;line-height:24px;color:#606976}
 
-.acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
-.acc-item.is-open .acc-panel{grid-template-rows:1fr}
-.acc-panel__inner{overflow:hidden}
-.acc-body{padding:45px 115px 62px;display:grid;gap:12px}
-.acc-body__lead{margin:0;font-size:21px;font-weight:800;line-height:1.62;letter-spacing:-.01em}
-.acc-body p{margin:0;font-size:16px;line-height:1.75;color:var(--text-600)}
-.acc-body h4{margin:34px 0 0;font-size:22px;font-weight:700;letter-spacing:-.015em}
-.acc-quote{
-  margin:24px 0;padding:26px 0 26px 29px;background:var(--bg-soft);
-  border-inline-start:3px solid var(--red-600);
-  font-size:20px;font-weight:800;letter-spacing:-.01em;
-}
-.acc-prompts{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px}
-.acc-prompts div{background:var(--bg-soft);padding:20px 18px;font-size:14px;font-weight:800;color:var(--text-700);line-height:1.5}
-.acc-close{margin:38px 0 0;font-size:22px;font-weight:700;letter-spacing:-.015em}
-
-.undefined-note{
-  margin:6px 0 0;border:1px dashed #c9cdd4;background:repeating-linear-gradient(45deg,#fafafa,#fafafa 8px,#f4f4f4 8px,#f4f4f4 16px);
-  padding:26px 24px;font-size:13px;line-height:1.8;color:#7b828d;
-}
-.undefined-note b{color:#4d5560;font-weight:700}
-
-/* ---------- 價值觀：模擬桌面 ---------- */
-.osx{margin-top:96px}
-.osx__screen{
-  position:relative;border-radius:18px;overflow:hidden;
-  border:1px solid #d9d9d9;background:#fff;
-  box-shadow:0 40px 90px -50px rgba(9,16,28,.55);
-}
-.osx__menubar{
-  display:flex;align-items:center;gap:22px;height:34px;padding-inline:18px;
-  background:rgba(38,38,38,.96);color:#fff;font-size:12px;
-}
-.osx__menubrand{font-weight:800;letter-spacing:.02em}
-.osx__menuitem{color:var(--on-dark-3)}
-.osx__menuclock{
-  margin-inline-start:auto;font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
-  font-size:11px;letter-spacing:.12em;color:var(--on-dark-4);
-}
-.osx__desk{
-  position:relative;min-height:760px;overflow:hidden;padding:30px 30px 34px;
-  background:
-    radial-gradient(1100px 520px at 18% -10%,rgba(226,30,40,.14),transparent 62%),
-    radial-gradient(900px 480px at 92% 6%,rgba(9,16,28,.10),transparent 60%),
-    linear-gradient(160deg,#f7f7f8 0%,#eef0f3 58%,#e8eaee 100%);
-}
-.osx__hint{
-  margin:0 0 18px;font-size:12px;letter-spacing:.02em;color:#8d95a1;
-}
-.osx__files{display:flex;gap:18px;flex-wrap:wrap;position:relative;z-index:1}
-.osx-file{
-  width:132px;padding:12px 8px 14px;border-radius:14px;display:grid;justify-items:center;gap:8px;
-  text-align:center;transition:background .2s var(--ease),transform .2s var(--ease);
-}
-.osx-file:hover{background:rgba(255,255,255,.75);transform:translateY(-2px)}
-.osx-file:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
-.osx-file__ico{position:relative;display:block;width:54px}
-.osx-file__ico svg{width:54px;height:auto;filter:drop-shadow(0 6px 12px rgba(9,16,28,.18))}
-.osx-file__ico b{
-  position:absolute;inset-block-end:6px;inset-inline-end:2px;
-  background:var(--red-600);color:#fff;border-radius:6px;padding:1px 5px;
-  font-size:10px;font-weight:800;letter-spacing:.02em;
-}
-.osx-file__name{font-size:14px;font-weight:700;color:var(--text-900);line-height:1.4}
-.osx-file__meta{
-  font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
-  font-size:10px;color:#98a0ab;letter-spacing:.02em;
-}
-
-.osx-win{
-  position:absolute;inset-block-start:calc(150px + var(--y));inset-inline-start:calc(40px + var(--x));
-  width:min(680px,calc(100% - 80px));max-height:calc(100% - 180px - var(--y));
-  display:flex;flex-direction:column;
-  background:#fff;border:1px solid #dcdcdc;border-radius:14px;overflow:hidden;
-  box-shadow:0 30px 70px -28px rgba(9,16,28,.5);
-  opacity:0;transform:scale(.97) translateY(10px);
-  transition:opacity .28s var(--ease),transform .28s var(--ease);
-}
-.osx-win.is-open{opacity:1;transform:none}
-.osx-win.is-zoom{
-  inset-block-start:56px;inset-inline-start:24px;
-  width:calc(100% - 48px);max-height:calc(100% - 90px);
-}
-.osx-win__bar{
-  flex:0 0 auto;display:flex;align-items:center;gap:12px;height:40px;padding-inline:14px;
-  background:linear-gradient(#fbfbfb,#f2f2f2);border-bottom:1px solid #e6e6e6;cursor:grab;
-}
-.osx-win__bar:active{cursor:grabbing}
-.osx-win__lights{display:flex;gap:7px;flex:0 0 auto}
-.osx-win__light{width:12px;height:12px;border-radius:50%;display:block;cursor:pointer}
-.osx-win__light--close{background:#ec6a5e}
-.osx-win__light--min{background:#f4bf4f}
-.osx-win__light--max{background:#61c554}
-.osx-win__name{
-  font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
-  font-size:11px;color:#8d95a1;letter-spacing:.04em;
-}
-.osx-win__x{
-  margin-inline-start:auto;width:26px;height:26px;border-radius:8px;color:#8d95a1;font-size:13px;
-  display:grid;place-items:center;transition:background .2s var(--ease),color .2s var(--ease);
-}
-.osx-win__x:hover{background:#f1f1f1;color:var(--text-900)}
-.osx-win__x:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
-.osx-win__body{overflow:auto;padding:30px 34px 34px;-webkit-overflow-scrolling:touch}
-.osx-win__kicker{
-  margin:0;font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
-  font-size:10px;font-weight:700;letter-spacing:.11em;color:var(--red-600);text-transform:uppercase;
-}
-.osx-win__title{margin:10px 0 0;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
-.osx-win__sub{margin:10px 0 0;font-size:14px;line-height:1.7;color:#67707c}
-.osx-win .acc-body{padding:24px 0 0;gap:12px}
-
-.osx__dock{
-  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
-  padding:14px 18px;background:rgba(255,255,255,.9);border-top:1px solid #e6e6e6;
-}
-.osx__dockitem{
-  display:inline-flex;align-items:center;gap:8px;height:38px;padding-inline:16px;border-radius:999px;
-  border:1px solid #e0e0e0;background:#fff;font-size:14px;font-weight:700;color:var(--text-700);
-  transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease);
-}
-.osx__dockitem span{
-  font-family:"Roboto Mono",ui-monospace,Menlo,monospace;font-size:10px;color:var(--red-600);
-}
-.osx__dockitem:hover{border-color:var(--red-600);color:var(--red-600);transform:translateY(-1px)}
-.osx__dockitem[aria-pressed="true"]{border-color:var(--red-600);background:#feedea;color:var(--red-600)}
-.osx__dockitem:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
-.osx__dockitem--ghost{color:#8d95a1}
-.osx__dockline{width:1px;height:22px;background:#e0e0e0}
-
-@media (max-width:980px){
-  .osx{margin-top:64px}
-  .osx__desk{min-height:0;padding:22px 18px 26px}
-  .osx__files{gap:10px}
-  .osx-file{width:calc(33.333% - 7px);padding:10px 6px 12px}
-  .osx__desk{overflow:visible}
-  .osx-win,.osx-win.is-zoom{
-    position:static;width:100%;max-height:none;margin-top:16px;
-  }
-  .osx-win__bar{cursor:default}
-  .osx-win__body{padding:22px 20px 26px}
-  .osx-win__title{font-size:24px}
-}
-
-.values-outro{margin-top:96px;text-align:center}
+.values-outro{padding-block:80px;text-align:center}
 .values-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
-.values-outro p{margin:26px 0 0;font-size:18px;color:var(--text-600)}
+.values-outro p{margin:44px 0 0;font-size:18px;color:var(--text-600)}
 
 /* ============================================================
    Section: 運作方式
@@ -707,6 +572,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
+  /* 價值觀：不做黏頂堆疊，退成一般直列 */
+  .vstack__item{position:static}
+  .vstack__hold{display:none}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
   /* 創辦人區塊：光環直接停在最終狀態，hover 不再縮放 */
   .founder__media::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
@@ -723,7 +591,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .founder{grid-template-columns:240px 1fr;gap:48px}
   .founder__media{height:560px}
   .founder__media img{width:240px;height:560px}
-  .acc-body{padding:36px 40px 48px}
+  .vstack{--stack-top:88px}
+  .vcard{padding:32px;gap:32px}
+  .vcard__flag{flex-basis:200px}
   .fnav__cols{flex-wrap:wrap;justify-content:flex-start;gap:28px 44px}
 }
 @media (max-width:980px){
@@ -739,11 +609,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .hero{padding-block:150px 0;min-height:auto}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .groups{grid-template-columns:1fr}
-  .value-cols{grid-template-columns:1fr;gap:56px;margin-top:72px}
-  .acc-head{grid-template-columns:1fr auto;gap:12px;padding:24px 20px}
-  .acc-num{display:none}
-  .acc-body{padding:28px 20px 40px}
-  .acc-prompts{grid-template-columns:1fr}
+  /* 單欄之後卡片高度已超過一個畫面，黏頂堆疊會吃掉內容，改回一般直列 */
+  .vstack{padding-block:40px}
+  .vstack__item{position:static}
+  .vstack__item + .vstack__item{margin-top:24px}
+  .vstack__hold{display:none}
+  .vcard{flex-direction:column;gap:24px;padding:24px}
+  .vcard__flag{flex-basis:auto;flex-direction:row;align-items:baseline;gap:12px}
+  .vcard__num{font-size:44px}
+  .vcard__name{font-size:26px}
   .cmp__head,.cmp__cells{grid-template-columns:1fr}
   .cmp__cell--new{border-inline-start:0;border-top:1px solid #ededed;flex-wrap:wrap}
   .cmp__detail{grid-template-columns:minmax(0,1fr)}
@@ -1022,191 +896,69 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
          如果您也認同這些理念，請繼續閱讀。</p>
     </div>
 
-    <div class="value-cols">
-      <article class="value-col reveal">
-        <div class="value-col__head">
-          <h3 class="value-col__name">貢獻價值</h3>
-          <span class="value-col__num" aria-hidden="true">01</span>
+    <!-- 三張卡片依序 sticky 黏在畫面上緣，後一張蓋住前一張；被蓋住的卡片縮小＋淡入薄膜做景深（JS：updateStack） -->
+    <div class="vstack" id="valuesStack">
+      <article class="vstack__item" style="--i:0">
+        <div class="vcard">
+          <div class="vcard__flag">
+            <span class="vcard__num" aria-hidden="true">01</span>
+            <h3 class="vcard__name">貢獻價值</h3>
+          </div>
+          <div class="vcard__sheet">
+            <p class="vcard__claim">不是把事情做完，而是真的讓事情變得更好。</p>
+            <div class="vcard__narrative">
+            <p>完成專案、達成KPI、推出功能、開完會，都不是目的。真正重要的是：使用者的問題有沒有因此被解決？產品有沒有因此變得更好？團隊是不是能做到以前做不到的事情？公司是否因此更接近自己的使命？</p>
+            <p>所以在CMoney，我們不把「很努力」本身當成成果。努力值得尊重，但只有當努力最終轉化成價值，它才有意義。</p>
+            </div>
+            <blockquote class="vcard__quote"><p>我們尊重經驗，但更尊重事實。</p></blockquote>
+            <div class="vcard__sub">
+              <h4>從使用者與問題出發，並對結果負責，而不是只對工作負責</h4>
+              <p>如果一件事情沒有產生預期效果，我們不希望回答：「可是我的部分已經做完了。」真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生。</p>
+            </div>
+          </div>
         </div>
-        <p class="value-col__claim">不是把事情做完，而是真的讓事情變得更好。</p>
-        <p class="value-col__body">從使用者與真正的問題出發，對結果負責，把有限的資源放在最重要的地方。</p>
-        <button class="btn-link" type="button" data-open-acc="acc-01">深入了解 <span class="arrow" aria-hidden="true">→</span></button>
       </article>
-      <article class="value-col reveal">
-        <div class="value-col__head">
-          <h3 class="value-col__name">自我超越</h3>
-          <span class="value-col__num" aria-hidden="true">02</span>
+      <article class="vstack__item" style="--i:1">
+        <div class="vcard">
+          <div class="vcard__flag">
+            <span class="vcard__num" aria-hidden="true">02</span>
+            <h3 class="vcard__name">自我超越</h3>
+          </div>
+          <div class="vcard__sheet">
+            <p class="vcard__claim">今天的自己，不應該成為明天的上限。</p>
+            <div class="vcard__narrative">
+            <p>在CMoney，成長不是額外的要求，而是工作的一部分。自我超越，不是要求每個人變成別人，而是不讓今天的能力，限制明天能解決的問題。</p>
+            <p>不知道沒有關係；重要的是能否快速學習、承認差距，讓自己具備解決下一個問題的能力。</p>
+            </div>
+            <blockquote class="vcard__quote"><p>Truth-seeking 要走在 Ego-protection 前面。</p></blockquote>
+            <div class="vcard__sub">
+              <h4>把問題當成升級自己的機會</h4>
+              <p>有些問題一直出現，不一定只是環境不好；它也可能在提醒我們，目前的能力、認知或工作方法，已經不足以解決下一個階段的問題。</p>
+            </div>
+          </div>
         </div>
-        <p class="value-col__claim">今天的自己，不應該成為明天的上限。</p>
-        <p class="value-col__body">不知道沒有關係；重要的是能否快速學習、承認差距，讓自己具備解決下一個問題的能力。</p>
-        <button class="btn-link" type="button" data-open-acc="acc-02">深入了解 <span class="arrow" aria-hidden="true">→</span></button>
       </article>
-      <article class="value-col reveal">
-        <div class="value-col__head">
-          <h3 class="value-col__name">身心靈一致</h3>
-          <span class="value-col__num" aria-hidden="true">03</span>
+      <article class="vstack__item" style="--i:2">
+        <div class="vcard">
+          <div class="vcard__flag">
+            <span class="vcard__num" aria-hidden="true">03</span>
+            <h3 class="vcard__name">身心靈一致</h3>
+          </div>
+          <div class="vcard__sheet">
+            <p class="vcard__claim">讓你的力量朝向同一個方向。</p>
+            <div class="vcard__narrative">
+            <p>身，是行動；心，是思考與判斷；靈，是我們真實的感受。當三者與自己真正認同的目標一致，一個人的力量便不需要消耗在內部互相拉扯。</p>
+            <p>重要的事情，本來就會產生衝突。你可能理性知道應該停止一個專案，情感上卻捨不得；你可能認同公司的目標，卻不認同主管提出的方法；也可能嘴上說某件事最重要，每天真正花時間的卻是另一件事。</p>
+            </div>
+            <blockquote class="vcard__quote"><p>當思考、感受與行動彼此衝突，通常代表有一個問題還沒有真正被解決。</p></blockquote>
+            <div class="vcard__sub">
+              <h4>有衝突，就把它拿到桌面上，想清楚，說清楚，然後做到</h4>
+              <p>如果不同意，就把原因說清楚；如果不知道，就承認不知道；如果看到風險，就提出來。我們鼓勵彼此說服，也願意被說服，因為討論的目的不是證明誰比較厲害，而是一起更接近事實。</p>
+            </div>
+          </div>
         </div>
-        <p class="value-col__claim">讓你的力量朝向同一個方向。</p>
-        <p class="value-col__body">看清事實、理解感受、說出衝突，最後讓思考、感受、行動與真正認同的目標對齊。</p>
-        <button class="btn-link" type="button" data-open-acc="acc-03">深入了解 <span class="arrow" aria-hidden="true">→</span></button>
       </article>
-    </div>
-
-
-    <!-- Accordion -->
-    <!-- 價值觀：模擬桌面視覺（依回饋 ce3cddb2），三則價值觀以視窗彈開 -->
-    <div class="osx reveal" id="valuesAccordion">
-      <div class="osx__screen">
-        <div class="osx__menubar">
-          <span class="osx__menubrand">CMoney</span>
-          <span class="osx__menuitem">檔案</span>
-          <span class="osx__menuitem">編輯</span>
-          <span class="osx__menuitem">檢視</span>
-          <span class="osx__menuclock" id="osxClock">CORE VALUES</span>
-        </div>
-
-        <div class="osx__desk" id="osxDesk">
-          <p class="osx__hint">雙擊或點一下檔案，打開一則價值觀</p>
-          <div class="osx__files">
-          <button class="osx-file" type="button" data-open="acc-01" aria-controls="acc-01">
-            <span class="osx-file__ico" aria-hidden="true">
-              <svg viewBox="0 0 48 60" focusable="false"><path d="M4 3h26l14 14v40a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" fill="#fff" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M30 3v14h14" fill="#f6f6f6" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M9 28h30M9 36h30M9 44h20" stroke="#e21e28" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg>
-              <b>01</b>
-            </span>
-            <span class="osx-file__name">貢獻價值</span>
-            <span class="osx-file__meta">01_貢獻價值.md</span>
-          </button>
-          <button class="osx-file" type="button" data-open="acc-02" aria-controls="acc-02">
-            <span class="osx-file__ico" aria-hidden="true">
-              <svg viewBox="0 0 48 60" focusable="false"><path d="M4 3h26l14 14v40a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" fill="#fff" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M30 3v14h14" fill="#f6f6f6" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M9 28h30M9 36h30M9 44h20" stroke="#e21e28" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg>
-              <b>02</b>
-            </span>
-            <span class="osx-file__name">自我超越</span>
-            <span class="osx-file__meta">02_自我超越.md</span>
-          </button>
-          <button class="osx-file" type="button" data-open="acc-03" aria-controls="acc-03">
-            <span class="osx-file__ico" aria-hidden="true">
-              <svg viewBox="0 0 48 60" focusable="false"><path d="M4 3h26l14 14v40a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" fill="#fff" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M30 3v14h14" fill="#f6f6f6" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M9 28h30M9 36h30M9 44h20" stroke="#e21e28" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg>
-              <b>03</b>
-            </span>
-            <span class="osx-file__name">身心靈一致</span>
-            <span class="osx-file__meta">03_身心靈一致.md</span>
-          </button>
-          </div>
-
-        <section class="osx-win is-open" id="acc-01" data-win="" style="--x: 0px; --y: 0px; z-index: 11;" aria-labelledby="acc-01-title">
-          <header class="osx-win__bar">
-            <span class="osx-win__lights" aria-hidden="true">
-              <i class="osx-win__light osx-win__light--close" data-act="close"></i>
-              <i class="osx-win__light osx-win__light--min" data-act="close"></i>
-              <i class="osx-win__light osx-win__light--max" data-act="zoom"></i>
-            </span>
-            <span class="osx-win__name">01_貢獻價值.md</span>
-            <button class="osx-win__x" type="button" data-act="close" aria-label="關閉貢獻價值">✕</button>
-          </header>
-          <div class="osx-win__body">
-            <p class="osx-win__kicker">Direction · 01</p>
-            <h4 class="osx-win__title" id="acc-01-title">貢獻價值</h4>
-            <p class="osx-win__sub">我們做任何事情，最後都回到一個問題：這件事情，究竟為誰創造了什麼價值？</p>
-            <div class="acc-body">
-            <!-- 依回饋濃縮為三段：完成不等於價值／從真正的問題出發／對結果與取捨負責；重點句改以引用強調 -->
-            <p class="acc-body__lead">完成專案、達成 KPI、推出功能、開完會，都不是目的。真正重要的是：使用者的問題有沒有被解決？產品有沒有變得更好？團隊能不能做到以前做不到的事？公司是否因此更接近自己的使命？</p>
-            <blockquote class="acc-quote">努力值得尊重，但只有當努力轉化成價值，它才有意義。</blockquote>
-
-            <h4>從真正的問題出發</h4>
-            <p>創造價值的第一步，不是問「我們可以做什麼？」而是問「真正重要的問題是什麼？」我們希望每個人都能穿過需求、規格、流程與表面現象，找到真正需要被解決的問題。</p>
-            <blockquote class="acc-quote">我們尊重經驗，但更尊重事實。</blockquote>
-
-            <h4>對結果負責，也對取捨負責</h4>
-            <p>如果一件事沒有產生預期效果，我們不希望聽到「可是我的部分已經做完了」。真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生——即使問題跨越職責範圍，你仍然會指出它、推動它。同時，創造價值也意味著選擇：好的公司不是把一百件事都做好，而是知道哪幾件事最值得做。</p>
-            <div class="acc-prompts">
-            <div>如果只能做好一件事情，現在最重要的是什麼？</div>
-            <div>如果這件事不做，真正會失去什麼？</div>
-            </div>
-
-            <p class="acc-close">找到真正重要的問題，用最有效的方法，創造最大的價值。</p>
-            </div>
-          </div>
-        </section>
-        <section class="osx-win" id="acc-02" data-win="" style="--x:58px;--y:42px" hidden="" aria-labelledby="acc-02-title">
-          <header class="osx-win__bar">
-            <span class="osx-win__lights" aria-hidden="true">
-              <i class="osx-win__light osx-win__light--close" data-act="close"></i>
-              <i class="osx-win__light osx-win__light--min" data-act="close"></i>
-              <i class="osx-win__light osx-win__light--max" data-act="zoom"></i>
-            </span>
-            <span class="osx-win__name">02_自我超越.md</span>
-            <button class="osx-win__x" type="button" data-act="close" aria-label="關閉自我超越">✕</button>
-          </header>
-          <div class="osx-win__body">
-            <p class="osx-win__kicker">Growth · 02</p>
-            <h4 class="osx-win__title" id="acc-02-title">自我超越</h4>
-            <p class="osx-win__sub">如果一直只做自己已經會做的事，就很難創造以前沒有創造過的價值。</p>
-            <div class="acc-body">
-            <!-- 內容來源：設計稿 6537:1329（Section 3 / 自我超越）；濃縮為三段，保留引用區塊與最後一句 -->
-            <p class="acc-body__lead">成長不是額外的要求，而是工作的一部分。自我超越不是要求每個人變成別人，而是不讓今天的能力，限制明天能解決的問題。</p>
-
-            <h4>不知道沒有關係，停止學習才有問題</h4>
-            <p>真正困難的工作，一開始往往都不知道答案。我們在意的不是你懂多少，而是不知道時，你會等別人給答案，還是主動理解問題、建立假設、做實驗，再快速修正。今天不會的可以學會，今天做不到的，也可能透過工具、合作、AI 與方法做到。</p>
-
-            <h4>真正的成長，從承認差距開始</h4>
-            <p>人最難突破的不是能力，而是 Ego。急著證明自己是對的，就很難看見自己錯在哪裡。</p>
-            <blockquote class="acc-quote">Truth-seeking 要走在 Ego-protection 前面。</blockquote>
-            <p>有些問題反覆出現，不一定只是環境不好，也可能在提醒我們：現在的能力與工作方法，已經不足以解決下一個階段的問題。</p>
-            <div class="acc-prompts">
-            <div>這件事情怎麼解決？</div>
-            <div>我要變成什麼樣的人，未來才能更容易解決這類問題？</div>
-            </div>
-
-            <p class="acc-close">不是和別人比較，而是一次又一次，把自己的能力邊界往外推。</p>
-            </div>
-          </div>
-        </section>
-        <section class="osx-win" id="acc-03" data-win="" style="--x:116px;--y:84px" hidden="" aria-labelledby="acc-03-title">
-          <header class="osx-win__bar">
-            <span class="osx-win__lights" aria-hidden="true">
-              <i class="osx-win__light osx-win__light--close" data-act="close"></i>
-              <i class="osx-win__light osx-win__light--min" data-act="close"></i>
-              <i class="osx-win__light osx-win__light--max" data-act="zoom"></i>
-            </span>
-            <span class="osx-win__name">03_身心靈一致.md</span>
-            <button class="osx-win__x" type="button" data-act="close" aria-label="關閉身心靈一致">✕</button>
-          </header>
-          <div class="osx-win__body">
-            <p class="osx-win__kicker">Alignment · 03</p>
-            <h4 class="osx-win__title" id="acc-03-title">身心靈一致</h4>
-            <p class="osx-win__sub">知道自己為什麼做、相信它值得做、願意面對真實，行動也真正朝那裡前進。</p>
-            <div class="acc-body">
-            <!-- 內容來源：設計稿 6537:1329（Section 3 / 身心靈一致）；濃縮為三段，保留引用區塊與最後一句 -->
-            <p class="acc-body__lead">身，是行動；心，是思考與判斷；靈，是我們真實的感受。當三者與自己真正認同的目標一致，力量就不需要消耗在內部拉扯。</p>
-
-            <h4>一致，不代表沒有衝突</h4>
-            <p>重要的事情本來就會產生衝突：理性知道該停下的專案，情感上捨不得；認同目標，卻不認同方法；嘴上說最重要的事，時間卻花在別處。</p>
-            <blockquote class="acc-quote">當思考、感受與行動彼此衝突，通常代表有一個問題還沒有真正被解決。</blockquote>
-            <p>我們不認為「感覺不舒服，所以這件事一定是錯的」，也不認為所有不舒服都該被壓下去。情緒是一種資訊。</p>
-            <blockquote class="acc-quote">感受沒有最終決策權，但有發言權。</blockquote>
-
-            <h4>有衝突，就把它拿到桌面上</h4>
-            <p>不同意就說清楚原因，不知道就承認，看到風險就提出來。真正危險的從來不是意見不同，而是心裡不同意、嘴上說同意；說某件事重要，行動卻沒有投入。我們追求的不是服從，而是一種更深的自由：不再被自尊、恐懼與沒有被看見的情緒牽著走。</p>
-            <div class="acc-prompts">
-            <div>你說這件事情重要，時間是否真的放在這裡？</div>
-            <div>你不同意時，是否願意誠實地把問題說清楚？</div>
-            </div>
-
-            <p class="acc-close">想清楚。說清楚。然後做到。</p>
-            </div>
-          </div>
-        </section>
-        </div>
-
-        <div class="osx__dock" role="group" aria-label="開啟價值觀視窗">
-          <button class="osx__dockitem" type="button" data-open="acc-01" aria-pressed="true"><span>01</span>貢獻價值</button>
-          <button class="osx__dockitem" type="button" data-open="acc-02" aria-pressed="false"><span>02</span>自我超越</button>
-          <button class="osx__dockitem" type="button" data-open="acc-03" aria-pressed="false"><span>03</span>身心靈一致</button>
-          <span class="osx__dockline" aria-hidden="true"></span>
-          <button class="osx__dockitem osx__dockitem--ghost" type="button" id="osxOpenAll">全部打開</button>
-        </div>
-      </div>
+      <div class="vstack__hold" aria-hidden="true"></div>
     </div>
 
     <div class="values-outro reveal">
@@ -1735,101 +1487,56 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
     startCounters();
   }
 
-  /* ---------- 價值觀：模擬桌面視窗 ---------- */
-  var desk = document.getElementById("osxDesk");
-  var wins = [].slice.call(document.querySelectorAll("[data-win]"));
-  var dockBtns = [].slice.call(document.querySelectorAll(".osx__dockitem[data-open]"));
-  var topZ = 10;
+  /* ---------- 價值觀：三張卡片捲動堆疊 ---------- */
+  var vstack = document.getElementById("valuesStack");
+  if (vstack) {
+    var vitems = [].slice.call(vstack.querySelectorAll(".vstack__item"));
+    var vcards = vitems.map(function(it){ return it.querySelector(".vcard"); });
+    var vTravel = 300;   /* 下一張卡片開始「壓」上來之後，前一張退到底所需的捲動距離 */
+    var vTop = 100, vPeek = 16, vTicking = false;
 
-  function syncDock(){
-    dockBtns.forEach(function(b){
-      var w = document.getElementById(b.getAttribute("data-open"));
-      b.setAttribute("aria-pressed", String(!!w && !w.hidden));
-    });
-  }
-  function openWin(id, focus){
-    var w = document.getElementById(id);
-    if (!w) return;
-    w.hidden = false;
-    w.style.zIndex = ++topZ;
-    w.classList.remove("is-zoom");
-    var body = w.querySelector(".osx-win__body");
-    if (body) body.scrollTop = 0;                 // 每次打開都從文章最上方開始
-    requestAnimationFrame(function(){
-      w.classList.add("is-open");
-      if (body) body.scrollTop = 0;
-    });
-    syncDock();
-    if (focus !== false) w.querySelector(".osx-win__x").focus({preventScroll:true});
-  }
-  function closeWin(w){
-    w.classList.remove("is-open");
-    if (reduce){ w.hidden = true; syncDock(); return; }
-    setTimeout(function(){ w.hidden = true; syncDock(); }, 220);
-  }
+    function readStackVars(){
+      var cs = getComputedStyle(vstack);
+      vTop  = parseFloat(cs.getPropertyValue("--stack-top"))  || vTop;
+      vPeek = parseFloat(cs.getPropertyValue("--stack-peek")) || vPeek;
+    }
 
-  document.querySelectorAll("[data-open]").forEach(function(btn){
-    btn.addEventListener("click", function(){ openWin(btn.getAttribute("data-open")); });
-  });
-  document.getElementById("osxOpenAll").addEventListener("click", function(){
-    wins.forEach(function(w){ openWin(w.id, false); });
-  });
-  wins.forEach(function(w){
-    w.addEventListener("click", function(e){
-      var act = e.target.closest("[data-act]");
-      if (act){
-        var kind = act.getAttribute("data-act");
-        if (kind === "close") closeWin(w);
-        else w.classList.toggle("is-zoom");
-        return;
+    function clearStack(){
+      vcards.forEach(function(c){ c.style.transform = ""; c.style.setProperty("--veil", "0"); });
+    }
+
+    function updateStack(){
+      vTicking = false;
+      /* 手機版與 reduced-motion 下 sticky 被關掉，就不做景深 */
+      if (getComputedStyle(vitems[0]).position !== "sticky"){ clearStack(); return; }
+
+      /* progress[i]：第 i+1 張卡片把第 i 張蓋掉的進度（0～1） */
+      var progress = vitems.map(function(it, i){
+        var next = vitems[i + 1];
+        if (!next) return 0;
+        var d = next.getBoundingClientRect().top - (vTop + (i + 1) * vPeek);
+        return Math.min(1, Math.max(0, 1 - d / vTravel));
+      });
+
+      for (var i = 0; i < vcards.length; i++){
+        var depth = 0;                                  /* 疊在這張卡片上面的張數（可為小數） */
+        for (var j = i; j < progress.length; j++) depth += progress[j];
+        vcards[i].style.transform = depth ? "scale(" + (1 - 0.035 * depth).toFixed(4) + ")" : "";
+        vcards[i].style.setProperty("--veil", Math.min(0.55, 0.3 * depth).toFixed(3));
       }
-      w.style.zIndex = ++topZ;
-    });
-  });
+    }
 
-  /* 視窗拖曳（桌機） */
-  wins.forEach(function(w){
-    var bar = w.querySelector(".osx-win__bar");
-    var dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
-    bar.addEventListener("pointerdown", function(e){
-      if (e.target.closest("[data-act]")) return;
-      if (window.matchMedia("(max-width: 980px)").matches) return;
-      dragging = true;
-      sx = e.clientX; sy = e.clientY;
-      ox = parseFloat(w.style.getPropertyValue("--x")) || 0;
-      oy = parseFloat(w.style.getPropertyValue("--y")) || 0;
-      w.style.zIndex = ++topZ;
-      bar.setPointerCapture(e.pointerId);
-    });
-    bar.addEventListener("pointermove", function(e){
-      if (!dragging) return;
-      var maxX = Math.max(0, desk.clientWidth - w.offsetWidth - 80);
-      var maxY = Math.max(0, desk.clientHeight - 200);
-      w.style.setProperty("--x", Math.min(Math.max(ox + e.clientX - sx, -24), maxX) + "px");
-      w.style.setProperty("--y", Math.min(Math.max(oy + e.clientY - sy, -90), maxY) + "px");
-    });
-    function stop(e){ if (dragging){ dragging = false; bar.releasePointerCapture(e.pointerId); } }
-    bar.addEventListener("pointerup", stop);
-    bar.addEventListener("pointercancel", stop);
-  });
+    function requestStack(){
+      if (vTicking) return;
+      vTicking = true;
+      requestAnimationFrame(updateStack);
+    }
 
-  document.addEventListener("keydown", function(e){
-    if (e.key !== "Escape") return;
-    var open = wins.filter(function(w){ return !w.hidden; });
-    if (open.length) closeWin(open[open.length - 1]);
-  });
-
-  /* 上方三欄「深入了解」沿用同一組 id */
-  document.querySelectorAll("[data-open-acc]").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var id = btn.getAttribute("data-open-acc");
-      document.getElementById("valuesAccordion").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
-      openWin(id);
-    });
-  });
-
-  openWin("acc-01", false);
-
+    readStackVars();
+    updateStack();
+    addEventListener("scroll", requestStack, {passive:true});
+    addEventListener("resize", function(){ readStackVars(); requestStack(); });
+  }
   /* ---------- 四列對照卡片：展開 + 每列各自的 check card ---------- */
   var CMP_ICONS = {
     good: '<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
