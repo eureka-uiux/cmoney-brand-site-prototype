@@ -173,26 +173,32 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============================================================
    Section: 我們是誰
    ============================================================ */
-.split{display:grid;grid-template-columns:706fr 424fr;gap:90px;align-items:start}
-.split .h2{font-size:clamp(34px,4.9vw,70px);line-height:1.114}
+/* 左右兩欄：左＝標題＋導言，右＝VISION / MISSION / METHOD 卡片（node 6341:67528） */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.split__intro{display:grid;gap:64px;align-content:start}
+.split .h2{font-size:clamp(34px,4.44vw,64px);line-height:1.225;letter-spacing:-.071em}
 .split .h2 .is-red{color:var(--red-600)}
-.split__aside{padding-top:101px;display:grid;gap:15px}
-.split__aside p{margin:0;font-size:16px;line-height:1.875;color:var(--text-600)}
+.split__aside{display:grid;gap:16px}
+.split__aside p{margin:0;font-size:16px;line-height:1.85;color:var(--text-600)}
 
-.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:60px;margin-top:130px}
-.pillar{position:relative;padding-top:52px}
-.pillar__ghost{
-  position:absolute;inset-block-start:0;inset-inline-start:86px;z-index:0;
-  font-size:clamp(46px,4.9vw,70px);font-weight:800;color:var(--line-200);
-  letter-spacing:-.02em;line-height:1;pointer-events:none;white-space:nowrap;
+.pillars{display:grid;gap:24px}
+.pillar{
+  display:grid;gap:20px;padding:24px;
+  background:var(--bg);border-radius:20px;
+  box-shadow:0 0 0 1px rgba(38,38,38,.05),0 1px 3px rgba(38,38,38,.15);
 }
-.pillar__title{position:relative;z-index:1;margin:0;font-size:25px;font-weight:700;line-height:1.44;letter-spacing:-.01em}
-.pillar__body{position:relative;z-index:1;margin:42px 0 0;font-size:14px;line-height:1.786;color:var(--text-400)}
+.pillar__head{display:grid;gap:8px}
+.pillar__ghost{
+  display:block;font-size:20px;font-weight:800;color:var(--text-300);
+  letter-spacing:.093em;line-height:1.2;
+}
+.pillar__title{margin:0;font-size:22px;font-weight:700;line-height:1.636;color:var(--ink-900)}
+.pillar__body{margin:0;font-size:16px;line-height:1.5;color:var(--text-400)}
 
-.northstar{margin-top:145px}
-.northstar__eyebrow{font-size:clamp(24px,2.8vw,40px);font-weight:800;color:var(--text-300);letter-spacing:-.01em;line-height:1.2}
-.northstar__title{margin:14px 0 0;font-size:clamp(30px,3.6vw,52px);font-weight:700;letter-spacing:-.03em;line-height:1.2}
-.northstar__sub{margin:18px 0 0;font-size:clamp(18px,1.7vw,24px);color:var(--text-600)}
+.northstar{display:grid;gap:32px;padding-block:64px}
+.northstar__eyebrow{margin:0;font-size:clamp(24px,2.78vw,40px);font-weight:800;color:var(--text-300);letter-spacing:.027em;line-height:1.2}
+.northstar__title{margin:0;font-size:clamp(30px,3.6vw,52px);font-weight:700;letter-spacing:-.017em;line-height:1.21}
+.northstar__sub{margin:0;font-size:clamp(18px,1.67vw,24px);color:var(--text-600);line-height:1.05}
 
 /* ============================================================
    Section: 里程碑
@@ -713,9 +719,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
    ============================================================ */
 @media (max-width:1200px){
   .section{padding-block:100px}
-  .split{grid-template-columns:1fr;gap:40px}
-  .split__aside{padding-top:0}
-  .pillars{margin-top:80px;gap:40px}
+  .split{grid-template-columns:1fr;gap:56px}
   .founder{grid-template-columns:240px 1fr;gap:48px}
   .founder__media{height:560px}
   .founder__media img{width:240px;height:560px}
@@ -734,8 +738,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .nav__link{font-size:16px;padding-block:12px}
   .hero{padding-block:150px 0;min-height:auto}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .pillars{grid-template-columns:1fr}
-  .pillar__ghost{inset-inline-start:auto;inset-inline-end:0}
   .groups{grid-template-columns:1fr}
   .value-cols{grid-template-columns:1fr;gap:56px;margin-top:72px}
   .acc-head{grid-template-columns:1fr auto;gap:12px;padding:24px 20px}
@@ -874,34 +876,42 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 <!-- ========================= 我們是誰 ========================= -->
 <section class="section" id="who">
   <div class="container">
-    <div class="split reveal">
-      <h2 class="h2">我們不是從<br>「要做什麼產品」<span class="is-red">開始</span></h2>
-      <div class="split__aside">
-        <p>產品會改變，技術會改變，市場也一定會改變。真正值得長期存在的，是我們選擇替誰解決什麼問題。</p>
-        <p>企業存在的理由不是維持既有業務，而是持續為使用者創造比昨天更好的答案。</p>
+    <div class="split">
+      <div class="split__intro reveal">
+        <h2 class="h2">我們不是從「要做什麼產品」<span class="is-red">開始</span></h2>
+        <div class="split__aside">
+          <p>產品會改變，技術會改變，市場也一定會改變。真正值得長期存在的，是我們選擇替誰解決什麼問題。</p>
+          <p>企業存在的理由不是維持既有業務，而是持續為使用者創造比昨天更好的答案。</p>
+        </div>
+      </div>
+
+      <div class="pillars">
+        <article class="pillar reveal">
+          <div class="pillar__head">
+            <span class="pillar__ghost" aria-hidden="true">VISION</span>
+            <h3 class="pillar__title">每個人，都能擁有自己的美好人生。</h3>
+          </div>
+          <p class="pillar__body">好的工具改變行動，緊密的社群促成互助；當好的改變被反覆強化，就會形成正向循環。</p>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar__head">
+            <span class="pillar__ghost" aria-hidden="true">MISSION</span>
+            <h3 class="pillar__title">創造更好的工具與社群，幫助每個人做好人生投資。</h3>
+          </div>
+          <p class="pillar__body">我們在財富、健康、工作、家庭與人際關係中，幫助人們取得更好的資訊、形成更好的判斷，做出更好的決定。</p>
+        </article>
+        <article class="pillar reveal">
+          <div class="pillar__head">
+            <span class="pillar__ghost" aria-hidden="true">METHOD</span>
+            <h3 class="pillar__title">把混亂的資訊，變成更好的決定。</h3>
+          </div>
+          <p class="pillar__body">以資料看見真實，以產品降低行動成本，以社群讓經驗流動，再從結果持續學習。</p>
+        </article>
       </div>
     </div>
 
-    <div class="pillars">
-      <article class="pillar reveal">
-        <span class="pillar__ghost" aria-hidden="true">VISION</span>
-        <h3 class="pillar__title">每個人，<br>都能擁有自己的美好人生。</h3>
-        <p class="pillar__body">好的工具改變行動，緊密的社群促成互助；當好的改變被反覆強化，就會形成正向循環。</p>
-      </article>
-      <article class="pillar reveal">
-        <span class="pillar__ghost" aria-hidden="true">MISSION</span>
-        <h3 class="pillar__title">創造更好的工具與社群，<br>幫助每個人做好人生投資。</h3>
-        <p class="pillar__body">我們在財富、健康、工作、家庭與人際關係中，幫助人們取得更好的資訊、形成更好的判斷，做出更好的決定。</p>
-      </article>
-      <article class="pillar reveal">
-        <span class="pillar__ghost" aria-hidden="true">METHOD</span>
-        <h3 class="pillar__title">把混亂的資訊，<br>變成更好的決定。</h3>
-        <p class="pillar__body">以資料看見真實，以產品降低行動成本，以社群讓經驗流動，再從結果持續學習。</p>
-      </article>
-    </div>
-
     <div class="northstar reveal">
-      <p class="northstar__eyebrow">One Company, One North Star</p>
+      <p class="northstar__eyebrow">ONE COMPANY, ONE NORTH STAR</p>
       <h3 class="northstar__title">很多產品，很多專業，一個共同目標。</h3>
       <p class="northstar__sub">讓每一次累積，都成為下一次更好決定的基礎。</p>
     </div>
