@@ -1,7 +1,11 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>CMoney 形象站原型 V4</title>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMoney 形象網站_價值觀互動</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
@@ -215,42 +219,36 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .statement .is-red{color:var(--red-600)}
 .statement-sub{margin:56px 0 0;font-size:clamp(18px,1.7vw,24px);line-height:1.6;color:var(--text-600)}
 
-.team{margin-top:52px}
-.team__title{margin:0;font-size:30px;font-weight:600;letter-spacing:-.01em}
-.team__rule{width:68px;height:3px;background:var(--red-600);margin-top:17px}
-.team__grid{
-  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;margin-top:40px;
+/* 事業群：橫式卡片，左欄名稱＋簡介、右欄 icon＋產品名稱（依回饋改版）。
+   沿用對照表那套卡片語彙——20px 圓角、#ededed 邊、低擴散陰影 */
+.groups{margin-top:64px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.group{
+  background:#fff;border:1px solid #ededed;border-radius:20px;
+  padding:26px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;
+  box-shadow:0 20px 44px -30px rgba(9,16,28,.4);
+  transition:box-shadow .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease);
 }
-.person__photo{background:#fff;border-radius:2px;overflow:hidden}
-.person__photo img{width:100%;height:auto;transition:transform .5s var(--ease)}
-.person:hover .person__photo img{transform:scale(1.05)}
-.person__name{
-  margin:14px 0 0;padding-inline-start:11px;border-inline-start:2px solid var(--red-600);
-  font-size:16px;font-weight:500;line-height:1.5;
-}
-.person__role{margin:0;padding-inline-start:11px;border-inline-start:2px solid var(--red-600);font-size:14px;line-height:1.5;color:var(--text-900)}
-
-.groups{margin-top:52px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#ededed;border-block:1px solid #ededed}
-.group{background:#fff;padding:33px 36px 40px;display:grid;gap:14px;align-content:start}
-.group--wide{grid-column:1 / -1;grid-template-columns:586fr 530fr;gap:67px;align-items:start}
-.group__col{display:grid;gap:14px;align-content:start}
-.group__name{margin:0;font-size:29px;font-weight:700;letter-spacing:-.02em;line-height:1.24}
-.group__claim{margin:0;font-size:18px;font-weight:700;line-height:1.56}
-.group__desc{margin:0;font-size:14px;line-height:1.79;color:var(--text-600)}
-.group__apps{margin-top:16px}
-.group__apps img{height:105px;width:auto}
-.group__apps--tall img{height:118px}
-.group__metric{display:grid;justify-items:center;align-content:center;gap:2px;text-align:center}
-.group__metric b{font-size:32px;font-weight:700;color:var(--red-600);letter-spacing:-.02em;line-height:1.2}
-.group__metric span{font-size:16px;color:var(--text-600)}
+.group:hover{border-color:#f2ddd9;box-shadow:0 22px 48px -26px rgba(9,16,28,.45);transform:translateY(-3px)}
+.group--noapps{grid-template-columns:1fr}
+.group__info{display:flex;flex-direction:column;gap:10px;height:100%}
+.group__name{margin:0;font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.35}
+.group__claim{margin:0;font-size:14px;font-weight:700;line-height:1.64;color:var(--text-700)}
+/* App：icon 與產品名稱水平並排，名稱改為實體文字（原本是整列合併的點陣圖） */
+.group__apps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+.group__apps li{display:flex;align-items:center;gap:11px;font-size:13px;line-height:1.45;color:var(--text-700)}
+.group__apps img{width:30px;height:30px;border-radius:7px;flex:0 0 auto}
+.group__metric{margin:2px 0 0;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
+.group__metric b{font-size:22px;font-weight:700;color:var(--red-600);letter-spacing:-.02em;line-height:1.2}
+.group__metric span{font-size:12px;color:var(--text-600)}
+.group__metric--sm b{font-size:15px;letter-spacing:.01em}
 .group__metric--sm span{font-size:9px;letter-spacing:.02em}
-.group__row{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;justify-content:space-between}
-
-.placeholder{
-  background:var(--line-200);border-radius:2px;min-height:405px;
-  display:grid;place-items:center;text-align:center;padding:24px;
+.group__more{
+  margin-top:auto;padding-top:18px;align-self:flex-start;
+  display:inline-flex;align-items:center;gap:6px;
+  font-size:13px;font-weight:700;color:var(--red-600);
 }
-.placeholder span{font-size:12px;color:#8e8e8e;letter-spacing:.04em}
+.group__more span{transition:transform .25s var(--ease)}
+.group:hover .group__more span{transform:translateX(4px)}
 
 /* ============================================================
    Section: 價值觀
@@ -337,6 +335,128 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .undefined-note b{color:#4d5560;font-weight:700}
 
+/* ---------- 價值觀：模擬桌面 ---------- */
+.osx{margin-top:96px}
+.osx__screen{
+  position:relative;border-radius:18px;overflow:hidden;
+  border:1px solid #d9d9d9;background:#fff;
+  box-shadow:0 40px 90px -50px rgba(9,16,28,.55);
+}
+.osx__menubar{
+  display:flex;align-items:center;gap:22px;height:34px;padding-inline:18px;
+  background:rgba(38,38,38,.96);color:#fff;font-size:12px;
+}
+.osx__menubrand{font-weight:800;letter-spacing:.02em}
+.osx__menuitem{color:var(--on-dark-3)}
+.osx__menuclock{
+  margin-inline-start:auto;font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
+  font-size:11px;letter-spacing:.12em;color:var(--on-dark-4);
+}
+.osx__desk{
+  position:relative;min-height:760px;overflow:hidden;padding:30px 30px 34px;
+  background:
+    radial-gradient(1100px 520px at 18% -10%,rgba(226,30,40,.14),transparent 62%),
+    radial-gradient(900px 480px at 92% 6%,rgba(9,16,28,.10),transparent 60%),
+    linear-gradient(160deg,#f7f7f8 0%,#eef0f3 58%,#e8eaee 100%);
+}
+.osx__hint{
+  margin:0 0 18px;font-size:12px;letter-spacing:.02em;color:#8d95a1;
+}
+.osx__files{display:flex;gap:18px;flex-wrap:wrap;position:relative;z-index:1}
+.osx-file{
+  width:132px;padding:12px 8px 14px;border-radius:14px;display:grid;justify-items:center;gap:8px;
+  text-align:center;transition:background .2s var(--ease),transform .2s var(--ease);
+}
+.osx-file:hover{background:rgba(255,255,255,.75);transform:translateY(-2px)}
+.osx-file:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
+.osx-file__ico{position:relative;display:block;width:54px}
+.osx-file__ico svg{width:54px;height:auto;filter:drop-shadow(0 6px 12px rgba(9,16,28,.18))}
+.osx-file__ico b{
+  position:absolute;inset-block-end:6px;inset-inline-end:2px;
+  background:var(--red-600);color:#fff;border-radius:6px;padding:1px 5px;
+  font-size:10px;font-weight:800;letter-spacing:.02em;
+}
+.osx-file__name{font-size:14px;font-weight:700;color:var(--text-900);line-height:1.4}
+.osx-file__meta{
+  font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
+  font-size:10px;color:#98a0ab;letter-spacing:.02em;
+}
+
+.osx-win{
+  position:absolute;inset-block-start:calc(150px + var(--y));inset-inline-start:calc(40px + var(--x));
+  width:min(680px,calc(100% - 80px));max-height:calc(100% - 180px - var(--y));
+  display:flex;flex-direction:column;
+  background:#fff;border:1px solid #dcdcdc;border-radius:14px;overflow:hidden;
+  box-shadow:0 30px 70px -28px rgba(9,16,28,.5);
+  opacity:0;transform:scale(.97) translateY(10px);
+  transition:opacity .28s var(--ease),transform .28s var(--ease);
+}
+.osx-win.is-open{opacity:1;transform:none}
+.osx-win.is-zoom{
+  inset-block-start:56px;inset-inline-start:24px;
+  width:calc(100% - 48px);max-height:calc(100% - 90px);
+}
+.osx-win__bar{
+  flex:0 0 auto;display:flex;align-items:center;gap:12px;height:40px;padding-inline:14px;
+  background:linear-gradient(#fbfbfb,#f2f2f2);border-bottom:1px solid #e6e6e6;cursor:grab;
+}
+.osx-win__bar:active{cursor:grabbing}
+.osx-win__lights{display:flex;gap:7px;flex:0 0 auto}
+.osx-win__light{width:12px;height:12px;border-radius:50%;display:block;cursor:pointer}
+.osx-win__light--close{background:#ec6a5e}
+.osx-win__light--min{background:#f4bf4f}
+.osx-win__light--max{background:#61c554}
+.osx-win__name{
+  font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
+  font-size:11px;color:#8d95a1;letter-spacing:.04em;
+}
+.osx-win__x{
+  margin-inline-start:auto;width:26px;height:26px;border-radius:8px;color:#8d95a1;font-size:13px;
+  display:grid;place-items:center;transition:background .2s var(--ease),color .2s var(--ease);
+}
+.osx-win__x:hover{background:#f1f1f1;color:var(--text-900)}
+.osx-win__x:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
+.osx-win__body{overflow:auto;padding:30px 34px 34px;-webkit-overflow-scrolling:touch}
+.osx-win__kicker{
+  margin:0;font-family:"Roboto Mono",ui-monospace,Menlo,monospace;
+  font-size:10px;font-weight:700;letter-spacing:.11em;color:var(--red-600);text-transform:uppercase;
+}
+.osx-win__title{margin:10px 0 0;font-size:30px;font-weight:700;letter-spacing:-.02em;line-height:1.25}
+.osx-win__sub{margin:10px 0 0;font-size:14px;line-height:1.7;color:#67707c}
+.osx-win .acc-body{padding:24px 0 0;gap:12px}
+
+.osx__dock{
+  display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap;
+  padding:14px 18px;background:rgba(255,255,255,.9);border-top:1px solid #e6e6e6;
+}
+.osx__dockitem{
+  display:inline-flex;align-items:center;gap:8px;height:38px;padding-inline:16px;border-radius:999px;
+  border:1px solid #e0e0e0;background:#fff;font-size:14px;font-weight:700;color:var(--text-700);
+  transition:border-color .2s var(--ease),color .2s var(--ease),transform .2s var(--ease);
+}
+.osx__dockitem span{
+  font-family:"Roboto Mono",ui-monospace,Menlo,monospace;font-size:10px;color:var(--red-600);
+}
+.osx__dockitem:hover{border-color:var(--red-600);color:var(--red-600);transform:translateY(-1px)}
+.osx__dockitem[aria-pressed="true"]{border-color:var(--red-600);background:#feedea;color:var(--red-600)}
+.osx__dockitem:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
+.osx__dockitem--ghost{color:#8d95a1}
+.osx__dockline{width:1px;height:22px;background:#e0e0e0}
+
+@media (max-width:980px){
+  .osx{margin-top:64px}
+  .osx__desk{min-height:0;padding:22px 18px 26px}
+  .osx__files{gap:10px}
+  .osx-file{width:calc(33.333% - 7px);padding:10px 6px 12px}
+  .osx__desk{overflow:visible}
+  .osx-win,.osx-win.is-zoom{
+    position:static;width:100%;max-height:none;margin-top:16px;
+  }
+  .osx-win__bar{cursor:default}
+  .osx-win__body{padding:22px 20px 26px}
+  .osx-win__title{font-size:24px}
+}
+
 .values-outro{margin-top:96px;text-align:center}
 .values-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
 .values-outro p{margin:26px 0 0;font-size:18px;color:var(--text-600)}
@@ -349,7 +469,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .how-head .h2 .is-red{color:var(--red-500)}
 .how-head p{margin:23px 0 0;font-size:17px;line-height:1.9;color:var(--text-450)}
 
-/* 卡片化：圓角、卡片間留白、與上方「雙軌對照」兩張卡片同一套語彙 */
+/* 四列對照卡片：沿用白底卡片那套語彙——20px 圓角、#ededed 細邊、低擴散陰影、膠囊展開鈕。
+   依回饋移除上方「文化自我選擇」區塊與雙軌切換器，互動區塊改併入每一列的展開內容 */
 .cmp{margin-top:42px;display:grid;gap:14px}
 .cmp__head{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden}
 .cmp__head div{padding:16px 24px;font-size:13px;font-weight:800;color:#fff}
@@ -370,7 +491,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__cell--old h4{color:#5d6672}
 .cmp__cell p{margin:6px 0 0;font-size:14px;font-weight:500;color:var(--text-600)}
 .cmp__cell--old p{color:#8b939d}
-/* 展開按鈕：沿用 .ssc__cta 的膠囊樣式與 chevron 旋轉 */
 .cmp__expand{
   margin-inline-start:auto;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;
   height:40px;padding-inline:18px;border-radius:999px;background:#fff;
@@ -383,7 +503,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__row.is-open .cmp__expand{background:var(--red-600);color:#fff}
 .cmp__row.is-open .cmp__expand svg{transform:rotate(180deg)}
 .cmp__expand:focus-visible{outline:2px solid var(--red-600);outline-offset:3px}
-.cmp__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease);background:#fbfbfb}
+.cmp__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease);background:#fff}
 .cmp__row.is-open .cmp__panel{grid-template-rows:1fr}
 .cmp__panel>div{overflow:hidden}
 .cmp__panelinner{
@@ -393,31 +513,107 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__row.is-open .cmp__panelinner{opacity:1;transform:none}
 .cmp__row.is-open .cmp__cell--new{background:#feedea}
 
-/* 展開內容（來源：CMoney 形象網站 file 1sL3DgPchc2IEgcwHCs0ws / node 6366:70117） */
-.cmp__detail{display:grid;grid-template-columns:1fr 1fr;background:var(--bg-soft-2);border-top:1px solid #ededed}
-.cmp__detail>div{padding:38px 36px;display:grid;gap:22px;align-content:start}
-.cmp__detail>div:first-child{border-inline-end:1px solid #e3e3e3}
-.cmp-kicker{
-  margin:0;font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+/* 展開內容 — 版面依 Figma 6471:11566（左 WHY／右 IN PRACTICE＋面試提問），
+   卡片語彙沿用 prototype：白底、check 互動、工作現場文章卡 */
+.cmp__inner{padding:0;border-top:1px solid #ededed}
+.cmp__detail{display:grid;grid-template-columns:1fr 1fr}
+.cmp__col{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start;min-width:0;padding:32px 30px 34px}
+.cmp__col--why{border-inline-end:1px solid #ededed}
+.cmp__block{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.cmp__kicker{
+  margin:0;display:flex;align-items:center;gap:7px;
+  font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
   font-size:10px;font-weight:700;letter-spacing:.092em;color:#f14f2b;
 }
-.cmp-kicker--light{font-weight:400}
-.cmp-detail__title{margin:0;font-size:25px;font-weight:700;line-height:1.42;letter-spacing:.01em;color:var(--text-900)}
-.cmp__detail p{margin:0;font-size:15px;line-height:1.85;color:var(--text-400)}
-.cmp__detail p b{color:var(--text-900);font-weight:700}
-.cmp__detail .is-ink{color:var(--text-600);line-height:1.87}
-.cmp-tip{background:var(--line-200);border-radius:20px;padding:18px 20px 20px;display:grid;gap:13px}
-.cmp-tip__label{margin:0;font-size:10px;font-weight:700;letter-spacing:.046em;color:#f14f2b}
-.cmp-tip__q{margin:0;font-size:14px;font-weight:700;line-height:1.86;color:var(--text-900)}
-/* 你會感受到的差異 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401
-   （新版拿掉左側「你會感受到的差異」標籤欄，改為整條 #eee 區塊＋工作現場卡片） */
-.cmp-diff{background:#eee;border-top:1px solid #ededed;padding:22px 30px;display:grid;gap:24px}
-.cmp-diff__text{margin:0;font-size:14px;line-height:26px;color:var(--text-600)}
-.cmp-field{display:flex;align-items:flex-start;gap:16px}
+.cmp__kicker svg{width:15px;height:15px;flex:0 0 auto}
+/* 中文短標改回內文字體 */
+.cmp__kicker--zh{font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;gap:8px}
+.cmp__kicker--zh svg{width:17px;height:17px}
+.cmp__title{margin:0;font-size:22px;font-weight:700;line-height:1.45;letter-spacing:.01em;color:var(--text-900)}
+.cmp__block p{margin:0;font-size:15px;line-height:1.86;color:var(--text-600)}
+.cmp__block p b{color:var(--text-900);font-weight:700}
+.cmp__tip{background:#fff5f5;border-radius:16px;padding:18px 20px;display:grid;gap:10px}
+.cmp__tip p.q{margin:0;font-size:15px;font-weight:700;line-height:1.8;color:var(--text-900)}
+.cmp__fitrow{margin:0;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.8;color:var(--text-600)}
+.cmp__fitrow svg{width:18px;height:18px;flex:0 0 auto;margin-top:4px}
+.cmp__fitrow--yes svg{color:#12a150}
+.cmp__fitrow--no svg{color:#d98324}
+
+/* 誠實的適合度 — 設計稿 6173:16285：左「會變強」右「會痛苦」，各一條件＋說明 */
+.cmp-fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.cmp-fit__col{background:#fff;border:1px solid #e6e6e6;border-radius:16px;padding:18px 20px 20px;display:grid;gap:8px;align-content:start}
+.cmp-fit__col--yes{border-color:#cbe9d6}
+.cmp-fit__col--no{border-color:#f0dcc4}
+.cmp-fit__head{
+  margin:0;display:flex;align-items:center;gap:9px;
+  font-size:13px;font-weight:700;letter-spacing:.01em;color:var(--text-600);
+}
+.cmp-fit__mark{
+  flex:0 0 auto;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
+  font-size:13px;font-weight:700;line-height:1;
+}
+.cmp-fit__col--yes .cmp-fit__mark{background:#eaf7ef;color:#0f6b39}
+.cmp-fit__col--no .cmp-fit__mark{background:#fff6e8;color:#8a5a12}
+.cmp-fit__item{margin:2px 0 0;font-size:15px;font-weight:700;line-height:1.6;color:var(--text-900)}
+.cmp-fit__sub{margin:0;font-size:13px;line-height:1.75;color:var(--text-400)}
+/* 面試前先問自己（設計稿「給自己 3 分鐘」四題，分配到四列） */
+.cmp-ask{
+  margin:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
+  background:#fff;border:1px dashed #e0c9c7;border-radius:16px;padding:16px 20px;
+  font-size:15px;font-weight:700;line-height:1.7;color:var(--text-900);
+}
+.cmp-ask__label{
+  flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--red-600);
+}
+
+/* 二選一 check card */
+.cmp__pills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
+.cmp__pill{
+  display:flex;align-items:flex-start;gap:10px;text-align:start;
+  border:1.5px solid #cfd8e3;border-radius:14px;padding:14px 16px;background:#fff;
+  font-size:14px;font-weight:600;line-height:1.6;color:var(--text-700);
+  box-shadow:0 1px 2px rgba(9,16,28,.07);
+  transition:border-color .25s var(--ease),background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),color .25s var(--ease);
+}
+.cmp__pill::before{
+  content:"";flex:0 0 auto;width:18px;height:18px;margin-top:2px;border-radius:50%;
+  border:2px solid #b9c4d2;background:#fff;
+  transition:border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease);
+}
+.cmp__pill:hover{border-color:var(--red-600);background:#fffaf9;transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(9,16,28,.55)}
+.cmp__pill:hover::before{border-color:var(--red-600)}
+.cmp__pill[aria-pressed="true"]{border-color:var(--red-600);background:#feedea;color:var(--text-900);box-shadow:0 2px 6px -2px rgba(226,30,40,.3)}
+.cmp__pill[aria-pressed="true"]::before{border-color:var(--red-600);background:var(--red-600);box-shadow:inset 0 0 0 3px #fff}
+.cmp__pill:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
+
+.cmp__toast{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
+.cmp__toast.is-on{grid-template-rows:1fr}
+.cmp__toast>div{overflow:hidden}
+.cmp__toastinner{
+  display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:16px 18px;border-radius:14px;
+  font-size:14px;font-weight:600;line-height:1.75;
+}
+.cmp__toast[data-tone="good"] .cmp__toastinner{background:#eaf7ef;border:1px solid #cbe9d6;color:#0f6b39}
+.cmp__toast[data-tone="warn"] .cmp__toastinner{background:#fff6e8;border:1px solid #f2ddba;color:#8a5a12}
+.cmp__toastinner svg{width:18px;height:18px;flex:0 0 auto;margin-top:3px}
+.cmp__toastclose{margin-inline-start:auto;flex:0 0 auto;color:inherit;opacity:.55;line-height:0}
+.cmp__toastclose:hover{opacity:1}
+.cmp__toastclose:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+
+/* 你會感受到的差異：整條區塊，左欄標籤、右欄內容（設計稿 6366:70148） */
+.cmp-diff{display:grid;grid-template-columns:223px minmax(0,1fr);border-top:1px solid #ededed;background:#fafafa}
+.cmp-diff__label{
+  margin:0;padding:30px 24px 30px 34px;font-size:13px;font-weight:700;letter-spacing:.01em;color:var(--red-600);
+}
+.cmp-diff__body{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;min-width:0;padding:30px 30px 32px 0}
+.cmp__check{gap:0;margin-top:4px}
+
+/* 工作現場卡片 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401 */
+.cmp-field{display:flex;align-items:flex-start;gap:16px;background:#f6f6f6;border-radius:16px;padding:20px}
 .cmp-field__body{flex:1 1 0;min-width:0;align-self:stretch;display:flex;flex-direction:column;gap:12px}
 .cmp-field__head{flex:1 1 auto;display:flex;flex-direction:column;gap:9px}
 .cmp-field__title{margin:0;font-size:16px;font-weight:700;line-height:1.42;letter-spacing:.011em;color:var(--text-900)}
-.cmp-field__desc{margin:0;font-size:13px;line-height:1.36;color:var(--text-600)}
+.cmp-field__desc{margin:0;font-size:13px;line-height:1.55;color:var(--text-600)}
 .cmp-field__link{
   align-self:flex-start;display:inline-flex;align-items:center;gap:4px;
   padding:6px 12px;border:1px solid var(--red-600);border-radius:100px;
@@ -427,113 +623,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp-field__link:hover{background:var(--red-600);color:#fff}
 .cmp-field__link svg{width:14px;height:14px;flex:0 0 auto;fill:currentColor}
 .cmp-field__img{flex:0 0 auto;width:215px;height:143px;border-radius:16px;object-fit:cover}
-
-/* ---------- 文化自我選擇 Culture Self-Selection ---------- */
-.selfsel{margin-top:60px}
-.selfsel__switch{
-  display:inline-flex;padding:4px;gap:2px;border-radius:999px;
-  background:#f1f3f5;border:1px solid #e5e8ec;
-}
-.selfsel__seg{
-  border-radius:999px;padding:9px 18px;font-size:14px;font-weight:700;color:#6b7480;white-space:nowrap;
-  transition:background .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease);
-}
-.selfsel__seg[aria-selected="true"]{background:#fff;color:var(--text-900);box-shadow:0 1px 3px rgba(9,16,28,.16)}
-.selfsel__seg:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
-.selfsel__grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:24px;align-items:start}
-.selfsel__grid[data-view="trad"],.selfsel__grid[data-view="cmoney"]{grid-template-columns:minmax(0,780px)}
-.selfsel__grid[data-view="trad"] .ssc--cmoney{display:none}
-.selfsel__grid[data-view="cmoney"] .ssc--trad{display:none}
-
-.ssc{border-radius:20px;padding:28px 26px 30px;display:grid;gap:12px;align-content:start}
-.ssc--trad{background:var(--bg-soft-2);border:1px solid #e2e8f0}
-.ssc--cmoney{background:#fff;border:1px solid #ededed;box-shadow:0 20px 44px -24px rgba(9,16,28,.4)}
-.ssc__tag{
-  justify-self:start;font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:10px;font-weight:700;letter-spacing:.11em;padding:5px 10px;border-radius:999px;
-  background:#e2e8f0;color:#77808c;
-}
-.ssc__tag--brand{background:#feedea;color:var(--red-600)}
-.ssc__title{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
-.ssc--trad .ssc__title{color:#5d6672}
-.ssc__sub{margin:0;font-size:15px;font-weight:500;line-height:1.7;color:var(--text-600)}
-.ssc--trad .ssc__sub{color:#8b939d}
-.ssc__summary{margin:8px 0 0;font-size:14px;line-height:1.86;color:#8b939d}
-
-.ssc__cta{
-  margin-top:10px;justify-self:start;display:inline-flex;align-items:center;gap:9px;
-  height:44px;padding-inline:20px;border-radius:999px;background:#fff;
-  border:1px solid var(--red-600);color:var(--red-600);font-size:15px;font-weight:700;
-  transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);
-}
-.ssc__cta:hover{background:var(--red-600);color:#fff;transform:translateY(-1px)}
-.ssc__cta[aria-expanded="true"]{background:var(--red-600);color:#fff}
-.ssc__cta:focus-visible{outline:2px solid var(--red-600);outline-offset:3px}
-.ssc__cta svg{width:18px;height:18px;transition:transform .35s var(--ease)}
-.ssc__cta[aria-expanded="true"] svg{transform:rotate(180deg)}
-
-.ssc__detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease)}
-.ssc.is-open .ssc__detail{grid-template-rows:1fr}
-.ssc__detail>div{overflow:hidden}
-.ssc__inner{
-  display:grid;gap:24px;margin-top:22px;padding-top:26px;border-top:1px solid #ededed;
-  opacity:0;transform:translateY(8px);
-  transition:opacity .4s var(--ease) .08s,transform .4s var(--ease) .08s;
-}
-.ssc.is-open .ssc__inner{opacity:1;transform:none}
-.ssc__block{display:grid;gap:10px}
-.ssc__kicker{
-  margin:0;display:flex;align-items:center;gap:7px;
-  font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:10px;font-weight:700;letter-spacing:.092em;color:#f14f2b;
-}
-.ssc__kicker svg{width:15px;height:15px;flex:0 0 auto}
-/* 中文短標：INTERVIEW TIP 區塊拿掉英文小字後，改回內文字體 */
-.ssc__kicker--zh{
-  font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.01em;gap:8px;
-}
-.ssc__kicker--zh svg{width:17px;height:17px}
-.ssc__block p{margin:0;font-size:15px;line-height:1.86;color:var(--text-600)}
-.ssc__tip{background:#fff5f5;border-radius:16px;padding:18px 20px;display:grid;gap:10px}
-.ssc__tip p.q{margin:0;font-size:15px;font-weight:700;line-height:1.8;color:var(--text-900)}
-
-.ssc__fitrow{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.8;color:var(--text-600)}
-.ssc__fitrow svg{width:18px;height:18px;flex:0 0 auto;margin-top:4px}
-.ssc__fitrow--yes svg{color:#12a150}
-.ssc__fitrow--no svg{color:#d98324}
-.ssc__pills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
-.ssc__pill{
-  display:flex;align-items:flex-start;gap:10px;text-align:start;
-  border:1.5px solid #cfd8e3;border-radius:14px;padding:14px 16px;background:#fff;
-  font-size:14px;font-weight:600;line-height:1.6;color:var(--text-700);
-  box-shadow:0 1px 2px rgba(9,16,28,.07);
-  transition:border-color .25s var(--ease),background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),color .25s var(--ease);
-}
-/* 單選圈：讓「可以點、而且是二選一」看得出來 */
-.ssc__pill::before{
-  content:"";flex:0 0 auto;width:18px;height:18px;margin-top:2px;border-radius:50%;
-  border:2px solid #b9c4d2;background:#fff;
-  transition:border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease);
-}
-.ssc__pill:hover{border-color:var(--red-600);background:#fffaf9;transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(9,16,28,.55)}
-.ssc__pill:hover::before{border-color:var(--red-600)}
-.ssc__pill[aria-pressed="true"]{border-color:var(--red-600);background:#feedea;color:var(--text-900);box-shadow:0 2px 6px -2px rgba(226,30,40,.3)}
-.ssc__pill[aria-pressed="true"]::before{border-color:var(--red-600);background:var(--red-600);box-shadow:inset 0 0 0 3px #fff}
-.ssc__pill:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
-
-.ssc__toast{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
-.ssc__toast.is-on{grid-template-rows:1fr}
-.ssc__toast>div{overflow:hidden}
-.ssc__toastinner{
-  display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:16px 18px;border-radius:14px;
-  font-size:14px;font-weight:600;line-height:1.75;
-}
-.ssc__toast[data-tone="good"] .ssc__toastinner{background:#eaf7ef;border:1px solid #cbe9d6;color:#0f6b39}
-.ssc__toast[data-tone="warn"] .ssc__toastinner{background:#fff6e8;border:1px solid #f2ddba;color:#8a5a12}
-.ssc__toastinner svg{width:18px;height:18px;flex:0 0 auto;margin-top:3px}
-.ssc__toastclose{margin-inline-start:auto;flex:0 0 auto;color:inherit;opacity:.55;line-height:0}
-.ssc__toastclose:hover{opacity:1}
-.ssc__toastclose:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+.cmp-field__note{margin:0;font-size:11px;line-height:1.6;color:#9aa1ab;letter-spacing:.02em}
 
 .how-outro{margin-top:150px;text-align:center}
 .how-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
@@ -547,7 +637,23 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .founder{display:grid;grid-template-columns:310px 1fr;gap:82px;margin-top:40px;align-items:start}
 .founder__media{position:relative;height:690px;overflow:hidden;border-inline-end:1px solid rgba(9,16,28,.09)}
-.founder__media img{position:absolute;inset:0;width:310px;height:690px;object-fit:cover;object-position:left top}
+.founder__media img{
+  position:absolute;inset:0;width:310px;height:690px;object-fit:cover;object-position:left top;
+  transition:transform .9s var(--ease);
+}
+/* 互動動畫（依回饋新增）：紅色圓形光環，進場與 hover 時漸變放大。
+   照片本身已把淡粉圓與紅色外框烘進點陣圖、且背景不透明，無法單獨動那顆圓，
+   因此另外疊一圈與它同心、半徑更大的漸層環，只落在空白背景上，不會蓋到人像。 */
+.founder__media::after{
+  content:"";position:absolute;z-index:1;pointer-events:none;
+  inset-inline-start:100%;inset-block-start:69%;width:600px;height:600px;border-radius:50%;
+  background:radial-gradient(circle,rgba(240,51,44,0) 60%,rgba(240,51,44,.22) 71%,rgba(240,51,44,0) 82%);
+  opacity:0;transform:translate(-50%,-50%) scale(.85);
+  transition:opacity .9s var(--ease),transform 1.2s var(--ease);
+}
+.founder__media.is-in::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.founder__media:hover::after{opacity:1;transform:translate(-50%,-50%) scale(1.07)}
+.founder__media:hover img{transform:scale(1.03)}
 .founder__body{padding-top:54px}
 .founder__title{margin:0;font-size:clamp(32px,4vw,57px);font-weight:700;line-height:1.3;letter-spacing:-.035em}
 .founder__title .is-red{color:var(--red)}
@@ -639,21 +745,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   html{scroll-behavior:auto}
   .reveal{opacity:1;transform:none;transition:none}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  /* 創辦人區塊：光環直接停在最終狀態，hover 不再縮放 */
+  .founder__media::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
+  .founder__media:hover::after{transform:translate(-50%,-50%) scale(1)}
+  .founder__media:hover img{transform:none}
 }
 
 /* ============================================================
    Responsive（設計稿僅有 1440 桌機版，以下為原型自行延伸）
    ============================================================ */
-@media (max-width:1023px){
-  .selfsel__grid{grid-template-columns:1fr!important}
-}
 @media (max-width:1200px){
   .section{padding-block:100px}
   .split{grid-template-columns:1fr;gap:40px}
   .split__aside{padding-top:0}
   .pillars{margin-top:80px;gap:40px}
-  .group--wide{grid-template-columns:1fr;gap:32px}
-  .placeholder{min-height:280px}
   .founder{grid-template-columns:240px 1fr;gap:48px}
   .founder__media{height:560px}
   .founder__media img{width:240px;height:560px}
@@ -676,7 +781,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .stat:nth-child(n+3){border-top:1px solid rgba(255,255,255,.14)}
   .pillars{grid-template-columns:1fr}
   .pillar__ghost{inset-inline-start:auto;inset-inline-end:0}
-  .team__grid{grid-template-columns:repeat(3,1fr)}
   .groups{grid-template-columns:1fr}
   .value-cols{grid-template-columns:1fr;gap:56px;margin-top:72px}
   .value-cards{grid-template-columns:1fr;gap:12px}
@@ -687,18 +791,17 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .acc-prompts{grid-template-columns:1fr}
   .cmp__head,.cmp__cells{grid-template-columns:1fr}
   .cmp__cell--new{border-inline-start:0;border-top:1px solid #ededed;flex-wrap:wrap}
-  .cmp__detail{grid-template-columns:1fr}
-  .cmp__detail>div{padding:28px 20px}
-  .cmp__detail>div:first-child{border-inline-end:0;border-bottom:1px solid #e3e3e3}
-  .cmp-detail__title{font-size:21px}
-  .cmp-diff{padding:20px}
+  .cmp__detail{grid-template-columns:minmax(0,1fr)}
+  .cmp__col{padding:24px 20px 26px;gap:16px}
+  .cmp__col--why{border-inline-end:0;border-bottom:1px solid #ededed}
+  .cmp-diff{grid-template-columns:minmax(0,1fr)}
+  .cmp-diff__label{padding:22px 20px 0}
+  .cmp-diff__body{padding:14px 20px 24px}
+  .cmp__title{font-size:21px}
+  .cmp__pills{grid-template-columns:1fr}
+  .cmp-fit{grid-template-columns:minmax(0,1fr)}
   .cmp-field{flex-direction:column;gap:14px}
   .cmp-field__img{width:100%;height:auto;aspect-ratio:215/143}
-  .cmp__panel .undefined-note{margin-top:0}
-  .selfsel__switch{width:100%;justify-content:center;flex-wrap:wrap}
-  .ssc{padding:24px 20px 26px}
-  .ssc__title{font-size:22px}
-  .ssc__pills{grid-template-columns:1fr}
   .founder{grid-template-columns:1fr}
   .founder__media{height:420px;border-inline-end:0}
   .founder__media img{width:100%;height:420px;object-position:center 12%}
@@ -718,10 +821,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 @media (max-width:640px){
   .section{padding-block:76px}
-  .team__grid{grid-template-columns:repeat(2,1fr)}
-  .group{padding:26px 20px 32px}
-  .group__apps img{height:auto;width:100%;max-width:330px}
-  .group__row{gap:16px}
+  .group{grid-template-columns:1fr;gap:20px;padding:22px 20px}
   .hero__actions .btn{width:100%}
   .cta{padding-block:72px}
   .cta__actions .btn-pill{flex:1 1 100%}
@@ -730,19 +830,35 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .fnav__cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px}
   .flink{white-space:normal}
 }
+
+/* ============================================================
+   Artifact 發佈環境適配 — 只補手機安全區偏移，未更動任何設計 token
+   ============================================================ */
+html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
+.site-header{
+  padding-block-start:env(safe-area-inset-top,0px);
+  height:calc(75px + env(safe-area-inset-top,0px));
+}
+@media (max-width:980px){
+  .nav{inset-block-start:calc(75px + env(safe-area-inset-top,0px))}
+}
+
 </style>
+
 <!-- ========================= Header ========================= -->
+</head>
+<body id="top">
 <header class="site-header" id="siteHeader">
   <div class="container">
     <a class="brand" href="#top" aria-label="CMoney 首頁">
       <!-- CMoney wordmark — vector data from Figma node 6457:11007 -->
       <svg class="brand__logo" viewBox="0 0 86.21 20" role="img" aria-label="CMoney" focusable="false">
-        <g transform="translate(0,0)"><path d="M 10.831383694555365 9.326328387092511 L 15.011765480041504 10.582380009675784 C 14.732335324072679 11.747133480118158 14.289662895336917 12.718223324105313 13.686536395913278 13.501181091948737 C 13.083409896489638 14.281372227133982 12.330897967534355 14.870665379096302 11.434508149165557 15.269060877644321 C 10.543651595987292 15.66745637619234 9.40655979470099 15.863886833190916 8.023242177833197 15.863886833190916 C 6.346661242020247 15.863886833190916 4.9744087703373125 15.623190451546666 3.9064875991385355 15.141795907291574 C 2.846866325725558 14.654868097720124 1.9311120580416175 13.799977155185083 1.1592208383832652 12.579891031579145 C 0.3873296187249129 11.359804907973206 0 9.799421977985459 0 7.895976862230513 C 0 5.358972274097219 0.6778246560317012 3.4084946010384205 2.0307092483898366 2.0500767126001183 C 3.391893804495496 0.6833588602255556 5.314707086100624 0 7.799145399348669 0 C 9.744090026711103 0 11.26850254188956 0.3900954686500342 12.377923333940785 1.1702866038352795 C 13.492877391182542 1.9504777390205248 14.322862486480116 3.151197434019216 14.8623563702509 4.766912489476723 L 10.651545649882001 5.696502118012221 C 10.504913990409422 5.22894073704802 10.34998713292389 4.888644392398291 10.189522293984545 4.672846847175212 C 9.923925317482484 4.310417639145234 9.597451540200074 4.030987592255349 9.210122614073265 3.837323124788127 C 8.822793687946456 3.6408920246627265 8.391200619147105 3.5440596672508797 7.915339351029178 3.5440596672508797 C 6.833584950892343 3.5440596672508797 6.0063664222283135 3.9756548896204897 5.4309063147190635 4.841611769132712 C 4.9965445685109975 5.4834711394855935 4.777976009145107 6.490526416488358 4.777976009145107 7.862777534179276 C 4.777976009145107 9.564258268002034 5.038041748779652 10.731778832834665 5.5581691714027075 11.365338305213013 C 6.078296594025763 11.993364512275004 6.808689281200116 12.305994728228127 7.746578654459638 12.305994728228127 C 8.68446802771916 12.305994728228127 9.34569991310288 12.05146369915416 9.810494617858879 11.542402795336422 C 10.280822620786273 11.033341891518683 10.62111941942993 10.294650740919053 10.831383694555365 9.326328387092511 Z"/></g>
-        <g transform="translate(15.86,0.17)"><path d="M 0 0 L 6.205560598833415 0 L 8.651256608747723 9.398259732741607 L 11.033325413963155 0 L 17.241655349731445 0 L 17.241655349731445 15.520823478698729 L 13.396042633036094 15.520823478698729 L 13.362844362219217 3.7072911766547825 L 10.391480920702989 15.520823478698729 L 6.8806202491112805 15.520823478698729 L 3.87881098751223 3.7072911766547825 L 3.8843496613819837 15.520823478698729 L 0 15.520823478698729 L 0 0 Z"/></g>
-        <g transform="translate(33.79,4.14)"><path d="M 4.3270047361339765 5.881867080576631 C 4.3270047361339765 6.880622367983864 4.528967071651302 7.622080758829072 4.930129199676669 8.100708658129438 C 5.33959122561076 8.579336557429803 5.85141806543026 8.820033394622332 6.468377736967638 8.820033394622332 C 7.0853374085050165 8.820033394622332 7.599936982420331 8.584869031063317 7.9955658121923525 8.11177439693715 C 8.39949457285396 7.638679762810984 8.598690275735045 6.883388604800619 8.598690275735045 5.8403671300380635 C 8.598690275735045 4.869278168501832 8.396727940217719 4.1471861398045995 7.9955658121923525 3.674091505678433 C 7.5916370515307445 3.195463606378067 7.093652873380867 2.954766241491748 6.501592895569662 2.954766241491748 C 5.873566693487318 2.954766241491748 5.3534379109456145 3.1982304368503387 4.943975885011524 3.6823916013249045 C 4.534513859077433 4.161019500625271 4.329774073200947 4.894177729862284 4.329774073200947 5.879099854334016 L 4.3270047361339765 5.881867080576631 Z M 0 5.8929328193843435 C 0 4.1803855989263505 0.5782179757588328 2.7721684247814244 1.737438171693344 1.668280967140945 C 2.8966583676278552 0.5560936117391657 4.462582729769656 0 6.4324270137019 0 C 8.687234657052192 0 10.388707330053373 0.6501593835474613 11.542394260715401 1.953244585344312 C 12.469217051358727 3.0017993252810675 12.93125057220459 4.293817732882622 12.93125057220459 5.829300335842768 C 12.93125057220459 7.555680653274536 12.35579045617256 8.969431950096075 11.202103525510532 10.076086040323654 C 10.056716558718954 11.174440232789934 8.471431111023197 11.725000381469727 6.443487475768156 11.725000381469727 C 4.634108016661369 11.725000381469727 3.170562056520349 11.268505806713057 2.055607982765702 10.352749562880549 C 0.6833568759554207 9.218429146781968 0 7.732745798466176 0 5.89570004562696 L 0 5.8929328193843435 Z"/></g>
-        <g transform="translate(47.42,4.14)"><path d="M 0 0.17153135274363415 L 3.9645760429755454 0.17153135274363415 L 3.9645760429755454 2.1552088354412673 C 4.564935896341313 1.4026840443285833 5.220633809232878 0.8078573440475774 5.837593457798008 0.48969429892431265 C 6.4517864738299116 0.16323135601942607 7.201543230717207 0 8.084099866319022 0 C 9.276519609489153 0 10.208871607023973 0.3568960003800864 10.881163972215365 1.073454501810685 C 11.558989602473211 1.7817131054596613 11.899300575256346 2.882833933209086 11.899300575256346 4.371283719871211 L 11.899300575256346 11.550702095031737 L 7.588878249617811 11.550702095031737 L 7.588878249617811 5.342373013593731 C 7.588878249617811 4.634114409944754 7.436713311876449 4.127819721801681 7.173882973863422 3.837323035598018 C 6.913819268383622 3.538526418631871 6.545862204026641 3.391894594328792 6.072767579112762 3.391894594328792 C 5.549873535619935 3.391894594328792 5.126568204160576 3.5910927677240965 4.800105268412036 3.9867215914375564 C 4.476408965196723 4.3851170807257525 4.313174776401392 5.096141921198258 4.313174776401392 6.125330235545236 L 4.313174776401392 11.550702095031737 L 0 11.550702095031737 L 0 0.17153135274363415 Z"/></g>
-        <g transform="translate(60.35,4.13)"><path d="M 8.468666155397587 4.872044801088932 C 8.38566709746292 4.042054233418248 8.164346406924983 3.4472276994979576 7.8046838500254765 3.087565133366339 C 7.453321190674222 2.7279025672347204 6.985760493341226 2.5480710533028774 6.4047671372698485 2.5480710533028774 C 5.735241408760345 2.5480710533028774 5.198514898525254 2.81920144260902 4.797352787922768 3.36146195737441 C 4.5428223490866 3.698991462809228 4.379588177793168 4.202519055393495 4.310422298929351 4.872044801088932 L 8.471435492344282 4.872044801088932 L 8.468666155397587 4.872044801088932 Z M 12.762489318847656 6.899987872629428 L 4.313191635876046 6.899987872629428 C 4.387890788017246 7.588880046434565 4.55665351632492 8.136674485991394 4.8471501943606095 8.474203991426213 C 5.253845569995263 8.96113178848788 5.7877946959535445 9.201828295871787 6.443487195920906 9.201828295871787 C 6.85848246910381 9.201828295871787 7.251350058038407 9.096696785255778 7.624845810499194 8.883665878163907 C 7.851709891193663 8.750867390304874 8.100702332244094 8.529535983550973 8.363532668628514 8.189239845529055 L 12.502424938871668 8.535069248725174 C 11.866098866516893 9.661089833024176 11.119107361595319 10.502147326813605 10.219950936365693 10.99737502163657 C 9.320794511136068 11.484302818698236 8.031545209798903 11.725000381469727 6.349431056938616 11.725000381469727 C 4.8914143357662825 11.725000381469727 3.7432573561943903 11.517502739552056 2.9049669122803303 11.102507455716713 C 2.0694431008823537 10.67921227412007 1.372257115690459 10.015219463790213 0.8189300847799199 9.104996485131906 C 0.2739029514176322 8.189240241299398 0 7.093652285649876 0 5.862499663041072 C 0 4.108452887814856 0.5394891190861184 2.7223693680222443 1.6378432833589454 1.637848338491465 C 2.7444973451800236 0.5533273089606856 4.263385390567424 0 6.208329962264285 0 C 7.785311947589944 0 9.04689696857966 0.243463931511695 9.959886556389705 0.727625095986261 C 10.87287614419975 1.214552893047927 11.56729549687556 1.9172780978651163 12.045923383890115 2.8413342394589245 C 12.521784638388585 3.7626237484656326 12.762489318847656 4.9633438743484035 12.762489318847656 6.443493693643101 L 12.762489318847656 6.897221701774395 L 12.762489318847656 6.899987872629428 Z"/></g>
-        <g transform="translate(72.94,4.31)"><path d="M 0 0 L 4.556640055023288 0 L 6.877851033379714 7.431181771235411 L 9.027531980759255 0 L 13.277079582214357 0 L 8.817265004413105 11.929731714774695 C 8.30820411994254 13.288149552627319 7.788075353044527 14.206671626899675 7.259648040702746 14.68253288811797 C 6.509889893252481 15.354825258637263 5.3700375452507405 15.692355155944824 3.837321659713843 15.692355155944824 C 3.2148287416264347 15.692355155944824 2.254811005543012 15.609355090921817 0.9544925183075827 15.440590340153205 L 0.6141849071363715 12.455390712942656 C 1.2366778252237793 12.651821805753222 1.9283393275293252 12.748655478793625 2.6919306377447434 12.748655478793625 C 3.2009915222153094 12.748655478793625 3.6104541954514175 12.632456796044204 3.9203173382186063 12.402826079590945 C 4.238480378644887 12.170428730582532 4.506853449152592 11.758199177120776 4.725417635217615 11.163372584107478 L 0 0.0027666985168756874 L 0 0 Z"/></g>
+        <g transform="translate(0,0)"><path d="M 10.831383694555365 9.326328387092511 L 15.011765480041504 10.582380009675784 C 14.732335324072679 11.747133480118158 14.289662895336917 12.718223324105313 13.686536395913278 13.501181091948737 C 13.083409896489638 14.281372227133982 12.330897967534355 14.870665379096302 11.434508149165557 15.269060877644321 C 10.543651595987292 15.66745637619234 9.40655979470099 15.863886833190916 8.023242177833197 15.863886833190916 C 6.346661242020247 15.863886833190916 4.9744087703373125 15.623190451546666 3.9064875991385355 15.141795907291574 C 2.846866325725558 14.654868097720124 1.9311120580416175 13.799977155185083 1.1592208383832652 12.579891031579145 C 0.3873296187249129 11.359804907973206 0 9.799421977985459 0 7.895976862230513 C 0 5.358972274097219 0.6778246560317012 3.4084946010384205 2.0307092483898366 2.0500767126001183 C 3.391893804495496 0.6833588602255556 5.314707086100624 0 7.799145399348669 0 C 9.744090026711103 0 11.26850254188956 0.3900954686500342 12.377923333940785 1.1702866038352795 C 13.492877391182542 1.9504777390205248 14.322862486480116 3.151197434019216 14.8623563702509 4.766912489476723 L 10.651545649882001 5.696502118012221 C 10.504913990409422 5.22894073704802 10.34998713292389 4.888644392398291 10.189522293984545 4.672846847175212 C 9.923925317482484 4.310417639145234 9.597451540200074 4.030987592255349 9.210122614073265 3.837323124788127 C 8.822793687946456 3.6408920246627265 8.391200619147105 3.5440596672508797 7.915339351029178 3.5440596672508797 C 6.833584950892343 3.5440596672508797 6.0063664222283135 3.9756548896204897 5.4309063147190635 4.841611769132712 C 4.9965445685109975 5.4834711394855935 4.777976009145107 6.490526416488358 4.777976009145107 7.862777534179276 C 4.777976009145107 9.564258268002034 5.038041748779652 10.731778832834665 5.5581691714027075 11.365338305213013 C 6.078296594025763 11.993364512275004 6.808689281200116 12.305994728228127 7.746578654459638 12.305994728228127 C 8.68446802771916 12.305994728228127 9.34569991310288 12.05146369915416 9.810494617858879 11.542402795336422 C 10.280822620786273 11.033341891518683 10.62111941942993 10.294650740919053 10.831383694555365 9.326328387092511 Z"></path></g>
+        <g transform="translate(15.86,0.17)"><path d="M 0 0 L 6.205560598833415 0 L 8.651256608747723 9.398259732741607 L 11.033325413963155 0 L 17.241655349731445 0 L 17.241655349731445 15.520823478698729 L 13.396042633036094 15.520823478698729 L 13.362844362219217 3.7072911766547825 L 10.391480920702989 15.520823478698729 L 6.8806202491112805 15.520823478698729 L 3.87881098751223 3.7072911766547825 L 3.8843496613819837 15.520823478698729 L 0 15.520823478698729 L 0 0 Z"></path></g>
+        <g transform="translate(33.79,4.14)"><path d="M 4.3270047361339765 5.881867080576631 C 4.3270047361339765 6.880622367983864 4.528967071651302 7.622080758829072 4.930129199676669 8.100708658129438 C 5.33959122561076 8.579336557429803 5.85141806543026 8.820033394622332 6.468377736967638 8.820033394622332 C 7.0853374085050165 8.820033394622332 7.599936982420331 8.584869031063317 7.9955658121923525 8.11177439693715 C 8.39949457285396 7.638679762810984 8.598690275735045 6.883388604800619 8.598690275735045 5.8403671300380635 C 8.598690275735045 4.869278168501832 8.396727940217719 4.1471861398045995 7.9955658121923525 3.674091505678433 C 7.5916370515307445 3.195463606378067 7.093652873380867 2.954766241491748 6.501592895569662 2.954766241491748 C 5.873566693487318 2.954766241491748 5.3534379109456145 3.1982304368503387 4.943975885011524 3.6823916013249045 C 4.534513859077433 4.161019500625271 4.329774073200947 4.894177729862284 4.329774073200947 5.879099854334016 L 4.3270047361339765 5.881867080576631 Z M 0 5.8929328193843435 C 0 4.1803855989263505 0.5782179757588328 2.7721684247814244 1.737438171693344 1.668280967140945 C 2.8966583676278552 0.5560936117391657 4.462582729769656 0 6.4324270137019 0 C 8.687234657052192 0 10.388707330053373 0.6501593835474613 11.542394260715401 1.953244585344312 C 12.469217051358727 3.0017993252810675 12.93125057220459 4.293817732882622 12.93125057220459 5.829300335842768 C 12.93125057220459 7.555680653274536 12.35579045617256 8.969431950096075 11.202103525510532 10.076086040323654 C 10.056716558718954 11.174440232789934 8.471431111023197 11.725000381469727 6.443487475768156 11.725000381469727 C 4.634108016661369 11.725000381469727 3.170562056520349 11.268505806713057 2.055607982765702 10.352749562880549 C 0.6833568759554207 9.218429146781968 0 7.732745798466176 0 5.89570004562696 L 0 5.8929328193843435 Z"></path></g>
+        <g transform="translate(47.42,4.14)"><path d="M 0 0.17153135274363415 L 3.9645760429755454 0.17153135274363415 L 3.9645760429755454 2.1552088354412673 C 4.564935896341313 1.4026840443285833 5.220633809232878 0.8078573440475774 5.837593457798008 0.48969429892431265 C 6.4517864738299116 0.16323135601942607 7.201543230717207 0 8.084099866319022 0 C 9.276519609489153 0 10.208871607023973 0.3568960003800864 10.881163972215365 1.073454501810685 C 11.558989602473211 1.7817131054596613 11.899300575256346 2.882833933209086 11.899300575256346 4.371283719871211 L 11.899300575256346 11.550702095031737 L 7.588878249617811 11.550702095031737 L 7.588878249617811 5.342373013593731 C 7.588878249617811 4.634114409944754 7.436713311876449 4.127819721801681 7.173882973863422 3.837323035598018 C 6.913819268383622 3.538526418631871 6.545862204026641 3.391894594328792 6.072767579112762 3.391894594328792 C 5.549873535619935 3.391894594328792 5.126568204160576 3.5910927677240965 4.800105268412036 3.9867215914375564 C 4.476408965196723 4.3851170807257525 4.313174776401392 5.096141921198258 4.313174776401392 6.125330235545236 L 4.313174776401392 11.550702095031737 L 0 11.550702095031737 L 0 0.17153135274363415 Z"></path></g>
+        <g transform="translate(60.35,4.13)"><path d="M 8.468666155397587 4.872044801088932 C 8.38566709746292 4.042054233418248 8.164346406924983 3.4472276994979576 7.8046838500254765 3.087565133366339 C 7.453321190674222 2.7279025672347204 6.985760493341226 2.5480710533028774 6.4047671372698485 2.5480710533028774 C 5.735241408760345 2.5480710533028774 5.198514898525254 2.81920144260902 4.797352787922768 3.36146195737441 C 4.5428223490866 3.698991462809228 4.379588177793168 4.202519055393495 4.310422298929351 4.872044801088932 L 8.471435492344282 4.872044801088932 L 8.468666155397587 4.872044801088932 Z M 12.762489318847656 6.899987872629428 L 4.313191635876046 6.899987872629428 C 4.387890788017246 7.588880046434565 4.55665351632492 8.136674485991394 4.8471501943606095 8.474203991426213 C 5.253845569995263 8.96113178848788 5.7877946959535445 9.201828295871787 6.443487195920906 9.201828295871787 C 6.85848246910381 9.201828295871787 7.251350058038407 9.096696785255778 7.624845810499194 8.883665878163907 C 7.851709891193663 8.750867390304874 8.100702332244094 8.529535983550973 8.363532668628514 8.189239845529055 L 12.502424938871668 8.535069248725174 C 11.866098866516893 9.661089833024176 11.119107361595319 10.502147326813605 10.219950936365693 10.99737502163657 C 9.320794511136068 11.484302818698236 8.031545209798903 11.725000381469727 6.349431056938616 11.725000381469727 C 4.8914143357662825 11.725000381469727 3.7432573561943903 11.517502739552056 2.9049669122803303 11.102507455716713 C 2.0694431008823537 10.67921227412007 1.372257115690459 10.015219463790213 0.8189300847799199 9.104996485131906 C 0.2739029514176322 8.189240241299398 0 7.093652285649876 0 5.862499663041072 C 0 4.108452887814856 0.5394891190861184 2.7223693680222443 1.6378432833589454 1.637848338491465 C 2.7444973451800236 0.5533273089606856 4.263385390567424 0 6.208329962264285 0 C 7.785311947589944 0 9.04689696857966 0.243463931511695 9.959886556389705 0.727625095986261 C 10.87287614419975 1.214552893047927 11.56729549687556 1.9172780978651163 12.045923383890115 2.8413342394589245 C 12.521784638388585 3.7626237484656326 12.762489318847656 4.9633438743484035 12.762489318847656 6.443493693643101 L 12.762489318847656 6.897221701774395 L 12.762489318847656 6.899987872629428 Z"></path></g>
+        <g transform="translate(72.94,4.31)"><path d="M 0 0 L 4.556640055023288 0 L 6.877851033379714 7.431181771235411 L 9.027531980759255 0 L 13.277079582214357 0 L 8.817265004413105 11.929731714774695 C 8.30820411994254 13.288149552627319 7.788075353044527 14.206671626899675 7.259648040702746 14.68253288811797 C 6.509889893252481 15.354825258637263 5.3700375452507405 15.692355155944824 3.837321659713843 15.692355155944824 C 3.2148287416264347 15.692355155944824 2.254811005543012 15.609355090921817 0.9544925183075827 15.440590340153205 L 0.6141849071363715 12.455390712942656 C 1.2366778252237793 12.651821805753222 1.9283393275293252 12.748655478793625 2.6919306377447434 12.748655478793625 C 3.2009915222153094 12.748655478793625 3.6104541954514175 12.632456796044204 3.9203173382186063 12.402826079590945 C 4.238480378644887 12.170428730582532 4.506853449152592 11.758199177120776 4.725417635217615 11.163372584107478 L 0 0.0027666985168756874 L 0 0 Z"></path></g>
       </svg>
     </a>
 
@@ -783,19 +899,19 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <div class="container">
       <div class="stats">
         <div class="stat">
-          <p class="stat__num"><b data-count="1300" data-format="comma">0</b><em>萬+</em></p>
+          <p class="stat__num"><b data-count="1300" data-format="comma">1,300</b><em>萬+</em></p>
           <p class="stat__label">使用者</p>
         </div>
         <div class="stat">
-          <p class="stat__num"><b data-count="90">0</b><em>%</em></p>
+          <p class="stat__num"><b data-count="90">90</b><em>%</em></p>
           <p class="stat__label">台灣金融機構使用或合作</p>
         </div>
         <div class="stat">
-          <p class="stat__num"><b data-count="200">0</b><em>+</em></p>
+          <p class="stat__num"><b data-count="200">200</b><em>+</em></p>
           <p class="stat__label">數位產品與服務</p>
         </div>
         <div class="stat">
-          <p class="stat__num"><b data-count="5">0</b></p>
+          <p class="stat__num"><b data-count="5">5</b></p>
           <p class="stat__label">個人生重要面向</p>
         </div>
       </div>
@@ -859,96 +975,77 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <h2 class="statement reveal">外界看 CMoney，會看到豐富的 App 產品線；<br>在 CMoney 我們打造的是一套<span class="is-red">決策基礎建設。</span></h2>
     <p class="statement-sub lead reveal">不同事業面對不同人群、場景與市場，<br>我們做的是同一件事：縮短人與好決定之間的距離。</p>
 
-    <!-- 領導團隊 -->
-    <div class="team reveal">
-      <h3 class="team__title">領導團隊</h3>
-      <div class="team__rule" aria-hidden="true"></div>
-      <div class="team__grid">
-        <article class="person">
-          <div class="person__photo"><img src="assets/leader-ken.png" alt="李岳能 Ken"></div>
-          <p class="person__name">李岳能 Ken</p>
-          <p class="person__role">創辦人兼執行長</p>
-        </article>
-        <article class="person">
-          <div class="person__photo"><img src="assets/leader-jack.png" alt="葉上齊 Jack"></div>
-          <p class="person__name">葉上齊 Jack</p>
-          <p class="person__role">營運長</p>
-        </article>
-        <article class="person">
-          <div class="person__photo"><img src="assets/leader-hubert.png" alt="陳睦仁 Hubert"></div>
-          <p class="person__name">陳睦仁 Hubert</p>
-          <p class="person__role">金融事業群負責人</p>
-        </article>
-        <article class="person">
-          <div class="person__photo"><img src="assets/leader-niko.png" alt="簡麗晴 Niko"></div>
-          <p class="person__name">簡麗晴 Niko</p>
-          <p class="person__role">合作夥伴事業群負責人</p>
-        </article>
-        <article class="person">
-          <div class="person__photo"><img src="assets/leader-vivian.png" alt="陳昱諠 Vivian"></div>
-          <p class="person__name">陳昱諠 Vivian</p>
-          <p class="person__role">國際金融事業群負責人</p>
-        </article>
-        <article class="person">
-          <div class="person__photo"><img src="assets/leader-kerwin.png" alt="溫宏鈞 Kerwin"></div>
-          <p class="person__name">溫宏鈞 Kerwin</p>
-          <p class="person__role">AI 實驗室負責人</p>
-        </article>
-      </div>
-    </div>
+    <!-- 領導團隊：依回饋移除，預計改放事業群詳細頁（人物照素材保留於 assets/leader-*.png） -->
 
     <!-- 事業群 -->
+    <!-- 橫式卡片：左欄事業群名稱＋簡介，右欄 icon＋產品名稱水平並排；局部資訊揭露，詳細內容留給事業群詳細頁 -->
     <div class="groups reveal">
-      <article class="group group--wide">
-        <div class="group__col">
+      <article class="group">
+        <div class="group__info">
           <h3 class="group__name">金融事業群</h3>
           <p class="group__claim">陪伴每個人成為更成熟的投資人。</p>
-          <p class="group__desc">從學習、選股、交易到社群討論，提供完整的投資決策工具與內容。</p>
-          <div class="group__apps"><img src="assets/apps-finance.png" alt="籌碼K線、股市爆料同學會、理財寶、Money錢"></div>
+          <a class="group__more" href="#" data-undefined="事業群詳細頁連結設計稿未定義" title="事業群詳細頁連結設計稿未定義">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
         </div>
-        <div class="placeholder"><span>此區塊設計稿留白（待確認內容）</span></div>
+        <ul class="group__apps">
+          <li><img src="assets/icon-finance-chipk.png" alt=""><span>籌碼K線</span></li>
+          <li><img src="assets/icon-finance-bole.png" alt=""><span>股市爆料同學會</span></li>
+          <li><img src="assets/icon-finance-licaibao.png" alt=""><span>理財寶</span></li>
+          <li><img src="assets/icon-finance-moneymag.png" alt=""><span>Money錢</span></li>
+        </ul>
       </article>
 
       <article class="group">
-        <h3 class="group__name">合作夥伴事業群</h3>
-        <p class="group__claim">讓專業知識成為真正能被使用的工具。</p>
-        <p class="group__desc">結合創作者專業、CMoney平台與技術，服務投資人與金融機構。</p>
-        <div class="group__row">
-          <div class="group__apps group__apps--tall"><img src="assets/apps-partner.png" alt="林恩如 強棒旺旺來、權證小哥 當沖飆股神手、艾蜜莉 定存股、法人投資決策支援系統"></div>
-          <div class="group__metric"><b>50+</b><span>專業創作者合作</span></div>
+        <div class="group__info">
+          <h3 class="group__name">合作夥伴事業群</h3>
+          <p class="group__claim">讓專業知識成為真正能被使用的工具。</p>
+          <p class="group__metric"><b>50+</b><span>專業創作者合作</span></p>
+          <a class="group__more" href="#" data-undefined="事業群詳細頁連結設計稿未定義" title="事業群詳細頁連結設計稿未定義">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
         </div>
+        <ul class="group__apps">
+          <li><img src="assets/icon-partner-lin.png" alt=""><span>林恩如 強棒旺旺來</span></li>
+          <li><img src="assets/icon-partner-quan.png" alt=""><span>權證小哥 當沖飆股神手</span></li>
+          <li><img src="assets/icon-partner-emily.png" alt=""><span>艾蜜莉 定存股</span></li>
+          <li><img src="assets/icon-partner-inst.png" alt=""><span>法人投資決策支援系統</span></li>
+        </ul>
       </article>
 
       <article class="group">
-        <h3 class="group__name">國際金融事業群</h3>
-        <p class="group__claim">讓好的投資方法跨越市場與語言。</p>
-        <p class="group__desc">從美股出發，與全球金融創作者共同建立在地化工具、內容與合作平台。</p>
-        <div class="group__row">
-          <div class="group__apps"><img src="assets/apps-global.png" alt="Mike 是麥克、Rich 智富選股、穹蒼美股、好葉智能選股"></div>
-          <div class="group__metric group__metric--sm"><b>GLOBAL</b><span>CREATOR × PRODUCT × MARKET</span></div>
+        <div class="group__info">
+          <h3 class="group__name">國際金融事業群</h3>
+          <p class="group__claim">讓好的投資方法跨越市場與語言。</p>
+          <p class="group__metric group__metric--sm"><b>GLOBAL</b><span>CREATOR × PRODUCT × MARKET</span></p>
+          <a class="group__more" href="#" data-undefined="事業群詳細頁連結設計稿未定義" title="事業群詳細頁連結設計稿未定義">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
         </div>
+        <ul class="group__apps">
+          <li><img src="assets/icon-global-mike.png" alt=""><span>Mike 是麥克</span></li>
+          <li><img src="assets/icon-global-rich.png" alt=""><span>Rich 智富選股</span></li>
+          <li><img src="assets/icon-global-sky.png" alt=""><span>穹蒼美股</span></li>
+          <li><img src="assets/icon-global-haoye.png" alt=""><span>好葉智能選股</span></li>
+        </ul>
       </article>
 
-      <article class="group group--wide">
-        <div class="group__col">
+      <article class="group">
+        <div class="group__info">
           <h3 class="group__name">消費事業群</h3>
           <p class="group__claim">從每一張發票，看見更好的生活選擇。</p>
-          <p class="group__desc">讓個人理解消費，也讓大量資料成為企業改善產品與服務的依據。</p>
-          <div class="group__apps"><img src="assets/apps-consumer.png" alt="發票載具、簡單記帳、CWMoney、夢幻發票"></div>
+          <a class="group__more" href="#" data-undefined="事業群詳細頁連結設計稿未定義" title="事業群詳細頁連結設計稿未定義">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
         </div>
-        <div class="placeholder"><span>此區塊設計稿留白（待確認內容）</span></div>
+        <ul class="group__apps">
+          <li><img src="assets/icon-consumer-einvoice.png" alt=""><span>發票載具</span></li>
+          <li><img src="assets/icon-consumer-easynote.png" alt=""><span>簡單記帳</span></li>
+          <li><img src="assets/icon-consumer-cwmoney.png" alt=""><span>CWMoney</span></li>
+          <li><img src="assets/icon-consumer-dreamfapiao.png" alt=""><span>夢幻發票</span></li>
+        </ul>
       </article>
 
-      <article class="group">
-        <h3 class="group__name">AI Lab</h3>
-        <p class="group__claim">讓AI不只是工具，而是公司持續進化的能力。</p>
-        <p class="group__desc">建立平台級AI能力、發展AI原生產品，也把有效方法帶進每一個部門。</p>
-        <div class="group__row" style="justify-content:center;margin-top:24px">
-          <div class="group__metric group__metric--sm"><b>30+</b><span>三年內推出的新產品</span></div>
+      <article class="group group--noapps">
+        <div class="group__info">
+          <h3 class="group__name">AI Lab</h3>
+          <p class="group__claim">讓AI不只是工具，而是公司持續進化的能力。</p>
+          <p class="group__metric group__metric--sm"><b>30+</b><span>三年內推出的新產品</span></p>
+          <a class="group__more" href="#" data-undefined="事業群詳細頁連結設計稿未定義" title="事業群詳細頁連結設計稿未定義">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
         </div>
       </article>
-
-      <article class="group" aria-hidden="true"></article>
     </div>
   </div>
 </section>
@@ -1011,83 +1108,159 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     </div>
 
     <!-- Accordion -->
-    <div class="accordion reveal" id="valuesAccordion">
+    <!-- 價值觀：模擬桌面視覺（依回饋 ce3cddb2），三則價值觀以視窗彈開 -->
+    <div class="osx reveal" id="valuesAccordion">
+      <div class="osx__screen">
+        <div class="osx__menubar">
+          <span class="osx__menubrand">CMoney</span>
+          <span class="osx__menuitem">檔案</span>
+          <span class="osx__menuitem">編輯</span>
+          <span class="osx__menuitem">檢視</span>
+          <span class="osx__menuclock" id="osxClock">CORE VALUES</span>
+        </div>
 
-      <div class="acc-item is-open" id="acc-01">
-        <button class="acc-head" type="button" aria-expanded="true" aria-controls="acc-01-panel">
-          <span class="acc-num">01</span>
-          <span>
-            <span class="acc-kicker">Direction</span>
-            <span class="acc-title" style="display:block">貢獻價值</span>
-            <span class="acc-sub" style="display:block">我們做任何事情，最後都回到一個問題：這件事情，究竟為誰創造了什麼價值？</span>
-          </span>
-          <span class="acc-toggle" aria-hidden="true">＋</span>
-        </button>
-        <div class="acc-panel" id="acc-01-panel">
-          <div class="acc-panel__inner">
+        <div class="osx__desk" id="osxDesk">
+          <p class="osx__hint">雙擊或點一下檔案，打開一則價值觀</p>
+          <div class="osx__files">
+          <button class="osx-file" type="button" data-open="acc-01" aria-controls="acc-01">
+            <span class="osx-file__ico" aria-hidden="true">
+              <svg viewBox="0 0 48 60" focusable="false"><path d="M4 3h26l14 14v40a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" fill="#fff" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M30 3v14h14" fill="#f6f6f6" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M9 28h30M9 36h30M9 44h20" stroke="#e21e28" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg>
+              <b>01</b>
+            </span>
+            <span class="osx-file__name">貢獻價值</span>
+            <span class="osx-file__meta">01_貢獻價值.md</span>
+          </button>
+          <button class="osx-file" type="button" data-open="acc-02" aria-controls="acc-02">
+            <span class="osx-file__ico" aria-hidden="true">
+              <svg viewBox="0 0 48 60" focusable="false"><path d="M4 3h26l14 14v40a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" fill="#fff" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M30 3v14h14" fill="#f6f6f6" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M9 28h30M9 36h30M9 44h20" stroke="#e21e28" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg>
+              <b>02</b>
+            </span>
+            <span class="osx-file__name">自我超越</span>
+            <span class="osx-file__meta">02_自我超越.md</span>
+          </button>
+          <button class="osx-file" type="button" data-open="acc-03" aria-controls="acc-03">
+            <span class="osx-file__ico" aria-hidden="true">
+              <svg viewBox="0 0 48 60" focusable="false"><path d="M4 3h26l14 14v40a3 3 0 0 1-3 3H4a3 3 0 0 1-3-3V6a3 3 0 0 1 3-3Z" fill="#fff" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M30 3v14h14" fill="#f6f6f6" stroke="#d9d9d9" stroke-width="1.6"></path><path d="M9 28h30M9 36h30M9 44h20" stroke="#e21e28" stroke-width="2.4" stroke-linecap="round" opacity=".55"></path></svg>
+              <b>03</b>
+            </span>
+            <span class="osx-file__name">身心靈一致</span>
+            <span class="osx-file__meta">03_身心靈一致.md</span>
+          </button>
+          </div>
+
+        <section class="osx-win is-open" id="acc-01" data-win="" style="--x: 0px; --y: 0px; z-index: 11;" aria-labelledby="acc-01-title">
+          <header class="osx-win__bar">
+            <span class="osx-win__lights" aria-hidden="true">
+              <i class="osx-win__light osx-win__light--close" data-act="close"></i>
+              <i class="osx-win__light osx-win__light--min" data-act="close"></i>
+              <i class="osx-win__light osx-win__light--max" data-act="zoom"></i>
+            </span>
+            <span class="osx-win__name">01_貢獻價值.md</span>
+            <button class="osx-win__x" type="button" data-act="close" aria-label="關閉貢獻價值">✕</button>
+          </header>
+          <div class="osx-win__body">
+            <p class="osx-win__kicker">Direction · 01</p>
+            <h4 class="osx-win__title" id="acc-01-title">貢獻價值</h4>
+            <p class="osx-win__sub">我們做任何事情，最後都回到一個問題：這件事情，究竟為誰創造了什麼價值？</p>
             <div class="acc-body">
-              <p class="acc-body__lead">完成專案、達成KPI、推出功能、開完會，都不是目的。真正重要的是：使用者的問題有沒有因此被解決？產品有沒有因此變得更好？團隊是不是能做到以前做不到的事情？公司是否因此更接近自己的使命？</p>
-              <p>所以在CMoney，我們不把「很努力」本身當成成果。努力值得尊重，但只有當努力最終轉化成價值，它才有意義。</p>
+            <!-- 依回饋濃縮為三段：完成不等於價值／從真正的問題出發／對結果與取捨負責；重點句改以引用強調 -->
+            <p class="acc-body__lead">完成專案、達成 KPI、推出功能、開完會，都不是目的。真正重要的是：使用者的問題有沒有被解決？產品有沒有變得更好？團隊能不能做到以前做不到的事？公司是否因此更接近自己的使命？</p>
+            <blockquote class="acc-quote">努力值得尊重，但只有當努力轉化成價值，它才有意義。</blockquote>
 
-              <h4>從使用者與問題出發</h4>
-              <p>創造價值的第一步，不是問「我們可以做什麼？」而是問：「真正重要的問題是什麼？」我們希望每個人都能穿過需求、規格、流程與表面現象，找到真正需要被解決的問題。</p>
+            <h4>從真正的問題出發</h4>
+            <p>創造價值的第一步，不是問「我們可以做什麼？」而是問「真正重要的問題是什麼？」我們希望每個人都能穿過需求、規格、流程與表面現象，找到真正需要被解決的問題。</p>
+            <blockquote class="acc-quote">我們尊重經驗，但更尊重事實。</blockquote>
 
-              <blockquote class="acc-quote">我們尊重經驗，但更尊重事實。</blockquote>
+            <h4>對結果負責，也對取捨負責</h4>
+            <p>如果一件事沒有產生預期效果，我們不希望聽到「可是我的部分已經做完了」。真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生——即使問題跨越職責範圍，你仍然會指出它、推動它。同時，創造價值也意味著選擇：好的公司不是把一百件事都做好，而是知道哪幾件事最值得做。</p>
+            <div class="acc-prompts">
+            <div>如果只能做好一件事情，現在最重要的是什麼？</div>
+            <div>如果這件事不做，真正會失去什麼？</div>
+            </div>
 
-              <h4>對結果負責，而不是只對工作負責</h4>
-              <p>如果一件事情沒有產生預期效果，我們不希望回答：「可是我的部分已經做完了。」真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生。即使問題跨越職責範圍，你仍然會指出它、推動它，直到真正的問題被看見。</p>
-
-              <h4>把有限的資源用在最重要的地方</h4>
-              <p>創造價值，也意味著選擇。好的公司不是把一百件事情都做好，而是知道哪幾件事情最值得做。</p>
-              <div class="acc-prompts">
-                <div>如果只能做好一件事情，現在最重要的是什麼？</div>
-                <div>如果這件事不做，真正會失去什麼？</div>
-              </div>
-
-              <p class="acc-close">找到真正重要的問題，用最有效的方法，創造最大的價值。</p>
+            <p class="acc-close">找到真正重要的問題，用最有效的方法，創造最大的價值。</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="acc-item" id="acc-02">
-        <button class="acc-head" type="button" aria-expanded="false" aria-controls="acc-02-panel">
-          <span class="acc-num">02</span>
-          <span>
-            <span class="acc-kicker">Growth</span>
-            <span class="acc-title" style="display:block">自我超越</span>
-            <span class="acc-sub" style="display:block">如果一直只做自己已經會做的事，就很難創造以前沒有創造過的價值。</span>
-          </span>
-          <span class="acc-toggle" aria-hidden="true">＋</span>
-        </button>
-        <div class="acc-panel" id="acc-02-panel">
-          <div class="acc-panel__inner">
+        </section>
+        <section class="osx-win" id="acc-02" data-win="" style="--x:58px;--y:42px" hidden="" aria-labelledby="acc-02-title">
+          <header class="osx-win__bar">
+            <span class="osx-win__lights" aria-hidden="true">
+              <i class="osx-win__light osx-win__light--close" data-act="close"></i>
+              <i class="osx-win__light osx-win__light--min" data-act="close"></i>
+              <i class="osx-win__light osx-win__light--max" data-act="zoom"></i>
+            </span>
+            <span class="osx-win__name">02_自我超越.md</span>
+            <button class="osx-win__x" type="button" data-act="close" aria-label="關閉自我超越">✕</button>
+          </header>
+          <div class="osx-win__body">
+            <p class="osx-win__kicker">Growth · 02</p>
+            <h4 class="osx-win__title" id="acc-02-title">自我超越</h4>
+            <p class="osx-win__sub">如果一直只做自己已經會做的事，就很難創造以前沒有創造過的價值。</p>
             <div class="acc-body">
-              <p class="undefined-note"><b>待確認：</b>設計稿中「自我超越」僅提供收合狀態的標題與導言，展開後的內文尚未定義。內容確認後即可沿用 01 的版型填入。</p>
+            <!-- 內容來源：設計稿 6537:1329（Section 3 / 自我超越）；濃縮為三段，保留引用區塊與最後一句 -->
+            <p class="acc-body__lead">成長不是額外的要求，而是工作的一部分。自我超越不是要求每個人變成別人，而是不讓今天的能力，限制明天能解決的問題。</p>
+
+            <h4>不知道沒有關係，停止學習才有問題</h4>
+            <p>真正困難的工作，一開始往往都不知道答案。我們在意的不是你懂多少，而是不知道時，你會等別人給答案，還是主動理解問題、建立假設、做實驗，再快速修正。今天不會的可以學會，今天做不到的，也可能透過工具、合作、AI 與方法做到。</p>
+
+            <h4>真正的成長，從承認差距開始</h4>
+            <p>人最難突破的不是能力，而是 Ego。急著證明自己是對的，就很難看見自己錯在哪裡。</p>
+            <blockquote class="acc-quote">Truth-seeking 要走在 Ego-protection 前面。</blockquote>
+            <p>有些問題反覆出現，不一定只是環境不好，也可能在提醒我們：現在的能力與工作方法，已經不足以解決下一個階段的問題。</p>
+            <div class="acc-prompts">
+            <div>這件事情怎麼解決？</div>
+            <div>我要變成什麼樣的人，未來才能更容易解決這類問題？</div>
+            </div>
+
+            <p class="acc-close">不是和別人比較，而是一次又一次，把自己的能力邊界往外推。</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="acc-item" id="acc-03">
-        <button class="acc-head" type="button" aria-expanded="false" aria-controls="acc-03-panel">
-          <span class="acc-num">03</span>
-          <span>
-            <span class="acc-kicker">Alignment</span>
-            <span class="acc-title" style="display:block">身心靈一致</span>
-            <span class="acc-sub" style="display:block">知道自己為什麼做、相信它值得做、願意面對真實，行動也真正朝那裡前進。</span>
-          </span>
-          <span class="acc-toggle" aria-hidden="true">＋</span>
-        </button>
-        <div class="acc-panel" id="acc-03-panel">
-          <div class="acc-panel__inner">
+        </section>
+        <section class="osx-win" id="acc-03" data-win="" style="--x:116px;--y:84px" hidden="" aria-labelledby="acc-03-title">
+          <header class="osx-win__bar">
+            <span class="osx-win__lights" aria-hidden="true">
+              <i class="osx-win__light osx-win__light--close" data-act="close"></i>
+              <i class="osx-win__light osx-win__light--min" data-act="close"></i>
+              <i class="osx-win__light osx-win__light--max" data-act="zoom"></i>
+            </span>
+            <span class="osx-win__name">03_身心靈一致.md</span>
+            <button class="osx-win__x" type="button" data-act="close" aria-label="關閉身心靈一致">✕</button>
+          </header>
+          <div class="osx-win__body">
+            <p class="osx-win__kicker">Alignment · 03</p>
+            <h4 class="osx-win__title" id="acc-03-title">身心靈一致</h4>
+            <p class="osx-win__sub">知道自己為什麼做、相信它值得做、願意面對真實，行動也真正朝那裡前進。</p>
             <div class="acc-body">
-              <p class="undefined-note"><b>待確認：</b>設計稿中「身心靈一致」僅提供收合狀態的標題與導言，展開後的內文尚未定義。內容確認後即可沿用 01 的版型填入。</p>
+            <!-- 內容來源：設計稿 6537:1329（Section 3 / 身心靈一致）；濃縮為三段，保留引用區塊與最後一句 -->
+            <p class="acc-body__lead">身，是行動；心，是思考與判斷；靈，是我們真實的感受。當三者與自己真正認同的目標一致，力量就不需要消耗在內部拉扯。</p>
+
+            <h4>一致，不代表沒有衝突</h4>
+            <p>重要的事情本來就會產生衝突：理性知道該停下的專案，情感上捨不得；認同目標，卻不認同方法；嘴上說最重要的事，時間卻花在別處。</p>
+            <blockquote class="acc-quote">當思考、感受與行動彼此衝突，通常代表有一個問題還沒有真正被解決。</blockquote>
+            <p>我們不認為「感覺不舒服，所以這件事一定是錯的」，也不認為所有不舒服都該被壓下去。情緒是一種資訊。</p>
+            <blockquote class="acc-quote">感受沒有最終決策權，但有發言權。</blockquote>
+
+            <h4>有衝突，就把它拿到桌面上</h4>
+            <p>不同意就說清楚原因，不知道就承認，看到風險就提出來。真正危險的從來不是意見不同，而是心裡不同意、嘴上說同意；說某件事重要，行動卻沒有投入。我們追求的不是服從，而是一種更深的自由：不再被自尊、恐懼與沒有被看見的情緒牽著走。</p>
+            <div class="acc-prompts">
+            <div>你說這件事情重要，時間是否真的放在這裡？</div>
+            <div>你不同意時，是否願意誠實地把問題說清楚？</div>
+            </div>
+
+            <p class="acc-close">想清楚。說清楚。然後做到。</p>
             </div>
           </div>
+        </section>
+        </div>
+
+        <div class="osx__dock" role="group" aria-label="開啟價值觀視窗">
+          <button class="osx__dockitem" type="button" data-open="acc-01" aria-pressed="true"><span>01</span>貢獻價值</button>
+          <button class="osx__dockitem" type="button" data-open="acc-02" aria-pressed="false"><span>02</span>自我超越</button>
+          <button class="osx__dockitem" type="button" data-open="acc-03" aria-pressed="false"><span>03</span>身心靈一致</button>
+          <span class="osx__dockline" aria-hidden="true"></span>
+          <button class="osx__dockitem osx__dockitem--ghost" type="button" id="osxOpenAll">全部打開</button>
         </div>
       </div>
-
     </div>
 
     <div class="values-outro reveal">
@@ -1105,97 +1278,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <p>多數公司先畫組織圖，再把人放進職缺；<br>CMoney 先找值得解的問題，再組成能把問題變成結果的人。</p>
     </div>
 
-    <!-- 文化自我選擇 Culture Self-Selection -->
-    <div class="selfsel reveal" id="selfSelect">
-      <div class="selfsel__switch" role="tablist" aria-label="檢視模式">
-        <button class="selfsel__seg" role="tab" id="seg-both" aria-selected="true" aria-controls="selfselGrid" data-view="both" tabindex="0">雙軌對照</button>
-        <button class="selfsel__seg" role="tab" id="seg-trad" aria-selected="false" aria-controls="selfselGrid" data-view="trad" tabindex="-1">傳統模式</button>
-        <button class="selfsel__seg" role="tab" id="seg-cmoney" aria-selected="false" aria-controls="selfselGrid" data-view="cmoney" tabindex="-1">CMoney 模式</button>
-      </div>
-
-      <div class="selfsel__grid" id="selfselGrid" data-view="both">
-
-        <article class="ssc ssc--trad">
-          <span class="ssc__tag">STATUS QUO</span>
-          <h4 class="ssc__title">職務先被定義</h4>
-          <p class="ssc__sub">在既定範圍把事情做好</p>
-          <p class="ssc__summary">當商業模式已穩定，工作可以被切成明確職能：產品、行銷、業務各自把分內工作做好。</p>
-        </article>
-
-        <article class="ssc ssc--cmoney" id="sscCMoney">
-          <span class="ssc__tag ssc__tag--brand">CMONEY WAY</span>
-          <h4 class="ssc__title">問題先被定義</h4>
-          <p class="ssc__sub">角色跟著問題與能力改變</p>
-
-          <button class="ssc__cta" type="button" id="sscToggle" aria-expanded="false" aria-controls="sscDetail">
-            <span class="ssc__ctatext">展開看原因與案例</span>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
-          </button>
-
-          <div class="ssc__detail" id="sscDetail"><div>
-            <div class="ssc__inner">
-
-              <div class="ssc__block">
-                <p class="ssc__kicker">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="16.6" r="1.2" fill="#fff"/></svg>
-                  WHY｜為什麼會不同
-                </p>
-                <p>新事業一開始，連「真正的問題」都還沒有被完全確認。看起來像行銷問題，實際可能是產品價值不夠；看起來缺業務，可能其實是客群選錯了。所以在 CMoney，我們不希望一開始就把人關進職稱裡，而是先問：「現在最值得解決的問題是什麼？誰最適合把它推進？」</p>
-              </div>
-
-              <div class="ssc__block">
-                <p class="ssc__kicker">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  IN PRACTICE｜實務工作時
-                </p>
-                <p>你仍然會有清楚的任務、權責與成功標準，但解法不會全部預先寫好。隨著市場回饋，你負責的範圍、合作對象，甚至團隊組成都可能改變。</p>
-              </div>
-
-              <div class="ssc__tip">
-                <p class="ssc__kicker ssc__kicker--zh">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="16.6" r="1.2" fill="#fff"/></svg>
-                  面試時，建議你確認
-                </p>
-                <p class="q">「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</p>
-              </div>
-
-              <div class="ssc__block">
-                <p class="ssc__kicker">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  SELF-CHECK｜你會感受到的差異
-                </p>
-                <p class="ssc__fitrow ssc__fitrow--yes">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                  <span>喜歡自己釐清問題、調整角色的人，通常會得到更大的發揮空間。</span>
-                </p>
-                <p class="ssc__fitrow ssc__fitrow--no">
-                  <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 7.4v5.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="16.4" r="1.2" fill="#fff"/></svg>
-                  <span>需要工作內容長期固定、希望主管把方法安排完整的人，則可能感到不安。</span>
-                </p>
-
-                <div class="ssc__pills" role="group" aria-label="你比較接近哪一種？">
-                  <button class="ssc__pill" type="button" data-fit="good" aria-pressed="false">✨ 我喜歡自主定義問題，享有極大發揮空間</button>
-                  <button class="ssc__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我偏好職責固定，需要明確的安排</button>
-                </div>
-
-                <div class="ssc__toast" id="sscToast" data-tone="good"><div>
-                  <div class="ssc__toastinner">
-                    <svg id="sscToastIcon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                    <span id="sscToastText" role="status"></span>
-                    <button class="ssc__toastclose" type="button" id="sscToastClose" aria-label="關閉提示">
-                      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
-                    </button>
-                  </div>
-                </div></div>
-              </div>
-
-            </div>
-          </div></div>
-        </article>
-
-      </div>
-    </div>
-
+    <!-- 四列對照卡片：沿用白底卡片語彙，互動區塊（面試提問＋二選一 check card）併入每一列 -->
     <div class="cmp reveal" id="cmpTable">
       <div class="cmp__head">
         <div>常見公司的預設</div>
@@ -1214,39 +1297,73 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
               <p>角色跟著問題與能力改變</p>
             </div>
             <button class="cmp__expand" type="button" aria-expanded="false" aria-controls="cmp-1">
-              <span>展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="cmp__expandtext">展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
           </div>
         </div>
         <div class="cmp__panel" id="cmp-1"><div><div class="cmp__panelinner">
+          <div class="cmp__inner">
+          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
           <div class="cmp__detail">
-            <div>
-              <p class="cmp-kicker">WHY｜為什麼會不同</p>
-              <h5 class="cmp-detail__title">新事業一開始，連「真正的問題」<br>都還沒有被完全確認。</h5>
+            <div class="cmp__col cmp__col--why">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
+              <h5 class="cmp__title">新事業一開始，連「真正的問題」<br>都還沒有被完全確認。</h5>
               <p>當商業模式已經穩定，工作可以被切成明確職能：產品、行銷、業務各自把分內工作做好。但新事業看起來像行銷問題，實際可能是產品價值不夠；看起來缺業務，可能其實是客群選錯了。</p>
               <p>所以在 CMoney，我們不希望一開始就把人關進職稱裡，而是先問：<b>現在最值得解決的問題是什麼？誰最適合把它推進？</b></p>
             </div>
-            <div>
-              <p class="cmp-kicker cmp-kicker--light">IN PRACTICE｜實際工作時</p>
-              <p class="is-ink">你仍然會有清楚的任務、權責與成功標準，但解法不會全部預先寫好。隨著市場回饋，你負責的範圍、合作對象，甚至團隊組成都可能改變。</p>
-              <div class="cmp-tip">
-                <p class="cmp-tip__label">面試時，建議你確認</p>
-                <p class="cmp-tip__q">這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？</p>
+            <div class="cmp__col">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>IN PRACTICE｜實際工作時</p>
+              <p>你仍然會有清楚的任務、權責與成功標準，但解法不會全部預先寫好。隨著市場回饋，你負責的範圍、合作對象，甚至團隊組成都可能改變。</p>
+              <div class="cmp__tip">
+              <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
+              <p class="q">「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</p>
               </div>
             </div>
           </div>
+
           <div class="cmp-diff">
-            <p class="cmp-diff__text">喜歡自己釐清問題、調整角色的人，通常會得到更大的發揮空間；需要工作內容長期固定、希望主管把方法安排完整的人，則可能覺得不安。</p>
-            <div class="cmp-field">
-              <div class="cmp-field__body">
-                <div class="cmp-field__head">
-                  <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
-                  <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+            <p class="cmp-diff__label">你會感受到的差異</p>
+            <div class="cmp-diff__body">
+              <p class="cmp-diff__text">喜歡自己釐清問題、調整角色的人，通常會得到更大的發揮空間；需要工作內容長期固定、希望主管把方法安排完整的人，則可能覺得不安。</p>
+              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
+              <div class="cmp-fit">
+                <div class="cmp-fit__col cmp-fit__col--yes">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
+                  <p class="cmp-fit__item">你喜歡擁有完整問題，不只完成任務。</p>
+                  <p class="cmp-fit__sub">你會主動追問結果，而不是把交付當作終點。</p>
                 </div>
-                <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"/></svg></a>
+                <div class="cmp-fit__col cmp-fit__col--no">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
+                  <p class="cmp-fit__item">你需要永遠清楚、固定的職務邊界。</p>
+                  <p class="cmp-fit__sub">問題改變時，我們會調整角色、資源與優先順序。</p>
+                </div>
+              </div>
+              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>哪一件作品，可以證明我不只執行，也定義了問題？</p>
+              <div class="cmp__block cmp__check">
+                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
+                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我喜歡自主定義問題，享有極大發揮空間</button>
+                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我偏好職責固定，需要明確的安排</button>
+                </div>
+                <div class="cmp__toast" data-tone="good"><div>
+                <div class="cmp__toastinner">
+                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span class="cmp__toasttext" role="status"></span>
+                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                </div>
+                </div></div>
+              </div>
+              <div class="cmp-field">
+              <div class="cmp-field__body">
+              <div class="cmp-field__head">
+              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
+              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              </div>
+              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
               </div>
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
+              </div>
             </div>
+          </div>
           </div>
         </div></div></div>
       </div>
@@ -1263,30 +1380,74 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
               <p>先用低成本取得市場證據</p>
             </div>
             <button class="cmp__expand" type="button" aria-expanded="false" aria-controls="cmp-2">
-              <span>展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="cmp__expandtext">展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
           </div>
         </div>
         <div class="cmp__panel" id="cmp-2"><div><div class="cmp__panelinner">
+          <div class="cmp__inner">
+          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
           <div class="cmp__detail">
-            <div>
-              <p class="cmp-kicker">WHY｜為什麼會不同</p>
-              <h5 class="cmp-detail__title">新事業最大的風險，不是資源不夠，而是方向還沒確認就投入太多。</h5>
+            <div class="cmp__col cmp__col--why">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
+              <h5 class="cmp__title">新事業最大的風險，不是資源不夠，<br>而是方向還沒確認就投入太多。</h5>
               <p>簡報完整、預測漂亮，不代表客戶真的需要。因此，我們傾向先用最小成本取得真實答案，再依據市場證據增加投入。</p>
               <p>成熟事業除了創造現金流，也提供新產品實驗所需的資料、流量與基礎建設；而新產品要用證據證明，下一步值得被加碼。</p>
             </div>
-            <div>
-              <p class="cmp-kicker cmp-kicker--light">IN PRACTICE｜實際工作時</p>
-              <p class="is-ink">一開始你可能不會立刻獲得完整團隊與大筆預算，而是先說清楚：最關鍵的假設、最小驗證方法、多久看見訊號，以及什麼結果代表應該加碼、調整或停止。</p>
-              <div class="cmp-tip">
-                <p class="cmp-tip__label">面試時，建議你確認</p>
-                <p class="cmp-tip__q">這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？</p>
+            <div class="cmp__col">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>IN PRACTICE｜實際工作時</p>
+              <p>一開始你可能不會立刻獲得完整團隊與大筆預算，而是先說清楚：最關鍵的假設、最小驗證方法、多久看見訊號，以及什麼結果代表應該加碼、調整或停止。</p>
+              <div class="cmp__tip">
+              <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
+              <p class="q">「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</p>
               </div>
             </div>
           </div>
+
           <div class="cmp-diff">
-            <p class="cmp-diff__text">喜歡快速動手、願意用結果修正自己的人，會覺得這種方式有效率；習慣資源到齊才開始，或把計畫獲准視為成功的人，會比較辛苦。</p>
-            <p class="undefined-note"><b>待確認：</b>設計稿 <code>16:2401</code> 只提供第 1 列的「工作現場」卡片（標題／說明／配圖／文章連結），此列尚未定義。</p>
+            <p class="cmp-diff__label">你會感受到的差異</p>
+            <div class="cmp-diff__body">
+              <p class="cmp-diff__text">喜歡快速動手、願意用結果修正自己的人，會覺得這種方式有效率；習慣資源到齊才開始，或把計畫獲准視為成功的人，會比較辛苦。</p>
+              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
+              <div class="cmp-fit">
+                <div class="cmp-fit__col cmp-fit__col--yes">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
+                  <p class="cmp-fit__item">你能在不確定中形成判斷。</p>
+                  <p class="cmp-fit__sub">資訊不完整仍能前進，並知道下一個證據去哪裡找。</p>
+                </div>
+                <div class="cmp-fit__col cmp-fit__col--no">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
+                  <p class="cmp-fit__item">你把沒有指令，理解為不能行動。</p>
+                  <p class="cmp-fit__sub">我們期待你提出方向，而不只是等待方向。</p>
+                </div>
+              </div>
+              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>如果沒有主管給答案，我通常怎麼取得下一個有效資訊？</p>
+              <div class="cmp__block cmp__check">
+                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
+                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我願意先小規模動手，用結果換取資源</button>
+                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我習慣資源到齊、計畫獲准後再開始</button>
+                </div>
+                <div class="cmp__toast" data-tone="good"><div>
+                <div class="cmp__toastinner">
+                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span class="cmp__toasttext" role="status"></span>
+                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                </div>
+                </div></div>
+              </div>
+              <div class="cmp-field">
+              <div class="cmp-field__body">
+              <div class="cmp-field__head">
+              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
+              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              </div>
+              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+              <p class="cmp-field__note">此列的「你會感受到的差異」與工作現場卡片暫沿用第 1 列內容，待補</p>
+              </div>
+              <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
+              </div>
+            </div>
+          </div>
           </div>
         </div></div></div>
       </div>
@@ -1303,30 +1464,74 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
               <p>有沒有讓未知變少、價值變大</p>
             </div>
             <button class="cmp__expand" type="button" aria-expanded="false" aria-controls="cmp-3">
-              <span>展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="cmp__expandtext">展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
           </div>
         </div>
         <div class="cmp__panel" id="cmp-3"><div><div class="cmp__panelinner">
+          <div class="cmp__inner">
+          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
           <div class="cmp__detail">
-            <div>
-              <p class="cmp-kicker">WHY｜為什麼會不同</p>
-              <h5 class="cmp-detail__title">最大的浪費，往往不是事情沒做完，而是很努力地做完了錯的事情。</h5>
+            <div class="cmp__col cmp__col--why">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
+              <h5 class="cmp__title">最大的浪費，往往不是事情沒做完，<br>而是很努力地做完了錯的事情。</h5>
               <p>因此，CMoney 重視的不只是執行力，也包括你能不能找出真正的 Top 1 Thing：目前哪一個問題，最限制產品或事業的成長？</p>
               <p>一次實驗即使沒有成功，只要它排除重要假設、讓團隊停止錯誤投入，也可能是有價值的進展。但這不代表失敗沒有責任，我們仍會看假設、執行與學習是否紮實。</p>
             </div>
-            <div>
-              <p class="cmp-kicker cmp-kicker--light">IN PRACTICE｜實際工作時</p>
-              <p class="is-ink">你可能完成十項功能，但如果留存率、付費率或客戶價值沒有改善，我們不會因為工作很忙，就認定問題已經解決。新證據出現時，原定工作甚至應該被停止。</p>
-              <div class="cmp-tip">
-                <p class="cmp-tip__label">面試時，建議你確認</p>
-                <p class="cmp-tip__q">這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？</p>
+            <div class="cmp__col">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>IN PRACTICE｜實際工作時</p>
+              <p>你可能完成十項功能，但如果留存率、付費率或客戶價值沒有改善，我們不會因為工作很忙，就認定問題已經解決。新證據出現時，原定工作甚至應該被停止。</p>
+              <div class="cmp__tip">
+              <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
+              <p class="q">「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</p>
               </div>
             </div>
           </div>
+
           <div class="cmp-diff">
-            <p class="cmp-diff__text">喜歡追問結果、願意推翻原計畫的人會成長很快；希望只要按時完成交辦事項，就不必再對結果負責的人，會感受到壓力。</p>
-            <p class="undefined-note"><b>待確認：</b>設計稿 <code>16:2401</code> 只提供第 1 列的「工作現場」卡片（標題／說明／配圖／文章連結），此列尚未定義。</p>
+            <p class="cmp-diff__label">你會感受到的差異</p>
+            <div class="cmp-diff__body">
+              <p class="cmp-diff__text">喜歡追問結果、願意推翻原計畫的人會成長很快；希望只要按時完成交辦事項，就不必再對結果負責的人，會感受到壓力。</p>
+              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
+              <div class="cmp-fit">
+                <div class="cmp-fit__col cmp-fit__col--yes">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
+                  <p class="cmp-fit__item">你對真相的需要，大於保護自己的需要。</p>
+                  <p class="cmp-fit__sub">被證明錯時，你先想「學到了什麼」，而不是「誰讓我難堪」。</p>
+                </div>
+                <div class="cmp-fit__col cmp-fit__col--no">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
+                  <p class="cmp-fit__item">你很在意誰提出答案，而不只答案是否更好。</p>
+                  <p class="cmp-fit__sub">職級不能保護一個缺乏證據的觀點。</p>
+                </div>
+              </div>
+              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>過去一年，我曾主動推翻自己哪個重要判斷？</p>
+              <div class="cmp__block cmp__check">
+                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
+                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我在意結果，願意為了結果推翻原計畫</button>
+                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我希望按時完成交辦事項就算達標</button>
+                </div>
+                <div class="cmp__toast" data-tone="good"><div>
+                <div class="cmp__toastinner">
+                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span class="cmp__toasttext" role="status"></span>
+                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                </div>
+                </div></div>
+              </div>
+              <div class="cmp-field">
+              <div class="cmp-field__body">
+              <div class="cmp-field__head">
+              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
+              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              </div>
+              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+              <p class="cmp-field__note">此列的「你會感受到的差異」與工作現場卡片暫沿用第 1 列內容，待補</p>
+              </div>
+              <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
+              </div>
+            </div>
+          </div>
           </div>
         </div></div></div>
       </div>
@@ -1343,30 +1548,74 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
               <p>誰最接近事實，誰應該做決定</p>
             </div>
             <button class="cmp__expand" type="button" aria-expanded="false" aria-controls="cmp-4">
-              <span>展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              <span class="cmp__expandtext">展開看原因與案例</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>
             </button>
           </div>
         </div>
         <div class="cmp__panel" id="cmp-4"><div><div class="cmp__panelinner">
+          <div class="cmp__inner">
+          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
           <div class="cmp__detail">
-            <div>
-              <p class="cmp-kicker">WHY｜為什麼會不同</p>
-              <h5 class="cmp-detail__title">離客戶最近、真正承擔題目的人，必須有足以讓結果發生的決策權。</h5>
+            <div class="cmp__col cmp__col--why">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
+              <h5 class="cmp__title">離客戶最近、真正承擔題目的人，<br>必須有足以讓結果發生的決策權。</h5>
               <p>新事業的資訊變化很快。如果每個決定都要逐層請示，最接近事實的人反而無法即時行動。因此，決策權不應只跟著年資或職稱，而應跟著對問題的理解與承擔。</p>
               <p>但這不是無條件自由。權力增加的同時，對結果、判斷品質與資訊透明的責任也會增加。</p>
             </div>
-            <div>
-              <p class="cmp-kicker cmp-kicker--light">IN PRACTICE｜實際工作時</p>
-              <p class="is-ink">Project Owner 可以在約定範圍內決定客群、優先順序、產品範圍與測試方法。主管則必須說清楚目標、資源上限、不可跨越的邊界與檢查節點。授權不是一句「你自己想辦法」。</p>
-              <div class="cmp-tip">
-                <p class="cmp-tip__label">面試時，建議你確認</p>
-                <p class="cmp-tip__q">這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？</p>
+            <div class="cmp__col">
+              <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>IN PRACTICE｜實際工作時</p>
+              <p>Project Owner 可以在約定範圍內決定客群、優先順序、產品範圍與測試方法。主管則必須說清楚目標、資源上限、不可跨越的邊界與檢查節點。授權不是一句「你自己想辦法」。</p>
+              <div class="cmp__tip">
+              <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>面試時，建議你確認</p>
+              <p class="q">「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</p>
               </div>
             </div>
           </div>
+
           <div class="cmp-diff">
-            <p class="cmp-diff__text">想擁有實質影響力，也願意讓自己的判斷接受市場檢驗的人，會喜歡這裡；只想取得自由、不想承擔結果的人，會很不適應。</p>
-            <p class="undefined-note"><b>待確認：</b>設計稿 <code>16:2401</code> 只提供第 1 列的「工作現場」卡片（標題／說明／配圖／文章連結），此列尚未定義。</p>
+            <p class="cmp-diff__label">你會感受到的差異</p>
+            <div class="cmp-diff__body">
+              <p class="cmp-diff__text">想擁有實質影響力，也願意讓自己的判斷接受市場檢驗的人，會喜歡這裡；只想取得自由、不想承擔結果的人，會很不適應。</p>
+              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
+              <div class="cmp-fit">
+                <div class="cmp-fit__col cmp-fit__col--yes">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
+                  <p class="cmp-fit__item">你把工作當成長期資產。</p>
+                  <p class="cmp-fit__sub">累積能力、作品、信用與判斷力，比短期頭銜更重要。</p>
+                </div>
+                <div class="cmp-fit__col cmp-fit__col--no">
+                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
+                  <p class="cmp-fit__item">你想要自主，卻不想承擔選擇的後果。</p>
+                  <p class="cmp-fit__sub">在這裡，權力與責任不會被拆開出售。</p>
+                </div>
+              </div>
+              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>我真正想累積的是頭銜，還是能力、作品、信用與判斷力？</p>
+              <div class="cmp__block cmp__check">
+                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
+                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我想要決策權，也願意承擔結果</button>
+                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我想要自由，但不想承擔結果的責任</button>
+                </div>
+                <div class="cmp__toast" data-tone="good"><div>
+                <div class="cmp__toastinner">
+                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+                <span class="cmp__toasttext" role="status"></span>
+                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                </div>
+                </div></div>
+              </div>
+              <div class="cmp-field">
+              <div class="cmp-field__body">
+              <div class="cmp-field__head">
+              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
+              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              </div>
+              <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+              <p class="cmp-field__note">此列的「你會感受到的差異」與工作現場卡片暫沿用第 1 列內容，待補</p>
+              </div>
+              <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
+              </div>
+            </div>
+          </div>
           </div>
         </div></div></div>
       </div>
@@ -1397,7 +1646,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
         <blockquote class="founder__quote">CMoney從一個人的問題開始，但不能永遠依靠一個人的答案。<br>今天，我們要建立的是一套讓更多人做出好決定，也讓更多同事成為問題Owner的系統。</blockquote>
         <div class="founder__foot">
           <b>Ken</b><span>CMoney 創辦人暨執行長</span>
-          <a class="btn-link" href="#" data-undefined="連結目標設計稿未定義">閱讀完整創辦人文章 <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn-link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀完整創辦人文章 <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
@@ -1414,8 +1663,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     <h2 class="cta__title reveal">一家公司真正的樣子，<br>藏在每天做出的<span class="is-red">選擇裡。</span></h2>
     <p class="cta__sub reveal">使命讓我們知道往哪裡去；價值觀幫助我們取捨；工作原則讓相信真的發生。</p>
     <div class="cta__actions reveal">
-      <a class="btn-pill btn-pill--solid" href="#top">重新認識 CMoney <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.41074 2.74408C9.73618 2.41864 10.2638 2.41864 10.5893 2.74408L15.5893 7.74408C15.9147 8.06951 15.9147 8.59715 15.5893 8.92259C15.2638 9.24803 14.7362 9.24803 14.4107 8.92259L10.8333 5.34518V16.6667C10.8333 17.1269 10.4602 17.5 10 17.5C9.53976 17.5 9.16667 17.1269 9.16667 16.6667V5.34518L5.58926 8.92259C5.26382 9.24803 4.73618 9.24803 4.41074 8.92259C4.08531 8.59715 4.08531 8.06951 4.41074 7.74408L9.41074 2.74408Z"/></svg></a>
-      <a class="btn-pill btn-pill--outline" href="#" data-undefined="連結目標設計稿未定義">加入CMoney <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"/></svg></a>
+      <a class="btn-pill btn-pill--solid" href="#top">重新認識 CMoney <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.41074 2.74408C9.73618 2.41864 10.2638 2.41864 10.5893 2.74408L15.5893 7.74408C15.9147 8.06951 15.9147 8.59715 15.5893 8.92259C15.2638 9.24803 14.7362 9.24803 14.4107 8.92259L10.8333 5.34518V16.6667C10.8333 17.1269 10.4602 17.5 10 17.5C9.53976 17.5 9.16667 17.1269 9.16667 16.6667V5.34518L5.58926 8.92259C5.26382 9.24803 4.73618 9.24803 4.41074 8.92259C4.08531 8.59715 4.08531 8.06951 4.41074 7.74408L9.41074 2.74408Z"></path></svg></a>
+      <a class="btn-pill btn-pill--outline" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">加入CMoney <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
     </div>
   </div>
 </section>
@@ -1431,9 +1680,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
           <img src="assets/logo-cmoney.svg" alt="CMoney" width="86" height="20">
         </a>
         <div class="fnav__brand-links">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">集團介紹</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">加入我們</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">面試流程</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">集團介紹</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">加入我們</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">面試流程</a>
         </div>
       </div>
       <div class="fnav__divider" aria-hidden="true"></div>
@@ -1441,63 +1690,63 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="fcol">
         <p class="fcol__title">理財寶商城</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">理財寶</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">課程／講座</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">影音直播</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">理財寶</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">課程／講座</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">影音直播</a>
         </div>
       </div>
       <div class="fcol">
         <p class="fcol__title">股市社群</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">股市爆料同學會</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股爆料同學會</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">聊內線</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">股市爆料同學會</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股爆料同學會</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">聊內線</a>
         </div>
       </div>
       <div class="fcol">
         <p class="fcol__title">投資理財</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">Money錢</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">投資網誌</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">投資小學堂</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股放大鏡</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">Money錢</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">投資網誌</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">投資小學堂</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股放大鏡</a>
         </div>
       </div>
       <div class="fcol">
         <p class="fcol__title">即時股市</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">台股股市</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股股市</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">台股ETF</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股ETF</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">債券</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">台股股市</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股股市</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">台股ETF</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股ETF</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">債券</a>
         </div>
       </div>
       <div class="fcol">
         <p class="fcol__title">美股專區</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股股市</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股ETF</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股爆料同學會</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">美股放大鏡</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股股市</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股ETF</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股爆料同學會</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">美股放大鏡</a>
         </div>
       </div>
       <div class="fcol">
         <p class="fcol__title">模擬投資</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">股市大富翁</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">選股網</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">雲端控股</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">報名牌</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">股市大富翁</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">選股網</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">雲端控股</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">報名牌</a>
         </div>
       </div>
       <div class="fcol">
         <p class="fcol__title">聯絡我們</p>
         <div class="fcol__list">
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">會員中心</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">客服中心</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">場地租借</a>
-          <a class="flink" href="#" data-undefined="連結目標設計稿未定義">成為CMoney作者</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">會員中心</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">客服中心</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">場地租借</a>
+          <a class="flink" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">成為CMoney作者</a>
         </div>
       </div>
       </nav>
@@ -1507,21 +1756,21 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
       <div class="fmeta__left">
         <p class="fmeta__copy">版權所有 CMoney 全曜財經資訊股份有限公司     Copyright © 2022 CMoney Corporation. All rights reserved.</p>
         <div class="fpolicy">
-          <a href="#" data-undefined="連結目標設計稿未定義">隱私權條款</a>
+          <a href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">隱私權條款</a>
           <span class="fpolicy__sep" aria-hidden="true"></span>
-          <a href="#" data-undefined="連結目標設計稿未定義">使用條款</a>
+          <a href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">使用條款</a>
           <span class="fpolicy__sep" aria-hidden="true"></span>
-          <a href="#" data-undefined="連結目標設計稿未定義">著作權政策</a>
+          <a href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">著作權政策</a>
           <span class="fpolicy__sep" aria-hidden="true"></span>
-          <a href="#" data-undefined="連結目標設計稿未定義">社群規範</a>
+          <a href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">社群規範</a>
           <span class="fpolicy__sep" aria-hidden="true"></span>
-          <a href="#" data-undefined="連結目標設計稿未定義">免責聲明</a>
+          <a href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">免責聲明</a>
         </div>
       </div>
       <div class="fsocial">
-        <a href="#" data-undefined="連結目標設計稿未定義" aria-label="CMoney Facebook"><img src="assets/social-facebook.svg" alt="" width="24" height="24"></a>
-        <a href="#" data-undefined="連結目標設計稿未定義" aria-label="CMoney LINE"><img src="assets/social-line.svg" alt="" width="24" height="24"></a>
-        <a href="#" data-undefined="連結目標設計稿未定義" aria-label="CMoney YouTube"><img src="assets/social-youtube.svg" alt="" width="24" height="24"></a>
+        <a href="#" data-undefined="連結目標設計稿未定義" aria-label="CMoney Facebook" title="連結目標設計稿未定義"><img src="assets/social-facebook.svg" alt="" width="24" height="24"></a>
+        <a href="#" data-undefined="連結目標設計稿未定義" aria-label="CMoney LINE" title="連結目標設計稿未定義"><img src="assets/social-line.svg" alt="" width="24" height="24"></a>
+        <a href="#" data-undefined="連結目標設計稿未定義" aria-label="CMoney YouTube" title="連結目標設計稿未定義"><img src="assets/social-youtube.svg" alt="" width="24" height="24"></a>
       </div>
     </div>
   </div>
@@ -1631,108 +1880,149 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
     startCounters();
   }
 
-  /* ---------- 價值觀 Accordion ---------- */
-  var accordion = document.getElementById("valuesAccordion");
-  function setAccItem(item, open){
-    item.classList.toggle("is-open", open);
-    item.querySelector(".acc-head").setAttribute("aria-expanded", String(open));
+  /* ---------- 價值觀：模擬桌面視窗 ---------- */
+  var desk = document.getElementById("osxDesk");
+  var wins = [].slice.call(document.querySelectorAll("[data-win]"));
+  var dockBtns = [].slice.call(document.querySelectorAll(".osx__dockitem[data-open]"));
+  var topZ = 10;
+
+  function syncDock(){
+    dockBtns.forEach(function(b){
+      var w = document.getElementById(b.getAttribute("data-open"));
+      b.setAttribute("aria-pressed", String(!!w && !w.hidden));
+    });
   }
-  accordion.addEventListener("click", function(e){
-    var head = e.target.closest(".acc-head");
-    if (!head) return;
-    var item = head.closest(".acc-item");
-    var willOpen = !item.classList.contains("is-open");
-    accordion.querySelectorAll(".acc-item").forEach(function(i){ setAccItem(i, false); });
-    setAccItem(item, willOpen);
+  function openWin(id, focus){
+    var w = document.getElementById(id);
+    if (!w) return;
+    w.hidden = false;
+    w.style.zIndex = ++topZ;
+    w.classList.remove("is-zoom");
+    var body = w.querySelector(".osx-win__body");
+    if (body) body.scrollTop = 0;                 // 每次打開都從文章最上方開始
+    requestAnimationFrame(function(){
+      w.classList.add("is-open");
+      if (body) body.scrollTop = 0;
+    });
+    syncDock();
+    if (focus !== false) w.querySelector(".osx-win__x").focus({preventScroll:true});
+  }
+  function closeWin(w){
+    w.classList.remove("is-open");
+    if (reduce){ w.hidden = true; syncDock(); return; }
+    setTimeout(function(){ w.hidden = true; syncDock(); }, 220);
+  }
+
+  document.querySelectorAll("[data-open]").forEach(function(btn){
+    btn.addEventListener("click", function(){ openWin(btn.getAttribute("data-open")); });
+  });
+  document.getElementById("osxOpenAll").addEventListener("click", function(){
+    wins.forEach(function(w){ openWin(w.id, false); });
+  });
+  wins.forEach(function(w){
+    w.addEventListener("click", function(e){
+      var act = e.target.closest("[data-act]");
+      if (act){
+        var kind = act.getAttribute("data-act");
+        if (kind === "close") closeWin(w);
+        else w.classList.toggle("is-zoom");
+        return;
+      }
+      w.style.zIndex = ++topZ;
+    });
   });
 
+  /* 視窗拖曳（桌機） */
+  wins.forEach(function(w){
+    var bar = w.querySelector(".osx-win__bar");
+    var dragging = false, sx = 0, sy = 0, ox = 0, oy = 0;
+    bar.addEventListener("pointerdown", function(e){
+      if (e.target.closest("[data-act]")) return;
+      if (window.matchMedia("(max-width: 980px)").matches) return;
+      dragging = true;
+      sx = e.clientX; sy = e.clientY;
+      ox = parseFloat(w.style.getPropertyValue("--x")) || 0;
+      oy = parseFloat(w.style.getPropertyValue("--y")) || 0;
+      w.style.zIndex = ++topZ;
+      bar.setPointerCapture(e.pointerId);
+    });
+    bar.addEventListener("pointermove", function(e){
+      if (!dragging) return;
+      var maxX = Math.max(0, desk.clientWidth - w.offsetWidth - 80);
+      var maxY = Math.max(0, desk.clientHeight - 200);
+      w.style.setProperty("--x", Math.min(Math.max(ox + e.clientX - sx, -24), maxX) + "px");
+      w.style.setProperty("--y", Math.min(Math.max(oy + e.clientY - sy, -90), maxY) + "px");
+    });
+    function stop(e){ if (dragging){ dragging = false; bar.releasePointerCapture(e.pointerId); } }
+    bar.addEventListener("pointerup", stop);
+    bar.addEventListener("pointercancel", stop);
+  });
+
+  document.addEventListener("keydown", function(e){
+    if (e.key !== "Escape") return;
+    var open = wins.filter(function(w){ return !w.hidden; });
+    if (open.length) closeWin(open[open.length - 1]);
+  });
+
+  /* 上方三欄「深入了解」沿用同一組 id */
   document.querySelectorAll("[data-open-acc]").forEach(function(btn){
     btn.addEventListener("click", function(){
-      var item = document.getElementById(btn.getAttribute("data-open-acc"));
-      if (!item) return;
-      accordion.querySelectorAll(".acc-item").forEach(function(i){ setAccItem(i, false); });
-      setAccItem(item, true);
-      item.scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+      var id = btn.getAttribute("data-open-acc");
+      document.getElementById("valuesAccordion").scrollIntoView({behavior: reduce ? "auto" : "smooth", block:"start"});
+      openWin(id);
     });
   });
 
-  /* ---------- 運作方式表格展開 ---------- */
-  document.getElementById("cmpTable").addEventListener("click", function(e){
-    var btn = e.target.closest(".cmp__expand");
-    if (!btn) return;
-    var row = btn.closest(".cmp__row");
-    var open = !row.classList.contains("is-open");
-    row.classList.toggle("is-open", open);
-    btn.setAttribute("aria-expanded", String(open));
-  });
+  openWin("acc-01", false);
 
-  /* ---------- 文化自我選擇 ---------- */
-  var segs = [].slice.call(document.querySelectorAll(".selfsel__seg"));
-  var grid = document.getElementById("selfselGrid");
-  function selectSeg(seg, focus){
-    segs.forEach(function(s){
-      var on = s === seg;
-      s.setAttribute("aria-selected", String(on));
-      s.tabIndex = on ? 0 : -1;
-    });
-    grid.setAttribute("data-view", seg.getAttribute("data-view"));
-    if (focus) seg.focus();
-  }
-  segs.forEach(function(seg){
-    seg.addEventListener("click", function(){ selectSeg(seg, false); });
-  });
-  document.querySelector(".selfsel__switch").addEventListener("keydown", function(e){
-    var i = segs.indexOf(document.activeElement);
-    if (i < 0) return;
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft"){
-      e.preventDefault();
-      selectSeg(segs[(i + (e.key === "ArrowRight" ? 1 : segs.length - 1)) % segs.length], true);
-    } else if (e.key === "Home" || e.key === "End"){
-      e.preventDefault();
-      selectSeg(e.key === "Home" ? segs[0] : segs[segs.length - 1], true);
-    }
-  });
-
-  var sscCard = document.getElementById("sscCMoney");
-  var sscToggle = document.getElementById("sscToggle");
-  var sscCtaText = sscToggle.querySelector(".ssc__ctatext");
-  sscToggle.addEventListener("click", function(){
-    var open = !sscCard.classList.contains("is-open");
-    sscCard.classList.toggle("is-open", open);
-    sscToggle.setAttribute("aria-expanded", String(open));
-    sscCtaText.textContent = open ? "收合詳情" : "展開看原因與案例";
-  });
-
-  var ICONS = {
+  /* ---------- 四列對照卡片：展開 + 每列各自的 check card ---------- */
+  var CMP_ICONS = {
     good: '<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
     warn: '<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 7.4v5.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="16.4" r="1.2" fill="#fff"/>'
   };
-  var MESSAGES = {
+  var CMP_MESSAGES = {
     good: "🎯 CMoney 非常適合追求高彈性與高影響力的你！",
     warn: "💡 在 CMoney 的快速動態環境下你可能會容易感到不安，建議投遞履歷前與我們進一步交流討論。"
   };
-  var toast = document.getElementById("sscToast");
-  var toastText = document.getElementById("sscToastText");
-  var toastIcon = document.getElementById("sscToastIcon");
-  var pills = [].slice.call(document.querySelectorAll(".ssc__pill"));
 
-  function hideToast(){
+  function cmpHideToast(block){
+    var toast = block.querySelector(".cmp__toast");
     toast.classList.remove("is-on");
-    toastText.textContent = "";
-    pills.forEach(function(p){ p.setAttribute("aria-pressed", "false"); });
+    block.querySelector(".cmp__toasttext").textContent = "";
+    block.querySelectorAll(".cmp__pill").forEach(function(p){ p.setAttribute("aria-pressed", "false"); });
   }
-  pills.forEach(function(pill){
-    pill.addEventListener("click", function(){
+
+  document.getElementById("cmpTable").addEventListener("click", function(e){
+    // 展開／收合整列
+    var btn = e.target.closest(".cmp__expand");
+    if (btn){
+      var row = btn.closest(".cmp__row");
+      var open = !row.classList.contains("is-open");
+      row.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.querySelector(".cmp__expandtext").textContent = open ? "收合詳情" : "展開看原因與案例";
+      return;
+    }
+
+    // 二選一 check card
+    var pill = e.target.closest(".cmp__pill");
+    if (pill){
+      var block = pill.closest(".cmp__block");
+      if (pill.getAttribute("aria-pressed") === "true"){ cmpHideToast(block); return; }
       var tone = pill.getAttribute("data-fit");
-      if (pill.getAttribute("aria-pressed") === "true"){ hideToast(); return; }
-      pills.forEach(function(p){ p.setAttribute("aria-pressed", String(p === pill)); });
+      block.querySelectorAll(".cmp__pill").forEach(function(p){ p.setAttribute("aria-pressed", String(p === pill)); });
+      var toast = block.querySelector(".cmp__toast");
       toast.setAttribute("data-tone", tone);
-      toastIcon.innerHTML = ICONS[tone];
-      toastText.textContent = MESSAGES[tone];
+      block.querySelector(".cmp__toasticon").innerHTML = CMP_ICONS[tone];
+      block.querySelector(".cmp__toasttext").textContent = CMP_MESSAGES[tone];
       toast.classList.add("is-on");
-    });
+      return;
+    }
+
+    // 關閉提示
+    var close = e.target.closest(".cmp__toastclose");
+    if (close){ cmpHideToast(close.closest(".cmp__block")); }
   });
-  document.getElementById("sscToastClose").addEventListener("click", hideToast);
 
   /* ---------- 里程碑 Lightbox ---------- */
   var lightbox = document.getElementById("lightbox");
@@ -1756,5 +2046,5 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   });
 })();
 </script>
-
-</body></html>
+</body>
+</html>
