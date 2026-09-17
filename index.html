@@ -538,34 +538,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__fitrow svg{width:18px;height:18px;flex:0 0 auto;margin-top:4px}
 .cmp__fitrow--yes svg{color:#12a150}
 .cmp__fitrow--no svg{color:#d98324}
-
-/* 誠實的適合度 — 設計稿 6173:16285：左「會變強」右「會痛苦」，各一條件＋說明 */
-.cmp-fit{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.cmp-fit__col{background:#fff;border:1px solid #e6e6e6;border-radius:16px;padding:18px 20px 20px;display:grid;gap:8px;align-content:start}
-.cmp-fit__col--yes{border-color:#cbe9d6}
-.cmp-fit__col--no{border-color:#f0dcc4}
-.cmp-fit__head{
-  margin:0;display:flex;align-items:center;gap:9px;
-  font-size:13px;font-weight:700;letter-spacing:.01em;color:var(--text-600);
-}
-.cmp-fit__mark{
-  flex:0 0 auto;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;
-  font-size:13px;font-weight:700;line-height:1;
-}
-.cmp-fit__col--yes .cmp-fit__mark{background:#eaf7ef;color:#0f6b39}
-.cmp-fit__col--no .cmp-fit__mark{background:#fff6e8;color:#8a5a12}
-.cmp-fit__item{margin:2px 0 0;font-size:15px;font-weight:700;line-height:1.6;color:var(--text-900)}
-.cmp-fit__sub{margin:0;font-size:13px;line-height:1.75;color:var(--text-400)}
-/* 面試前先問自己（設計稿「給自己 3 分鐘」四題，分配到四列） */
-.cmp-ask{
-  margin:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;
-  background:#fff;border:1px dashed #e0c9c7;border-radius:16px;padding:16px 20px;
-  font-size:15px;font-weight:700;line-height:1.7;color:var(--text-900);
-}
-.cmp-ask__label{
-  flex:0 0 auto;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--red-600);
-}
-
 /* 二選一 check card */
 .cmp__pills{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:10px}
 .cmp__pill{
@@ -623,7 +595,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp-field__link:hover{background:var(--red-600);color:#fff}
 .cmp-field__link svg{width:14px;height:14px;flex:0 0 auto;fill:currentColor}
 .cmp-field__img{flex:0 0 auto;width:215px;height:143px;border-radius:16px;object-fit:cover}
-.cmp-field__note{margin:0;font-size:11px;line-height:1.6;color:#9aa1ab;letter-spacing:.02em}
 
 .how-outro{margin-top:150px;text-align:center}
 .how-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
@@ -799,7 +770,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .cmp-diff__body{padding:14px 20px 24px}
   .cmp__title{font-size:21px}
   .cmp__pills{grid-template-columns:1fr}
-  .cmp-fit{grid-template-columns:minmax(0,1fr)}
   .cmp-field{flex-direction:column;gap:14px}
   .cmp-field__img{width:100%;height:auto;aspect-ratio:215/143}
   .founder{grid-template-columns:1fr}
@@ -1303,7 +1273,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
         </div>
         <div class="cmp__panel" id="cmp-1"><div><div class="cmp__panelinner">
           <div class="cmp__inner">
-          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
+          <!-- 展開版面依設計稿 20:3126：左 WHY／右 IN PRACTICE＋面試提問，下方「面試前，問問自己」二選一與工作現場文章 -->
           <div class="cmp__detail">
             <div class="cmp__col cmp__col--why">
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
@@ -1322,23 +1292,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
           </div>
 
           <div class="cmp-diff">
-            <p class="cmp-diff__label">你會感受到的差異</p>
+            <p class="cmp-diff__label">面試前，問問自己</p>
             <div class="cmp-diff__body">
-              <p class="cmp-diff__text">喜歡自己釐清問題、調整角色的人，通常會得到更大的發揮空間；需要工作內容長期固定、希望主管把方法安排完整的人，則可能覺得不安。</p>
-              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
-              <div class="cmp-fit">
-                <div class="cmp-fit__col cmp-fit__col--yes">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
-                  <p class="cmp-fit__item">你喜歡擁有完整問題，不只完成任務。</p>
-                  <p class="cmp-fit__sub">你會主動追問結果，而不是把交付當作終點。</p>
-                </div>
-                <div class="cmp-fit__col cmp-fit__col--no">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
-                  <p class="cmp-fit__item">你需要永遠清楚、固定的職務邊界。</p>
-                  <p class="cmp-fit__sub">問題改變時，我們會調整角色、資源與優先順序。</p>
-                </div>
-              </div>
-              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>哪一件作品，可以證明我不只執行，也定義了問題？</p>
               <div class="cmp__block cmp__check">
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我喜歡自主定義問題，享有極大發揮空間</button>
@@ -1356,7 +1311,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <div class="cmp-field__body">
               <div class="cmp-field__head">
               <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
-              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              <p class="cmp-field__desc">我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
               </div>
               <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
               </div>
@@ -1386,7 +1341,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
         </div>
         <div class="cmp__panel" id="cmp-2"><div><div class="cmp__panelinner">
           <div class="cmp__inner">
-          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
+          <!-- 展開版面依設計稿 20:3126：左 WHY／右 IN PRACTICE＋面試提問，下方「面試前，問問自己」二選一與工作現場文章 -->
           <div class="cmp__detail">
             <div class="cmp__col cmp__col--why">
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
@@ -1405,23 +1360,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
           </div>
 
           <div class="cmp-diff">
-            <p class="cmp-diff__label">你會感受到的差異</p>
+            <p class="cmp-diff__label">面試前，問問自己</p>
             <div class="cmp-diff__body">
-              <p class="cmp-diff__text">喜歡快速動手、願意用結果修正自己的人，會覺得這種方式有效率；習慣資源到齊才開始，或把計畫獲准視為成功的人，會比較辛苦。</p>
-              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
-              <div class="cmp-fit">
-                <div class="cmp-fit__col cmp-fit__col--yes">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
-                  <p class="cmp-fit__item">你能在不確定中形成判斷。</p>
-                  <p class="cmp-fit__sub">資訊不完整仍能前進，並知道下一個證據去哪裡找。</p>
-                </div>
-                <div class="cmp-fit__col cmp-fit__col--no">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
-                  <p class="cmp-fit__item">你把沒有指令，理解為不能行動。</p>
-                  <p class="cmp-fit__sub">我們期待你提出方向，而不只是等待方向。</p>
-                </div>
-              </div>
-              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>如果沒有主管給答案，我通常怎麼取得下一個有效資訊？</p>
               <div class="cmp__block cmp__check">
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我願意先小規模動手，用結果換取資源</button>
@@ -1438,11 +1378,10 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <div class="cmp-field">
               <div class="cmp-field__body">
               <div class="cmp-field__head">
-              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
-              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              <h6 class="cmp-field__title">我們如何在兩個極端的害怕中做出決定：一個直播功能的真實文化案例</h6>
+              <p class="cmp-field__desc">很多團隊在做新功能時都會卡關：「要做好一點嗎？要完整一點嗎？等流量大時怎麼辦？會不…</p>
               </div>
               <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
-              <p class="cmp-field__note">此列的「你會感受到的差異」與工作現場卡片暫沿用第 1 列內容，待補</p>
               </div>
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
               </div>
@@ -1470,7 +1409,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
         </div>
         <div class="cmp__panel" id="cmp-3"><div><div class="cmp__panelinner">
           <div class="cmp__inner">
-          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
+          <!-- 展開版面依設計稿 20:3126：左 WHY／右 IN PRACTICE＋面試提問，下方「面試前，問問自己」二選一與工作現場文章 -->
           <div class="cmp__detail">
             <div class="cmp__col cmp__col--why">
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
@@ -1489,23 +1428,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
           </div>
 
           <div class="cmp-diff">
-            <p class="cmp-diff__label">你會感受到的差異</p>
+            <p class="cmp-diff__label">面試前，問問自己</p>
             <div class="cmp-diff__body">
-              <p class="cmp-diff__text">喜歡追問結果、願意推翻原計畫的人會成長很快；希望只要按時完成交辦事項，就不必再對結果負責的人，會感受到壓力。</p>
-              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
-              <div class="cmp-fit">
-                <div class="cmp-fit__col cmp-fit__col--yes">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
-                  <p class="cmp-fit__item">你對真相的需要，大於保護自己的需要。</p>
-                  <p class="cmp-fit__sub">被證明錯時，你先想「學到了什麼」，而不是「誰讓我難堪」。</p>
-                </div>
-                <div class="cmp-fit__col cmp-fit__col--no">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
-                  <p class="cmp-fit__item">你很在意誰提出答案，而不只答案是否更好。</p>
-                  <p class="cmp-fit__sub">職級不能保護一個缺乏證據的觀點。</p>
-                </div>
-              </div>
-              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>過去一年，我曾主動推翻自己哪個重要判斷？</p>
               <div class="cmp__block cmp__check">
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我在意結果，願意為了結果推翻原計畫</button>
@@ -1522,12 +1446,12 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <div class="cmp-field">
               <div class="cmp-field__body">
               <div class="cmp-field__head">
-              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
-              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              <h6 class="cmp-field__title">快速決策如何推動團隊成長：提升效率與成果的關鍵</h6>
+              <p class="cmp-field__desc">在團隊中推動快速決策，不僅能提升執行力，更能有效解決進度卡關問題。</p>
               </div>
               <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
-              <p class="cmp-field__note">此列的「你會感受到的差異」與工作現場卡片暫沿用第 1 列內容，待補</p>
               </div>
+              <!-- TODO 照片待替換：設計稿 20:3126 第 3 列使用另一張工作現場照，本環境的網路政策封鎖 figma.com,尚無法匯出 -->
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
               </div>
             </div>
@@ -1554,7 +1478,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
         </div>
         <div class="cmp__panel" id="cmp-4"><div><div class="cmp__panelinner">
           <div class="cmp__inner">
-          <!-- 展開版面依設計稿 6471:11566：左 WHY／右 IN PRACTICE＋面試提問，下方整條「你會感受到的差異」 -->
+          <!-- 展開版面依設計稿 20:3126：左 WHY／右 IN PRACTICE＋面試提問，下方「面試前，問問自己」二選一與工作現場文章 -->
           <div class="cmp__detail">
             <div class="cmp__col cmp__col--why">
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M9.3 9.4a2.8 2.8 0 0 1 5.4.9c0 1.9-2.7 2.4-2.7 2.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="16.6" r="1.2" fill="#fff"></circle></svg>WHY｜為什麼會不同</p>
@@ -1573,23 +1497,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
           </div>
 
           <div class="cmp-diff">
-            <p class="cmp-diff__label">你會感受到的差異</p>
+            <p class="cmp-diff__label">面試前，問問自己</p>
             <div class="cmp-diff__body">
-              <p class="cmp-diff__text">想擁有實質影響力，也願意讓自己的判斷接受市場檢驗的人，會喜歡這裡；只想取得自由、不想承擔結果的人，會很不適應。</p>
-              <!-- 誠實的適合度 — 設計稿 6173:16285，八項條件依主題分配到四列 -->
-              <div class="cmp-fit">
-                <div class="cmp-fit__col cmp-fit__col--yes">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✓</span>你可能在這裡變得很強，如果</p>
-                  <p class="cmp-fit__item">你把工作當成長期資產。</p>
-                  <p class="cmp-fit__sub">累積能力、作品、信用與判斷力，比短期頭銜更重要。</p>
-                </div>
-                <div class="cmp-fit__col cmp-fit__col--no">
-                  <p class="cmp-fit__head"><span class="cmp-fit__mark" aria-hidden="true">✕</span>你可能會在這裡很痛苦，如果</p>
-                  <p class="cmp-fit__item">你想要自主，卻不想承擔選擇的後果。</p>
-                  <p class="cmp-fit__sub">在這裡，權力與責任不會被拆開出售。</p>
-                </div>
-              </div>
-              <p class="cmp-ask"><span class="cmp-ask__label">面試前，先問自己</span>我真正想累積的是頭銜，還是能力、作品、信用與判斷力？</p>
               <div class="cmp__block cmp__check">
                 <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
                 <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我想要決策權，也願意承擔結果</button>
@@ -1606,12 +1515,12 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <div class="cmp-field">
               <div class="cmp-field__body">
               <div class="cmp-field__head">
-              <h6 class="cmp-field__title">運用 Problem Solving 框架解題</h6>
-              <p class="cmp-field__desc">CMoney 人愛思考，尤其愛追根究底思考。在年終交流會，我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</p>
+              <h6 class="cmp-field__title">如何鍛鍊「決策正確」的能力？</h6>
+              <p class="cmp-field__desc">1. 決策的邊界：凡有標準答案的，都算不上是決策 · 2. 好決策的背後一定有目的，若沒有目的就無所謂好壞決策 · 3. 好決策 …</p>
               </div>
               <a class="cmp-field__link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀工作現場文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
-              <p class="cmp-field__note">此列的「你會感受到的差異」與工作現場卡片暫沿用第 1 列內容，待補</p>
               </div>
+              <!-- TODO 照片待替換：設計稿 20:3126 第 4 列使用另一張工作現場照，本環境的網路政策封鎖 figma.com,尚無法匯出 -->
               <img class="cmp-field__img" src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
               </div>
             </div>
