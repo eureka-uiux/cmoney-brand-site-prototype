@@ -213,36 +213,110 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .statement .is-red{color:var(--red-600)}
 .statement-sub{margin:56px 0 0;font-size:clamp(18px,1.7vw,24px);line-height:1.6;color:var(--text-600)}
 
-/* 事業群：橫式卡片，左欄名稱＋簡介、右欄 icon＋產品名稱（依回饋改版）。
-   沿用對照表那套卡片語彙——20px 圓角、#ededed 邊、低擴散陰影 */
-.groups{margin-top:64px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.group{
-  background:#fff;border:1px solid #ededed;border-radius:20px;
-  padding:26px 24px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;
-  box-shadow:0 20px 44px -30px rgba(9,16,28,.4);
-  transition:box-shadow .3s var(--ease),border-color .3s var(--ease),transform .3s var(--ease);
+/* 事業群：板塊式卡片（依 Figma 33:2585 / 33:2592 改版）
+   靜止＝產品手機稿，hover＝app 產品清單從下緣滑上，整張卡導向該事業群詳細頁。
+   版面：金融 720 + 合作夥伴 460 / 國際金融 590 + 消費 590 / AI Lab 通欄。
+   下排原本是三欄 380，但新卡的靜止內容加 4 筆產品清單塞不進 400px 高，改兩欄。 */
+.groups{margin-top:64px;display:flex;flex-wrap:wrap;gap:40px}
+.groups > .bgc:nth-child(1){flex:0 0 calc((100% - 40px) * .6102);height:520px}
+.groups > .bgc:nth-child(2){flex:0 0 calc((100% - 40px) * .3898);height:520px}
+.groups > .bgc:nth-child(3),
+.groups > .bgc:nth-child(4){flex:0 0 calc((100% - 40px) / 2);height:440px}
+.groups > .bgc:nth-child(5){flex:0 0 100%;height:360px}
+
+.bgc{
+  position:relative;overflow:hidden;border-radius:24px;cursor:pointer;
+  display:flex;flex-direction:column;min-width:0;
+  background:var(--bg-soft);border:1px solid #fff;
+  padding:clamp(28px,3.3vw,48px);
+  transition:box-shadow .4s var(--ease),transform .4s var(--ease);
 }
-.group:hover{border-color:#f2ddd9;box-shadow:0 22px 48px -26px rgba(9,16,28,.45);transform:translateY(-3px)}
-.group--noapps{grid-template-columns:1fr}
-.group__info{display:flex;flex-direction:column;gap:10px;height:100%}
-.group__name{margin:0;font-size:20px;font-weight:700;letter-spacing:-.02em;line-height:1.35}
-.group__claim{margin:0;font-size:14px;font-weight:700;line-height:1.64;color:var(--text-700)}
-/* App：icon 與產品名稱水平並排，名稱改為實體文字（原本是整列合併的點陣圖） */
-.group__apps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
-.group__apps li{display:flex;align-items:center;gap:11px;font-size:13px;line-height:1.45;color:var(--text-700)}
-.group__apps img{width:30px;height:30px;border-radius:7px;flex:0 0 auto}
-.group__metric{margin:2px 0 0;display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
-.group__metric b{font-size:22px;font-weight:700;color:var(--red-600);letter-spacing:-.02em;line-height:1.2}
-.group__metric span{font-size:12px;color:var(--text-600)}
-.group__metric--sm b{font-size:15px;letter-spacing:.01em}
-.group__metric--sm span{font-size:9px;letter-spacing:.02em}
-.group__more{
-  margin-top:auto;padding-top:18px;align-self:flex-start;
-  display:inline-flex;align-items:center;gap:6px;
-  font-size:13px;font-weight:700;color:var(--red-600);
+.bgc--dark{background:#262626;border-color:#262626}
+.bgc:hover,.bgc:focus-within{transform:translateY(-4px);box-shadow:0 28px 60px -34px rgba(9,16,28,.5)}
+
+/* 整張卡導向該事業群的詳細頁區塊。疊 hit area 而不是把 <article> 換成 <a>：
+   卡內已有帶文字的 CTA 連結，包起來會是巢狀連結。
+   這層 aria-hidden + tabindex="-1"，讀屏／鍵盤只會讀到 CTA 一個連結。 */
+.bgc__hit{position:absolute;inset:-1px;z-index:6;border-radius:inherit}
+.bgc:focus-within .bgc__cta{text-decoration:underline;text-underline-offset:3px}
+.bgc__cta:focus-visible{outline:2px solid var(--red-600);outline-offset:3px;border-radius:3px}
+
+.bgc__main{position:relative;z-index:2;display:flex;flex-direction:column;flex:1}
+.bgc__eyebrow{margin:0;font-size:13px;font-weight:800;letter-spacing:.24em;line-height:1.2;color:var(--text-600);text-transform:uppercase}
+.bgc__eyebrow--red{color:var(--red-600)}
+.bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px;max-width:348px}
+.bgc__name{margin:0;font-size:clamp(26px,2.6vw,36px);font-weight:900;line-height:1.24;letter-spacing:-.02em;color:#191919}
+.bgc--dark .bgc__name{color:#fff}
+.bgc__claim{margin:0;font-size:clamp(15px,1.3vw,18px);font-weight:600;line-height:1.55;color:var(--text-600)}
+.bgc--dark .bgc__claim{color:var(--text-300)}
+.bgc__desc{margin:0;font-size:14px;font-weight:400;line-height:1.72;color:var(--text-400)}
+.bgc--dark .bgc__desc{color:var(--text-300)}
+
+.bgc__stat{margin:auto 0 0;display:flex;flex-direction:column;gap:4px}
+.bgc__stat b{font-size:clamp(34px,3.4vw,44px);font-weight:900;line-height:1.05;letter-spacing:-.03em;color:var(--red-600);font-variant-numeric:tabular-nums}
+.bgc__stat span{font-size:14px;font-weight:400;color:var(--text-400)}
+/* 跑數會改寫 b 的 textContent，「+」用 ::after 掛著才不會被洗掉 */
+.bgc__stat b[data-count]::after{content:"+"}
+
+/* 靜止的視覺主體：產品手機稿。hover 時下滑讓位給 app 清單 */
+.bgc__hero{
+  position:absolute;z-index:1;pointer-events:none;
+  inset-inline-end:2.6%;inset-block-start:37%;
+  width:clamp(120px,38%,290px);
+  transform:translateY(0);
+  transition:transform .55s var(--ease);
 }
-.group__more span{transition:transform .25s var(--ease)}
-.group:hover .group__more span{transform:translateX(4px)}
+.bgc:hover .bgc__hero,.bgc:focus-within .bgc__hero{transform:translateY(calc(100% + 80px))}
+
+.phone{
+  width:100%;aspect-ratio:279.37 / 567.62;
+  border-radius:13.5% / 6.6%;
+  background:#0e0e10;padding:4.8%;
+  position:relative;
+  box-shadow:-5px 14px 24px rgba(88,89,92,.34),0 2px 6px rgba(0,0,0,.18);
+}
+.phone__screen{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:9.5% / 4.7%;background:#fff}
+.phone::after{content:"";position:absolute;inset-block-start:4.2%;inset-inline-start:50%;transform:translateX(-50%);width:31%;aspect-ratio:4.3;border-radius:999px;background:#0e0e10}
+
+/* 暫代：國際金融尚無手機稿素材，補上後把 .axis 換成 .phone，位置不用動 */
+.bgc__hero--axis{inset-block-start:auto;inset-block-end:clamp(28px,3.3vw,48px);width:auto}
+.axis{margin:0;display:flex;flex-direction:column;gap:7px;text-align:right}
+.axis span{font-size:clamp(14px,1.3vw,17px);font-weight:800;line-height:1.1;letter-spacing:.06em;color:var(--text-300)}
+
+/* hover 面板：app 產品清單 */
+.bgc__panel{
+  position:absolute;z-index:3;inset-inline:0;inset-block-end:0;
+  padding:clamp(22px,2.4vw,32px) clamp(28px,3.3vw,48px) clamp(26px,2.8vw,36px);
+  background:rgba(249,249,249,.97);
+  backdrop-filter:blur(10px);
+  border-block-start:1px solid rgba(38,38,38,.08);
+  transform:translateY(100%);
+  transition:transform .48s var(--ease);
+  display:flex;flex-direction:column;gap:14px;
+}
+.bgc--dark .bgc__panel{background:rgba(28,28,28,.97);border-block-start-color:rgba(255,255,255,.12)}
+.bgc:hover .bgc__panel,.bgc:focus-within .bgc__panel{transform:translateY(0)}
+
+.bgc__panelcap{margin:0;font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-400)}
+/* 清單分欄 —— 面板高度由產品列數決定，分欄是把面板壓進卡高的槓桿 */
+.bgc__products{margin:0;padding:0;list-style:none;display:grid;gap:10px 24px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.groups > .bgc:nth-child(2) .bgc__products{grid-template-columns:minmax(0,1fr)}
+.groups > .bgc:nth-child(5) .bgc__products{grid-template-columns:repeat(4,minmax(0,1fr))}
+.bgc__products li{display:flex;align-items:center;gap:12px;min-width:0}
+.bgc__products img{width:38px;height:38px;border-radius:9px;flex:0 0 auto;box-shadow:0 0 2px rgba(38,38,38,.18),0 2px 8px rgba(38,38,38,.1)}
+.bgc__products .p{display:flex;flex-direction:column;min-width:0}
+.bgc__products b{font-size:14.5px;font-weight:600;line-height:1.45;color:var(--text-900)}
+.bgc__products .p span{font-size:12.5px;font-weight:400;line-height:1.45;color:var(--text-600)}
+.bgc--dark .bgc__products b{color:#fff}
+.bgc--dark .bgc__products .p span{color:var(--text-300)}
+/* 尚未定義一句話文案的產品：只給名稱，不補 */
+.bgc__products li[data-nocopy] b{color:var(--text-600);font-weight:500}
+.bgc--dark .bgc__products li[data-nocopy] b{color:var(--text-300)}
+
+.bgc__cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:var(--red-600);text-decoration:none}
+.bgc__cta span{transition:transform .25s var(--ease)}
+.bgc:hover .bgc__cta span{transform:translateX(4px)}
+.bgc--dark .bgc__cta{color:#ff6b62}
 
 /* ============================================================
    Section: 價值觀（node 6341:67665）
@@ -591,7 +665,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .nav__link{font-size:16px;padding-block:12px}
   .hero{padding-block:150px 0;min-height:auto}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .groups{grid-template-columns:1fr}
+  /* 單欄：卡高改由內容決定；觸控沒有 hover，面板改成接在內容後面一起捲 */
+  .groups{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+  .groups > .bgc:nth-child(n){flex:none;width:auto;height:auto}
+  .bgc__head{max-width:none}
+  .bgc__hero{display:none}
+  .bgc__stat{margin-top:24px}
+  .bgc__panel{
+    position:static;transform:none;background:none;backdrop-filter:none;
+    padding:24px 0 0;margin-top:24px;
+    border-block-start:1px solid rgba(38,38,38,.1);
+  }
+  .bgc--dark .bgc__panel{background:none;border-block-start-color:rgba(255,255,255,.14)}
+  .groups > .bgc:nth-child(n) .bgc__products{grid-template-columns:minmax(0,1fr)}
+  .bgc:hover{transform:none;box-shadow:0 20px 44px -30px rgba(9,16,28,.4)}
   /* 單欄之後卡片高度已超過一個畫面，黏頂堆疊會吃掉內容，改回一般直列 */
   .vstack{padding-block:40px 0}
   .vstack__item{position:static}
@@ -628,7 +715,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 @media (max-width:640px){
   :root{--section-pad:72px;--section-pad-tight:48px;--block-gap:40px}
-  .group{grid-template-columns:1fr;gap:20px;padding:22px 20px}
+  .bgc{padding:32px 24px}
   .hero__actions .btn{width:100%}
   .cta{padding-block:72px}
   .cta__actions .btn-pill{flex:1 1 100%}
@@ -784,74 +871,122 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
     <!-- 領導團隊：依回饋移除，預計改放事業群詳細頁（人物照素材保留於 assets/leader-*.png） -->
 
     <!-- 事業群 -->
-    <!-- 橫式卡片：左欄事業群名稱＋簡介，右欄 icon＋產品名稱水平並排；局部資訊揭露，詳細內容留給事業群詳細頁 -->
+    <!-- 板塊式卡片：靜止＝產品手機稿，hover＝app 產品清單滑上，整張卡導向詳細頁對應區塊 -->
     <div class="groups reveal">
-      <article class="group">
-        <div class="group__info">
-          <h3 class="group__name">金融事業群</h3>
-          <p class="group__claim">陪伴每個人成為更成熟的投資人。</p>
-          <a class="group__more" href="business-groups.html#g01">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
+
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#g01" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__main">
+          <p class="bgc__eyebrow bgc__eyebrow--red">Finance</p>
+          <div class="bgc__head">
+            <h3 class="bgc__name">金融事業群</h3>
+            <p class="bgc__claim">陪伴每個人成為更成熟的投資人。</p>
+            <p class="bgc__desc">從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
+          </div>
         </div>
-        <ul class="group__apps">
-          <li><img src="assets/icon-finance-chipk.png" alt=""><span>籌碼K線</span></li>
-          <li><img src="assets/icon-finance-bole.png" alt=""><span>股市爆料同學會</span></li>
-          <li><img src="assets/icon-finance-licaibao.png" alt=""><span>理財寶</span></li>
-          <li><img src="assets/icon-finance-moneymag.png" alt=""><span>Money錢</span></li>
-        </ul>
+        <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.png" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li><img src="assets/icon-finance-chipk.png" alt="" loading="lazy"><span class="p"><b>籌碼K線</b><span>超過百萬投資高手愛用的籌碼K線App</span></span></li>
+            <li><img src="assets/icon-finance-bole.png" alt="" loading="lazy"><span class="p"><b>股市爆料同學會</b><span>最大台股投資討論區</span></span></li>
+            <li data-nocopy><img src="assets/icon-finance-licaibao.png" alt="" loading="lazy"><span class="p"><b>理財寶</b></span></li>
+            <li data-nocopy><img src="assets/icon-finance-moneymag.png" alt="" loading="lazy"><span class="p"><b>Money錢</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#g01">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </article>
 
-      <article class="group">
-        <div class="group__info">
-          <h3 class="group__name">合作夥伴事業群</h3>
-          <p class="group__claim">讓專業知識成為真正能被使用的工具。</p>
-          <p class="group__metric"><b>50+</b><span>專業創作者合作</span></p>
-          <a class="group__more" href="business-groups.html#g02">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
+      <article class="bgc bgc--dark">
+        <a class="bgc__hit" href="business-groups.html#g02" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__main">
+          <p class="bgc__eyebrow bgc__eyebrow--red">Partnership</p>
+          <div class="bgc__head">
+            <h3 class="bgc__name">合作夥伴事業群</h3>
+            <p class="bgc__claim">讓專業知識成為真正能被使用的工具。</p>
+          </div>
+          <p class="bgc__stat"><b>50+</b><span>專業投資創作者生態系</span></p>
         </div>
-        <ul class="group__apps">
-          <li><img src="assets/icon-partner-lin.png" alt=""><span>林恩如 強棒旺旺來</span></li>
-          <li><img src="assets/icon-partner-quan.png" alt=""><span>權證小哥 當沖飆股神手</span></li>
-          <li><img src="assets/icon-partner-emily.png" alt=""><span>艾蜜莉 定存股</span></li>
-          <li><img src="assets/icon-partner-inst.png" alt=""><span>法人投資決策支援系統</span></li>
-        </ul>
+        <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-creator.png" alt="投資達人合作 App 畫面" loading="lazy"></div></div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li><img src="assets/icon-partner-quan.png" alt="" loading="lazy"><span class="p"><b>投資達人合作App</b><span>網羅各領域投資達人合作開發App</span></span></li>
+            <li data-nocopy><img src="assets/icon-partner-lin.png" alt="" loading="lazy"><span class="p"><b>林恩如 強棒旺旺來</b></span></li>
+            <li data-nocopy><img src="assets/icon-partner-emily.png" alt="" loading="lazy"><span class="p"><b>艾蜜莉 定存股</b></span></li>
+            <li data-nocopy><img src="assets/icon-partner-inst.png" alt="" loading="lazy"><span class="p"><b>法人投資決策支援系統</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#g02">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </article>
 
-      <article class="group">
-        <div class="group__info">
-          <h3 class="group__name">國際金融事業群</h3>
-          <p class="group__claim">讓好的投資方法跨越市場與語言。</p>
-          <p class="group__metric group__metric--sm"><b>GLOBAL</b><span>CREATOR × PRODUCT × MARKET</span></p>
-          <a class="group__more" href="business-groups.html#g03">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#g03" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__main">
+          <p class="bgc__eyebrow">Global</p>
+          <div class="bgc__head">
+            <h3 class="bgc__name">國際金融事業群</h3>
+            <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
+          </div>
         </div>
-        <ul class="group__apps">
-          <li><img src="assets/icon-global-mike.png" alt=""><span>Mike 是麥克</span></li>
-          <li><img src="assets/icon-global-rich.png" alt=""><span>Rich 智富選股</span></li>
-          <li><img src="assets/icon-global-sky.png" alt=""><span>穹蒼美股</span></li>
-          <li><img src="assets/icon-global-haoye.png" alt=""><span>好葉智能選股</span></li>
-        </ul>
+        <!-- 暫代：待手機稿素材補上後，把 .axis 換成 .phone -->
+        <div class="bgc__hero bgc__hero--axis">
+          <p class="axis"><span>CREATOR</span><span>&times; PRODUCT</span><span>&times; MARKET</span></p>
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li data-nocopy><img src="assets/icon-global-mike.png" alt="" loading="lazy"><span class="p"><b>Mike 是麥克</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-rich.png" alt="" loading="lazy"><span class="p"><b>Rich 智富選股</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-sky.png" alt="" loading="lazy"><span class="p"><b>穹蒼美股</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-haoye.png" alt="" loading="lazy"><span class="p"><b>好葉智能選股</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#g03">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </article>
 
-      <article class="group">
-        <div class="group__info">
-          <h3 class="group__name">消費事業群</h3>
-          <p class="group__claim">從每一張發票，看見更好的生活選擇。</p>
-          <a class="group__more" href="business-groups.html#g04">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#g04" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__main">
+          <p class="bgc__eyebrow">Consumer</p>
+          <div class="bgc__head">
+            <h3 class="bgc__name">消費事業群</h3>
+            <p class="bgc__desc">從每一張發票，看見更好的生活選擇。讓大量去識別化資料成為企業改善產品的強大依據。</p>
+          </div>
         </div>
-        <ul class="group__apps">
-          <li><img src="assets/icon-consumer-einvoice.png" alt=""><span>發票載具</span></li>
-          <li><img src="assets/icon-consumer-easynote.png" alt=""><span>簡單記帳</span></li>
-          <li><img src="assets/icon-consumer-cwmoney.png" alt=""><span>CWMoney</span></li>
-          <li><img src="assets/icon-consumer-dreamfapiao.png" alt=""><span>夢幻發票</span></li>
-        </ul>
+        <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-einvoice.png" alt="發票載具 App 畫面" loading="lazy"></div></div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li><img src="assets/icon-consumer-einvoice.png" alt="" loading="lazy"><span class="p"><b>發票載具</b><span>全台最多人使用的發票載具App</span></span></li>
+            <li data-nocopy><img src="assets/icon-consumer-easynote.png" alt="" loading="lazy"><span class="p"><b>簡單記帳</b></span></li>
+            <li data-nocopy><img src="assets/icon-consumer-cwmoney.png" alt="" loading="lazy"><span class="p"><b>CWMoney</b></span></li>
+            <li data-nocopy><img src="assets/icon-consumer-dreamfapiao.png" alt="" loading="lazy"><span class="p"><b>夢幻發票</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#g04">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
       </article>
 
-      <article class="group group--noapps">
-        <div class="group__info">
-          <h3 class="group__name">AI Lab</h3>
-          <p class="group__claim">讓AI不只是工具，而是公司持續進化的能力。</p>
-          <p class="group__metric group__metric--sm"><b>30+</b><span>三年內推出的新產品</span></p>
-          <a class="group__more" href="business-groups.html#g05">了解事業群的挑戰 <span aria-hidden="true">→</span></a>
+      <article class="bgc bgc--dark">
+        <a class="bgc__hit" href="business-groups.html#g05" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__main">
+          <p class="bgc__eyebrow bgc__eyebrow--red">Innovation</p>
+          <div class="bgc__head">
+            <h3 class="bgc__name">AI Lab</h3>
+            <p class="bgc__desc">建立平台級 AI 核心能力，打造 AI 原生產品，將領先技術輸出至所有事業單位。</p>
+          </div>
+          <p class="bgc__stat"><b data-count="30">30</b><span>近三年推出之新產品原型</span></p>
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li data-nocopy><img src="assets/icon-ailab-diary.png" alt="" loading="lazy"><span class="p"><b>AI日日記</b></span></li>
+            <li data-nocopy><img src="assets/icon-ailab-taigang.png" alt="" loading="lazy"><span class="p"><b>抬槓</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#g05">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
+
     </div>
   </div>
 </section>
@@ -1450,6 +1585,30 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
   } else {
     startCounters();
   }
+
+  /* ---------- 事業群：AI Lab 的 30+ 當 hover 焦點 ----------
+     這張卡沒有手機稿素材，暫時用數字動態補位（待素材補上後移除）。
+     自帶 rAF 取消：上面的 countUp 沒有取消機制，滑走後數字會繼續跑完。 */
+  [].forEach.call(document.querySelectorAll(".bgc"), function(card){
+    var n = card.querySelector(".bgc__stat b[data-count]");
+    if (!n) return;
+    var target = parseFloat(n.getAttribute("data-count")), raf = null;
+    card.addEventListener("mouseenter", function(){
+      if (reduce) return;
+      if (raf) cancelAnimationFrame(raf);
+      n.textContent = "0";
+      var start = performance.now(), dur = 900;
+      (function tick(now){
+        var p = Math.min((now - start) / dur, 1);
+        n.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      })(performance.now());
+    });
+    card.addEventListener("mouseleave", function(){
+      if (raf) cancelAnimationFrame(raf);
+      n.textContent = String(target);
+    });
+  });
 
   /* ---------- 價值觀：三張卡片捲動堆疊 ---------- */
   var vstack = document.getElementById("valuesStack");
