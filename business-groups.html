@@ -26,6 +26,9 @@
   --accent-wash:transparent;
   --chip:transparent;
   --chip-line:#595959;
+  --card:rgba(255,255,255,.05);       /* 深底：浮在 GREY 800 上的卡 */
+  --card-line:rgba(255,255,255,.10);
+  --card-shadow:none;
 
   --maxw:1220px;
   --axis:150px;
@@ -39,6 +42,9 @@
     --rule:#d9d9d9; --rule-2:#bfbfbf;
     --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
     --chip:#f0f0f0; --chip-line:#d9d9d9;
+    --card:#ffffff;                   /* Surface/Base */
+    --card-line:rgba(38,38,38,.07);   /* Surface/Light.Border */
+    --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
   }
 }
 :root[data-theme="light"]{
@@ -47,6 +53,9 @@
   --rule:#d9d9d9; --rule-2:#bfbfbf;
   --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
   --chip:#f0f0f0; --chip-line:#d9d9d9;
+  --card:#ffffff;           /* Surface/Base */
+  --card-line:rgba(38,38,38,.07);   /* Surface/Light.Border */
+  --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
 }
 
 *,*::before,*::after{box-sizing:border-box}
@@ -189,7 +198,7 @@ a{color:inherit}
 /* ============================================================
    里程碑
    ============================================================ */
-.ms{padding-block:clamp(40px,5vw,72px) 0;position:relative}
+.ms{padding-block:clamp(40px,5vw,72px) 0;position:relative;overflow-x:clip}
 .ms__head{max-width:760px;display:flex;flex-direction:column;gap:18px}
 .ms__title{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.22;font-size:clamp(26px,3.4vw,40px);text-wrap:balance}
 
@@ -260,16 +269,24 @@ a{color:inherit}
 }
 
 /* ---------- 數據帶（里程碑與各事業群共用） ---------- */
-.stats{display:grid;gap:26px 28px;grid-template-columns:repeat(auto-fit,minmax(164px,1fr));margin:0;padding:0}
-.stat{display:flex;flex-direction:column;gap:5px}
-.stat__n{
-  font-variant-numeric:tabular-nums;
-  font-weight:700;line-height:1;letter-spacing:-.035em;color:var(--tx-1);
-  font-size:clamp(28px,3.4vw,44px);
+/* 數據卡片 — 沿用首頁 .stat 元件（padding 24 / radius 12 / 數字 36-900 / b+em 拆數值與單位）
+   首頁那組是壓在照片上的半透明深色卡；這裡是白底區塊，改用 Surface/Base 白卡 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:16px;margin:0;padding:0}
+.stat{
+  display:grid;gap:12px;align-content:start;padding:24px;border-radius:12px;
+  background:var(--card);border:1px solid var(--card-line);box-shadow:var(--card-shadow);
 }
-.stat__n i{font-style:normal;color:var(--accent)}
-.stat__k{font-size:14px;color:var(--tx-2);font-weight:500;margin:0}
-.stat__s{font-size:12.5px;color:var(--tx-3);margin:0}
+.stat__num{
+  margin:0;display:flex;align-items:baseline;color:var(--tx-1);
+  font-size:clamp(28px,2.6vw,36px);font-weight:900;line-height:1.2;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+}
+.stat__num b,.stat__num em{font-weight:inherit;font-style:normal}
+.stat__num em{font-size:.72em;margin-inline-start:.06em}
+.stat__label{margin:0;font-size:16px;font-weight:700;line-height:1.2;color:var(--tx-1)}
+.stat__desc{margin:0;font-size:13px;font-weight:400;line-height:1.35;color:var(--tx-3);overflow-wrap:anywhere}
+.stats--one{grid-template-columns:minmax(0,260px)}
+@media (min-width:980px){.payoff .stats{gap:24px}}
 
 .payoff{position:relative;margin-block-start:clamp(44px,5vw,76px);background:var(--raise);border-block:1px solid var(--rule-2)}
 .payoff .wrap{padding-block:clamp(38px,4.4vw,62px)}
@@ -548,10 +565,10 @@ a{color:inherit}
     <div class="wrap">
       <p class="payoff__cap">走到今天</p>
       <dl class="stats">
-        <div class="stat"><dt class="stat__n" data-to="1000">1000<i>+</i></dt><dd class="stat__k">萬人</dd><dd class="stat__s">CMoney 會員數</dd></div>
-        <div class="stat"><dt class="stat__n" data-to="400">400<i>+</i></dt><dd class="stat__k">員工</dd><dd class="stat__s">全集團</dd></div>
-        <div class="stat"><dt class="stat__n" data-to="160">160<i>+</i></dt><dd class="stat__k">工程人員</dd><dd class="stat__s">約占四成人力</dd></div>
-        <div class="stat"><dt class="stat__n" data-to="30">30<i>+</i></dt><dd class="stat__k">數據科學家 · 分析師</dd><dd class="stat__s">資料團隊</dd></div>
+        <div class="stat"><dt class="stat__num"><b data-count="1000">1000</b><em>+</em></dt><dd class="stat__label">萬人</dd><dd class="stat__desc">CMoney 會員數</dd></div>
+        <div class="stat"><dt class="stat__num"><b data-count="400">400</b><em>+</em></dt><dd class="stat__label">員工</dd><dd class="stat__desc">全集團</dd></div>
+        <div class="stat"><dt class="stat__num"><b data-count="160">160</b><em>+</em></dt><dd class="stat__label">工程人員</dd><dd class="stat__desc">約占四成人力</dd></div>
+        <div class="stat"><dt class="stat__num"><b data-count="30">30</b><em>+</em></dt><dd class="stat__label">數據科學家 · 分析師</dd><dd class="stat__desc">資料團隊</dd></div>
       </dl>
     </div>
   </div>
@@ -586,10 +603,10 @@ a{color:inherit}
         <div class="blk">
           <p class="blk__cap">規模</p>
           <dl class="stats">
-            <div class="stat"><dt class="stat__n">600<i>萬+</i></dt><dd class="stat__k">網站活躍用戶</dd><dd class="stat__s"></dd></div>
-            <div class="stat"><dt class="stat__n">500<i>萬+</i></dt><dd class="stat__k">App 活躍用戶</dd><dd class="stat__s"></dd></div>
-            <div class="stat"><dt class="stat__n">5000<i>萬+</i></dt><dd class="stat__k">網站月流量</dd><dd class="stat__s"></dd></div>
-            <div class="stat"><dt class="stat__n">1<i>/2</i></dt><dd class="stat__k">投資人是 CMoney 用戶</dd><dd class="stat__s">超過 200 款 App</dd></div>
+            <div class="stat"><dt class="stat__num"><b>600</b><em>萬+</em></dt><dd class="stat__label">網站活躍用戶</dd></div>
+            <div class="stat"><dt class="stat__num"><b>500</b><em>萬+</em></dt><dd class="stat__label">App 活躍用戶</dd></div>
+            <div class="stat"><dt class="stat__num"><b>5000</b><em>萬+</em></dt><dd class="stat__label">網站月流量</dd></div>
+            <div class="stat"><dt class="stat__num"><b>1</b><em>/2</em></dt><dd class="stat__label">投資人是 CMoney 用戶</dd><dd class="stat__desc">超過 200 款 App</dd></div>
           </dl>
         </div>
 
@@ -646,8 +663,8 @@ a{color:inherit}
         <div class="blk">
           <p class="blk__cap">規模</p>
           <dl class="stats">
-            <div class="stat"><dt class="stat__n" data-to="50">50<i>+</i></dt><dd class="stat__k">位專業創作者</dd><dd class="stat__s">合作開發 App 與課程</dd></div>
-            <div class="stat"><dt class="stat__n" data-to="90">90<i>%</i></dt><dd class="stat__k">金融機構深度合作</dd><dd class="stat__s">法人系統市佔率</dd></div>
+            <div class="stat"><dt class="stat__num"><b data-count="50">50</b><em>+</em></dt><dd class="stat__label">位專業創作者</dd><dd class="stat__desc">合作開發 App 與課程</dd></div>
+            <div class="stat"><dt class="stat__num"><b data-count="90">90</b><em>%</em></dt><dd class="stat__label">金融機構深度合作</dd><dd class="stat__desc">法人系統市佔率</dd></div>
           </dl>
         </div>
 
@@ -768,10 +785,10 @@ a{color:inherit}
         <div class="blk">
           <p class="blk__cap">規模</p>
           <dl class="stats">
-            <div class="stat"><dt class="stat__n" data-to="800">800<i>萬</i></dt><dd class="stat__k">用戶記錄消費生活</dd><dd class="stat__s">App Store · Google Play 財經類 NO.1</dd></div>
-            <div class="stat"><dt class="stat__n">30<i>億+</i></dt><dd class="stat__k">消費資料支持企業決策</dd><dd class="stat__s"></dd></div>
-            <div class="stat"><dt class="stat__n">7500<i>萬+</i></dt><dd class="stat__k">每月消費紀錄</dd><dd class="stat__s"></dd></div>
-            <div class="stat"><dt class="stat__n">4000<i>萬+</i></dt><dd class="stat__k">商品品項識別</dd><dd class="stat__s"></dd></div>
+            <div class="stat"><dt class="stat__num"><b data-count="800">800</b><em>萬</em></dt><dd class="stat__label">用戶記錄消費生活</dd><dd class="stat__desc">App Store · Google Play 財經類 NO.1</dd></div>
+            <div class="stat"><dt class="stat__num"><b>30</b><em>億+</em></dt><dd class="stat__label">消費資料支持企業決策</dd></div>
+            <div class="stat"><dt class="stat__num"><b>7500</b><em>萬+</em></dt><dd class="stat__label">每月消費紀錄</dd></div>
+            <div class="stat"><dt class="stat__num"><b>4000</b><em>萬+</em></dt><dd class="stat__label">商品品項識別</dd></div>
           </dl>
         </div>
 
@@ -831,8 +848,8 @@ a{color:inherit}
 
         <div class="blk">
           <p class="blk__cap">規模</p>
-          <dl class="stats">
-            <div class="stat"><dt class="stat__n" data-to="30">30<i>款+</i></dt><dd class="stat__k">三年推出的產品</dd><dd class="stat__s">三年內</dd></div>
+          <dl class="stats stats--one">
+            <div class="stat"><dt class="stat__num"><b data-count="30">30</b><em>款+</em></dt><dd class="stat__label">三年推出的產品</dd><dd class="stat__desc">三年內</dd></div>
           </dl>
           <ul class="wall" aria-label="AI 實驗室推出的部分產品">
             <li><img src="assets/icon-ailab-app-01.png" alt="" loading="lazy"></li>
@@ -1021,21 +1038,17 @@ a{color:inherit}
   update();
 
   /* ---- 數據進場時跑動 ---- */
-  var nums = Array.prototype.slice.call(document.querySelectorAll(".stat__n[data-to]"));
+  var nums = Array.prototype.slice.call(document.querySelectorAll(".stat__num b[data-count]"));
   if (!reduce && "IntersectionObserver" in window && nums.length){
     var io = new IntersectionObserver(function(entries, obs){
       entries.forEach(function(e){
         if (!e.isIntersecting) return;
         obs.unobserve(e.target);
-        var el = e.target, to = +el.dataset.to, t0 = 0;
-        var suffix = el.querySelector("i");
-        if (!suffix) return;
-        suffix = suffix.cloneNode(true);
+        var el = e.target, to = +el.dataset.count, t0 = 0;
         function step(ts){
           if (!t0) t0 = ts;
           var p = Math.min(1, (ts - t0) / 900);
           el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
-          el.appendChild(suffix);
           if (p < 1) requestAnimationFrame(step);
         }
         requestAnimationFrame(step);
