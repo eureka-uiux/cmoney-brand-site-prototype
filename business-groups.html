@@ -1,0 +1,1007 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="CMoney 的里程碑與五個事業群：在做什麼、規模多大、目前正在解什麼題。">
+<title>CMoney 事業群</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   Tokens — 取自 CMoney 設計系統「顏色總覽表」(node 647:21869)
+   深底所需的值由 GREY / Primary 既有階層推導，說明見同名 .md
+   ============================================================ */
+:root{
+  --ground:#262626;      /* GREY 800 */
+  --raise:#262626;
+  --tx-1:#ffffff;        /* Text/White */
+  --tx-2:#bfbfbf;        /* GREY 500 */
+  --tx-3:#959595;        /* GREY 550 */
+  --rule:#595959;        /* GREY 700 */
+  --rule-2:#767676;      /* GREY 600 */
+  --accent:#f0332c;      /* 深底紅（形象站 prototype）— 線與大字 */
+  --accent-tx:#f39ea3;   /* Primary/Border 300 — 深底上的小級數紅字 */
+  --accent-wash:transparent;
+  --chip:transparent;
+  --chip-line:#595959;
+
+  --maxw:1220px;
+  --axis:150px;
+  --bar:75px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#ffffff; --raise:#f0f0f0;
+    --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;
+    --rule:#d9d9d9; --rule-2:#bfbfbf;
+    --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
+    --chip:#f0f0f0; --chip-line:#d9d9d9;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#ffffff; --raise:#f0f0f0;
+  --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;
+  --rule:#d9d9d9; --rule-2:#bfbfbf;
+  --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
+  --chip:#f0f0f0; --chip-line:#d9d9d9;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+body{
+  margin:0;background:var(--ground);color:var(--tx-1);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  overflow-x:clip;
+}
+html{scroll-padding-top:calc(var(--bar) + env(safe-area-inset-top,0px) + 16px)}
+.wrap{max-width:calc(var(--maxw) + 48px);margin-inline:auto;padding-inline:24px}
+.mono{font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+a{color:inherit}
+
+/* ---------- 導覽列 — 沿用首頁 prototype 的 site-header 元件 ----------
+   固定深底 GREY 800，不隨頁面深／淺底切換，與首頁保持同一條 bar */
+.site-header{
+  position:fixed;inset-block-start:0;inset-inline:0;z-index:60;
+  height:calc(var(--bar) + env(safe-area-inset-top,0px));
+  padding-block-start:env(safe-area-inset-top,0px);
+  display:flex;align-items:center;
+  background:#262626;                       /* GREY 800 */
+  border-bottom:1px solid rgba(255,255,255,.14);
+  transition:box-shadow .3s var(--ease);
+}
+.site-header.is-scrolled{box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.hdr{display:flex;align-items:center;gap:24px;width:100%}
+.brand{display:flex;align-items:center;flex:0 0 auto}
+.brand__logo{width:86px;height:20px;display:block;color:#fff;fill:currentColor}
+
+.nav{margin-inline-start:auto;display:flex;align-items:center;gap:25px}
+.nav__link{
+  font-size:16px;line-height:1.375;color:#bdc5d1;text-decoration:none;
+  position:relative;padding-block:2px;white-space:nowrap;
+  transition:color .2s var(--ease);
+}
+.nav__link::after{
+  content:"";position:absolute;inset-block-end:0;inset-inline-start:0;
+  width:100%;height:1.5px;background:#f0332c;      /* 深底紅，與首頁 prototype 一致 */
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease);
+}
+.nav__link:hover{color:#fff}
+.nav__link:hover::after,.nav__link.is-active::after{transform:scaleX(1)}
+.nav__link.is-active{color:#fff}
+.nav__link:focus-visible{outline:2px solid #f0332c;outline-offset:4px}
+
+.swap{
+  flex:0 0 auto;border:1px solid rgba(255,255,255,.22);background:none;color:#bdc5d1;
+  font:inherit;font-size:12.5px;line-height:1;padding:8px 13px;border-radius:999px;cursor:pointer;
+  transition:border-color .2s var(--ease),color .2s var(--ease);white-space:nowrap;
+}
+.swap:hover{border-color:rgba(255,255,255,.5);color:#fff}
+.swap:focus-visible{outline:2px solid #f0332c;outline-offset:2px}
+
+.nav-toggle{display:none;width:40px;height:40px;place-items:center;background:none;border:0;cursor:pointer;flex:0 0 auto}
+.nav-toggle i{display:block;width:20px;height:1.5px;background:#fff;position:relative;transition:.25s var(--ease)}
+.nav-toggle i::before,.nav-toggle i::after{content:"";position:absolute;inset-inline:0;height:1.5px;background:#fff;transition:.25s var(--ease)}
+.nav-toggle i::before{top:-6px}.nav-toggle i::after{top:6px}
+.nav-toggle[aria-expanded="true"] i{background:transparent}
+.nav-toggle[aria-expanded="true"] i::before{top:0;transform:rotate(45deg)}
+.nav-toggle[aria-expanded="true"] i::after{top:0;transform:rotate(-45deg)}
+.nav-toggle:focus-visible{outline:2px solid #f0332c;outline-offset:2px}
+
+@media (max-width:980px){
+  .nav-toggle{display:grid}
+  .swap{margin-inline-start:auto}
+  .nav{
+    position:fixed;inset-block-start:calc(var(--bar) + env(safe-area-inset-top,0px));inset-inline:0;
+    flex-direction:column;align-items:stretch;margin-inline-start:0;
+    background:#262626;padding:20px 24px 28px;gap:4px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    transform:translateY(-12px);opacity:0;pointer-events:none;transition:.28s var(--ease);
+  }
+  .nav.is-open{transform:none;opacity:1;pointer-events:auto}
+  .nav__link{padding-block:12px}
+  .nav__link::after{width:auto;inset-inline:0}
+}
+
+/* ---------- 共用 ---------- */
+.eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent-tx);margin:0;
+}
+.lede{margin:0;color:var(--tx-2);max-width:60ch}
+
+/* ---------- 頁首：照片壓圖，沿用首頁 .hero__bg + 漸層罩 ---------- */
+.hero{
+  position:relative;overflow:hidden;background:#262626;isolation:isolate;
+  padding-block:calc(var(--bar) + clamp(76px,9vw,124px)) clamp(72px,9vw,124px);
+}
+.hero__bg{position:absolute;inset:0;z-index:0}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:62% 52%;display:block}
+.hero__bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(90deg,rgba(38,38,38,.93) 0%,rgba(38,38,38,.76) 44%,rgba(38,38,38,.34) 100%),
+    linear-gradient(180deg,rgba(38,38,38,.58) 0%,rgba(38,38,38,0) 32%,rgba(38,38,38,.22) 100%);
+}
+.hero__fade{                       /* 讓照片收進頁面底色，深淺底都成立 */
+  position:absolute;inset-inline:0;inset-block-end:0;height:clamp(72px,9vw,132px);z-index:1;
+  background:linear-gradient(180deg,rgba(0,0,0,0),var(--ground));
+}
+.hero .wrap{position:relative;z-index:2}
+.hero__in{display:flex;flex-direction:column;gap:20px;max-width:760px}
+.hero__title{
+  margin:0;font-weight:700;letter-spacing:-.03em;line-height:1.16;color:#fff;
+  font-size:clamp(32px,4.8vw,60px);text-wrap:balance;
+  text-shadow:0 2px 24px rgba(0,0,0,.35);
+}
+.hero__lede{font-size:clamp(15px,1.3vw,17px);color:rgba(255,255,255,.84);max-width:52ch}
+
+/* ---------- 左緣 rail（里程碑用年份、事業群用群名） ---------- */
+.rail{
+  position:fixed;inset-block-start:50%;inset-inline-start:20px;transform:translateY(-50%);
+  z-index:30;display:none;flex-direction:column;gap:2px;
+  opacity:0;pointer-events:none;transition:opacity .35s var(--ease);
+}
+.rail.is-on{opacity:1;pointer-events:auto}
+.rail__group{display:none;flex-direction:column;gap:2px}
+.rail__group.is-shown{display:flex}
+.rail__btn{
+  display:flex;align-items:center;gap:9px;background:none;border:0;
+  padding:5px 2px;cursor:pointer;font:inherit;color:var(--tx-3);text-align:left;
+}
+.rail__tick{display:block;width:14px;height:1px;background:currentColor;flex:0 0 auto;transition:width .3s var(--ease)}
+.rail__lbl{
+  font-family:"Roboto Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.06em;
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+  opacity:0;transform:translateX(-4px);transition:opacity .25s var(--ease),transform .25s var(--ease);
+}
+.rail__lbl--cjk{font-family:inherit;letter-spacing:.04em}
+.rail:hover .rail__lbl{opacity:1;transform:none}
+.rail__btn:hover,.rail__btn:focus-visible{color:var(--tx-1);outline:none}
+.rail__btn:focus-visible .rail__tick{width:26px}
+.rail__btn[aria-current="true"]{color:var(--accent-tx)}
+.rail__btn[aria-current="true"] .rail__tick{width:26px}
+.rail__btn[aria-current="true"] .rail__lbl{opacity:1;transform:none}
+@media (min-width:1240px){.rail{display:flex}}
+
+/* ============================================================
+   里程碑
+   ============================================================ */
+.ms{padding-block:clamp(40px,5vw,72px) 0;position:relative}
+.ms__head{max-width:760px;display:flex;flex-direction:column;gap:18px}
+.ms__title{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.22;font-size:clamp(26px,3.4vw,40px);text-wrap:balance}
+
+.track{position:relative;margin-block-start:clamp(36px,4.4vw,64px)}
+.track__line,.track__fill{position:absolute;inset-block:0;inset-inline-start:calc(var(--axis) / 2);width:1px}
+.track__line{background:var(--rule)}
+.track__fill{background:var(--accent);height:0;inset-block-end:auto;transition:height .12s linear}
+@media (min-width:900px){.track__line,.track__fill{inset-inline-start:50%;transform:translateX(-.5px)}}
+@media (max-width:899px){:root{--axis:92px}}
+@media (max-width:520px){:root{--axis:66px}}
+
+.chapter{
+  position:relative;z-index:3;background:var(--ground);
+  padding-block:clamp(26px,3.2vw,42px);text-align:center;
+}
+.chapter__range{
+  margin:0 0 7px;display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,22px);
+  font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+  font-size:13px;font-weight:700;letter-spacing:.12em;line-height:1;color:var(--accent-tx);
+}
+.chapter__range::before,.chapter__range::after{content:"";flex:1 1 0;height:1px;background:var(--accent);opacity:.55}
+.chapter__range em{font-style:normal;padding-inline:.15em}
+.chapter__line{
+  margin:0;font-weight:700;line-height:1.4;letter-spacing:-.01em;
+  font-size:clamp(15px,1.5vw,18px);color:var(--tx-1);max-width:30ch;margin-inline:auto;text-wrap:balance;
+}
+
+.row{
+  position:relative;display:grid;grid-template-columns:var(--axis) minmax(0,1fr);
+  align-items:baseline;padding-block:clamp(20px,2.6vw,32px);
+  opacity:1;transition:opacity .4s var(--ease);
+}
+.js-on .row{opacity:.6}
+.js-on .row.is-active{opacity:1}
+.row{--slide:26px}
+.js-on .row .card{transform:translateX(var(--slide));transition:transform .8s var(--ease)}
+.js-on .row.is-in .card{transform:none}
+.row > *{grid-row:1}
+.row__axis{grid-column:1;display:flex;justify-content:center;position:relative;z-index:2}
+.year{
+  font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+  font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.02em;line-height:1;
+  color:var(--tx-3);background:var(--ground);padding-block:10px;transition:color .4s var(--ease);
+}
+.row.is-active .year{color:var(--accent)}
+.card{grid-column:2;padding-inline-start:4px}
+.card > * + *{margin-block-start:10px}
+.card__title{margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:700;line-height:1.4;letter-spacing:-.01em;color:var(--tx-1);text-wrap:balance}
+.card__desc{margin:0;color:var(--tx-2);font-size:15px;max-width:46ch}
+@media (max-width:520px){.year{font-size:21px;padding-block:8px}.card__desc{font-size:14px}}
+
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-block-start:12px;margin-inline:0;padding:0;list-style:none}
+.chips li{
+  font-size:12.5px;line-height:1;color:var(--tx-2);
+  border:1px solid var(--chip-line);background:var(--chip);
+  padding:7px 11px;border-radius:999px;white-space:nowrap;
+}
+.chips li[data-brand]{color:var(--accent-tx);border-color:var(--accent-tx);background:var(--accent-wash);font-weight:500}
+@media (min-width:900px){
+  .row--l{--slide:-44px}
+  .row--r{--slide:44px}
+  .row{grid-template-columns:1fr var(--axis) 1fr}
+  .row__axis{grid-column:2}
+  .row .card{grid-column:3;padding-inline:8px 0}
+  .row--l .card{grid-column:1;padding-inline:0 8px;text-align:right}
+  .row--l .card__desc{margin-inline-start:auto}
+  .row--l .chips{justify-content:flex-end}
+}
+
+/* ---------- 數據帶（里程碑與各事業群共用） ---------- */
+.stats{display:grid;gap:26px 28px;grid-template-columns:repeat(auto-fit,minmax(164px,1fr));margin:0;padding:0}
+.stat{display:flex;flex-direction:column;gap:5px}
+.stat__n{
+  font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
+  font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--tx-1);
+  font-size:clamp(28px,3.4vw,44px);
+}
+.stat__n i{font-style:normal;color:var(--accent)}
+.stat__k{font-size:14px;color:var(--tx-2);font-weight:500;margin:0}
+.stat__s{font-size:12.5px;color:var(--tx-3);margin:0}
+
+.payoff{position:relative;margin-block-start:clamp(44px,5vw,76px);background:var(--raise);border-block:1px solid var(--rule-2)}
+.payoff .wrap{padding-block:clamp(38px,4.4vw,62px)}
+.payoff__cap{margin:0 0 26px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-3)}
+
+/* ============================================================
+   事業群
+   ============================================================ */
+/* ---------- 里程碑 → 事業群的過渡 ---------- */
+.bridge{padding-block:clamp(52px,6.5vw,96px);text-align:center}
+.bridge__stub{                       /* 中軸的延續，暗示還沒讀完 */
+  display:block;width:1px;height:clamp(32px,4vw,52px);
+  background:var(--accent);margin:0 auto clamp(22px,2.6vw,32px);
+}
+.bridge__t{
+  margin:0 auto;max-width:24ch;text-wrap:balance;
+  font-size:clamp(22px,2.9vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.35;
+}
+.bridge .eyebrow{margin-block-end:14px}
+
+.group{border-top:1px solid var(--rule);padding-block:clamp(52px,6.5vw,96px)}
+.group__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(26px,3.4vw,44px)}
+.group__aside{display:flex;flex-direction:column;gap:12px}
+.group__idx{
+  margin:0;font-family:"Roboto Mono",ui-monospace,monospace;font-size:12px;font-weight:700;
+  letter-spacing:.18em;color:var(--accent-tx);
+}
+.group__name{margin:0;font-size:clamp(25px,3.2vw,38px);font-weight:700;letter-spacing:-.025em;line-height:1.2}
+.group__rule{width:56px;height:2px;background:var(--accent);border:0;margin:2px 0 0}
+.group__promise{margin:0;font-size:14.5px;color:var(--tx-2);max-width:30ch}
+
+.group__main{display:flex;flex-direction:column;gap:clamp(30px,3.6vw,48px);min-width:0}
+.claim{
+  margin:0;font-size:clamp(18px,2.1vw,26px);font-weight:700;line-height:1.5;letter-spacing:-.015em;
+  max-width:26ch;text-wrap:balance;
+}
+.claim em{font-style:normal;color:var(--accent-tx)}
+.prose{display:flex;flex-direction:column;gap:12px;max-width:50ch}
+.prose p{margin:0;color:var(--tx-2);font-size:15px}
+
+.blk{display:flex;flex-direction:column;gap:16px}
+.blk__cap{
+  margin:0;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx-3);
+}
+
+.prods{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.prods li{
+  display:flex;align-items:center;gap:14px;
+  padding-block:11px;border-bottom:1px solid var(--rule);
+}
+.prods__i{width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:block}
+.prods__i--none{border:1px dashed var(--rule);border-radius:9px}
+.prods__tx{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;min-width:0}
+.prods b{font-size:15px;font-weight:700;color:var(--tx-1)}
+.prods span{font-size:13.5px;color:var(--tx-3)}
+.prods .todo{color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:11.5px;line-height:1}
+
+.partners{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
+.partners li{font-size:12.5px;line-height:1;color:var(--tx-2);border:1px solid var(--chip-line);padding:7px 11px;border-radius:999px}
+
+.reads{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
+.reads li{border-bottom:1px solid var(--rule)}
+.reads a{
+  display:grid;gap:5px;padding-block:15px;text-decoration:none;
+  transition:opacity .2s var(--ease);
+}
+.reads a:hover{opacity:.62}
+.reads a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.reads__t{font-size:15px;font-weight:700;color:var(--tx-1);line-height:1.5}
+.reads__t::after{content:" \2197";color:var(--accent-tx);font-weight:400}
+.reads__d{font-size:13.5px;color:var(--tx-2);margin:0;max-width:56ch}
+.reads__m{font-family:"Roboto Mono",ui-monospace,monospace;font-size:11.5px;color:var(--tx-3);letter-spacing:.04em}
+
+@media (min-width:980px){
+  .group__grid{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(40px,5vw,84px)}
+  .group__aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--bar) + 40px);align-self:start}
+}
+
+/* ---------- 結尾 ---------- */
+.end{border-top:1px solid var(--rule);padding-block:clamp(56px,7vw,100px)}
+.end__in{display:flex;flex-direction:column;gap:18px;align-items:flex-start;max-width:640px}
+.end__t{margin:0;font-size:clamp(23px,2.8vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
+.cta{
+  display:inline-flex;align-items:center;gap:9px;margin-top:8px;
+  background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15px;
+  padding:13px 24px;border-radius:999px;transition:opacity .2s var(--ease);
+}
+.cta:hover{opacity:.86}
+.cta[data-undefined]{opacity:.55;cursor:not-allowed}     /* 沿用首頁 prototype 標記未定義連結的慣例 */
+.cta[data-undefined]:hover{opacity:.55}
+.cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .js-on .row{opacity:1}
+  .js-on .row .card{transform:none}
+}
+</style>
+<style>img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<header class="site-header" id="siteHeader">
+  <div class="wrap hdr">
+    <a class="brand" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/" aria-label="CMoney 首頁">
+      <!-- CMoney wordmark — vector data from Figma node 6457:11007 -->
+      <svg class="brand__logo" viewBox="0 0 86.21 20" role="img" aria-label="CMoney" focusable="false">
+        <g transform="translate(0,0)"><path d="M 10.831383694555365 9.326328387092511 L 15.011765480041504 10.582380009675784 C 14.732335324072679 11.747133480118158 14.289662895336917 12.718223324105313 13.686536395913278 13.501181091948737 C 13.083409896489638 14.281372227133982 12.330897967534355 14.870665379096302 11.434508149165557 15.269060877644321 C 10.543651595987292 15.66745637619234 9.40655979470099 15.863886833190916 8.023242177833197 15.863886833190916 C 6.346661242020247 15.863886833190916 4.9744087703373125 15.623190451546666 3.9064875991385355 15.141795907291574 C 2.846866325725558 14.654868097720124 1.9311120580416175 13.799977155185083 1.1592208383832652 12.579891031579145 C 0.3873296187249129 11.359804907973206 0 9.799421977985459 0 7.895976862230513 C 0 5.358972274097219 0.6778246560317012 3.4084946010384205 2.0307092483898366 2.0500767126001183 C 3.391893804495496 0.6833588602255556 5.314707086100624 0 7.799145399348669 0 C 9.744090026711103 0 11.26850254188956 0.3900954686500342 12.377923333940785 1.1702866038352795 C 13.492877391182542 1.9504777390205248 14.322862486480116 3.151197434019216 14.8623563702509 4.766912489476723 L 10.651545649882001 5.696502118012221 C 10.504913990409422 5.22894073704802 10.34998713292389 4.888644392398291 10.189522293984545 4.672846847175212 C 9.923925317482484 4.310417639145234 9.597451540200074 4.030987592255349 9.210122614073265 3.837323124788127 C 8.822793687946456 3.6408920246627265 8.391200619147105 3.5440596672508797 7.915339351029178 3.5440596672508797 C 6.833584950892343 3.5440596672508797 6.0063664222283135 3.9756548896204897 5.4309063147190635 4.841611769132712 C 4.9965445685109975 5.4834711394855935 4.777976009145107 6.490526416488358 4.777976009145107 7.862777534179276 C 4.777976009145107 9.564258268002034 5.038041748779652 10.731778832834665 5.5581691714027075 11.365338305213013 C 6.078296594025763 11.993364512275004 6.808689281200116 12.305994728228127 7.746578654459638 12.305994728228127 C 8.68446802771916 12.305994728228127 9.34569991310288 12.05146369915416 9.810494617858879 11.542402795336422 C 10.280822620786273 11.033341891518683 10.62111941942993 10.294650740919053 10.831383694555365 9.326328387092511 Z"/></g>
+        <g transform="translate(15.86,0.17)"><path d="M 0 0 L 6.205560598833415 0 L 8.651256608747723 9.398259732741607 L 11.033325413963155 0 L 17.241655349731445 0 L 17.241655349731445 15.520823478698729 L 13.396042633036094 15.520823478698729 L 13.362844362219217 3.7072911766547825 L 10.391480920702989 15.520823478698729 L 6.8806202491112805 15.520823478698729 L 3.87881098751223 3.7072911766547825 L 3.8843496613819837 15.520823478698729 L 0 15.520823478698729 L 0 0 Z"/></g>
+        <g transform="translate(33.79,4.14)"><path d="M 4.3270047361339765 5.881867080576631 C 4.3270047361339765 6.880622367983864 4.528967071651302 7.622080758829072 4.930129199676669 8.100708658129438 C 5.33959122561076 8.579336557429803 5.85141806543026 8.820033394622332 6.468377736967638 8.820033394622332 C 7.0853374085050165 8.820033394622332 7.599936982420331 8.584869031063317 7.9955658121923525 8.11177439693715 C 8.39949457285396 7.638679762810984 8.598690275735045 6.883388604800619 8.598690275735045 5.8403671300380635 C 8.598690275735045 4.869278168501832 8.396727940217719 4.1471861398045995 7.9955658121923525 3.674091505678433 C 7.5916370515307445 3.195463606378067 7.093652873380867 2.954766241491748 6.501592895569662 2.954766241491748 C 5.873566693487318 2.954766241491748 5.3534379109456145 3.1982304368503387 4.943975885011524 3.6823916013249045 C 4.534513859077433 4.161019500625271 4.329774073200947 4.894177729862284 4.329774073200947 5.879099854334016 L 4.3270047361339765 5.881867080576631 Z M 0 5.8929328193843435 C 0 4.1803855989263505 0.5782179757588328 2.7721684247814244 1.737438171693344 1.668280967140945 C 2.8966583676278552 0.5560936117391657 4.462582729769656 0 6.4324270137019 0 C 8.687234657052192 0 10.388707330053373 0.6501593835474613 11.542394260715401 1.953244585344312 C 12.469217051358727 3.0017993252810675 12.93125057220459 4.293817732882622 12.93125057220459 5.829300335842768 C 12.93125057220459 7.555680653274536 12.35579045617256 8.969431950096075 11.202103525510532 10.076086040323654 C 10.056716558718954 11.174440232789934 8.471431111023197 11.725000381469727 6.443487475768156 11.725000381469727 C 4.634108016661369 11.725000381469727 3.170562056520349 11.268505806713057 2.055607982765702 10.352749562880549 C 0.6833568759554207 9.218429146781968 0 7.732745798466176 0 5.89570004562696 L 0 5.8929328193843435 Z"/></g>
+        <g transform="translate(47.42,4.14)"><path d="M 0 0.17153135274363415 L 3.9645760429755454 0.17153135274363415 L 3.9645760429755454 2.1552088354412673 C 4.564935896341313 1.4026840443285833 5.220633809232878 0.8078573440475774 5.837593457798008 0.48969429892431265 C 6.4517864738299116 0.16323135601942607 7.201543230717207 0 8.084099866319022 0 C 9.276519609489153 0 10.208871607023973 0.3568960003800864 10.881163972215365 1.073454501810685 C 11.558989602473211 1.7817131054596613 11.899300575256346 2.882833933209086 11.899300575256346 4.371283719871211 L 11.899300575256346 11.550702095031737 L 7.588878249617811 11.550702095031737 L 7.588878249617811 5.342373013593731 C 7.588878249617811 4.634114409944754 7.436713311876449 4.127819721801681 7.173882973863422 3.837323035598018 C 6.913819268383622 3.538526418631871 6.545862204026641 3.391894594328792 6.072767579112762 3.391894594328792 C 5.549873535619935 3.391894594328792 5.126568204160576 3.5910927677240965 4.800105268412036 3.9867215914375564 C 4.476408965196723 4.3851170807257525 4.313174776401392 5.096141921198258 4.313174776401392 6.125330235545236 L 4.313174776401392 11.550702095031737 L 0 11.550702095031737 L 0 0.17153135274363415 Z"/></g>
+        <g transform="translate(60.35,4.13)"><path d="M 8.468666155397587 4.872044801088932 C 8.38566709746292 4.042054233418248 8.164346406924983 3.4472276994979576 7.8046838500254765 3.087565133366339 C 7.453321190674222 2.7279025672347204 6.985760493341226 2.5480710533028774 6.4047671372698485 2.5480710533028774 C 5.735241408760345 2.5480710533028774 5.198514898525254 2.81920144260902 4.797352787922768 3.36146195737441 C 4.5428223490866 3.698991462809228 4.379588177793168 4.202519055393495 4.310422298929351 4.872044801088932 L 8.471435492344282 4.872044801088932 L 8.468666155397587 4.872044801088932 Z M 12.762489318847656 6.899987872629428 L 4.313191635876046 6.899987872629428 C 4.387890788017246 7.588880046434565 4.55665351632492 8.136674485991394 4.8471501943606095 8.474203991426213 C 5.253845569995263 8.96113178848788 5.7877946959535445 9.201828295871787 6.443487195920906 9.201828295871787 C 6.85848246910381 9.201828295871787 7.251350058038407 9.096696785255778 7.624845810499194 8.883665878163907 C 7.851709891193663 8.750867390304874 8.100702332244094 8.529535983550973 8.363532668628514 8.189239845529055 L 12.502424938871668 8.535069248725174 C 11.866098866516893 9.661089833024176 11.119107361595319 10.502147326813605 10.219950936365693 10.99737502163657 C 9.320794511136068 11.484302818698236 8.031545209798903 11.725000381469727 6.349431056938616 11.725000381469727 C 4.8914143357662825 11.725000381469727 3.7432573561943903 11.517502739552056 2.9049669122803303 11.102507455716713 C 2.0694431008823537 10.67921227412007 1.372257115690459 10.015219463790213 0.8189300847799199 9.104996485131906 C 0.2739029514176322 8.189240241299398 0 7.093652285649876 0 5.862499663041072 C 0 4.108452887814856 0.5394891190861184 2.7223693680222443 1.6378432833589454 1.637848338491465 C 2.7444973451800236 0.5533273089606856 4.263385390567424 0 6.208329962264285 0 C 7.785311947589944 0 9.04689696857966 0.243463931511695 9.959886556389705 0.727625095986261 C 10.87287614419975 1.214552893047927 11.56729549687556 1.9172780978651163 12.045923383890115 2.8413342394589245 C 12.521784638388585 3.7626237484656326 12.762489318847656 4.9633438743484035 12.762489318847656 6.443493693643101 L 12.762489318847656 6.897221701774395 L 12.762489318847656 6.899987872629428 Z"/></g>
+        <g transform="translate(72.94,4.31)"><path d="M 0 0 L 4.556640055023288 0 L 6.877851033379714 7.431181771235411 L 9.027531980759255 0 L 13.277079582214357 0 L 8.817265004413105 11.929731714774695 C 8.30820411994254 13.288149552627319 7.788075353044527 14.206671626899675 7.259648040702746 14.68253288811797 C 6.509889893252481 15.354825258637263 5.3700375452507405 15.692355155944824 3.837321659713843 15.692355155944824 C 3.2148287416264347 15.692355155944824 2.254811005543012 15.609355090921817 0.9544925183075827 15.440590340153205 L 0.6141849071363715 12.455390712942656 C 1.2366778252237793 12.651821805753222 1.9283393275293252 12.748655478793625 2.6919306377447434 12.748655478793625 C 3.2009915222153094 12.748655478793625 3.6104541954514175 12.632456796044204 3.9203173382186063 12.402826079590945 C 4.238480378644887 12.170428730582532 4.506853449152592 11.758199177120776 4.725417635217615 11.163372584107478 L 0 0.0027666985168756874 L 0 0 Z"/></g>
+      </svg>
+    </a>
+
+    <nav class="nav" id="primaryNav" aria-label="主要導覽">
+      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#who">關於我們</a>
+      <a class="nav__link is-active" href="#groups" aria-current="page">事業群</a>
+      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#values">價值觀</a>
+      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#how">工作文化</a>
+      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#founder">創辦人的話</a>
+    </nav>
+
+    <button class="swap" id="groundToggle" type="button">切換淺底對照</button>
+    <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="開啟選單"><i></i></button>
+  </div>
+</header>
+
+<nav class="rail" id="rail" aria-label="頁面導覽">
+  <div class="rail__group" id="railYears" data-for="ms"></div>
+  <div class="rail__group" id="railGroups" data-for="groups"></div>
+</nav>
+
+<header class="hero">
+  <div class="hero__bg" aria-hidden="true"><img src="assets/hero-groups.jpg" alt="" fetchpriority="high"></div>
+  <div class="hero__fade" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero__in">
+      <h1 class="hero__title">面對不同的人與市場，做的是同一件事</h1>
+      <p class="lede hero__lede">外界看 CMoney，會看到豐富的 App 產品線；在 CMoney，我們打造的是一套決策基礎建設。不同事業面對不同人群、場景與市場，我們做的是同一件事：縮短人與好決定之間的距離。</p>
+    </div>
+  </div>
+</header>
+
+<!-- ============ 里程碑 ============ -->
+<section class="ms" id="ms" aria-labelledby="ms-title">
+  <div class="wrap">
+    <div class="ms__head">
+      <p class="eyebrow">重要里程碑</p>
+      <h2 class="ms__title" id="ms-title">從一套法人決策工具，到一千萬人的日常</h2>
+      <p class="lede">2003 年，CMoney 做的第一套系統只有法人用得到。二十年後，同一件事——把判斷需要的資料與工具交到人手上——換成一千萬人在用。</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="track" id="track">
+      <div class="track__line" aria-hidden="true"></div>
+      <div class="track__fill" id="fill" aria-hidden="true"></div>
+
+      <div class="chapter">
+        <p class="chapter__range"><span>2003</span><em>&#8594;</em><span>2011</span></p>
+        <p class="chapter__line">先把工具做對，再把工具交給散戶</p>
+      </div>
+
+      <article class="row row--l" data-year="2003">
+        <div class="row__axis"><span class="year mono">2003</span></div>
+        <div class="card">
+          <h3 class="card__title">創立全曜財經</h3>
+          <p class="card__desc">推出 CMoney 法人投資決策支援系統。</p>
+        </div>
+      </article>
+
+      <article class="row row--r" data-year="2010">
+        <div class="row__axis"><span class="year mono">2010</span></div>
+        <div class="card">
+          <h3 class="card__title">各類投資軟體開發</h3>
+          <p class="card__desc">超過 200 家企業使用，市占率第一。</p>
+        </div>
+      </article>
+
+      <article class="row row--l" data-year="2011">
+        <div class="row__axis"><span class="year mono">2011</span></div>
+        <div class="card">
+          <h3 class="card__title">推出理財寶</h3>
+          <p class="card__desc">把原本只有法人用得到的分析能力，做成散戶也打得開的工具。</p>
+          <ul class="chips"><li data-brand>理財寶</li></ul>
+        </div>
+      </article>
+
+      <div class="chapter">
+        <p class="chapter__range"><span>2013</span><em>&#8594;</em><span>2018</span></p>
+        <p class="chapter__line">從桌機搬到手機，從工具長出社群</p>
+      </div>
+
+      <article class="row row--r" data-year="2013">
+        <div class="row__axis"><span class="year mono">2013</span></div>
+        <div class="card">
+          <h3 class="card__title">推出多款 2C 投資工具產品</h3>
+          <ul class="chips"><li>籌碼K線</li><li>投資網誌</li><li>股市大富翁</li><li>選股勝利組</li></ul>
+        </div>
+      </article>
+
+      <article class="row row--l" data-year="2015">
+        <div class="row__axis"><span class="year mono">2015</span></div>
+        <div class="card">
+          <h3 class="card__title">大量開發移動端 App 產品</h3>
+          <ul class="chips"><li>籌碼K線</li><li>期貨電子盤</li><li>全方位獨門監控</li></ul>
+        </div>
+      </article>
+
+      <article class="row row--r" data-year="2017">
+        <div class="row__axis"><span class="year mono">2017</span></div>
+        <div class="card">
+          <h3 class="card__title">事業體擴張</h3>
+          <p class="card__desc">影音課程製作銷售。</p>
+          <ul class="chips"><li data-brand>Money 錢</li></ul>
+        </div>
+      </article>
+
+      <article class="row row--l" data-year="2018">
+        <div class="row__axis"><span class="year mono">2018</span></div>
+        <div class="card">
+          <h3 class="card__title">大量開發投資工具類 App</h3>
+          <ul class="chips"><li>發票載具</li><li>股市爆料同學會</li><li>艾蜜莉定存股</li></ul>
+        </div>
+      </article>
+
+      <div class="chapter">
+        <p class="chapter__range"><span>2022</span><em>&#8594;</em><span>2023</span></p>
+        <p class="chapter__line">從做工具的公司，變成自己就是平台</p>
+      </div>
+
+      <article class="row row--r" data-year="2022">
+        <div class="row__axis"><span class="year mono">2022</span></div>
+        <div class="card">
+          <h3 class="card__title">口袋證券</h3>
+          <p class="card__desc">從提供資訊，走到自己承接交易。</p>
+          <ul class="chips"><li data-brand>口袋證券</li></ul>
+        </div>
+      </article>
+
+      <article class="row row--l" data-year="2023">
+        <div class="row__axis"><span class="year mono">2023</span></div>
+        <div class="card">
+          <h3 class="card__title">口袋證券投顧成立，會員突破 1000 萬人</h3>
+          <p class="card__desc">全權委託、企業員工福利計畫、策略訂閱、基金平台。</p>
+          <ul class="chips"><li data-brand>口袋證券投資顧問</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <div class="payoff">
+    <div class="wrap">
+      <p class="payoff__cap">走到今天</p>
+      <dl class="stats">
+        <div class="stat"><dt class="stat__n" data-to="1000">1000<i>+</i></dt><dd class="stat__k">萬人</dd><dd class="stat__s">CMoney 會員數</dd></div>
+        <div class="stat"><dt class="stat__n" data-to="400">400<i>+</i></dt><dd class="stat__k">員工</dd><dd class="stat__s">全集團</dd></div>
+        <div class="stat"><dt class="stat__n" data-to="160">160<i>+</i></dt><dd class="stat__k">工程人員</dd><dd class="stat__s">約占四成人力</dd></div>
+        <div class="stat"><dt class="stat__n" data-to="30">30<i>+</i></dt><dd class="stat__k">數據科學家 · 分析師</dd><dd class="stat__s">資料團隊</dd></div>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 里程碑 → 事業群 ============ -->
+<section class="bridge" id="groups" aria-labelledby="bridge-t">
+  <div class="wrap">
+    <span class="bridge__stub" aria-hidden="true"></span>
+    <p class="eyebrow">我們的事業群</p>
+    <h2 class="bridge__t" id="bridge-t">二十年累積下來的能力，現在分別由這些團隊往前推</h2>
+  </div>
+</section>
+
+<!-- ============ 01 金融事業群 ============ -->
+<section class="group" id="g01" data-label="金融事業群" aria-labelledby="g01-name">
+  <div class="wrap">
+    <div class="group__grid">
+      <div class="group__aside">
+        <p class="group__idx">01</p>
+        <h2 class="group__name" id="g01-name">金融事業群</h2>
+        <hr class="group__rule">
+        <p class="group__promise">陪伴每個人成為更成熟的投資人。</p>
+      </div>
+      <div class="group__main">
+        <p class="claim">幫助每個人做好<em>投資決策</em></p>
+        <div class="prose">
+          <p>金融事業群陪伴每個人從新手成長為成熟投資者。</p>
+          <p>我們提供一站式的投資工具與內容平台，涵蓋從學習、選股、交易到社群討論的完整流程，幫助投資者建立適合自己的投資策略與節奏，在變動的市場中，做好投資決策。</p>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">規模</p>
+          <dl class="stats">
+            <div class="stat"><dt class="stat__n">600<i>萬+</i></dt><dd class="stat__k">網站活躍用戶</dd><dd class="stat__s"></dd></div>
+            <div class="stat"><dt class="stat__n">500<i>萬+</i></dt><dd class="stat__k">App 活躍用戶</dd><dd class="stat__s"></dd></div>
+            <div class="stat"><dt class="stat__n">5000<i>萬+</i></dt><dd class="stat__k">網站月流量</dd><dd class="stat__s"></dd></div>
+            <div class="stat"><dt class="stat__n">1<i>/2</i></dt><dd class="stat__k">投資人是 CMoney 用戶</dd><dd class="stat__s">超過 200 款 App</dd></div>
+          </dl>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">主力產品</p>
+          <ul class="prods">
+            <li><img class="prods__i" src="assets/icon-finance-chipk.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>籌碼K線</b><span>股市看盤必備，超過百萬投資人使用</span></span></li>
+            <li><img class="prods__i" src="assets/icon-finance-bole.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>股市爆料同學會</b><span>全台灣最大的投資討論區</span></span></li>
+            <li><img class="prods__i" src="assets/icon-finance-licaibao.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>理財寶</b><span>全台灣最大的投資理財教育平台</span></span></li>
+            <li><img class="prods__i" src="assets/icon-finance-moneymag.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>Money 錢</b><span>最懂理財趨勢的財經媒體首選</span></span></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
+          <ul class="reads">
+            <li><a href="https://blogs.cmoney.tw/data-middle-office" target="_blank" rel="noopener">
+              <span class="reads__t">為什麼已有自建數據中台，還需要導入第三方數據平台？</span>
+              <p class="reads__d">每天近億筆資料，自建中台之後仍要導入第三方平台的取捨。</p>
+              <span class="reads__m">2025-08-22 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/cmoney-youtube-growth" target="_blank" rel="noopener">
+              <span class="reads__t">從流量到信任：理財寶 YouTube 經營的三堂課</span>
+              <p class="reads__d">兩年訂閱從 19 萬到 40.3 萬、觀看增加逾 7,600 萬，以及流量與中立之間的取捨。</p>
+              <span class="reads__m">2025-10-14 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/fandeng" target="_blank" rel="noopener">
+              <span class="reads__t">CMoney 攜手樊登升級知識版圖</span>
+              <p class="reads__d">從金融投資領域轉向「全知識平台」的布局。</p>
+              <span class="reads__m">2026-01-29 · CMoney Blog</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 合作夥伴事業群 ============ -->
+<section class="group" id="g02" data-label="合作夥伴事業群" aria-labelledby="g02-name">
+  <div class="wrap">
+    <div class="group__grid">
+      <div class="group__aside">
+        <p class="group__idx">02</p>
+        <h2 class="group__name" id="g02-name">合作夥伴事業群</h2>
+        <hr class="group__rule">
+        <p class="group__promise">讓專業知識成為真正能被使用的工具。</p>
+      </div>
+      <div class="group__main">
+        <p class="claim">幫助專業創作者與企業機構，將<em>知識轉化為實用工具</em></p>
+        <div class="prose">
+          <p>合作夥伴事業群與 50 位以上創作者合作，結合 CMoney 的平台與技術，將專業知識轉化為 App 與影音課程，提供用戶更直覺、實用的操作工具。</p>
+          <p>同時，也為投信、投顧、銀行與保險等法人機構提供「投資決策支援系統」，市佔率逾九成。</p>
+          <p>我們攜手創作者與企業，放大專業價值，讓內容與工具為用戶帶來更好的生活。</p>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">規模</p>
+          <dl class="stats">
+            <div class="stat"><dt class="stat__n" data-to="50">50<i>+</i></dt><dd class="stat__k">位專業創作者</dd><dd class="stat__s">合作開發 App 與課程</dd></div>
+            <div class="stat"><dt class="stat__n" data-to="90">90<i>%</i></dt><dd class="stat__k">金融機構深度合作</dd><dd class="stat__s">法人系統市佔率</dd></div>
+          </dl>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">合作機構</p>
+          <ul class="partners">
+            <li>永豐銀行</li><li>玉山銀行</li><li>臺灣銀行</li><li>元大投信</li>
+            <li>富邦金控創投</li><li>群益金鼎證券</li><li>遠雄人壽</li><li>新光金控</li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">主力產品</p>
+          <ul class="prods">
+            <li><img class="prods__i" src="assets/icon-partner-lin.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>林恩如 — 強棒旺旺來</b><span>盤中即時選股 App</span></span></li>
+            <li><img class="prods__i" src="assets/icon-partner-quan.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>權證小哥 — 當沖飆股神手</b><span>最強當沖操盤軟體</span></span></li>
+            <li><img class="prods__i" src="assets/icon-partner-emily.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>艾蜜莉定存股</b><span>找出優質定存股，先領股利再做價差</span></span></li>
+            <li><img class="prods__i" src="assets/icon-partner-inst.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>法人投資決策支援系統</b><span>90% 法人機構指定投資工具</span></span></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
+          <ul class="reads">
+            <li><a href="https://blogs.cmoney.tw/cmoney-corporate-investment-decision-support-system" target="_blank" rel="noopener">
+              <span class="reads__t">法人投資決策支援系統要如何運用 Gen AI 與數據生態打造新成長動能？</span>
+              <p class="reads__d">已經是高市佔的產品，仍要以 GenAI、數據生態、跨市場擴張尋找新的增長曲線。</p>
+              <span class="reads__m">2025-05-14 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/financial-creator-management" target="_blank" rel="noopener">
+              <span class="reads__t">CMoney 不只是做好產品，而是讓創作者與用戶共同成長的事業</span>
+              <p class="reads__d">事業群負責人第一人稱說明三贏結構，並直接寫出什麼樣的人在這裡會很痛苦、什麼樣的人成長得很快。</p>
+              <span class="reads__m">2026-02-03 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/no-code-development" target="_blank" rel="noopener">
+              <span class="reads__t">CMoney 如何使用 No Code 工具快速打造雙平台原生 App</span>
+              <p class="reads__d">KOL 專屬 App 的產品定位與技術取捨：模組化、可擴展的投資教育平台。</p>
+              <span class="reads__m">2025-05-13 · CMoney Blog</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 國際金融事業群 ============ -->
+<section class="group" id="g03" data-label="國際金融事業群" aria-labelledby="g03-name">
+  <div class="wrap">
+    <div class="group__grid">
+      <div class="group__aside">
+        <p class="group__idx">03</p>
+        <h2 class="group__name" id="g03-name">國際金融事業群</h2>
+        <hr class="group__rule">
+        <p class="group__promise">讓好的投資方法跨越市場與語言。</p>
+      </div>
+      <div class="group__main">
+        <p class="claim">為全球財經創作者打造<em>國際化投資工具與平台</em></p>
+        <div class="prose">
+          <p>國際金融事業群成立於 2025 年，以美股為起點，推動海外市場拓展，開發專為全球投資者設計的工具與創作者平台。</p>
+          <p>我們延伸國內成功經驗，與國際財經創作者共同開發 App 與課程，提供具在地語言與投資情境的內容服務。</p>
+          <p>透過國際化布局，我們擴大專業內容的全球觸及，讓 CMoney 成為串聯全球用戶與創作者的重要投資平台。</p>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">現在在做的事</p>
+          <ul class="chips" style="margin-block-start:0">
+            <li>開拓 CMoney 海外市場</li><li>挖掘 GTM 關鍵打法和模式</li><li>打造全球財經創作者合作生態系</li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">主力產品</p>
+          <ul class="prods">
+            <li><img class="prods__i" src="assets/icon-global-mike.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>Mike 是麥克</b><span>美股致富指南，把握最佳抄底時機</span></span></li>
+            <li><img class="prods__i" src="assets/icon-global-rich.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>Rich 智富選股</b><span>技術選股，順勢買入強勢股契機</span></span></li>
+            <li><img class="prods__i" src="assets/icon-global-sky.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>穹蒼美股</b><span>全球 ETF 配置，無懼風險資產組合</span></span></li>
+            <li><img class="prods__i" src="assets/icon-global-haoye.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>好葉智能選股</b><span>價值選股策略，高效穩健獲利</span></span></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
+          <ul class="reads">
+            <li><a href="https://blogs.cmoney.tw/cmony-product-iteration" target="_blank" rel="noopener">
+              <span class="reads__t">從上線失利到逆風成長：如何用數據、決策與迭代走出「不如預期」？</span>
+              <p class="reads__d">海外 ETF 課程上線後遠低於預期，如何用數據、決策與迭代逆轉。</p>
+              <span class="reads__m">2025-12-10 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/market-development-strategies" target="_blank" rel="noopener">
+              <span class="reads__t">從美股事業商務拓展經驗，反思 CMoney 整體市場開發策略</span>
+              <p class="reads__d">美股事業的商務開發策略與反思。</p>
+              <span class="reads__m">2025-05-12 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/cmoney-taiwan-alternative-data-eagle-alpha" target="_blank" rel="noopener">
+              <span class="reads__t">CMoney 站上華爾街 Alternative Data Conference</span>
+              <p class="reads__d">2026 年 3 月營運長 Jack 於紐約 Eagle Alpha 發表 Keynote，12 家國際媒體轉載。</p>
+              <span class="reads__m">2026-03-30 · CMoney Blog</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 消費事業群 ============ -->
+<section class="group" id="g04" data-label="消費事業群" aria-labelledby="g04-name">
+  <div class="wrap">
+    <div class="group__grid">
+      <div class="group__aside">
+        <p class="group__idx">04</p>
+        <h2 class="group__name" id="g04-name">消費事業群</h2>
+        <hr class="group__rule">
+        <p class="group__promise">從每一張發票，看見更好的生活選擇。</p>
+      </div>
+      <div class="group__main">
+        <p class="claim">幫助每個人掌握消費，<em>提升生活品質</em></p>
+        <div class="prose">
+          <p>消費事業群幫助用戶記錄生活開支，包括發票載具、簡單記帳、CWMoney 等，已經是超過 800 萬名台灣用戶的記帳與發票首選。</p>
+          <p>同時，我們也運用龐大的消費數據庫，提供市場趨勢及消費者行為分析，幫助企業提供消費者更好的產品與服務，滿足客戶需求。</p>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">規模</p>
+          <dl class="stats">
+            <div class="stat"><dt class="stat__n" data-to="800">800<i>萬</i></dt><dd class="stat__k">用戶記錄消費生活</dd><dd class="stat__s">App Store · Google Play 財經類 NO.1</dd></div>
+            <div class="stat"><dt class="stat__n">30<i>億+</i></dt><dd class="stat__k">消費資料支持企業決策</dd><dd class="stat__s"></dd></div>
+            <div class="stat"><dt class="stat__n">7500<i>萬+</i></dt><dd class="stat__k">每月消費紀錄</dd><dd class="stat__s"></dd></div>
+            <div class="stat"><dt class="stat__n">4000<i>萬+</i></dt><dd class="stat__k">商品品項識別</dd><dd class="stat__s"></dd></div>
+          </dl>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">主力產品</p>
+          <ul class="prods">
+            <li><img class="prods__i" src="assets/icon-consumer-einvoice.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>發票載具</b><span>百萬用戶推薦，最好用的發票 APP</span></span></li>
+            <li><img class="prods__i" src="assets/icon-consumer-easynote.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>簡單記帳</b><span class="todo">說明文案待補</span></span></li>
+            <li><img class="prods__i" src="assets/icon-consumer-cwmoney.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>CWMoney</b><span>超過 500 萬人推薦的理財神器</span></span></li>
+            <li><img class="prods__i" src="assets/icon-consumer-dreamfapiao.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>夢幻發票</b><span>最美載具自己做</span></span></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
+          <ul class="reads">
+            <li><a href="https://blogs.cmoney.tw/c-talk-16" target="_blank" rel="noopener">
+              <span class="reads__t">AI 賦能的範例展示：巨量數據結構化的解決方案</span>
+              <p class="reads__d">發票載具逾 350 萬用戶、累積 50 億張發票、後台逾一億筆非結構化商品名稱，資料如何被結構化為消費趨勢。</p>
+              <span class="reads__m">2026-05-11 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/invoice-system-evolution" target="_blank" rel="noopener">
+              <span class="reads__t">從錯誤中蛻變，打造業界領先發票服務的進化之路</span>
+              <p class="reads__d">總會員逾 600 萬、月活逾 150 萬、開獎日同時在線突破 20 萬。</p>
+              <span class="reads__m">2025-05-15 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/sales-mindset" target="_blank" rel="noopener">
+              <span class="reads__t">銷售心態：慾望與恐懼之間，原來自己站得還不夠高</span>
+              <p class="reads__d">與全聯合作的記帳功能於 PXpay 上線，進入逾 1,000 萬會員的零售生態系，並延伸市場分析與 CDP 服務。</p>
+              <span class="reads__m">2026-01-12 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/growth-hacker-cmoney" target="_blank" rel="noopener">
+              <span class="reads__t">如何在一款老產品找到營收成長 5 倍的關鍵密碼</span>
+              <p class="reads__d">簡單記帳營收成長五倍的完整過程。</p>
+              <span class="reads__m">2025-07-23 · CMoney Blog</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 AI 實驗室 ============ -->
+<section class="group" id="g05" data-label="AI 實驗室" aria-labelledby="g05-name">
+  <div class="wrap">
+    <div class="group__grid">
+      <div class="group__aside">
+        <p class="group__idx">05</p>
+        <h2 class="group__name" id="g05-name">AI 實驗室</h2>
+        <hr class="group__rule">
+        <p class="group__promise">讓 AI 不只是工具，而是公司持續進化的能力。</p>
+      </div>
+      <div class="group__main">
+        <p class="claim">打造 AI 平台與原生產品，成為驅動公司 <em>AI 轉型的核心引擎</em></p>
+        <div class="prose">
+          <p>AI 實驗室是公司原生的 AI 團隊，專注於打造平台級 AI Agent 工具與可廣泛應用的 AI 原生產品，推動內外部產品創新。</p>
+          <p>除了產品開發，AI 實驗室也是推動組織 AI 化的核心單位，負責導入流程、輔導各部門，並複製成功模型，協助各團隊加速轉型。</p>
+          <p>團隊運作上，我們正在建立跨職能、任務導向的工作模式，打破傳統分工，培養能快速提出解法的 AI 時代人才。</p>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">規模</p>
+          <dl class="stats">
+            <div class="stat"><dt class="stat__n" data-to="30">30<i>款+</i></dt><dd class="stat__k">三年推出的產品</dd><dd class="stat__s">AI 驅動的快速迭代體系</dd></div>
+          </dl>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">主力產品</p>
+          <ul class="prods">
+            <li><span class="prods__i prods__i--none" aria-hidden="true"></span><span class="prods__tx"><b>AI 日記</b><span>專屬 AI 好友隨時聆聽你的心事</span></span></li>
+            <li><span class="prods__i prods__i--none" aria-hidden="true"></span><span class="prods__tx"><b>抬槓 — AI 私密社群</b><span>抒發心情的秘密基地</span></span></li>
+            <li><span class="prods__i prods__i--none" aria-hidden="true"></span><span class="prods__tx"><b>新產品持續開發中</b><span>&#8942;</span></span></li>
+          </ul>
+        </div>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
+          <ul class="reads">
+            <li><a href="https://blogs.cmoney.tw/ai-product-team" target="_blank" rel="noopener">
+              <span class="reads__t">AI 沒有在取代人，而是讓普通人變得多餘</span>
+              <p class="reads__d">AI Lab 停止用「工程師、設計師、產品經理」的方式招募，改找 Product Builder。</p>
+              <span class="reads__m">2026-04-13 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/c-talk-13" target="_blank" rel="noopener">
+              <span class="reads__t">C Talk+ #13：打破邊界，重新定義「可能」</span>
+              <p class="reads__d">AI Lab 打造「一人獨角獸」的創新基地：定位、目標與不以職能界定工作的協作方式。</p>
+              <span class="reads__m">2025-11-14 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/xlab-ai-powered-social-network" target="_blank" rel="noopener">
+              <span class="reads__t">X 實驗室：從開發交友軟體，走向 AI 社群新藍圖</span>
+              <p class="reads__d">自 2021 年開發近 40 款 App，交友與 AI 社群產品線如何對應人生五大面向。</p>
+              <span class="reads__m">2025-03-12 · CMoney Blog</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="wrap">
+    <div class="end__in">
+      <p class="eyebrow">Join us</p>
+      <h2 class="end__t">每個事業群，都在找能把問題變成結果的人。</h2>
+      <p class="lede">一起打造產品或探索新需求，一起創造更好的工具或社群，幫助每個人做好人生投資。</p>
+      <a class="cta" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">看目前職缺 <span aria-hidden="true">&#8594;</span></a>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- 深／淺底切換 ---- */
+  var toggle = document.getElementById("groundToggle");
+  function isLight(){
+    var set = root.getAttribute("data-theme");
+    if (set) return set === "light";
+    return window.matchMedia("(prefers-color-scheme: light)").matches;
+  }
+  function syncLabel(){ toggle.textContent = isLight() ? "切換深底對照" : "切換淺底對照"; }
+  toggle.addEventListener("click", function(){
+    root.setAttribute("data-theme", isLight() ? "dark" : "light");
+    syncLabel();
+  });
+  syncLabel();
+
+  /* ---- 導覽列：捲動陰影、行動版展開 ---- */
+  var header = document.getElementById("siteHeader");
+  var navToggle = document.getElementById("navToggle");
+  var primaryNav = document.getElementById("primaryNav");
+  window.addEventListener("scroll", function(){
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  }, { passive:true });
+  navToggle.addEventListener("click", function(){
+    var open = primaryNav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "關閉選單" : "開啟選單");
+  });
+  primaryNav.addEventListener("click", function(e){
+    if (e.target.closest(".nav__link")){
+      primaryNav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded","false");
+      navToggle.setAttribute("aria-label","開啟選單");
+    }
+  });
+
+  var rows   = Array.prototype.slice.call(document.querySelectorAll(".row"));
+  var groups = Array.prototype.slice.call(document.querySelectorAll(".group"));
+  var track  = document.getElementById("track");
+  var fill   = document.getElementById("fill");
+  var rail   = document.getElementById("rail");
+  var railY  = document.getElementById("railYears");
+  var railG  = document.getElementById("railGroups");
+
+  function mkBtn(label, target, cjk){
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "rail__btn";
+    var t = document.createElement("span"); t.className = "rail__tick";
+    var l = document.createElement("span"); l.className = "rail__lbl" + (cjk ? " rail__lbl--cjk" : "");
+    l.textContent = label;
+    b.appendChild(t); b.appendChild(l);
+    b.setAttribute("aria-label", "跳到 " + label);
+    b.addEventListener("click", function(){
+      target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: cjk ? "start" : "center" });
+    });
+    return b;
+  }
+
+  var yearBtns  = rows.map(function(r){ var b = mkBtn(r.dataset.year, r, false); railY.appendChild(b); return b; });
+  var groupBtns = groups.map(function(g){ var b = mkBtn(g.dataset.label, g, true); railG.appendChild(b); return b; });
+
+  root.classList.add("js-on");
+  var activeRow = -1, activeGroup = -1, ticking = false;
+
+  function setCurrent(btns, prev, next){
+    if (prev > -1 && btns[prev]) btns[prev].removeAttribute("aria-current");
+    if (next > -1 && btns[next]) btns[next].setAttribute("aria-current", "true");
+  }
+
+  function update(){
+    ticking = false;
+    var vh = window.innerHeight;
+    var readLine = vh * 0.45;
+
+    /* 里程碑：進度線、進場、當前段落 */
+    if (track){
+      var box = track.getBoundingClientRect();
+      fill.style.height = Math.max(0, Math.min(box.height, readLine - box.top)) + "px";
+
+      var idx = 0;
+      for (var i = 0; i < rows.length; i++){
+        var r = rows[i].getBoundingClientRect();
+        if (r.top < vh * 0.88 && r.bottom > 0) rows[i].classList.add("is-in");
+        if (r.top + r.height * 0.5 <= readLine) idx = i;
+      }
+      if (idx !== activeRow){
+        if (activeRow > -1) rows[activeRow].classList.remove("is-active");
+        rows[idx].classList.add("is-active");
+        setCurrent(yearBtns, activeRow, idx);
+        activeRow = idx;
+      }
+      var msIn = box.top < vh * 0.5 && box.bottom > vh * 0.3;
+      railY.classList.toggle("is-shown", msIn);
+    }
+
+    /* 事業群：當前章節 */
+    var gIdx = -1;
+    for (var j = 0; j < groups.length; j++){
+      var gb = groups[j].getBoundingClientRect();
+      if (gb.top <= readLine && gb.bottom > readLine) gIdx = j;
+    }
+    if (gIdx === -1 && groups.length){
+      var last = groups[groups.length - 1].getBoundingClientRect();
+      if (last.bottom <= readLine) gIdx = groups.length - 1;
+    }
+    if (gIdx !== activeGroup){
+      setCurrent(groupBtns, activeGroup, gIdx);
+      activeGroup = gIdx;
+    }
+    railG.classList.toggle("is-shown", gIdx > -1);
+    rail.classList.toggle("is-on", railY.classList.contains("is-shown") || railG.classList.contains("is-shown"));
+  }
+
+  function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
+  window.addEventListener("scroll", onScroll, { passive:true });
+  window.addEventListener("resize", onScroll);
+  update();
+
+  /* ---- 數據進場時跑動 ---- */
+  var nums = Array.prototype.slice.call(document.querySelectorAll(".stat__n[data-to]"));
+  if (!reduce && "IntersectionObserver" in window && nums.length){
+    var io = new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(e){
+        if (!e.isIntersecting) return;
+        obs.unobserve(e.target);
+        var el = e.target, to = +el.dataset.to, t0 = 0;
+        var suffix = el.querySelector("i");
+        if (!suffix) return;
+        suffix = suffix.cloneNode(true);
+        function step(ts){
+          if (!t0) t0 = ts;
+          var p = Math.min(1, (ts - t0) / 900);
+          el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
+          el.appendChild(suffix);
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }, { threshold: 0.45 });
+    nums.forEach(function(n){ io.observe(n); });
+  }
+})();
+</script>
+</body>
+</html>
