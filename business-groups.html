@@ -156,7 +156,7 @@ a{color:inherit}
 }
 .hero__fade{                       /* 讓照片收進頁面底色，深淺底都成立 */
   position:absolute;inset-inline:0;inset-block-end:0;height:clamp(72px,9vw,132px);z-index:1;
-  background:linear-gradient(180deg,rgba(0,0,0,0),var(--ground));
+  background:linear-gradient(180deg,rgba(0,0,0,0),#262626);   /* 下接固定深底的里程碑 */
 }
 .hero .wrap{position:relative;z-index:2}
 .hero__in{display:flex;flex-direction:column;gap:20px;max-width:760px}
@@ -198,11 +198,31 @@ a{color:inherit}
 /* ============================================================
    里程碑
    ============================================================ */
-.ms{padding-block:clamp(40px,5vw,72px) 0;position:relative;overflow-x:clip}
+/* 里程碑整段固定深底（含「走到今天」數據帶），不隨淺色主題切換；
+   值即 :root 的深底階層，只是 scope 到這一段，文字／線條／卡片自動跟著轉色 */
+.ms{
+  --ground:#262626;                   /* GREY 800 */
+  --raise:#262626;
+  --tx-1:#ffffff;                     /* Text/White */
+  --tx-2:#bfbfbf;                     /* GREY 500 */
+  --tx-3:#959595;                     /* GREY 550 */
+  --rule:#595959;                     /* GREY 700 */
+  --rule-2:#767676;                   /* GREY 600 */
+  --accent:#f0332c;                   /* 深底紅 — 中軸線與大字 */
+  --accent-tx:#f39ea3;                /* Primary/Border 300 — 深底上的小級數紅字 */
+  --accent-wash:transparent;
+  --chip:transparent;
+  --chip-line:#595959;
+  --card:rgba(255,255,255,.05);
+  --card-line:rgba(255,255,255,.10);
+  --card-shadow:none;
+  background:var(--ground);color:var(--tx-1);
+  padding-block:clamp(40px,5vw,72px) 0;position:relative;overflow-x:clip;
+}
 .ms__head{max-width:760px;display:flex;flex-direction:column;gap:18px}
 .ms__title{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.22;font-size:clamp(26px,3.4vw,40px);text-wrap:balance}
 
-.track{position:relative;margin-block-start:clamp(36px,4.4vw,64px)}
+.track{position:relative;margin-block-start:clamp(24px,3vw,40px)}
 .track__line,.track__fill{position:absolute;inset-block:0;inset-inline-start:calc(var(--axis) / 2);width:1px}
 .track__line{background:var(--rule)}
 .track__fill{background:var(--accent);height:0;inset-block-end:auto;transition:height .12s linear}
@@ -210,25 +230,9 @@ a{color:inherit}
 @media (max-width:899px){:root{--axis:92px}}
 @media (max-width:520px){:root{--axis:66px}}
 
-.chapter{
-  position:relative;z-index:3;background:var(--ground);
-  padding-block:clamp(26px,3.2vw,42px);text-align:center;
-}
-.chapter__range{
-  margin:0 0 7px;display:flex;align-items:center;justify-content:center;gap:clamp(12px,2vw,22px);
-  font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
-  font-size:13px;font-weight:700;letter-spacing:.12em;line-height:1;color:var(--accent-tx);
-}
-.chapter__range::before,.chapter__range::after{content:"";flex:1 1 0;height:1px;background:var(--accent);opacity:.55}
-.chapter__range em{font-style:normal;padding-inline:.15em}
-.chapter__line{
-  margin:0;font-weight:700;line-height:1.4;letter-spacing:-.01em;
-  font-size:clamp(15px,1.5vw,18px);color:var(--tx-1);max-width:30ch;margin-inline:auto;text-wrap:balance;
-}
-
 .row{
   position:relative;display:grid;grid-template-columns:var(--axis) minmax(0,1fr);
-  align-items:baseline;padding-block:clamp(20px,2.6vw,32px);
+  align-items:baseline;padding-block:clamp(12px,1.6vw,20px);
   opacity:1;transition:opacity .4s var(--ease);
 }
 .js-on .row{opacity:.6}
@@ -288,8 +292,8 @@ a{color:inherit}
 .stats--one{grid-template-columns:minmax(0,260px)}
 @media (min-width:980px){.payoff .stats{gap:24px}}
 
-.payoff{position:relative;margin-block-start:clamp(44px,5vw,76px);background:var(--raise);border-block:1px solid var(--rule-2)}
-.payoff .wrap{padding-block:clamp(38px,4.4vw,62px)}
+.payoff{position:relative;margin-block-start:clamp(32px,3.6vw,52px);background:var(--raise);border-block:1px solid var(--rule-2)}
+.payoff .wrap{padding-block:clamp(32px,3.6vw,52px)}
 .payoff__cap{margin:0 0 26px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-3)}
 
 /* ============================================================
@@ -468,11 +472,6 @@ a{color:inherit}
       <div class="track__line" aria-hidden="true"></div>
       <div class="track__fill" id="fill" aria-hidden="true"></div>
 
-      <div class="chapter">
-        <p class="chapter__range"><span>2003</span><em>&#8594;</em><span>2011</span></p>
-        <p class="chapter__line">先把工具做對，再把工具交給散戶</p>
-      </div>
-
       <article class="row row--l" data-year="2003">
         <div class="row__axis"><span class="year mono">2003</span></div>
         <div class="card">
@@ -497,11 +496,6 @@ a{color:inherit}
           <ul class="chips"><li data-brand>理財寶</li></ul>
         </div>
       </article>
-
-      <div class="chapter">
-        <p class="chapter__range"><span>2013</span><em>&#8594;</em><span>2018</span></p>
-        <p class="chapter__line">從桌機搬到手機，從工具長出社群</p>
-      </div>
 
       <article class="row row--r" data-year="2013">
         <div class="row__axis"><span class="year mono">2013</span></div>
@@ -535,11 +529,6 @@ a{color:inherit}
           <ul class="chips"><li>發票載具</li><li>股市爆料同學會</li><li>艾蜜莉定存股</li></ul>
         </div>
       </article>
-
-      <div class="chapter">
-        <p class="chapter__range"><span>2022</span><em>&#8594;</em><span>2023</span></p>
-        <p class="chapter__line">從做工具的公司，變成自己就是平台</p>
-      </div>
 
       <article class="row row--r" data-year="2022">
         <div class="row__axis"><span class="year mono">2022</span></div>
