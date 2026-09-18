@@ -321,11 +321,33 @@ a{color:inherit}
   padding-block:11px;border-bottom:1px solid var(--rule);
 }
 .prods__i{width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:block}
-.prods__i--none{border:1px dashed var(--rule);border-radius:9px}
 .prods__tx{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;min-width:0}
+.prods__more{
+  margin:14px 0 0;text-align:center;font-size:13px;color:var(--tx-3);
+  display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;
+}
 .prods b{font-size:15px;font-weight:700;color:var(--tx-1)}
 .prods span{font-size:13.5px;color:var(--tx-3)}
 .prods .todo{color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:11.5px;line-height:1}
+
+/* 產品牆：沿用設計稿 5717:10949 的手法，最後一排淡出，表示看到的不是全部 */
+.wall{
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:10px;margin:0;padding:0;list-style:none;max-width:440px;
+  -webkit-mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.15) 100%);
+          mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.15) 100%);
+}
+.wall img{width:100%;aspect-ratio:1;border-radius:12px;display:block}
+.wall__note{margin:12px 0 0;font-size:12.5px;color:var(--tx-3)}
+@media (max-width:520px){.wall{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+/* 兩句主張：與事業群敘述同層級，但用線分隔成獨立的兩件事 */
+.claims{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
+.claims li{
+  padding-block:14px;border-bottom:1px solid var(--rule);
+  font-size:clamp(15px,1.6vw,18px);font-weight:700;line-height:1.5;letter-spacing:-.01em;
+}
+.claims em{font-style:normal;color:var(--accent-tx)}
 
 .partners{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
 .partners li{font-size:12.5px;line-height:1;color:var(--tx-2);border:1px solid var(--chip-line);padding:7px 11px;border-radius:999px}
@@ -810,18 +832,38 @@ a{color:inherit}
         <div class="blk">
           <p class="blk__cap">規模</p>
           <dl class="stats">
-            <div class="stat"><dt class="stat__n" data-to="30">30<i>款+</i></dt><dd class="stat__k">三年推出的產品</dd><dd class="stat__s">AI 驅動的快速迭代體系</dd></div>
+            <div class="stat"><dt class="stat__n" data-to="30">30<i>款+</i></dt><dd class="stat__k">三年推出的產品</dd><dd class="stat__s">三年內</dd></div>
           </dl>
+          <ul class="wall" aria-label="AI 實驗室推出的部分產品">
+            <li><img src="assets/icon-ailab-app-01.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-02.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-03.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-04.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-05.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-06.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-07.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-08.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-09.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-10.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-11.png" alt="" loading="lazy"></li>
+            <li><img src="assets/icon-ailab-app-12.png" alt="" loading="lazy"></li>
+          </ul>
+          <p class="wall__note">圖為其中 12 款</p>
         </div>
 
         <div class="blk">
           <p class="blk__cap">主力產品</p>
           <ul class="prods">
-            <li><span class="prods__i prods__i--none" aria-hidden="true"></span><span class="prods__tx"><b>AI 日記</b><span>專屬 AI 好友隨時聆聽你的心事</span></span></li>
-            <li><span class="prods__i prods__i--none" aria-hidden="true"></span><span class="prods__tx"><b>抬槓 — AI 私密社群</b><span>抒發心情的秘密基地</span></span></li>
-            <li><span class="prods__i prods__i--none" aria-hidden="true"></span><span class="prods__tx"><b>新產品持續開發中</b><span>&#8942;</span></span></li>
+            <li><img class="prods__i" src="assets/icon-ailab-diary.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>AI日日記</b><span>專屬 AI 好友隨時聆聽你的心事</span></span></li>
+            <li><img class="prods__i" src="assets/icon-ailab-taigang.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>抬槓 — AI 私密社群</b><span>抒發心情的秘密基地</span></span></li>
           </ul>
+          <p class="prods__more">新產品持續開發中<span aria-hidden="true">&#8942;</span></p>
         </div>
+
+        <ul class="claims">
+          <li>打造 AI 驅動的產品<em>快速迭代體系</em></li>
+          <li><em>AI 核心推動中心</em>，協助各部門導入 AI 工具與工作流程</li>
+        </ul>
 
         <div class="blk">
           <p class="blk__cap">這個事業群正在解的題</p>

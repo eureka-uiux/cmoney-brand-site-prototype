@@ -44,7 +44,11 @@
 
   --container:1220px;
   --gutter:110px;
-  --section-pad:140px;
+  /* 段間節奏：standard = 換底色/換主題；tight = 同底色、同一組敘事的相鄰邊 */
+  --section-pad:120px;
+  --section-pad-tight:80px;
+  /* 段內大區塊間距，必須恆小於 tight，層級才立得住 */
+  --block-gap:72px;
 
   --ease:cubic-bezier(.22,.61,.36,1);
 }
@@ -68,6 +72,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .container{max-width:calc(var(--container) + 48px);margin-inline:auto;padding-inline:24px}
 .section{padding-block:var(--section-pad)}
+.section--tight-start{padding-block-start:var(--section-pad-tight)}
+.section--tight-end{padding-block-end:var(--section-pad-tight)}
 .section--dark{background:var(--ink-900);color:#fff}
 .section--soft{background:var(--bg-soft)}
 .section--soft2{background:var(--bg-soft-2)}
@@ -195,7 +201,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .pillar__title{margin:0;font-size:22px;font-weight:700;line-height:1.636;color:var(--ink-900)}
 .pillar__body{margin:0;font-size:16px;line-height:1.5;color:var(--text-400)}
 
-.northstar{display:grid;gap:32px;padding-block:64px}
+.northstar{display:grid;gap:32px;padding-block:var(--block-gap) 0}
 .northstar__eyebrow{margin:0;font-size:clamp(24px,2.78vw,40px);font-weight:800;color:var(--text-300);letter-spacing:.027em;line-height:1.2}
 .northstar__title{margin:0;font-size:clamp(30px,3.6vw,52px);font-weight:700;letter-spacing:-.017em;line-height:1.21}
 .northstar__sub{margin:0;font-size:clamp(18px,1.67vw,24px);color:var(--text-600);line-height:1.05}
@@ -259,7 +265,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ---------- 價值觀卡片：捲動堆疊 ---------- */
 /* --stack-top：黏住時距畫面上緣的距離（要閃開 75px 的固定 header）
    --stack-peek：每張卡片往下錯開、露出上緣的高度          */
-.vstack{--stack-top:100px;--stack-peek:22px;padding-block:60px}
+.vstack{--stack-top:100px;--stack-peek:22px;padding-block:60px 0}
 .vstack__item{position:sticky;inset-block-start:calc(var(--stack-top) + var(--i) * var(--stack-peek))}
 .vstack__item + .vstack__item{margin-top:32px}
 /* sticky 的可黏範圍只算到容器的 content box，padding 撐不出來；
@@ -296,7 +302,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .vcard__sub h4{margin:0;font-size:18px;font-weight:700;line-height:1.4;color:var(--ink-900)}
 .vcard__sub p{margin:0;font-size:15px;line-height:24px;color:#606976}
 
-.values-outro{padding-block:80px;text-align:center}
+.values-outro{padding-block:var(--block-gap) 0;text-align:center}
 .values-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
 .values-outro p{margin:44px 0 0;font-size:18px;color:var(--text-600)}
 
@@ -430,13 +436,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp-field__link svg{width:14px;height:14px;flex:0 0 auto;fill:currentColor}
 .cmp-field__img{flex:0 0 auto;width:177px;height:118px;border-radius:16px;object-fit:cover}
 
-.how-outro{margin-top:150px;text-align:center}
+.how-outro{margin-top:var(--block-gap);text-align:center}
 .how-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
 
 /* ============================================================
    Section: 創辦人的話
    ============================================================ */
-.founder-age{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.founder-age{margin:0;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
 .founder-age b{font-size:clamp(90px,12.5vw,180px);font-weight:700;color:var(--red);line-height:.8;letter-spacing:-.04em}
 .founder-age span{font-size:clamp(20px,2.2vw,32px);font-weight:700;color:var(--text-400);letter-spacing:-.02em;padding-bottom:10px}
 
@@ -508,7 +514,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn-pill--outline:hover{background:var(--red-600);color:#fff}
 
 /* Footer — node 9:1999 */
-.site-footer{background:var(--header-bg);color:#fff;padding-block:40px}
+.site-footer{background:var(--header-bg);color:#fff;padding-block:64px 40px}
 .site-footer__inner{
   max-width:calc(1152px + 48px);margin-inline:auto;padding-inline:24px;
   display:flex;flex-direction:column;gap:24px;
@@ -563,7 +569,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
    Responsive（設計稿僅有 1440 桌機版，以下為原型自行延伸）
    ============================================================ */
 @media (max-width:1200px){
-  .section{padding-block:100px}
+  :root{--section-pad:96px;--section-pad-tight:64px;--block-gap:56px}
   .split{grid-template-columns:1fr;gap:56px}
   .founder{grid-template-columns:240px 1fr;gap:48px}
   .founder__media{height:560px}
@@ -587,7 +593,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   .groups{grid-template-columns:1fr}
   /* 單欄之後卡片高度已超過一個畫面，黏頂堆疊會吃掉內容，改回一般直列 */
-  .vstack{padding-block:40px}
+  .vstack{padding-block:40px 0}
   .vstack__item{position:static}
   .vstack__item + .vstack__item{margin-top:24px}
   .vstack__hold{display:none}
@@ -621,7 +627,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .fsocial{width:100%;justify-content:flex-start}
 }
 @media (max-width:640px){
-  .section{padding-block:76px}
+  :root{--section-pad:72px;--section-pad-tight:48px;--block-gap:40px}
   .group{grid-template-columns:1fr;gap:20px;padding:22px 20px}
   .hero__actions .btn{width:100%}
   .cta{padding-block:72px}
@@ -725,7 +731,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們是誰 ========================= -->
-<section class="section" id="who">
+<section class="section section--tight-end" id="who">
   <div class="container">
     <div class="split">
       <div class="split__intro reveal">
@@ -770,7 +776,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們創造什麼 ========================= -->
-<section class="section" id="what">
+<section class="section section--tight-start" id="what">
   <div class="container">
     <h2 class="statement reveal">外界看 CMoney，會看到豐富的 App 產品線；<br>在 CMoney 我們打造的是一套<span class="is-red">決策基礎建設。</span></h2>
     <p class="statement-sub lead reveal">不同事業面對不同人群、場景與市場，<br>我們做的是同一件事：縮短人與好決定之間的距離。</p>
