@@ -18,6 +18,7 @@
   --red:#f0332c;           /* 深底 / 大字紅 */
   --red-600:#e21e28;       /* 淺底文字與按鈕紅 */
   --red-500:#ee342b;
+  --red-on-dark:#ff6b62;   /* 深底上的紅字（CTA、小級數）— 深底卡與事業群頁共用 */
   --lime:#d8ff45;
 
   --text-900:#262626;
@@ -27,6 +28,7 @@
   --text-450:#657080;
   --text-400:#959595;
   --text-300:#bfbfbf;
+  --line-600:#767676;      /* GREY 600 — 深底分隔線；首頁尚未使用，色階放這裡統一管理 */
   --line-200:#e4e4e4;
 
   --on-dark-1:#ffffff;
@@ -319,7 +321,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .bgc__cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:700;color:var(--red-600);text-decoration:none}
 .bgc__cta span{transition:transform .25s var(--ease)}
 .bgc:hover .bgc__cta span{transform:translateX(4px)}
-.bgc--dark .bgc__cta{color:#ff6b62}
+.bgc--dark .bgc__cta{color:var(--red-on-dark)}
 
 /* ============================================================
    Section: 價值觀（node 6341:67665）

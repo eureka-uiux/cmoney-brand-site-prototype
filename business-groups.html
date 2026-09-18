@@ -14,15 +14,17 @@
    深底所需的值由 GREY / Primary 既有階層推導，說明見同名 .md
    ============================================================ */
 :root{
-  --ground:#262626;      /* GREY 800 */
+  /* 色票以 index.html 的 :root 為單一來源，本頁只是換一套語意命名。
+     括號內是首頁對應的 token；要改色值請先改首頁，再同步這裡。 */
+  --ground:#262626;      /* GREY 800 — 首頁 --text-900 */
   --raise:#262626;
-  --tx-1:#ffffff;        /* Text/White */
-  --tx-2:#bfbfbf;        /* GREY 500 */
-  --tx-3:#959595;        /* GREY 550 */
-  --rule:#595959;        /* GREY 700 */
-  --rule-2:#767676;      /* GREY 600 */
-  --accent:#f0332c;      /* 深底紅（形象站 prototype）— 線與大字 */
-  --accent-tx:#f39ea3;   /* Primary/Border 300 — 深底上的小級數紅字 */
+  --tx-1:#ffffff;        /* Text/White — 首頁 --on-dark-1 */
+  --tx-2:#bfbfbf;        /* GREY 500 — 首頁 --text-300 */
+  --tx-3:#959595;        /* GREY 550 — 首頁 --text-400 */
+  --rule:#595959;        /* GREY 700 — 首頁 --text-600 */
+  --rule-2:#767676;      /* GREY 600 — 首頁 --line-600 */
+  --accent:#f0332c;      /* 深底紅 — 首頁 --red，線與大字 */
+  --accent-tx:#ff6b62;   /* 深底上的小級數紅字 — 首頁 --red-on-dark */
   --accent-wash:transparent;
   --chip:transparent;
   --chip-line:#595959;
@@ -37,22 +39,26 @@
 }
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){
-    --ground:#ffffff; --raise:#f0f0f0;
-    --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;
-    --rule:#d9d9d9; --rule-2:#bfbfbf;
-    --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
-    --chip:#f0f0f0; --chip-line:#d9d9d9;
+    --ground:#ffffff; --raise:#f6f6f6;                /* 首頁 --bg / --bg-soft-2 */
+    --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;  /* 首頁 --text-900 / --text-600 / --text-400 */
+    --rule:#e4e4e4; --rule-2:#bfbfbf;                /* 首頁 --line-200 / --text-300 */
+    --accent:#e21e28; --accent-tx:#e21e28;           /* 首頁 --red-600 */
+    --accent-wash:transparent;                       /* 原為 #fce9ea：唯一使用者 .chips[data-brand] 只出現在固定深底的 .ms 裡，
+                                                        此值從未被畫出；且 --accent-tx 疊上去只有 4.04:1，不留 */
+    --chip:#f6f6f6; --chip-line:#e4e4e4;
     --card:#ffffff;                   /* Surface/Base */
     --card-line:rgba(38,38,38,.07);   /* Surface/Light.Border */
     --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
   }
 }
 :root[data-theme="light"]{
-  --ground:#ffffff; --raise:#f0f0f0;
-  --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;
-  --rule:#d9d9d9; --rule-2:#bfbfbf;
-  --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
-  --chip:#f0f0f0; --chip-line:#d9d9d9;
+  --ground:#ffffff; --raise:#f6f6f6;                /* 首頁 --bg / --bg-soft-2 */
+  --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;  /* 首頁 --text-900 / --text-600 / --text-400 */
+  --rule:#e4e4e4; --rule-2:#bfbfbf;                /* 首頁 --line-200 / --text-300 */
+  --accent:#e21e28; --accent-tx:#e21e28;           /* 首頁 --red-600 */
+  --accent-wash:transparent;                       /* 原為 #fce9ea：唯一使用者 .chips[data-brand] 只出現在固定深底的 .ms 裡，
+                                                        此值從未被畫出；且 --accent-tx 疊上去只有 4.04:1，不留 */
+  --chip:#f6f6f6; --chip-line:#e4e4e4;
   --card:#ffffff;           /* Surface/Base */
   --card-line:rgba(38,38,38,.07);   /* Surface/Light.Border */
   --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
@@ -207,9 +213,9 @@ a{color:inherit}
   --tx-2:#bfbfbf;                     /* GREY 500 */
   --tx-3:#959595;                     /* GREY 550 */
   --rule:#595959;                     /* GREY 700 */
-  --rule-2:#767676;                   /* GREY 600 */
+  --rule-2:#767676;                   /* GREY 600 — 首頁 --line-600 */
   --accent:#f0332c;                   /* 深底紅 — 中軸線與大字 */
-  --accent-tx:#f39ea3;                /* Primary/Border 300 — 深底上的小級數紅字 */
+  --accent-tx:#ff6b62;                /* 深底上的小級數紅字 — 首頁 --red-on-dark */
   --accent-wash:transparent;
   --chip:transparent;
   --chip-line:#595959;
