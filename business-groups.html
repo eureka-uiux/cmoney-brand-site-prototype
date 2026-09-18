@@ -288,7 +288,9 @@ a{color:inherit}
 .stat__num b,.stat__num em{font-weight:inherit;font-style:normal}
 .stat__num em{font-size:.72em;margin-inline-start:.06em}
 .stat__label{margin:0;font-size:16px;font-weight:700;line-height:1.2;color:var(--tx-1)}
-.stat__desc{margin:0;font-size:13px;font-weight:400;line-height:1.35;color:var(--tx-3);overflow-wrap:anywhere}
+/* 說明文字用 --tx-2 而非 --tx-3：13px/400 屬一般內文，需 WCAG AA 4.5:1。
+   --tx-3 在白卡上只有 3.0:1、在深底卡上 4.34:1，兩邊都不過。 */
+.stat__desc{margin:0;font-size:13px;font-weight:400;line-height:1.35;color:var(--tx-2);overflow-wrap:anywhere}
 .stats--one{grid-template-columns:minmax(0,260px)}
 @media (min-width:980px){.payoff .stats{gap:24px}}
 
