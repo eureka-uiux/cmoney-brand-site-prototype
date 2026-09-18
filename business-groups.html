@@ -7,7 +7,7 @@
 <title>CMoney 事業群</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
    Tokens — 取自 CMoney 設計系統「顏色總覽表」(node 647:21869)
@@ -52,13 +52,13 @@
 *,*::before,*::after{box-sizing:border-box}
 body{
   margin:0;background:var(--ground);color:var(--tx-1);
-  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
+  font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
   font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
   overflow-x:clip;
 }
 html{scroll-padding-top:calc(var(--bar) + env(safe-area-inset-top,0px) + 16px)}
 .wrap{max-width:calc(var(--maxw) + 48px);margin-inline:auto;padding-inline:24px}
-.mono{font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-variant-numeric:tabular-nums}
+.mono{font-variant-numeric:tabular-nums}
 a{color:inherit}
 
 /* ---------- 導覽列 — 沿用首頁 prototype 的 site-header 元件 ----------
@@ -230,8 +230,8 @@ a{color:inherit}
 .row > *{grid-row:1}
 .row__axis{grid-column:1;display:flex;justify-content:center;position:relative;z-index:2}
 .year{
-  font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
-  font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.02em;line-height:1;
+  font-variant-numeric:tabular-nums;
+  font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.025em;line-height:1;
   color:var(--tx-3);background:var(--ground);padding-block:10px;transition:color .4s var(--ease);
 }
 .row.is-active .year{color:var(--accent)}
@@ -263,8 +263,8 @@ a{color:inherit}
 .stats{display:grid;gap:26px 28px;grid-template-columns:repeat(auto-fit,minmax(164px,1fr));margin:0;padding:0}
 .stat{display:flex;flex-direction:column;gap:5px}
 .stat__n{
-  font-family:"Roboto Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;
-  font-weight:700;line-height:1;letter-spacing:-.03em;color:var(--tx-1);
+  font-variant-numeric:tabular-nums;
+  font-weight:700;line-height:1;letter-spacing:-.035em;color:var(--tx-1);
   font-size:clamp(28px,3.4vw,44px);
 }
 .stat__n i{font-style:normal;color:var(--accent)}
