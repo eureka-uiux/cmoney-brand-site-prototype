@@ -241,11 +241,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .bgc:focus-within .bgc__cta{text-decoration:underline;text-underline-offset:3px}
 .bgc__cta:focus-visible{outline:2px solid var(--red-600);outline-offset:3px;border-radius:3px}
 
-.bgc__main{position:relative;z-index:2;display:flex;flex-direction:column;flex:1}
+.bgc__main{position:relative;z-index:2;display:flex;flex-direction:column}
 .bgc__eyebrow{margin:0;font-size:13px;font-weight:800;letter-spacing:.24em;line-height:1.2;color:var(--text-600);text-transform:uppercase}
 .bgc__eyebrow--red{color:var(--red-600)}
-.bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px;max-width:348px}
-.bgc__name{margin:0;font-size:clamp(26px,2.6vw,36px);font-weight:900;line-height:1.24;letter-spacing:-.02em;color:#191919}
+.bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px}
+/* 標題級數依 Figma 分級：金融 36 / 合作夥伴 32 / 下排 28。
+   分欄之後文字欄變窄，全用 36 會讓「合作夥伴事業群」斷在詞中間。 */
+.bgc__name{margin:0;font-size:clamp(24px,2vw,28px);font-weight:900;line-height:1.24;letter-spacing:-.02em;color:#191919;text-wrap:balance}
+.groups > .bgc:nth-child(1) .bgc__name{font-size:clamp(28px,2.6vw,36px)}
+.groups > .bgc:nth-child(2) .bgc__name{font-size:clamp(26px,2.3vw,32px)}
 .bgc--dark .bgc__name{color:#fff}
 .bgc__claim{margin:0;font-size:clamp(15px,1.3vw,18px);font-weight:600;line-height:1.55;color:var(--text-600)}
 .bgc--dark .bgc__claim{color:var(--text-300)}
@@ -258,30 +262,29 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* 跑數會改寫 b 的 textContent，「+」用 ::after 掛著才不會被洗掉 */
 .bgc__stat b[data-count]::after{content:"+"}
 
-/* 靜止的視覺主體：產品手機稿。hover 時下滑讓位給 app 清單 */
-.bgc__hero{
-  position:absolute;z-index:1;pointer-events:none;
-  inset-inline-end:2.6%;inset-block-start:37%;
-  width:clamp(120px,38%,290px);
-  transform:translateY(0);
-  transition:transform .55s var(--ease);
-}
-.bgc:hover .bgc__hero,.bgc:focus-within .bgc__hero{transform:translateY(calc(100% + 80px))}
+/* 圖文分欄 —— 文字欄與手機稿欄各佔一欄，手機稿不再是浮在內容上的絕對定位層，
+   所以文字不可能被壓到；卡片變窄時是文字欄變窄，不是文字鑽到圖下面。 */
+.bgc__body{display:flex;gap:clamp(16px,2vw,28px);flex:1;min-height:0}
+.bgc__main{flex:1 1 auto;min-width:0}
+.bgc__hero{position:relative;flex:0 0 clamp(130px,42%,280px);pointer-events:none;
+  transform:translateY(0);transition:transform .55s var(--ease)}
+/* 位移量取「手機欄」的 100%（＝卡片內容區高度）而非手機自身高度：
+   手機縮小時自身高度跟著變小，起始位置卻不變，會退不乾淨。 */
+.bgc:hover .bgc__hero,.bgc:focus-within .bgc__hero{transform:translateY(100%)}
+/* 合作夥伴卡 460 寬，42% 的手機欄會把文字欄壓到 184px，標題 224px 放不下而斷行。
+   這張的手機稿收窄，換回文字寬度。 */
+.groups > .bgc:nth-child(2) .bgc__hero{flex-basis:clamp(104px,30%,120px)}
 
+/* 手機稿在自己那一欄裡絕對定位，才能往卡片下緣出血；水平方向仍受欄寬約束 */
 .phone{
+  position:absolute;inset-inline:0;inset-block-start:30%;
   width:100%;aspect-ratio:279.37 / 567.62;
   border-radius:13.5% / 6.6%;
   background:#0e0e10;padding:4.8%;
-  position:relative;
   box-shadow:-5px 14px 24px rgba(88,89,92,.34),0 2px 6px rgba(0,0,0,.18);
 }
 .phone__screen{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:9.5% / 4.7%;background:#fff}
 .phone::after{content:"";position:absolute;inset-block-start:4.2%;inset-inline-start:50%;transform:translateX(-50%);width:31%;aspect-ratio:4.3;border-radius:999px;background:#0e0e10}
-
-/* 暫代：國際金融尚無手機稿素材，補上後把 .axis 換成 .phone，位置不用動 */
-.bgc__hero--axis{inset-block-start:auto;inset-block-end:clamp(28px,3.3vw,48px);width:auto}
-.axis{margin:0;display:flex;flex-direction:column;gap:7px;text-align:right}
-.axis span{font-size:clamp(14px,1.3vw,17px);font-weight:800;line-height:1.1;letter-spacing:.06em;color:var(--text-300)}
 
 /* hover 面板：app 產品清單 */
 .bgc__panel{
@@ -668,7 +671,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   /* 單欄：卡高改由內容決定；觸控沒有 hover，面板改成接在內容後面一起捲 */
   .groups{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
   .groups > .bgc:nth-child(n){flex:none;width:auto;height:auto}
-  .bgc__head{max-width:none}
+  .bgc__body{display:block}
   .bgc__hero{display:none}
   .bgc__stat{margin-top:24px}
   .bgc__panel{
@@ -876,15 +879,17 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 
       <article class="bgc">
         <a class="bgc__hit" href="business-groups.html#g01" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__main">
-          <p class="bgc__eyebrow bgc__eyebrow--red">Finance</p>
-          <div class="bgc__head">
-            <h3 class="bgc__name">金融事業群</h3>
-            <p class="bgc__claim">陪伴每個人成為更成熟的投資人。</p>
-            <p class="bgc__desc">從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow bgc__eyebrow--red">Finance</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">金融事業群</h3>
+              <p class="bgc__claim">陪伴每個人成為更成熟的投資人。</p>
+              <p class="bgc__desc">從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
+            </div>
           </div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.png" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
         </div>
-        <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.png" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
           <ul class="bgc__products">
@@ -899,15 +904,17 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 
       <article class="bgc bgc--dark">
         <a class="bgc__hit" href="business-groups.html#g02" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__main">
-          <p class="bgc__eyebrow bgc__eyebrow--red">Partnership</p>
-          <div class="bgc__head">
-            <h3 class="bgc__name">合作夥伴事業群</h3>
-            <p class="bgc__claim">讓專業知識成為真正能被使用的工具。</p>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow bgc__eyebrow--red">Partnership</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">合作夥伴事業群</h3>
+              <p class="bgc__claim">讓專業知識成為真正能被使用的工具。</p>
+            </div>
+            <p class="bgc__stat"><b>50+</b><span>專業投資創作者生態系</span></p>
           </div>
-          <p class="bgc__stat"><b>50+</b><span>專業投資創作者生態系</span></p>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-creator.png" alt="投資達人合作 App 畫面" loading="lazy"></div></div>
         </div>
-        <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-creator.png" alt="投資達人合作 App 畫面" loading="lazy"></div></div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
           <ul class="bgc__products">
@@ -922,16 +929,15 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 
       <article class="bgc">
         <a class="bgc__hit" href="business-groups.html#g03" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__main">
-          <p class="bgc__eyebrow">Global</p>
-          <div class="bgc__head">
-            <h3 class="bgc__name">國際金融事業群</h3>
-            <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow">Global</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">國際金融事業群</h3>
+              <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
+            </div>
           </div>
-        </div>
-        <!-- 暫代：待手機稿素材補上後，把 .axis 換成 .phone -->
-        <div class="bgc__hero bgc__hero--axis">
-          <p class="axis"><span>CREATOR</span><span>&times; PRODUCT</span><span>&times; MARKET</span></p>
+          <!-- 待補：國際金融的手機稿素材。到位後在這裡加 <div class="bgc__hero"><div class="phone">… -->
         </div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
@@ -947,14 +953,16 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 
       <article class="bgc">
         <a class="bgc__hit" href="business-groups.html#g04" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__main">
-          <p class="bgc__eyebrow">Consumer</p>
-          <div class="bgc__head">
-            <h3 class="bgc__name">消費事業群</h3>
-            <p class="bgc__desc">從每一張發票，看見更好的生活選擇。讓大量去識別化資料成為企業改善產品的強大依據。</p>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow">Consumer</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">消費事業群</h3>
+              <p class="bgc__desc">從每一張發票，看見更好的生活選擇。讓大量去識別化資料成為企業改善產品的強大依據。</p>
+            </div>
           </div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-einvoice.png" alt="發票載具 App 畫面" loading="lazy"></div></div>
         </div>
-        <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-einvoice.png" alt="發票載具 App 畫面" loading="lazy"></div></div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
           <ul class="bgc__products">
@@ -969,13 +977,15 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 
       <article class="bgc bgc--dark">
         <a class="bgc__hit" href="business-groups.html#g05" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__main">
-          <p class="bgc__eyebrow bgc__eyebrow--red">Innovation</p>
-          <div class="bgc__head">
-            <h3 class="bgc__name">AI Lab</h3>
-            <p class="bgc__desc">建立平台級 AI 核心能力，打造 AI 原生產品，將領先技術輸出至所有事業單位。</p>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow bgc__eyebrow--red">Innovation</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">AI Lab</h3>
+              <p class="bgc__desc">建立平台級 AI 核心能力，打造 AI 原生產品，將領先技術輸出至所有事業單位。</p>
+            </div>
+            <p class="bgc__stat"><b data-count="30">30</b><span>近三年推出之新產品原型</span></p>
           </div>
-          <p class="bgc__stat"><b data-count="30">30</b><span>近三年推出之新產品原型</span></p>
         </div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
