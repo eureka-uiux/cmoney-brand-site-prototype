@@ -378,6 +378,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .vcard__sub{display:flex;flex-direction:column;gap:12px}
 .vcard__sub h4{margin:0;font-size:18px;font-weight:700;line-height:1.4;color:var(--ink-900)}
 .vcard__sub p{margin:0;font-size:15px;line-height:24px;color:#606976}
+/* 延伸閱讀：對照表指定的部落格文章，接在 sheet 最後 */
+.vcard__more{
+  align-self:flex-start;display:inline-flex;align-items:baseline;gap:6px;
+  font-size:15px;font-weight:700;line-height:24px;color:var(--red-600);
+}
+.vcard__more span{flex:0 0 auto;transition:transform .25s var(--ease)}
+.vcard__more:hover{text-decoration:underline;text-underline-offset:3px}
+.vcard__more:hover span{transform:translateX(4px)}
 
 .values-outro{padding-block:var(--block-gap) 0;text-align:center}
 .values-outro h3{margin:0;font-size:clamp(26px,2.5vw,36px);font-weight:700;line-height:1.5;letter-spacing:-.025em;color:var(--ink-900)}
@@ -1030,6 +1038,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <h4>從使用者與問題出發，並對結果負責，而不是只對工作負責</h4>
               <p>如果一件事情沒有產生預期效果，我們不希望回答：「可是我的部分已經做完了。」真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生。</p>
             </div>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/cmoney-engineering-culture-teamwork" target="_blank" rel="noopener">延伸閱讀〈CMoney 工程文化：為什麼我們更看重一起把事情做完〉<span aria-hidden="true">&#8594;</span></a>
           </div>
         </div>
       </article>
@@ -1050,6 +1059,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <h4>把問題當成升級自己的機會</h4>
               <p>有些問題一直出現，不一定只是環境不好；它也可能在提醒我們，目前的能力、認知或工作方法，已經不足以解決下一個階段的問題。</p>
             </div>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/learning-culture-at-cmoney" target="_blank" rel="noopener">延伸閱讀〈自我超越：學習成長的關鍵在於主動追求〉<span aria-hidden="true">&#8594;</span></a>
           </div>
         </div>
       </article>
@@ -1070,6 +1080,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <h4>有衝突，就把它拿到桌面上，想清楚，說清楚，然後做到</h4>
               <p>如果不同意，就把原因說清楚；如果不知道，就承認不知道；如果看到風險，就提出來。我們鼓勵彼此說服，也願意被說服，因為討論的目的不是證明誰比較厲害，而是一起更接近事實。</p>
             </div>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/unity-of-body-and-mind" target="_blank" rel="noopener">延伸閱讀〈身心靈一致：CMoney 價值觀的底層根基，從五種失衡檢視你的內在整合力〉<span aria-hidden="true">&#8594;</span></a>
           </div>
         </div>
       </article>
@@ -1368,7 +1379,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
         <blockquote class="founder__quote">CMoney從一個人的問題開始，但不能永遠依靠一個人的答案。<br>今天，我們要建立的是一套讓更多人做出好決定，也讓更多同事成為問題Owner的系統。</blockquote>
         <div class="founder__foot">
           <b>Ken</b><span>CMoney 創辦人暨執行長</span>
-          <a class="btn-link" href="#" data-undefined="連結目標設計稿未定義" title="連結目標設計稿未定義">閱讀完整創辦人文章 <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="btn-link" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <span class="arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
     </div>
