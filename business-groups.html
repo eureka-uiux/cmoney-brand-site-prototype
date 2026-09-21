@@ -351,7 +351,7 @@ a{color:inherit}
 }
 .prods b{font-size:15px;font-weight:700;color:var(--tx-1)}
 .prods span{font-size:13.5px;color:var(--tx-3)}
-.todo{display:inline-block;color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:11.5px;line-height:1;font-weight:700}
+.prods .todo{color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:11.5px;line-height:1}
 
 /* 產品牆：沿用設計稿 5717:10949 的手法，最後一排淡出，表示看到的不是全部 */
 .wall{
@@ -374,36 +374,6 @@ a{color:inherit}
 
 .partners{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
 .partners li{font-size:12.5px;line-height:1;color:var(--tx-2);border:1px solid var(--chip-line);padding:7px 11px;border-radius:999px}
-
-/* ---------- 三段式章節：服務誰／目前挑戰／案例與職缺 ---------- */
-.seg{display:flex;flex-direction:column;gap:clamp(20px,2.4vw,28px);border-top:1px solid var(--rule-2);padding-block-start:clamp(20px,2.4vw,26px)}
-.seg:first-child{border-top:0;padding-block-start:0}
-.seg__cap{margin:0;font-size:12.5px;font-weight:700;letter-spacing:.12em;color:var(--tx-1)}
-.seg__cap::before{content:"";display:inline-block;width:18px;height:2px;background:var(--accent);vertical-align:middle;margin-inline-end:10px}
-
-/* B 尚未回收時的空狀態 — 沿用 prototype 標記未定義內容的慣例 */
-.pending{display:flex;flex-direction:column;gap:10px;align-items:flex-start;max-width:56ch;
-  border:1px dashed var(--rule-2);border-radius:12px;padding:18px 20px}
-.pending p{margin:0;font-size:14px;line-height:1.7;color:var(--tx-2)}
-.stamp{margin:0;font-family:"Roboto Mono",ui-monospace,monospace;font-size:11.5px;letter-spacing:.04em;color:var(--tx-3)}
-
-/* C 的導讀 */
-.guide{margin:0;max-width:58ch;font-size:13.5px;line-height:1.8;color:var(--tx-2);
-  border-inline-start:2px solid var(--rule-2);padding-inline-start:13px}
-
-/* 每群的職缺入口 — 次於頁尾主 CTA */
-.jobcta{display:inline-flex;align-items:center;gap:8px;align-self:flex-start;
-  font-size:14px;font-weight:700;color:var(--tx-1);text-decoration:none;
-  border:1px solid var(--rule-2);border-radius:999px;padding:11px 20px;
-  transition:border-color .2s var(--ease),color .2s var(--ease)}
-.jobcta:hover{border-color:var(--accent);color:var(--accent-tx)}
-.jobcta:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.jobcta[data-undefined]{opacity:.55;cursor:not-allowed}
-.jobcta[data-undefined]:hover{border-color:var(--rule-2);color:var(--tx-1)}
-
-.morelink{align-self:flex-start;font-size:13.5px;color:var(--tx-1);text-decoration:none;border-bottom:1px solid var(--rule-2)}
-.morelink::after{content:" \2197";color:var(--accent-tx)}
-.morelink:hover{border-color:var(--accent)}
 
 .reads{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
 .reads li{border-bottom:1px solid var(--rule)}
@@ -615,8 +585,6 @@ a{color:inherit}
         <p class="group__promise">陪伴每個人成為更成熟的投資人。</p>
       </div>
       <div class="group__main">
-        <div class="seg">
-          <p class="seg__cap">服務誰、解決什麼問題</p>
         <p class="claim">幫助每個人做好<em>投資決策</em></p>
         <div class="prose">
           <p>金融事業群陪伴每個人從新手成長為成熟投資者。</p>
@@ -642,33 +610,23 @@ a{color:inherit}
             <li><img class="prods__i" src="assets/icon-finance-moneymag.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>Money 錢</b><span>最懂理財趨勢的財經媒體首選</span></span></li>
           </ul>
         </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">目前最重要的挑戰</p>
-          <div class="pending">
-            <span class="todo">內容徵集中</span>
-            <p>由事業群提供一段 60–120 字的挑戰陳述，確認後上線。前台不顯示負責人姓名，只標更新年月；超過 6 個月未更新則整塊隱藏。</p>
-            <p class="stamp">更新於 ————</p>
-          </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">相關公開案例與職缺</p>
-          <p class="guide">以下是這個事業群公開過的工作紀錄，發布日期即為當時狀況。</p>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
           <ul class="reads">
             <li><a href="https://blogs.cmoney.tw/data-middle-office" target="_blank" rel="noopener">
-            <span class="reads__t">為什麼已有自建數據中台，還需要導入第三方數據平台？</span>
-            <p class="reads__d">每天近億筆資料，自建中台之後仍要導入第三方平台的取捨。</p>
-            <span class="reads__m">2025-08-22 · CMoney Blog</span></a></li>
+              <span class="reads__t">為什麼已有自建數據中台，還需要導入第三方數據平台？</span>
+              <p class="reads__d">每天近億筆資料，自建中台之後仍要導入第三方平台的取捨。</p>
+              <span class="reads__m">2025-08-22 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/cmoney-youtube-growth" target="_blank" rel="noopener">
-            <span class="reads__t">從流量到信任：理財寶 YouTube 經營的三堂課</span>
-            <p class="reads__d">兩年訂閱從 19 萬到 40.3 萬、觀看增加逾 7,600 萬，以及流量與中立之間的取捨。</p>
-            <span class="reads__m">2025-10-14 · CMoney Blog</span></a></li>
+              <span class="reads__t">從流量到信任：理財寶 YouTube 經營的三堂課</span>
+              <p class="reads__d">兩年訂閱從 19 萬到 40.3 萬、觀看增加逾 7,600 萬，以及流量與中立之間的取捨。</p>
+              <span class="reads__m">2025-10-14 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/fandeng" target="_blank" rel="noopener">
-            <span class="reads__t">CMoney 攜手樊登升級知識版圖</span>
-            <p class="reads__d">從金融投資領域轉向「全知識平台」的布局。</p>
-            <span class="reads__m">2026-01-29 · CMoney Blog</span></a></li>
+              <span class="reads__t">CMoney 攜手樊登升級知識版圖</span>
+              <p class="reads__d">從金融投資領域轉向「全知識平台」的布局。</p>
+              <span class="reads__m">2026-01-29 · CMoney Blog</span></a></li>
           </ul>
-          <a class="jobcta" href="#" data-undefined="職缺頁 URL 未定 — 見 Phase2 S4 連結契約" title="職缺頁 URL 未定 — 見 Phase2 S4 連結契約">看金融事業群的職缺 <span aria-hidden="true">&#8594;</span></a>
         </div>
       </div>
     </div>
@@ -686,8 +644,6 @@ a{color:inherit}
         <p class="group__promise">讓專業知識成為真正能被使用的工具。</p>
       </div>
       <div class="group__main">
-        <div class="seg">
-          <p class="seg__cap">服務誰、解決什麼問題</p>
         <p class="claim">幫助專業創作者與企業機構，將<em>知識轉化為實用工具</em></p>
         <div class="prose">
           <p>合作夥伴事業群與 50 位以上創作者合作，結合 CMoney 的平台與技術，將專業知識轉化為 App 與影音課程，提供用戶更直覺、實用的操作工具。</p>
@@ -720,31 +676,23 @@ a{color:inherit}
             <li><img class="prods__i" src="assets/icon-partner-inst.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>法人投資決策支援系統</b><span>90% 法人機構指定投資工具</span></span></li>
           </ul>
         </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">目前最重要的挑戰</p>
-          <div class="pending">
-            <span class="todo">內容徵集中</span>
-            <p>由事業群提供一段 60–120 字的挑戰陳述，確認後上線。前台不顯示負責人姓名，只標更新年月；超過 6 個月未更新則整塊隱藏。</p>
-            <p class="stamp">更新於 ————</p>
-          </div>
-          <a class="morelink" href="https://blogs.cmoney.tw/cmoney-corporate-investment-decision-support-system" target="_blank" rel="noopener">延伸閱讀：法人投資決策支援系統要如何運用 Gen AI 與數據生態打造新成長動能？</a>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">相關公開案例與職缺</p>
-          <p class="guide">以下是這個事業群公開過的工作紀錄，發布日期即為當時狀況。</p>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
           <ul class="reads">
+            <li><a href="https://blogs.cmoney.tw/cmoney-corporate-investment-decision-support-system" target="_blank" rel="noopener">
+              <span class="reads__t">法人投資決策支援系統要如何運用 Gen AI 與數據生態打造新成長動能？</span>
+              <p class="reads__d">已經是高市佔的產品，仍要以 GenAI、數據生態、跨市場擴張尋找新的增長曲線。</p>
+              <span class="reads__m">2025-05-14 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/financial-creator-management" target="_blank" rel="noopener">
-            <span class="reads__t">CMoney 不只是做好產品，而是讓創作者與用戶共同成長的事業</span>
-            <p class="reads__d">事業群負責人第一人稱說明三贏結構，並直接寫出什麼樣的人在這裡會很痛苦、什麼樣的人成長得很快。</p>
-            <span class="reads__m">2026-02-03 · CMoney Blog</span></a></li>
+              <span class="reads__t">CMoney 不只是做好產品，而是讓創作者與用戶共同成長的事業</span>
+              <p class="reads__d">事業群負責人第一人稱說明三贏結構，並直接寫出什麼樣的人在這裡會很痛苦、什麼樣的人成長得很快。</p>
+              <span class="reads__m">2026-02-03 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/no-code-development" target="_blank" rel="noopener">
-            <span class="reads__t">CMoney 如何使用 No Code 工具快速打造雙平台原生 App</span>
-            <p class="reads__d">KOL 專屬 App 的產品定位與技術取捨：模組化、可擴展的投資教育平台。</p>
-            <span class="reads__m">2025-05-13 · CMoney Blog</span></a></li>
+              <span class="reads__t">CMoney 如何使用 No Code 工具快速打造雙平台原生 App</span>
+              <p class="reads__d">KOL 專屬 App 的產品定位與技術取捨：模組化、可擴展的投資教育平台。</p>
+              <span class="reads__m">2025-05-13 · CMoney Blog</span></a></li>
           </ul>
-          <p class="stamp"><span class="todo">第三則待補</span>　候選：〈CMoney B2B 商務開發策略：為什麼不要一開始打最大客戶？〉盤點表未標事業群，待確認</p>
-          <a class="jobcta" href="#" data-undefined="職缺頁 URL 未定 — 見 Phase2 S4 連結契約" title="職缺頁 URL 未定 — 見 Phase2 S4 連結契約">看合作夥伴事業群的職缺 <span aria-hidden="true">&#8594;</span></a>
         </div>
       </div>
     </div>
@@ -762,8 +710,6 @@ a{color:inherit}
         <p class="group__promise">讓好的投資方法跨越市場與語言。</p>
       </div>
       <div class="group__main">
-        <div class="seg">
-          <p class="seg__cap">服務誰、解決什麼問題</p>
         <p class="claim">為全球財經創作者打造<em>國際化投資工具與平台</em></p>
         <div class="prose">
           <p>國際金融事業群成立於 2025 年，以美股為起點，推動海外市場拓展，開發專為全球投資者設計的工具與創作者平台。</p>
@@ -787,33 +733,23 @@ a{color:inherit}
             <li><img class="prods__i" src="assets/icon-global-haoye.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>好葉智能選股</b><span>價值選股策略，高效穩健獲利</span></span></li>
           </ul>
         </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">目前最重要的挑戰</p>
-          <div class="pending">
-            <span class="todo">內容徵集中</span>
-            <p>由事業群提供一段 60–120 字的挑戰陳述，確認後上線。前台不顯示負責人姓名，只標更新年月；超過 6 個月未更新則整塊隱藏。</p>
-            <p class="stamp">更新於 ————</p>
-          </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">相關公開案例與職缺</p>
-          <p class="guide">以下是這個事業群公開過的工作紀錄，發布日期即為當時狀況。</p>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
           <ul class="reads">
             <li><a href="https://blogs.cmoney.tw/cmony-product-iteration" target="_blank" rel="noopener">
-            <span class="reads__t">從上線失利到逆風成長：如何用數據、決策與迭代走出「不如預期」？</span>
-            <p class="reads__d">海外 ETF 課程上線後遠低於預期，如何用數據、決策與迭代逆轉。</p>
-            <span class="reads__m">2025-12-10 · CMoney Blog</span></a></li>
+              <span class="reads__t">從上線失利到逆風成長：如何用數據、決策與迭代走出「不如預期」？</span>
+              <p class="reads__d">海外 ETF 課程上線後遠低於預期，如何用數據、決策與迭代逆轉。</p>
+              <span class="reads__m">2025-12-10 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/market-development-strategies" target="_blank" rel="noopener">
-            <span class="reads__t">從美股事業商務拓展經驗，反思 CMoney 整體市場開發策略</span>
-            <p class="reads__d">美股事業的商務開發策略與反思。</p>
-            <span class="reads__m">2025-05-12 · CMoney Blog</span></a></li>
+              <span class="reads__t">從美股事業商務拓展經驗，反思 CMoney 整體市場開發策略</span>
+              <p class="reads__d">美股事業的商務開發策略與反思。</p>
+              <span class="reads__m">2025-05-12 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/cmoney-taiwan-alternative-data-eagle-alpha" target="_blank" rel="noopener">
-            <span class="reads__t">CMoney 站上華爾街 Alternative Data Conference</span>
-            <p class="reads__d">2026 年 3 月營運長 Jack 於紐約 Eagle Alpha 發表 Keynote，12 家國際媒體轉載。</p>
-            <span class="reads__m">2026-03-30 · CMoney Blog</span></a></li>
+              <span class="reads__t">CMoney 站上華爾街 Alternative Data Conference</span>
+              <p class="reads__d">2026 年 3 月營運長 Jack 於紐約 Eagle Alpha 發表 Keynote，12 家國際媒體轉載。</p>
+              <span class="reads__m">2026-03-30 · CMoney Blog</span></a></li>
           </ul>
-          <a class="jobcta" href="#" data-undefined="職缺頁 URL 未定 — 見 Phase2 S4 連結契約" title="職缺頁 URL 未定 — 見 Phase2 S4 連結契約">看國際金融事業群的職缺 <span aria-hidden="true">&#8594;</span></a>
         </div>
       </div>
     </div>
@@ -831,8 +767,6 @@ a{color:inherit}
         <p class="group__promise">從每一張發票，看見更好的生活選擇。</p>
       </div>
       <div class="group__main">
-        <div class="seg">
-          <p class="seg__cap">服務誰、解決什麼問題</p>
         <p class="claim">幫助每個人掌握消費，<em>提升生活品質</em></p>
         <div class="prose">
           <p>消費事業群幫助用戶記錄生活開支，包括發票載具、簡單記帳、CWMoney 等，已經是超過 800 萬名台灣用戶的記帳與發票首選。</p>
@@ -858,33 +792,27 @@ a{color:inherit}
             <li><img class="prods__i" src="assets/icon-consumer-dreamfapiao.png" alt="" width="38" height="38" loading="lazy"><span class="prods__tx"><b>夢幻發票</b><span>最美載具自己做</span></span></li>
           </ul>
         </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">目前最重要的挑戰</p>
-          <div class="pending">
-            <span class="todo">內容徵集中</span>
-            <p>由事業群提供一段 60–120 字的挑戰陳述，確認後上線。前台不顯示負責人姓名，只標更新年月；超過 6 個月未更新則整塊隱藏。</p>
-            <p class="stamp">更新於 ————</p>
-          </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">相關公開案例與職缺</p>
-          <p class="guide">以下是這個事業群公開過的工作紀錄，發布日期即為當時狀況。</p>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
           <ul class="reads">
             <li><a href="https://blogs.cmoney.tw/c-talk-16" target="_blank" rel="noopener">
-            <span class="reads__t">AI 賦能的範例展示：巨量數據結構化的解決方案</span>
-            <p class="reads__d">發票載具逾 350 萬用戶、累積 50 億張發票、後台逾一億筆非結構化商品名稱，資料如何被結構化為消費趨勢。</p>
-            <span class="reads__m">2026-05-11 · CMoney Blog</span></a></li>
+              <span class="reads__t">AI 賦能的範例展示：巨量數據結構化的解決方案</span>
+              <p class="reads__d">發票載具逾 350 萬用戶、累積 50 億張發票、後台逾一億筆非結構化商品名稱，資料如何被結構化為消費趨勢。</p>
+              <span class="reads__m">2026-05-11 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/invoice-system-evolution" target="_blank" rel="noopener">
-            <span class="reads__t">從錯誤中蛻變，打造業界領先發票服務的進化之路</span>
-            <p class="reads__d">總會員逾 600 萬、月活逾 150 萬、開獎日同時在線突破 20 萬。</p>
-            <span class="reads__m">2025-05-15 · CMoney Blog</span></a></li>
+              <span class="reads__t">從錯誤中蛻變，打造業界領先發票服務的進化之路</span>
+              <p class="reads__d">總會員逾 600 萬、月活逾 150 萬、開獎日同時在線突破 20 萬。</p>
+              <span class="reads__m">2025-05-15 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/sales-mindset" target="_blank" rel="noopener">
-            <span class="reads__t">銷售心態：慾望與恐懼之間，原來自己站得還不夠高</span>
-            <p class="reads__d">與全聯合作的記帳功能於 PXpay 上線，進入逾 1,000 萬會員的零售生態系，並延伸市場分析與 CDP 服務。</p>
-            <span class="reads__m">2026-01-12 · CMoney Blog</span></a></li>
+              <span class="reads__t">銷售心態：慾望與恐懼之間，原來自己站得還不夠高</span>
+              <p class="reads__d">與全聯合作的記帳功能於 PXpay 上線，進入逾 1,000 萬會員的零售生態系，並延伸市場分析與 CDP 服務。</p>
+              <span class="reads__m">2026-01-12 · CMoney Blog</span></a></li>
+            <li><a href="https://blogs.cmoney.tw/growth-hacker-cmoney" target="_blank" rel="noopener">
+              <span class="reads__t">如何在一款老產品找到營收成長 5 倍的關鍵密碼</span>
+              <p class="reads__d">簡單記帳營收成長五倍的完整過程。</p>
+              <span class="reads__m">2025-07-23 · CMoney Blog</span></a></li>
           </ul>
-          <a class="jobcta" href="#" data-undefined="職缺頁 URL 未定 — 見 Phase2 S4 連結契約" title="職缺頁 URL 未定 — 見 Phase2 S4 連結契約">看消費事業群的職缺 <span aria-hidden="true">&#8594;</span></a>
         </div>
       </div>
     </div>
@@ -902,8 +830,6 @@ a{color:inherit}
         <p class="group__promise">讓 AI 不只是工具，而是公司持續進化的能力。</p>
       </div>
       <div class="group__main">
-        <div class="seg">
-          <p class="seg__cap">服務誰、解決什麼問題</p>
         <p class="claim">打造 AI 平台與原生產品，成為驅動公司 <em>AI 轉型的核心引擎</em></p>
         <div class="prose">
           <p>AI 實驗室是公司原生的 AI 團隊，專注於打造平台級 AI Agent 工具與可廣泛應用的 AI 原生產品，推動內外部產品創新。</p>
@@ -946,34 +872,23 @@ a{color:inherit}
           <li>打造 AI 驅動的產品<em>快速迭代體系</em></li>
           <li><em>AI 核心推動中心</em>，協助各部門導入 AI 工具與工作流程</li>
         </ul>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">目前最重要的挑戰</p>
-          <div class="pending">
-            <span class="todo">內容徵集中</span>
-            <p>由事業群提供一段 60–120 字的挑戰陳述，確認後上線。前台不顯示負責人姓名，只標更新年月；超過 6 個月未更新則整塊隱藏。</p>
-            <p class="stamp">更新於 ————</p>
-          </div>
-        </div>
-        <div class="seg">
-          <p class="seg__cap">相關公開案例與職缺</p>
-          <p class="guide">以下是這個事業群公開過的工作紀錄，發布日期即為當時狀況。<br>
-          <span class="todo">導讀待補</span> 第一則談的是 AI Lab 的招募標準，需補上「我們看的是哪些具體能力」與「用什麼成果驗證」，由 AI Lab 填寫（見調整方案 Q2）。</p>
+
+        <div class="blk">
+          <p class="blk__cap">這個事業群正在解的題</p>
           <ul class="reads">
             <li><a href="https://blogs.cmoney.tw/ai-product-team" target="_blank" rel="noopener">
-            <span class="reads__t">AI 沒有在取代人，而是讓普通人變得多餘</span>
-            <p class="reads__d">AI Lab 停止用「工程師、設計師、產品經理」的方式招募，改找 Product Builder。</p>
-            <span class="reads__m">2026-04-13 · CMoney Blog</span></a></li>
+              <span class="reads__t">AI 沒有在取代人，而是讓普通人變得多餘</span>
+              <p class="reads__d">AI Lab 停止用「工程師、設計師、產品經理」的方式招募，改找 Product Builder。</p>
+              <span class="reads__m">2026-04-13 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/c-talk-13" target="_blank" rel="noopener">
-            <span class="reads__t">C Talk+ #13：打破邊界，重新定義「可能」</span>
-            <p class="reads__d">AI Lab 打造「一人獨角獸」的創新基地：定位、目標與不以職能界定工作的協作方式。</p>
-            <span class="reads__m">2025-11-14 · CMoney Blog</span></a></li>
+              <span class="reads__t">C Talk+ #13：打破邊界，重新定義「可能」</span>
+              <p class="reads__d">AI Lab 打造「一人獨角獸」的創新基地：定位、目標與不以職能界定工作的協作方式。</p>
+              <span class="reads__m">2025-11-14 · CMoney Blog</span></a></li>
             <li><a href="https://blogs.cmoney.tw/xlab-ai-powered-social-network" target="_blank" rel="noopener">
-            <span class="reads__t">X 實驗室：從開發交友軟體，走向 AI 社群新藍圖</span>
-            <p class="reads__d">自 2021 年開發近 40 款 App，交友與 AI 社群產品線如何對應人生五大面向。</p>
-            <span class="reads__m">2025-03-12 · CMoney Blog</span></a></li>
+              <span class="reads__t">X 實驗室：從開發交友軟體，走向 AI 社群新藍圖</span>
+              <p class="reads__d">自 2021 年開發近 40 款 App，交友與 AI 社群產品線如何對應人生五大面向。</p>
+              <span class="reads__m">2025-03-12 · CMoney Blog</span></a></li>
           </ul>
-          <a class="jobcta" href="#" data-undefined="職缺頁 URL 未定 — 見 Phase2 S4 連結契約" title="職缺頁 URL 未定 — 見 Phase2 S4 連結契約">看AI 實驗室的職缺 <span aria-hidden="true">&#8594;</span></a>
         </div>
       </div>
     </div>
