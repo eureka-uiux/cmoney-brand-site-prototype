@@ -300,13 +300,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .bgc__eyebrow{margin:0;font-size:14px;font-weight:500;letter-spacing:var(--ls-caps);line-height:20px;color:var(--text-600);text-transform:uppercase}
 .bgc__eyebrow--red{color:var(--red)}
 .bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px}
-/* 標題級數跟著三排的卡高走：通欄 44 / 中排 32 / 下排 26。
-   下排不沿用 28，是為了跟中排拉開一級，讓「越下面越輕」在字級上也看得出來。 */
-.bgc__name{margin:0;font-size:24px;font-weight:600;line-height:32px;color:var(--text-900);text-wrap:balance}
-/* 三排遞減改用官網階：通欄 40/48 ／ 中排 30/36 ／ 下排 24/32 */
-.groups > .bgc:nth-child(1) .bgc__name{font-size:40px;line-height:48px}
-.groups > .bgc:nth-child(2) .bgc__name,
-.groups > .bgc:nth-child(3) .bgc__name{font-size:30px;line-height:36px}
+/* 事業群名稱五張卡統一 30/36（官網既有階，與 .vcard__name、.founder__title 同級）。
+   卡高仍是 480/420/360 的三排遞減，但層級改由卡片尺寸與留白表達，不再靠字級。 */
+.bgc__name{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900);text-wrap:balance}
 /* 通欄卡的文字欄有 1000px 以上，內文不收窄會拉成難讀的長行 */
 .groups > .bgc:nth-child(1) .bgc__head{max-width:620px}
 .bgc--dark .bgc__name{color:#fff}
@@ -835,9 +831,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 @media (max-width:768px){
   .h2,.statement,.northstar__title,.cta__title,.founder-age b{font-size:30px;line-height:36px}
   .founder__title,.vcard__name,.values-outro h3,
-  .groups > .bgc:nth-child(1) .bgc__name,
-  .groups > .bgc:nth-child(2) .bgc__name,
-  .groups > .bgc:nth-child(3) .bgc__name{font-size:24px;line-height:32px}
   .northstar__eyebrow,.bgc__name,.vcard__claim,.how-outro h3{font-size:20px;line-height:28px}
   .hero__text,.cta__sub,.northstar__sub,.statement-sub,.vcard__quote p,
   .founder-age span{font-size:18px;line-height:28px}
