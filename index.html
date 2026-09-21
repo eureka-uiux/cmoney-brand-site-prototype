@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CMoney 形象網站_價值觀互動</title>
+<meta name="description" content="CMoney 用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇，幫助每個人在重要的人生面向持續做得更好。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CMoney 形象網站｜我們的使命，是幫助每個人做好人生的投資">
+<meta property="og:description" content="用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇。">
+<meta property="og:image" content="assets/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -131,12 +137,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
    ============================================================ */
 /* 高度改由視窗決定：hero 收在 88svh 內，讓數據卡完整露出、下一段願景區塊也露出一截 */
 .hero{
-  position:relative;background:var(--ink-900);color:#fff;overflow:hidden;
+  position:relative;background:var(--ink-900);color:#fff;
   padding-block:clamp(104px,12vh,168px) clamp(32px,4.2vh,64px);
   min-height:min(88vh,1000px);min-height:min(88svh,1000px);
   display:flex;flex-direction:column;
 }
-.hero__bg{position:absolute;inset:0;z-index:0}
+.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
 /* 裁切:repo 的 hero.jpg 與設計稿內嵌圖的原始裁切不同，實測此設定最貼近 27:2095 的構圖 */
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.04)}
 .hero__bg::after{
@@ -144,7 +150,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:linear-gradient(90deg,rgba(9,16,28,.86) 0%,rgba(9,16,28,.66) 45%,rgba(9,16,28,.42) 100%),
              linear-gradient(180deg,rgba(9,16,28,.55) 0%,rgba(9,16,28,0) 28%,rgba(9,16,28,.35) 100%);
 }
-.hero .container{position:relative;z-index:1;width:100%}
+.hero .container{position:relative;z-index:2;width:100%}
 .hero__eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 22px}
 .hero__eyebrow i{width:28px;height:2px;background:var(--red);flex:0 0 auto}
 .hero__title{
@@ -169,12 +175,34 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn--solid:hover .arrow{transform:translateY(3px)}
 .btn--ghost:hover .arrow{transform:translateX(4px)}
 
-.hero__stats{margin-top:auto;padding-top:clamp(28px,4.2vh,56px);position:relative;z-index:1;width:100%}
+.hero__stats{
+  margin-top:auto;padding-top:clamp(28px,4.2vh,56px);
+  position:relative;z-index:3;width:100%;
+  margin-bottom:-64px; /* A：跨過 hero 與 #who 的交界 */
+}
+/* C：深色不被切斷，而是收束進下一段的白 */
+.hero::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:180px;z-index:1;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(9,16,28,0) 0%,rgba(9,16,28,.45) 38%,rgba(9,16,28,.82) 68%,#fff 100%);
+}
+/* C：具名的下一段提示（靜態標記，不是按鈕） */
+.section-cue{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  margin-bottom:clamp(32px,4vh,48px);
+}
+.section-cue__line{
+  width:1px;height:40px;
+  background:linear-gradient(180deg,var(--red),rgba(240,51,44,0));
+}
+.section-cue__label{font-size:14px;font-weight:700;color:var(--ink-900);letter-spacing:.02em}
+/* A：#who 上緣加大，接住越界的數據卡 */
+#who{padding-block-start:calc(var(--section-pad) + 64px)}
 /* 數據卡 — 設計稿 27:2111：287×150、padding 24、gap 12 */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
 .stat{
   display:grid;gap:12px;align-content:start;padding:24px;border-radius:12px;
-  background:rgba(47,47,47,.6);
+  background:rgba(20,27,38,.92);backdrop-filter:blur(6px);
   box-shadow:0 2px 6px rgba(0,0,0,.1),0 8px 20px rgba(0,0,0,.2);
 }
 .stat__num{margin:0;display:flex;align-items:baseline;font-size:36px;font-weight:900;line-height:1.2;color:#fef9ea}
@@ -641,9 +669,39 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .fsocial img{display:block;width:100%;height:100%}
 
 /* ============================================================
+   切塊後的節奏（每塊 ≤ 1.1 視窗）
+   ============================================================ */
+/* 過場宣言塊：短、深、只講一句話 */
+.section--statement{
+  background:var(--ink-900);color:#fff;
+  padding-block:clamp(88px,10vh,124px);
+}
+.section--statement .northstar{padding-block:0}
+.section--statement .northstar__sub{color:var(--on-dark-4)}
+.section--statement .statement{color:#fff}
+.section--statement .statement-sub{color:var(--on-dark-4)}
+.section--statement .values-outro{padding-block:0}
+.section--statement .values-outro h3{color:#fff}
+.section--statement .values-outro p{color:var(--on-dark-4)}
+#what{border-block-start:2px solid var(--red)}
+
+/* 暖灰塊，和白色拉開可辨識的距離（原本 #f9f9f9 / #f6f6f6 幾乎等同白） */
+#values-stack{background:#f3efe9}
+#how-compare{background:#f3efe9}
+#founder{background:#f3efe9}
+
+/* 切開後每塊都變短，上下留白同步收斂 */
+#values{padding-block-end:clamp(56px,6vh,80px)}
+#values-stack{padding-block:clamp(72px,8vh,104px)}
+
+#how{padding-block-end:clamp(56px,6vh,80px)}
+#how-compare{padding-block:clamp(72px,8vh,104px)}
+#groups{padding-block:clamp(72px,8vh,104px)}
+
+/* ============================================================
    Scroll reveal
    ============================================================ */
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
 .reveal.is-in{opacity:1;transform:none}
 
 @media (prefers-reduced-motion:reduce){
@@ -684,6 +742,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .nav.is-open{transform:none;opacity:1;pointer-events:auto}
   .nav__link{font-size:16px;padding-block:12px}
   .hero{padding-block:150px 0;min-height:auto}
+  .hero__stats{margin-bottom:-48px}
+  .hero::after{height:140px}
+  #who{padding-block-start:calc(var(--section-pad) + 48px)}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   /* 單欄：卡高改由內容決定；觸控沒有 hover，面板改成接在內容後面一起捲 */
   .groups{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
@@ -841,6 +902,10 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 <!-- ========================= 我們是誰 ========================= -->
 <section class="section" id="who">
   <div class="container">
+    <div class="section-cue">
+      <span class="section-cue__line" aria-hidden="true"></span>
+      <span class="section-cue__label">接下來：我們是誰</span>
+    </div>
     <div class="split">
       <div class="split__intro reveal">
         <h2 class="h2">我們不是從「要做什麼產品」<span class="is-red">開始</span></h2>
@@ -875,6 +940,11 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
       </div>
     </div>
 
+  </div>
+</section>
+
+<section class="section section--statement" id="northstar">
+  <div class="container">
     <div class="northstar reveal">
       <p class="northstar__eyebrow">ONE COMPANY, ONE NORTH STAR</p>
       <h3 class="northstar__title">很多產品，很多專業，一個共同目標。</h3>
@@ -884,7 +954,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 價值觀 ========================= -->
-<section class="section section--soft" id="values">
+<section class="section" id="values">
   <div class="container">
     <div class="values-head reveal">
       <h2 class="h2">價值觀<span class="is-red">是每天做選擇的方式。</span></h2>
@@ -893,6 +963,11 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
          如果您也認同這些理念，請繼續閱讀。</p>
     </div>
 
+  </div>
+</section>
+
+<section class="section" id="values-stack">
+  <div class="container">
     <!-- 三張卡片依序 sticky 黏在畫面上緣，後一張蓋住前一張；被蓋住的卡片縮小＋淡入薄膜做景深（JS：updateStack） -->
     <div class="vstack" id="valuesStack">
       <article class="vstack__item" style="--i:0">
@@ -961,6 +1036,11 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
       <div class="vstack__hold" aria-hidden="true"></div>
     </div>
 
+  </div>
+</section>
+
+<section class="section section--statement" id="values-outro">
+  <div class="container">
     <div class="values-outro reveal">
       <h3>找到值得做的事，<br>不斷讓自己更有能力做到。</h3>
       <p>這是我們希望一起工作的人長成的樣子，也是我們希望 CMoney 成為的公司。</p>
@@ -969,13 +1049,18 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們怎麼工作 ========================= -->
-<section class="section section--tight-end" id="how">
+<section class="section" id="how">
   <div class="container">
     <div class="how-head reveal">
       <h2 class="h2">CMoney 的運作方式<br>把公司形塑成一個<span class="is-red">事業實驗場。</span></h2>
       <p>多數公司先畫組織圖，再把人放進職缺；<br>CMoney 先找值得解的問題，再組成能把問題變成結果的人。</p>
     </div>
 
+  </div>
+</section>
+
+<section class="section" id="how-compare">
+  <div class="container">
     <!-- 四列對照卡片：沿用白底卡片語彙，互動區塊（面試提問＋二選一 check card）併入每一列 -->
     <div class="cmp reveal" id="cmpTable">
       <div class="cmp__head">
@@ -1239,13 +1324,18 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們創造什麼 ========================= -->
-<section class="section section--tight-start" id="what">
+<section class="section section--statement" id="what">
   <div class="container">
     <h2 class="statement reveal">外界看 CMoney，會看到豐富的 App 產品線；<br>在 CMoney 我們打造的是一套<span class="is-red">決策基礎建設。</span></h2>
     <p class="statement-sub lead reveal">不同事業面對不同人群、場景與市場，<br>我們做的是同一件事：縮短人與好決定之間的距離。</p>
 
     <!-- 領導團隊：依回饋移除，預計改放事業群詳細頁（人物照素材保留於 assets/leader-*.png） -->
 
+  </div>
+</section>
+
+<section class="section" id="groups">
+  <div class="container">
     <!-- 事業群 -->
     <!-- 板塊式卡片：靜止＝產品手機稿，hover＝app 產品清單滑上，整張卡導向詳細頁對應區塊 -->
     <div class="groups reveal">
@@ -1557,7 +1647,8 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
   });
 
   /* ---------- 導覽 active 狀態 ---------- */
-  var sections = ["who","values","how","what","founder"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var navOwner = {northstar:"who","values-stack":"values","values-outro":"values","how-compare":"how",groups:"what"};
+  var sections = ["who","northstar","values","values-stack","values-outro","how","how-compare","what","groups","founder"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   var navLinks = {};
   document.querySelectorAll('.nav__link[href^="#"]').forEach(function(a){
     navLinks[a.getAttribute("href").slice(1)] = a;
@@ -1565,7 +1656,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
   if ("IntersectionObserver" in window && sections.length){
     var navObserver = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
-        var link = navLinks[entry.target.id];
+        var link = navLinks[navOwner[entry.target.id] || entry.target.id];
         if (!link) return;
         if (entry.isIntersecting){
           Object.keys(navLinks).forEach(function(k){ navLinks[k].classList.remove("is-active"); });
@@ -1589,7 +1680,7 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
         el.classList.add("is-in");
         obs.unobserve(el);
       });
-    }, {rootMargin:"0px 0px -12% 0px", threshold:0.08});
+    }, {rootMargin:"0px 0px -5% 0px", threshold:0.05});
     revealEls.forEach(function(el){ revealObserver.observe(el); });
   }
 
