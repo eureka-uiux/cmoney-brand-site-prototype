@@ -29,6 +29,8 @@
   --card:rgba(255,255,255,.05);       /* 深底：浮在 GREY 800 上的卡 */
   --card-line:rgba(255,255,255,.10);
   --card-shadow:none;
+  --wash:rgba(255,255,255,.05);       /* 灰底區塊（相關公開案例）：深底用提亮 */
+  --wash-hover:rgba(255,255,255,.09);
 
   --maxw:1220px;
   --axis:150px;
@@ -45,6 +47,7 @@
     --card:#ffffff;                   /* Surface/Base */
     --card-line:rgba(38,38,38,.07);   /* Surface/Light.Border */
     --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
+    --wash:#f0f0f0; --wash-hover:#e9e9e9;
   }
 }
 *,*::before,*::after{box-sizing:border-box}
@@ -196,6 +199,8 @@ a{color:inherit}
   --card:rgba(255,255,255,.05);
   --card-line:rgba(255,255,255,.10);
   --card-shadow:none;
+  --wash:rgba(255,255,255,.05);
+  --wash-hover:rgba(255,255,255,.09);
   background:var(--ground);color:var(--tx-1);
   padding-block:clamp(40px,5vw,72px) 0;position:relative;overflow-x:clip;
 }
@@ -355,18 +360,28 @@ a{color:inherit}
 .partners{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
 .partners li{font-size:12.5px;line-height:1;color:var(--tx-2);border:1px solid var(--chip-line);padding:7px 11px;border-radius:999px}
 
-.reads{list-style:none;margin:0;padding:0;display:grid;gap:0;border-top:1px solid var(--rule)}
-.reads li{border-bottom:1px solid var(--rule)}
+/* 相關公開案例：沿用首頁「看看實際案例」的灰底區塊語彙（灰底卡＋紅框膠囊 CTA），
+   字級與圓角則維持本頁級距 15 / 13.5 / 11.5 與 12px */
+.reads{list-style:none;margin:0;padding:0;display:grid;gap:12px}
 .reads a{
-  display:grid;gap:5px;padding-block:15px;text-decoration:none;
-  transition:opacity .2s var(--ease);
+  display:grid;gap:8px;padding:18px 20px;border-radius:12px;
+  background:var(--wash);text-decoration:none;
+  transition:background .25s var(--ease);
 }
-.reads a:hover{opacity:.62}
+.reads a:hover{background:var(--wash-hover)}
 .reads a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .reads__t{font-size:15px;font-weight:700;color:var(--tx-1);line-height:1.5}
-.reads__t::after{content:" \2197";color:var(--accent-tx);font-weight:400}
 .reads__d{font-size:13.5px;color:var(--tx-2);margin:0;max-width:56ch}
+.reads__f{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
 .reads__m{font-family:"Roboto Mono",ui-monospace,monospace;font-size:11.5px;color:var(--tx-3);letter-spacing:.04em}
+.reads__go{
+  display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
+  padding:6px 12px;border:1px solid var(--accent-tx);border-radius:999px;
+  color:var(--accent-tx);font-size:11.5px;font-weight:600;line-height:1;
+  transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);
+}
+.reads__go::after{content:"\2192"}
+.reads a:hover .reads__go{background:var(--accent);border-color:var(--accent);color:#fff}
 
 @media (min-width:980px){
   .group__grid{grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:clamp(40px,5vw,84px)}
@@ -596,11 +611,11 @@ a{color:inherit}
             <li><a href="https://blogs.cmoney.tw/data-middle-office" target="_blank" rel="noopener">
               <span class="reads__t">為什麼已有自建數據中台，還需要導入第三方數據平台？</span>
               <p class="reads__d">每天近億筆資料，自建中台之後仍要導入第三方平台的取捨。</p>
-              <span class="reads__m">2025-08-22 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2025-08-22 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
             <li><a href="https://blogs.cmoney.tw/fandeng" target="_blank" rel="noopener">
               <span class="reads__t">CMoney 攜手樊登升級知識版圖</span>
               <p class="reads__d">從金融投資領域轉向「全知識平台」的布局。</p>
-              <span class="reads__m">2026-01-29 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2026-01-29 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
           </ul>
         </div>
       </div>
@@ -658,11 +673,11 @@ a{color:inherit}
             <li><a href="https://blogs.cmoney.tw/cmoney-corporate-investment-decision-support-system" target="_blank" rel="noopener">
               <span class="reads__t">法人投資決策支援系統要如何運用 Gen AI 與數據生態打造新成長動能？</span>
               <p class="reads__d">已經是高市佔的產品，仍要以 GenAI、數據生態、跨市場擴張尋找新的增長曲線。</p>
-              <span class="reads__m">2025-05-14 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2025-05-14 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
             <li><a href="https://blogs.cmoney.tw/financial-creator-management" target="_blank" rel="noopener">
               <span class="reads__t">CMoney 不只是做好產品，而是讓創作者與用戶共同成長的事業</span>
               <p class="reads__d">事業群負責人第一人稱說明三贏結構，並直接寫出什麼樣的人在這裡會很痛苦、什麼樣的人成長得很快。</p>
-              <span class="reads__m">2026-02-03 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2026-02-03 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
           </ul>
         </div>
       </div>
@@ -711,11 +726,11 @@ a{color:inherit}
             <li><a href="https://blogs.cmoney.tw/market-development-strategies" target="_blank" rel="noopener">
               <span class="reads__t">從美股事業商務拓展經驗，反思 CMoney 整體市場開發策略</span>
               <p class="reads__d">美股事業的商務開發策略與反思。</p>
-              <span class="reads__m">2025-05-12 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2025-05-12 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
             <li><a href="https://blogs.cmoney.tw/cmoney-taiwan-alternative-data-eagle-alpha" target="_blank" rel="noopener">
               <span class="reads__t">CMoney 站上華爾街 Alternative Data Conference</span>
               <p class="reads__d">2026 年 3 月營運長 Jack 於紐約 Eagle Alpha 發表 Keynote，12 家國際媒體轉載。</p>
-              <span class="reads__m">2026-03-30 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2026-03-30 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
           </ul>
         </div>
       </div>
@@ -766,11 +781,11 @@ a{color:inherit}
             <li><a href="https://blogs.cmoney.tw/c-talk-16" target="_blank" rel="noopener">
               <span class="reads__t">AI 賦能的範例展示：巨量數據結構化的解決方案</span>
               <p class="reads__d">發票載具逾 350 萬用戶、累積 50 億張發票、後台逾一億筆非結構化商品名稱，資料如何被結構化為消費趨勢。</p>
-              <span class="reads__m">2026-05-11 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2026-05-11 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
             <li><a href="https://blogs.cmoney.tw/growth-hacker-cmoney" target="_blank" rel="noopener">
               <span class="reads__t">如何在一款老產品找到營收成長 5 倍的關鍵密碼</span>
               <p class="reads__d">簡單記帳營收成長五倍的完整過程。</p>
-              <span class="reads__m">2025-07-23 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2025-07-23 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
           </ul>
         </div>
       </div>
@@ -838,11 +853,11 @@ a{color:inherit}
             <li><a href="https://blogs.cmoney.tw/c-talk-13" target="_blank" rel="noopener">
               <span class="reads__t">C Talk+ #13：打破邊界，重新定義「可能」</span>
               <p class="reads__d">AI Lab 打造「一人獨角獸」的創新基地：定位、目標與不以職能界定工作的協作方式。</p>
-              <span class="reads__m">2025-11-14 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2025-11-14 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
             <li><a href="https://blogs.cmoney.tw/xlab-ai-powered-social-network" target="_blank" rel="noopener">
               <span class="reads__t">X 實驗室：從開發交友軟體，走向 AI 社群新藍圖</span>
               <p class="reads__d">自 2021 年開發近 40 款 App，交友與 AI 社群產品線如何對應人生五大面向。</p>
-              <span class="reads__m">2025-03-12 · CMoney Blog</span></a></li>
+              <span class="reads__f"><span class="reads__m">2025-03-12 · CMoney Blog</span><span class="reads__go">閱讀文章</span></span></a></li>
           </ul>
         </div>
       </div>
