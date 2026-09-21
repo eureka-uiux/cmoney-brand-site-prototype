@@ -384,19 +384,44 @@ a{color:inherit}
   .group__aside{position:sticky;top:calc(env(safe-area-inset-top,0px) + var(--bar) + 40px);align-self:start}
 }
 
-/* ---------- 結尾 ---------- */
-.end{border-top:1px solid var(--rule);padding-block:clamp(56px,7vw,100px)}
-.end__in{display:flex;flex-direction:column;gap:18px;align-items:flex-start;max-width:640px}
-.end__t{margin:0;font-size:clamp(23px,2.8vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.3;text-wrap:balance}
-.cta{
-  display:inline-flex;align-items:center;gap:9px;margin-top:8px;
-  background:var(--accent);color:#fff;text-decoration:none;font-weight:700;font-size:15px;
-  padding:13px 24px;border-radius:999px;transition:opacity .2s var(--ease);
+/* ---------- 結尾 Footer CTA — Figma node 6704:2543「Footer CTA - Slogan C」
+   固定深底 #111 ＋辦公室實景，不隨頁面深／淺底切換，與 site-header 同一套處理 ---------- */
+.fcta{
+  position:relative;overflow:hidden;
+  background:#111;border-top:1px solid rgba(255,255,255,.08);
+  padding-block:clamp(72px,9vw,120px);color:#fff;
 }
-.cta:hover{opacity:.86}
-.cta[data-undefined]{opacity:.55;cursor:not-allowed}     /* 沿用首頁 prototype 標記未定義連結的慣例 */
-.cta[data-undefined]:hover{opacity:.55}
-.cta:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.fcta__bg{position:absolute;inset:0;z-index:0;pointer-events:none}
+.fcta__bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.fcta__scrim{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(17,17,17,.95) 0%,rgba(17,17,17,.7) 50%,rgba(17,17,17,.15) 100%);
+}
+.fcta .wrap{position:relative;z-index:2}
+.fcta__in{max-width:640px}
+.fcta__t{
+  margin:0;font-size:clamp(28px,3.6vw,44px);font-weight:900;
+  line-height:1.28;letter-spacing:-.023em;text-wrap:balance;
+}
+.fcta__p{
+  margin:clamp(28px,4.2vw,60px) 0 0;max-width:606px;
+  font-size:clamp(16px,1.25vw,18px);line-height:1.78;color:#b3b3b3;
+}
+.fcta__btn{
+  display:inline-flex;align-items:center;gap:12px;
+  margin-top:clamp(28px,3vw,44px);
+  background:#e21e28;color:#fff;text-decoration:none;
+  font-weight:900;font-size:clamp(16px,1.25vw,18px);line-height:28px;
+  padding:20px 36px;border-radius:999px;
+  box-shadow:0 12px 12px rgba(0,0,0,.25);
+  transition:opacity .2s var(--ease);
+}
+.fcta__btn:hover{opacity:.86}
+.fcta__btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
+/* 窄版：Figma 只定義桌機版，橫向漸層在窄寬度會讓右側文字壓在亮面上，改為縱向壓暗 */
+@media (max-width:767px){
+  .fcta__scrim{background:linear-gradient(180deg,rgba(17,17,17,.92) 0%,rgba(17,17,17,.8) 55%,rgba(17,17,17,.62) 100%)}
+}
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
@@ -856,13 +881,15 @@ a{color:inherit}
   </div>
 </section>
 
-<section class="end">
+<!-- ========================= Footer CTA — Figma node 6704:2543 ========================= -->
+<section class="fcta">
+  <div class="fcta__bg"><img src="assets/footer-cta-office.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="fcta__scrim" aria-hidden="true"></div>
   <div class="wrap">
-    <div class="end__in">
-      <p class="eyebrow">Join us</p>
-      <h2 class="end__t">每個事業群，都在找能把問題變成結果的人。</h2>
-      <p class="lede">一起打造產品或探索新需求，一起創造更好的工具或社群，幫助每個人做好人生投資。</p>
-      <a class="cta" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看目前職缺 <span aria-hidden="true">&#8594;</span></a>
+    <div class="fcta__in">
+      <h2 class="fcta__t">帶著你的問題來，<br>帶著答案和能力離開。</h2>
+      <p class="fcta__p">如果你讀完後感到更興奮，歡迎帶著你的判斷、作品和最想解決的真問題來認識我們。加入我們，運用你的專業來解決問題！</p>
+      <a class="fcta__btn" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">加入CMoney <span aria-hidden="true">&#8594;</span></a>
     </div>
   </div>
 </section>
