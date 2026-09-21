@@ -5,13 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="CMoney 的里程碑與五個事業群：在做什麼、規模多大、目前正在解什麼題。">
 <title>CMoney 事業群</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+TC:wght@400;500;700;900&family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   Tokens — 取自 CMoney 設計系統「顏色總覽表」(node 647:21869)
-   深底所需的值由 GREY / Primary 既有階層推導，說明見同名 .md
+   Tokens — 對齊官網 cmoney.tw/careers 實測規範
+   色票、字級、字重皆為官網既有值；新增色值前請先確認官網有無對應。
    ============================================================ */
 :root{
   --ground:#262626;      /* GREY 800 */
@@ -20,8 +17,8 @@
   --tx-2:#bfbfbf;        /* GREY 500 */
   --tx-3:#959595;        /* GREY 550 */
   --rule:#595959;        /* GREY 700 */
-  --rule-2:#767676;      /* GREY 600 */
-  --accent:#f0332c;      /* 深底紅（形象站 prototype）— 線與大字 */
+  --rule-2:#595959;      /* GREY 700 */
+  --accent:#e21e28;      /* Primary — 官網唯一主色紅 */
   --accent-tx:#f39ea3;   /* Primary/Border 300 — 深底上的小級數紅字 */
   --accent-wash:transparent;
   --chip:transparent;
@@ -32,29 +29,35 @@
   --wash:rgba(255,255,255,.05);       /* 灰底區塊（相關公開案例）：深底用提亮 */
   --wash-hover:rgba(255,255,255,.09);
 
-  --maxw:1220px;
+  /* 字級：官網 9 階（12/14/16/18/20/24/30/40/52），固定 px、不使用 clamp；字重僅 400/500/600 */
+  --ls:.004em;
+  --ls-caps:.08em;       /* 官網無 eyebrow 元件；uppercase 標籤保留正字距以維持可讀性 */
+
+  --maxw:1152px;
   --axis:150px;
-  --bar:75px;
+  --bar:64px;
+  --ink-fixed:#262626;   /* 不隨主題切換的深底（Footer CTA），＝官網深色面 */
   --ease:cubic-bezier(.22,.61,.36,1);
 }
 @media (prefers-color-scheme: light){
   :root{
-    --ground:#ffffff; --raise:#f0f0f0;
+    --ground:#ffffff; --raise:#f6f6f6;
     --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;
     --rule:#d9d9d9; --rule-2:#bfbfbf;
-    --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:#fce9ea;
-    --chip:#f0f0f0; --chip-line:#d9d9d9;
+    --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:transparent;
+    --chip:#f6f6f6; --chip-line:#d9d9d9;
     --card:#ffffff;                   /* Surface/Base */
-    --card-line:rgba(38,38,38,.07);   /* Surface/Light.Border */
+    --card-line:rgba(38,38,38,.1);   /* Surface/Light.Border */
     --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
-    --wash:#f0f0f0; --wash-hover:#e9e9e9;
+    --wash:#f6f6f6; --wash-hover:#d9d9d9;
   }
 }
 *,*::before,*::after{box-sizing:border-box}
 body{
   margin:0;background:var(--ground);color:var(--tx-1);
-  font-family:Inter,"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;
-  font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  /* 官網字體堆疊（不載入 webfont） */
+  font-family:-apple-system,system-ui,"Microsoft JhengHei","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:16px;line-height:24px;letter-spacing:var(--ls);-webkit-font-smoothing:antialiased;
   overflow-x:clip;
 }
 html{scroll-padding-top:calc(var(--bar) + env(safe-area-inset-top,0px) + 16px)}
@@ -80,19 +83,19 @@ a{color:inherit}
 
 .nav{margin-inline-start:auto;display:flex;align-items:center;gap:25px}
 .nav__link{
-  font-size:16px;line-height:1.375;color:#bfbfbf;text-decoration:none;
+  font-size:14px;font-weight:500;line-height:20px;color:#bfbfbf;text-decoration:none;
   position:relative;padding-block:2px;white-space:nowrap;
   transition:color .2s var(--ease);
 }
 .nav__link::after{
   content:"";position:absolute;inset-block-end:0;inset-inline-start:0;
-  width:100%;height:1.5px;background:#f0332c;      /* 深底紅，與首頁 prototype 一致 */
+  width:100%;height:1.5px;background:#e21e28;      /* 深底紅，與首頁 prototype 一致 */
   transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease);
 }
 .nav__link:hover{color:#fff}
 .nav__link:hover::after,.nav__link.is-active::after{transform:scaleX(1)}
 .nav__link.is-active{color:#fff}
-.nav__link:focus-visible{outline:2px solid #f0332c;outline-offset:4px}
+.nav__link:focus-visible{outline:2px solid #e21e28;outline-offset:4px}
 
 .nav-toggle{display:none;width:40px;height:40px;place-items:center;background:none;border:0;cursor:pointer;flex:0 0 auto}
 .nav-toggle i{display:block;width:20px;height:1.5px;background:#fff;position:relative;transition:.25s var(--ease)}
@@ -101,7 +104,7 @@ a{color:inherit}
 .nav-toggle[aria-expanded="true"] i{background:transparent}
 .nav-toggle[aria-expanded="true"] i::before{top:0;transform:rotate(45deg)}
 .nav-toggle[aria-expanded="true"] i::after{top:0;transform:rotate(-45deg)}
-.nav-toggle:focus-visible{outline:2px solid #f0332c;outline-offset:2px}
+.nav-toggle:focus-visible{outline:2px solid #e21e28;outline-offset:2px}
 
 @media (max-width:980px){
   .nav-toggle{display:grid;margin-inline-start:auto}
@@ -119,7 +122,7 @@ a{color:inherit}
 
 /* ---------- 共用 ---------- */
 .eyebrow{
-  font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  font-size:12px;font-weight:500;line-height:16px;letter-spacing:var(--ls-caps);text-transform:uppercase;
   color:var(--accent-tx);margin:0;
 }
 .lede{margin:0;color:var(--tx-2);max-width:60ch}
@@ -144,11 +147,11 @@ a{color:inherit}
 .hero .wrap{position:relative;z-index:2}
 .hero__in{display:flex;flex-direction:column;gap:20px;max-width:760px}
 .hero__title{
-  margin:0;font-weight:700;letter-spacing:-.03em;line-height:1.16;color:#fff;
-  font-size:clamp(32px,4.8vw,60px);text-wrap:balance;
+  margin:0;font-weight:600;line-height:64px;color:#fff;
+  font-size:52px;text-wrap:balance;
   text-shadow:0 2px 24px rgba(0,0,0,.35);
 }
-.hero__lede{font-size:clamp(15px,1.3vw,17px);color:rgba(255,255,255,.84);max-width:52ch}
+.hero__lede{font-size:20px;line-height:32px;color:rgba(255,255,255,.85);max-width:52ch}
 
 /* ---------- 左緣 rail（里程碑用年份、事業群用群名） ---------- */
 .rail{
@@ -165,11 +168,11 @@ a{color:inherit}
 }
 .rail__tick{display:block;width:14px;height:1px;background:currentColor;flex:0 0 auto;transition:width .3s var(--ease)}
 .rail__lbl{
-  font-family:"Roboto Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.06em;
+  font-size:12px;line-height:16px;letter-spacing:var(--ls-caps);
   font-variant-numeric:tabular-nums;white-space:nowrap;
   opacity:0;transform:translateX(-4px);transition:opacity .25s var(--ease),transform .25s var(--ease);
 }
-.rail__lbl--cjk{font-family:inherit;letter-spacing:.04em}
+.rail__lbl--cjk{letter-spacing:var(--ls)}
 .rail:hover .rail__lbl{opacity:1;transform:none}
 .rail__btn:hover,.rail__btn:focus-visible{color:var(--tx-1);outline:none}
 .rail__btn:focus-visible .rail__tick{width:26px}
@@ -190,8 +193,8 @@ a{color:inherit}
   --tx-2:#bfbfbf;                     /* GREY 500 */
   --tx-3:#959595;                     /* GREY 550 */
   --rule:#595959;                     /* GREY 700 */
-  --rule-2:#767676;                   /* GREY 600 */
-  --accent:#f0332c;                   /* 深底紅 — 中軸線與大字 */
+  --rule-2:#595959;                   /* GREY 700 */
+  --accent:#e21e28;                   /* Primary — 官網唯一主色紅 */
   --accent-tx:#f39ea3;                /* Primary/Border 300 — 深底上的小級數紅字 */
   --accent-wash:transparent;
   --chip:transparent;
@@ -205,7 +208,7 @@ a{color:inherit}
   padding-block:clamp(40px,5vw,72px) 0;position:relative;overflow-x:clip;
 }
 .ms__head{max-width:760px;display:flex;flex-direction:column;gap:18px}
-.ms__title{margin:0;font-weight:700;letter-spacing:-.02em;line-height:1.22;font-size:clamp(26px,3.4vw,40px);text-wrap:balance}
+.ms__title{margin:0;font-weight:600;line-height:36px;font-size:30px;text-wrap:balance}
 
 .track{position:relative;margin-block-start:clamp(24px,3vw,40px)}
 .track__line,.track__fill{position:absolute;inset-block:0;inset-inline-start:calc(var(--axis) / 2);width:1px}
@@ -229,19 +232,19 @@ a{color:inherit}
 .row__axis{grid-column:1;display:flex;justify-content:center;position:relative;z-index:2}
 .year{
   font-variant-numeric:tabular-nums;
-  font-size:clamp(28px,3.4vw,42px);font-weight:700;letter-spacing:-.025em;line-height:1;
+  font-size:40px;font-weight:600;line-height:48px;
   color:var(--tx-3);background:var(--ground);padding-block:10px;transition:color .4s var(--ease);
 }
 .row.is-active .year{color:var(--accent)}
 .card{grid-column:2;padding-inline-start:4px}
 .card > * + *{margin-block-start:10px}
-.card__title{margin:0;font-size:clamp(17px,1.8vw,22px);font-weight:700;line-height:1.4;letter-spacing:-.01em;color:var(--tx-1);text-wrap:balance}
-.card__desc{margin:0;color:var(--tx-2);font-size:15px;max-width:46ch}
-@media (max-width:520px){.year{font-size:21px;padding-block:8px}.card__desc{font-size:14px}}
+.card__title{margin:0;font-size:18px;font-weight:600;line-height:24px;color:var(--tx-1);text-wrap:balance}
+.card__desc{margin:0;color:var(--tx-2);font-size:16px;line-height:24px;max-width:46ch}
+@media (max-width:520px){.year{font-size:24px;line-height:32px;padding-block:8px}.card__desc{font-size:14px;line-height:20px}}
 
 .chips{display:flex;flex-wrap:wrap;gap:7px;margin-block-start:12px;margin-inline:0;padding:0;list-style:none}
 .chips li{
-  font-size:12.5px;line-height:1;color:var(--tx-2);
+  font-size:12px;line-height:16px;color:var(--tx-2);
   border:1px solid var(--chip-line);background:var(--chip);
   padding:7px 11px;border-radius:999px;white-space:nowrap;
 }
@@ -260,28 +263,30 @@ a{color:inherit}
 /* ---------- 數據帶（里程碑與各事業群共用） ---------- */
 /* 數據卡片 — 沿用首頁 .stat 元件（padding 24 / radius 12 / 數字 36-900 / b+em 拆數值與單位）
    首頁那組是壓在照片上的半透明深色卡；這裡是白底區塊，改用 Surface/Base 白卡 */
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:16px;margin:0;padding:0}
+/* 官網數據大字固定 40/48；min track 由 178→210，卡片才容得下「5000萬+」不斷行 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin:0;padding:0}
 .stat{
   display:grid;gap:12px;align-content:start;padding:24px;border-radius:12px;
   background:var(--card);border:1px solid var(--card-line);box-shadow:var(--card-shadow);
 }
 .stat__num{
   margin:0;display:flex;align-items:baseline;color:var(--tx-1);
-  font-size:clamp(28px,2.6vw,36px);font-weight:900;line-height:1.2;
-  letter-spacing:-.03em;font-variant-numeric:tabular-nums;
+  font-size:40px;font-weight:600;line-height:48px;
+  font-variant-numeric:tabular-nums;
 }
 .stat__num b,.stat__num em{font-weight:inherit;font-style:normal}
-.stat__num em{font-size:.72em;margin-inline-start:.06em}
-.stat__label{margin:0;font-size:16px;font-weight:700;line-height:1.2;color:var(--tx-1)}
-/* 說明文字用 --tx-2 而非 --tx-3：13px/400 屬一般內文，需 WCAG AA 4.5:1。
+/* 官網數據單位獨立一階：count 40/48、unit 24/32 */
+.stat__num em{font-size:24px;line-height:32px;margin-inline-start:.06em}
+.stat__label{margin:0;font-size:16px;font-weight:600;line-height:24px;color:var(--tx-1)}
+/* 說明文字用 --tx-2 而非 --tx-3：14px/400 屬一般內文，需 WCAG AA 4.5:1。
    --tx-3 在白卡上只有 3.0:1、在深底卡上 4.34:1，兩邊都不過。 */
-.stat__desc{margin:0;font-size:13px;font-weight:400;line-height:1.35;color:var(--tx-2);overflow-wrap:anywhere}
+.stat__desc{margin:0;font-size:14px;font-weight:400;line-height:20px;color:var(--tx-2);overflow-wrap:anywhere}
 .stats--one{grid-template-columns:minmax(0,260px)}
 @media (min-width:980px){.payoff .stats{gap:24px}}
 
 .payoff{position:relative;margin-block-start:clamp(32px,3.6vw,52px);background:var(--raise);border-block:1px solid var(--rule-2)}
 .payoff .wrap{padding-block:clamp(32px,3.6vw,52px)}
-.payoff__cap{margin:0 0 26px;font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--tx-3)}
+.payoff__cap{margin:0 0 26px;font-size:12px;font-weight:500;line-height:16px;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--tx-3)}
 
 /* ============================================================
    事業群
@@ -294,29 +299,29 @@ a{color:inherit}
 }
 .bridge__t{
   margin:0 auto;max-width:24ch;text-wrap:balance;
-  font-size:clamp(22px,2.9vw,34px);font-weight:700;letter-spacing:-.02em;line-height:1.35;
+  font-size:24px;font-weight:600;line-height:32px;
 }
 .bridge .eyebrow{margin-block-end:14px}
 
 .group{border-top:1px solid var(--rule);padding-block:clamp(52px,6.5vw,96px)}
 .group__grid{display:grid;grid-template-columns:minmax(0,1fr);gap:clamp(26px,3.4vw,44px)}
 .group__aside{display:flex;flex-direction:column;gap:12px}
-.group__name{margin:0;font-size:clamp(25px,3.2vw,38px);font-weight:700;letter-spacing:-.025em;line-height:1.2}
+.group__name{margin:0;font-size:30px;font-weight:600;line-height:36px}
 .group__rule{width:56px;height:2px;background:var(--accent);border:0;margin:2px 0 0}
-.group__promise{margin:0;font-size:14.5px;color:var(--tx-2);max-width:30ch}
+.group__promise{margin:0;font-size:14px;line-height:20px;color:var(--tx-2);max-width:30ch}
 
 .group__main{display:flex;flex-direction:column;gap:clamp(30px,3.6vw,48px);min-width:0}
 .claim{
-  margin:0;font-size:clamp(18px,2.1vw,26px);font-weight:700;line-height:1.5;letter-spacing:-.015em;
+  margin:0;font-size:24px;font-weight:600;line-height:32px;
   max-width:26ch;text-wrap:balance;
 }
 .claim em{font-style:normal;color:var(--accent-tx)}
 .prose{display:flex;flex-direction:column;gap:12px;max-width:50ch}
-.prose p{margin:0;color:var(--tx-2);font-size:15px}
+.prose p{margin:0;color:var(--tx-2);font-size:16px;line-height:24px}
 
 .blk{display:flex;flex-direction:column;gap:16px}
 .blk__cap{
-  margin:0;font-size:11.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--tx-3);
+  margin:0;font-size:12px;font-weight:500;line-height:16px;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--tx-3);
 }
 
 .prods{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
@@ -327,12 +332,12 @@ a{color:inherit}
 .prods__i{width:38px;height:38px;border-radius:9px;flex:0 0 auto;display:block}
 .prods__tx{display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;min-width:0}
 .prods__more{
-  margin:14px 0 0;text-align:center;font-size:13px;color:var(--tx-3);
-  display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;
+  margin:14px 0 0;text-align:center;font-size:12px;color:var(--tx-3);
+  display:flex;flex-direction:column;align-items:center;gap:2px;line-height:16px;
 }
-.prods b{font-size:15px;font-weight:700;color:var(--tx-1)}
-.prods span{font-size:13.5px;color:var(--tx-3)}
-.prods .todo{color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:11.5px;line-height:1}
+.prods b{font-size:16px;font-weight:600;line-height:24px;color:var(--tx-1)}
+.prods span{font-size:14px;line-height:20px;color:var(--tx-3)}
+.prods .todo{color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:12px;line-height:16px}
 
 /* 產品牆：沿用設計稿 5717:10949 的手法，最後一排淡出，表示看到的不是全部 */
 .wall{
@@ -342,19 +347,19 @@ a{color:inherit}
           mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.15) 100%);
 }
 .wall img{width:100%;aspect-ratio:1;border-radius:12px;display:block}
-.wall__note{margin:12px 0 0;font-size:12.5px;color:var(--tx-3)}
+.wall__note{margin:12px 0 0;font-size:12px;line-height:16px;color:var(--tx-3)}
 @media (max-width:520px){.wall{grid-template-columns:repeat(5,minmax(0,1fr))}}
 
 /* 兩句主張：與事業群敘述同層級，但用線分隔成獨立的兩件事 */
 .claims{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .claims li{
   padding-block:14px;border-bottom:1px solid var(--rule);
-  font-size:clamp(15px,1.6vw,18px);font-weight:700;line-height:1.5;letter-spacing:-.01em;
+  font-size:18px;font-weight:600;line-height:28px;
 }
 .claims em{font-style:normal;color:var(--accent-tx)}
 
 .partners{display:flex;flex-wrap:wrap;gap:7px;list-style:none;margin:0;padding:0}
-.partners li{font-size:12.5px;line-height:1;color:var(--tx-2);border:1px solid var(--chip-line);padding:7px 11px;border-radius:999px}
+.partners li{font-size:12px;line-height:16px;color:var(--tx-2);border:1px solid var(--chip-line);padding:7px 11px;border-radius:999px}
 
 /* 相關公開案例：沿用首頁「看看實際案例」的灰底區塊語彙（灰底卡＋紅框膠囊 CTA），
    字級與圓角則維持本頁級距 15 / 13.5 / 11.5 與 12px */
@@ -366,14 +371,14 @@ a{color:inherit}
 }
 .reads a:hover{background:var(--wash-hover)}
 .reads a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
-.reads__t{font-size:15px;font-weight:700;color:var(--tx-1);line-height:1.5}
-.reads__d{font-size:13.5px;color:var(--tx-2);margin:0;max-width:56ch}
+.reads__t{font-size:16px;font-weight:600;color:var(--tx-1);line-height:24px}
+.reads__d{font-size:14px;line-height:20px;color:var(--tx-2);margin:0;max-width:56ch}
 .reads__f{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:4px}
-.reads__m{font-family:"Roboto Mono",ui-monospace,monospace;font-size:11.5px;color:var(--tx-3);letter-spacing:.04em}
+.reads__m{font-size:12px;line-height:16px;color:var(--tx-3);letter-spacing:var(--ls-caps)}
 .reads__go{
   display:inline-flex;align-items:center;gap:5px;white-space:nowrap;
   padding:6px 12px;border:1px solid var(--accent-tx);border-radius:999px;
-  color:var(--accent-tx);font-size:11.5px;font-weight:600;line-height:1;
+  color:var(--accent-tx);font-size:12px;font-weight:600;line-height:16px;
   transition:background .25s var(--ease),border-color .25s var(--ease),color .25s var(--ease);
 }
 .reads__go::after{content:"\2192"}
@@ -388,30 +393,30 @@ a{color:inherit}
    固定深底 #111 ＋辦公室實景，不隨頁面深／淺底切換，與 site-header 同一套處理 ---------- */
 .fcta{
   position:relative;overflow:hidden;
-  background:#111;border-top:1px solid rgba(255,255,255,.08);
+  background:var(--ink-fixed);border-top:1px solid rgba(255,255,255,.08);
   padding-block:clamp(72px,9vw,120px);color:#fff;
 }
 .fcta__bg{position:absolute;inset:0;z-index:0;pointer-events:none}
 .fcta__bg img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .fcta__scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
-  background:linear-gradient(90deg,rgba(17,17,17,.95) 0%,rgba(17,17,17,.7) 50%,rgba(17,17,17,.15) 100%);
+  background:linear-gradient(90deg,rgba(0,0,0,.95) 0%,rgba(0,0,0,.7) 50%,rgba(0,0,0,.15) 100%);
 }
 .fcta .wrap{position:relative;z-index:2}
 .fcta__in{max-width:640px}
 .fcta__t{
-  margin:0;font-size:clamp(28px,3.6vw,44px);font-weight:900;
-  line-height:1.28;letter-spacing:-.023em;text-wrap:balance;
+  margin:0;font-size:40px;font-weight:600;
+  line-height:48px;text-wrap:balance;
 }
 .fcta__p{
   margin:clamp(28px,4.2vw,60px) 0 0;max-width:606px;
-  font-size:clamp(16px,1.25vw,18px);line-height:1.78;color:#b3b3b3;
+  font-size:18px;line-height:28px;color:#bfbfbf;
 }
 .fcta__btn{
   display:inline-flex;align-items:center;gap:12px;
   margin-top:clamp(28px,3vw,44px);
   background:#e21e28;color:#fff;text-decoration:none;
-  font-weight:900;font-size:clamp(16px,1.25vw,18px);line-height:28px;
+  font-weight:600;font-size:16px;line-height:24px;
   padding:20px 36px;border-radius:999px;
   box-shadow:0 12px 12px rgba(0,0,0,.25);
   transition:opacity .2s var(--ease);
@@ -420,7 +425,18 @@ a{color:inherit}
 .fcta__btn:focus-visible{outline:2px solid #fff;outline-offset:3px}
 /* 窄版：Figma 只定義桌機版，橫向漸層在窄寬度會讓右側文字壓在亮面上，改為縱向壓暗 */
 @media (max-width:767px){
-  .fcta__scrim{background:linear-gradient(180deg,rgba(17,17,17,.92) 0%,rgba(17,17,17,.8) 55%,rgba(17,17,17,.62) 100%)}
+  .fcta__scrim{background:linear-gradient(180deg,rgba(0,0,0,.92) 0%,rgba(0,0,0,.8) 55%,rgba(0,0,0,.62) 100%)}
+}
+
+/* ============================================================
+   官網行動版斷點 max-width:768px
+   H1 52/64→30/36 · Hero desc 20/32→18/28 · H2 30/36→24/32 · H3 24/32→20/28
+   ============================================================ */
+@media (max-width:768px){
+  .hero__title{font-size:30px;line-height:36px}
+  .hero__lede{font-size:18px;line-height:28px}
+  .ms__title,.group__name,.fcta__t{font-size:24px;line-height:32px}
+  .bridge__t,.claim{font-size:20px;line-height:28px}
 }
 
 @media (prefers-reduced-motion:reduce){
