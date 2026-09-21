@@ -407,8 +407,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* 四列對照卡片：沿用白底卡片那套語彙——20px 圓角、#ededed 細邊、低擴散陰影、膠囊展開鈕。
    依回饋移除上方「文化自我選擇」區塊與雙軌切換器，互動區塊改併入每一列的展開內容 */
-.cmp{margin-top:42px;display:grid;gap:14px}
-.cmp__head{display:grid;grid-template-columns:1fr 1fr;border-radius:16px;overflow:hidden}
+.cmp{margin-top:42px;display:grid;gap:16px}
+.cmp__head{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);border-radius:16px;overflow:hidden}
 .cmp__head div{padding:16px 24px;font-size:13px;font-weight:800;color:#fff}
 .cmp__head div:first-child{background:var(--ink-900)}
 .cmp__head div:last-child{background:var(--red-600)}
@@ -419,13 +419,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .cmp__row:hover{box-shadow:0 22px 48px -26px rgba(9,16,28,.45)}
 .cmp__row.is-open{border-color:#f2ddd9}
-.cmp__cells{display:grid;grid-template-columns:1fr 1fr}
-.cmp__cell{padding:27px 26px}
+.cmp__cells{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)}
+.cmp__cell{padding:28px 30px}
 .cmp__cell--old{background:var(--bg-soft-2)}
 .cmp__cell--new{background:#fff;border-inline-start:1px solid #ededed;display:flex;align-items:center;gap:20px;transition:background .3s var(--ease)}
 .cmp__cell h4{margin:0;font-size:18px;font-weight:800;letter-spacing:-.01em}
 .cmp__cell--old h4{color:#5d6672}
-.cmp__cell p{margin:6px 0 0;font-size:14px;font-weight:500;color:var(--text-600)}
+.cmp__cell p{margin:6px 0 0;font-size:16px;font-weight:500;line-height:1.6;color:var(--text-600)}
 .cmp__cell--old p{color:#8b939d}
 .cmp__expand{
   margin-inline-start:auto;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;
@@ -452,66 +452,63 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* 展開內容 — 版面依 Figma 6471:11566（左 WHY／右 IN PRACTICE＋面試提問），
    卡片語彙沿用 prototype：白底、check 互動、工作現場文章卡 */
 .cmp__inner{padding:0;border-top:1px solid #ededed}
-.cmp__detail{display:grid;grid-template-columns:1fr 1fr;align-items:start}
-.cmp__col{display:grid;grid-template-columns:minmax(0,1fr);gap:16px;align-content:start;min-width:0;padding:32px 30px 34px}
-.cmp__col--why{border-inline-end:1px solid #ededed}
+.cmp__detail{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:stretch}
+.cmp__col{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start;min-width:0;padding:36px 34px 40px}
+.cmp__col--why{border-inline-end:1px solid #ededed;background:#fcfcfc}
 .cmp__block{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
 .cmp__kicker{
   margin:0;display:flex;align-items:center;gap:7px;
   font-family:"Roboto Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
-  font-size:15px;font-weight:700;letter-spacing:.061em;line-height:16px;color:#f14f2b;
+  font-size:13px;font-weight:700;letter-spacing:.08em;line-height:16px;color:#f14f2b;
 }
 .cmp__kicker svg{width:15px;height:15px;flex:0 0 auto}
 /* 中文短標改回內文字體 */
-.cmp__kicker--zh{font-family:inherit;font-size:15px;font-weight:700;letter-spacing:.061em;gap:8px}
+.cmp__kicker--zh{font-family:inherit;font-size:13px;font-weight:700;letter-spacing:.08em;gap:8px}
 .cmp__kicker--zh svg{width:15px;height:15px}
 /* 群組之間的間距：設計稿群組內 16px、群組間 40px */
-.cmp__kicker--case,.cmp__check{margin-top:24px}
-.cmp__title{margin:0;font-size:22px;font-weight:700;line-height:1.45;letter-spacing:.01em;color:var(--text-900)}
-.cmp__col>p:not([class]){margin:0;font-size:16px;line-height:1.6;color:var(--text-900)}
+.cmp__kicker--case,.cmp__check{margin-top:14px}
+.cmp__title{margin:0;font-size:22px;font-weight:700;line-height:1.5;letter-spacing:.01em;color:var(--text-900);text-wrap:pretty}
+.cmp__col>p:not([class]){margin:0;max-width:44em;font-size:16px;line-height:1.85;color:var(--text-700);text-wrap:pretty}
 .cmp__col>p:not([class]) b{color:var(--text-900);font-weight:700}
-.cmp__fitrow{margin:0;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.8;color:var(--text-600)}
-.cmp__fitrow svg{width:18px;height:18px;flex:0 0 auto;margin-top:4px}
-.cmp__fitrow--yes svg{color:#12a150}
-.cmp__fitrow--no svg{color:#d98324}
-/* 二選一 check card */
-.cmp__pills{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
-.cmp__pill{
-  display:flex;align-items:flex-start;gap:10px;text-align:start;
-  border:1.5px solid #cfd8e3;border-radius:14px;padding:14px 16px;background:#fff;
-  font-size:14px;font-weight:600;line-height:1.6;color:var(--text-700);
-  box-shadow:0 1px 2px rgba(9,16,28,.07);
-  transition:border-color .25s var(--ease),background .25s var(--ease),transform .25s var(--ease),box-shadow .25s var(--ease),color .25s var(--ease);
-}
-.cmp__pill::before{
-  content:"";flex:0 0 auto;width:18px;height:18px;margin-top:2px;border-radius:50%;
-  border:2px solid #b9c4d2;background:#fff;
-  transition:border-color .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease);
-}
-.cmp__pill:hover{border-color:var(--red-600);background:#fffaf9;transform:translateY(-2px);box-shadow:0 10px 22px -14px rgba(9,16,28,.55)}
-.cmp__pill:hover::before{border-color:var(--red-600)}
-.cmp__pill[aria-pressed="true"]{border-color:var(--red-600);background:#feedea;color:var(--text-900);box-shadow:0 2px 6px -2px rgba(226,30,40,.3)}
-.cmp__pill[aria-pressed="true"]::before{border-color:var(--red-600);background:var(--red-600);box-shadow:inset 0 0 0 3px #fff}
-.cmp__pill:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
-
-.cmp__toast{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s var(--ease)}
-.cmp__toast.is-on{grid-template-rows:1fr}
-.cmp__toast>div{overflow:hidden}
-.cmp__toastinner{
-  display:flex;gap:12px;align-items:flex-start;margin-top:12px;padding:16px 18px;border-radius:14px;
-  font-size:14px;font-weight:600;line-height:1.75;
-}
-.cmp__toast[data-tone="good"] .cmp__toastinner{background:#eaf7ef;border:1px solid #cbe9d6;color:#0f6b39}
-.cmp__toast[data-tone="warn"] .cmp__toastinner{background:#fff6e8;border:1px solid #f2ddba;color:#8a5a12}
-.cmp__toastinner svg{width:18px;height:18px;flex:0 0 auto;margin-top:3px}
-.cmp__toastclose{margin-inline-start:auto;flex:0 0 auto;color:inherit;opacity:.55;line-height:0}
-.cmp__toastclose:hover{opacity:1}
-.cmp__toastclose:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
-
+.cmp__col>p:not([class])+p:not([class]){margin-top:-4px}
 /* 你會感受到的差異：整條區塊，左欄標籤、右欄內容（設計稿 6366:70148） */
 .cmp__check{display:grid;gap:16px}
 
+/* 情境互動：兩種做法對照（版面依 Figma 6696:2938） */
+.cmp__case{display:grid;gap:12px;margin-top:14px}
+.cmp__caselabel{margin:0;font-size:13px;font-weight:700;letter-spacing:.06em;color:#5d6672}
+.cmp__casebox{display:grid;gap:18px;border-radius:16px;background:#f6f6f6;padding:24px 24px 26px}
+.cmp__caseq{margin:0;font-size:18px;font-weight:700;line-height:1.7;color:var(--text-900);text-wrap:pretty}
+.cmp__opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cmp__opt{
+  display:grid;gap:12px;align-content:start;text-align:start;
+  border:1px solid #e2e5ea;border-radius:12px;padding:16px 18px 18px;background:#fff;
+  font:inherit;color:var(--text-900);cursor:pointer;
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease);
+}
+.cmp__opt--ours{transition:border-color .28s var(--ease),background .28s var(--ease),box-shadow .25s var(--ease)}
+.cmp__case.is-answered .cmp__opt--ours{border-color:#eab3b0;background:#fffaf9}
+.cmp__opthead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cmp__optkey{font-size:13px;font-weight:700;color:#5d6672}
+.cmp__optbadge{opacity:0;transform:translateY(-2px);transition:opacity .28s var(--ease),transform .28s var(--ease);font-size:13px;font-weight:700;color:#5d6672;background:#eef0f3;border-radius:100px;padding:3px 10px}
+.cmp__optbadge--red{color:#c2151f;background:#fde6e4}
+.cmp__case.is-answered .cmp__optbadge{opacity:1;transform:none}
+.cmp__opttext{font-size:16px;line-height:1.8;text-wrap:pretty}
+.cmp__opt:hover{border-color:var(--red-600);box-shadow:0 10px 22px -16px rgba(9,16,28,.6)}
+.cmp__opt[aria-pressed="true"]{border-color:var(--red-600);box-shadow:0 0 0 1px var(--red-600) inset}
+.cmp__opt:focus-visible{outline:2px solid var(--red-600);outline-offset:2px}
+.cmp__case.is-answered .cmp__opt:not([aria-pressed="true"]){opacity:.8}
+.cmp__reveal{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.cmp__reveal.is-on{grid-template-rows:1fr}
+.cmp__reveal>div{overflow:hidden}
+.cmp__revealin{display:grid;gap:12px;padding-top:4px}
+.cmp__lead{margin:0;display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:1.8;color:var(--text-900);text-wrap:pretty}
+.cmp__leadrule{flex:0 0 auto;width:22px;height:3px;border-radius:100px;background:var(--red-600);margin-top:12px}
+.cmp__ask{margin:0;padding-inline-start:34px;font-size:16px;font-weight:700;line-height:1.8;color:var(--text-900);text-wrap:pretty}
+.cmp__asknote{margin:0;padding-inline-start:34px;font-size:13px;line-height:1.85;color:#55606d;text-wrap:pretty}
+
 /* 工作現場卡片 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401 */
+.cmp-field img{display:none}
 .cmp-field{display:flex;align-items:flex-start;gap:16px;background:#f6f6f6;border-radius:16px;padding:20px}
 .cmp-field__body{flex:1 1 0;min-width:0;align-self:stretch;display:flex;flex-direction:column;gap:12px}
 .cmp-field__head{flex:1 1 auto;display:flex;flex-direction:column;gap:8px}
@@ -708,6 +705,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .cmp__head,.cmp__cells{grid-template-columns:1fr}
   .cmp__cell--new{border-inline-start:0;border-top:1px solid #ededed;flex-wrap:wrap}
   .cmp__detail{grid-template-columns:minmax(0,1fr)}
+  .cmp__opts{grid-template-columns:minmax(0,1fr)}
   .cmp__col{padding:24px 20px 26px;gap:16px}
   .cmp__col--why{border-inline-end:0;border-bottom:1px solid #ededed}
   .cmp__title{font-size:21px}
@@ -1020,19 +1018,20 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>實際工作時</p>
               <p>你仍然會有清楚的任務、權責與成功標準，但解法不會全部預先寫好。隨著市場回饋，你負責的範圍、合作對象，甚至團隊組成都可能改變。</p>
               <p>面試時，建議你確認：<b>「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</b></p>
-                          <div class="cmp__block cmp__check">
-                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
-                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
-                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我喜歡自主定義問題，享有極大發揮空間</button>
-                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我偏好職責固定，需要明確的安排</button>
+                          <div class="cmp__block cmp__case">
+                <p class="cmp__caselabel">兩種做法，你會選哪一個？</p>
+                <div class="cmp__casebox">
+                <p class="cmp__caseq">任務交到你手上，描述清楚、期限明確。你通常會怎麼開始？</p>
+                <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">依照任務描述把該做的項目逐一做到位，過程中發現落差再回報。</span></button>
+                <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">先確認這個任務真正想解決的問題，發現描述與問題不同時，帶著證據提出重新定義。</span></button>
                 </div>
-                <div class="cmp__toast" data-tone="good"><div>
-                <div class="cmp__toastinner">
-                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <span class="cmp__toasttext" role="status"></span>
-                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                <div class="cmp__reveal"><div><div class="cmp__revealin">
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>兩個選項都是負責任的做法，而 B 更接近我們每天在做的判斷。比起選項，我們更想聽你實際做過什麼：</span></p>
+                <p class="cmp__ask">請回想最近一次「任務描述與真正的問題不一樣」的經驗：你是怎麼發現的？你重新定義了什麼？當時和誰一起確認？</p>
+                <p class="cmp__asknote">面試時，歡迎帶著這個案例，與主管討論這個職位哪些責任會保持穩定、哪些範圍會隨問題與能力調整。</p>
+                </div></div></div>
                 </div>
-                </div></div>
               </div>
             </div>
           </div>
@@ -1081,19 +1080,20 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>實際工作時</p>
               <p>一開始你可能不會立刻獲得完整團隊與大筆預算，而是先說清楚：最關鍵的假設、最小驗證方法、多久看見訊號，以及什麼結果代表應該加碼、調整或停止。</p>
               <p>面試時，建議你確認：<b>「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</b></p>
-                          <div class="cmp__block cmp__check">
-                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
-                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
-                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我願意先小規模動手，用結果換取資源</button>
-                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我習慣資源到齊、計畫獲准後再開始</button>
+                          <div class="cmp__block cmp__case">
+                <p class="cmp__caselabel">兩種做法，你會選哪一個？</p>
+                <div class="cmp__casebox">
+                <p class="cmp__caseq">你判斷公司該做一個新服務，完整做出來要三個月。你現在只有自己和一週空檔。你會怎麼開始？</p>
+                <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">先把市場規模、競品與財務預估寫成提案，爭取把它排進開發排程。</span></button>
+                <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">先用一週內做得完的方式，換一個能改變決定的事實，再帶著它談資源。</span></button>
                 </div>
-                <div class="cmp__toast" data-tone="good"><div>
-                <div class="cmp__toastinner">
-                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <span class="cmp__toasttext" role="status"></span>
-                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                <div class="cmp__reveal"><div><div class="cmp__revealin">
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>兩個做法都需要準備，差別在你先說服的是誰。在 CMoney，資源多半是被證據換到的，不是被提案說服來的：</span></p>
+                <p class="cmp__ask">請回想最近一次「你用很小的成本驗證了一個大假設」：你當時最想確認什麼？實際做了什麼？結果改變了哪個決定？</p>
+                <p class="cmp__asknote">面試時，歡迎用這個實驗，與主管確認在這個職位上，什麼規模的驗證可以自己決定。</p>
+                </div></div></div>
                 </div>
-                </div></div>
               </div>
             </div>
           </div>
@@ -1142,19 +1142,20 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>實際工作時</p>
               <p>你可能完成十項功能，但如果留存率、付費率或客戶價值沒有改善，我們不會因為工作很忙，就認定問題已經解決。新證據出現時，原定工作甚至應該被停止。</p>
               <p>面試時，建議你確認：<b>「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</b></p>
-                          <div class="cmp__block cmp__check">
-                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
-                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
-                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我在意結果，願意為了結果推翻原計畫</button>
-                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我希望按時完成交辦事項就算達標</button>
+                          <div class="cmp__block cmp__case">
+                <p class="cmp__caselabel">兩種做法，你會選哪一個？</p>
+                <div class="cmp__casebox">
+                <p class="cmp__caseq">季度剩三週，你答應的五項功能完成四項。此時數據顯示，真正卡住成長的問題，那五項沒有一項在處理。</p>
+                <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">把第五項做完，維持對團隊的承諾，卡住的問題下一季再處理。</span></button>
+                <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">停掉第五項，把剩下三週投入真正卡住的問題，並把為什麼停說清楚。</span></button>
                 </div>
-                <div class="cmp__toast" data-tone="good"><div>
-                <div class="cmp__toastinner">
-                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <span class="cmp__toasttext" role="status"></span>
-                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                <div class="cmp__reveal"><div><div class="cmp__revealin">
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>兩個都是對承諾負責的方式，差別在對誰負責。在 CMoney，停掉一件已經答應的事不算失信，說不出為什麼要停才是：</span></p>
+                <p class="cmp__ask">請回想最近一次「你中途改變了原本答應的計畫」：你看到什麼新證據？怎麼跟相關的人說？後來問題有沒有前進？</p>
+                <p class="cmp__asknote">面試時，歡迎用這個例子，與主管確認這個職位的績效實際上是看什麼。</p>
+                </div></div></div>
                 </div>
-                </div></div>
               </div>
             </div>
           </div>
@@ -1203,19 +1204,20 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
               <p class="cmp__kicker"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>實際工作時</p>
               <p>Project Owner 可以在約定範圍內決定客群、優先順序、產品範圍與測試方法。主管則必須說清楚目標、資源上限、不可跨越的邊界與檢查節點。授權不是一句「你自己想辦法」。</p>
               <p>面試時，建議你確認：<b>「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</b></p>
-                          <div class="cmp__block cmp__check">
-                <p class="cmp__kicker cmp__kicker--zh"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="M12 7.2a3.4 3.4 0 0 0-2 6.15v1.05h4v-1.05A3.4 3.4 0 0 0 12 7.2Z" fill="none" stroke="#fff" stroke-width="1.8" stroke-linejoin="round"></path><path d="M10.6 16.6h2.8" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"></path></svg>面試前，問問自己</p>
-                <div class="cmp__pills" role="group" aria-label="你比較接近哪一種？">
-                <button class="cmp__pill" type="button" data-fit="good" aria-pressed="false">✨ 我想要決策權，也願意承擔結果</button>
-                <button class="cmp__pill" type="button" data-fit="warn" aria-pressed="false">⚠️ 我想要自由，但不想承擔結果的責任</button>
+                          <div class="cmp__block cmp__case">
+                <p class="cmp__caselabel">兩種做法，你會選哪一個？</p>
+                <div class="cmp__casebox">
+                <p class="cmp__caseq">測試顯示換一個主打客群，轉換率可能翻倍，但這會推翻上季共同拍板的方向，而主管今天出差。</p>
+                <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">等主管回來，把數據講完再一起決定，確保方向有共識。</span></button>
+                <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">先說明你打算怎麼改並著手進行，主管回來後完整說明結果與理由。</span></button>
                 </div>
-                <div class="cmp__toast" data-tone="good"><div>
-                <div class="cmp__toastinner">
-                <svg class="cmp__toasticon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="currentColor"></circle><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-                <span class="cmp__toasttext" role="status"></span>
-                <button class="cmp__toastclose" type="button" aria-label="關閉提示"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+                <div class="cmp__reveal"><div><div class="cmp__revealin">
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>兩個都不算越權，差別在邊界有沒有事先講清楚。在 CMoney，權責跟著承擔走，前提是「哪些你可以自己決定」在事情開始前就被定義過：</span></p>
+                <p class="cmp__ask">請回想最近一次「你在資訊不完整時自己拍板」：你判斷的依據是什麼？做錯了由誰承擔？事後你怎麼補上溝通？</p>
+                <p class="cmp__asknote">面試時，歡迎直接問：這個職位哪些決定可以自己下、哪些必須共同決定。</p>
+                </div></div></div>
                 </div>
-                </div></div>
               </div>
             </div>
           </div>
@@ -1687,20 +1689,10 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
     addEventListener("resize", function(){ readStackVars(); requestStack(); });
   }
   /* ---------- 四列對照卡片：展開 + 每列各自的 check card ---------- */
-  var CMP_ICONS = {
-    good: '<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="m8.4 12.3 2.5 2.5 4.7-4.9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>',
-    warn: '<circle cx="12" cy="12" r="10" fill="currentColor"/><path d="M12 7.4v5.2" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><circle cx="12" cy="16.4" r="1.2" fill="#fff"/>'
-  };
-  var CMP_MESSAGES = {
-    good: "🎯 CMoney 非常適合追求高彈性與高影響力的你！",
-    warn: "💡 在 CMoney 的快速動態環境下你可能會容易感到不安，建議投遞履歷前與我們進一步交流討論。"
-  };
-
-  function cmpHideToast(block){
-    var toast = block.querySelector(".cmp__toast");
-    toast.classList.remove("is-on");
-    block.querySelector(".cmp__toasttext").textContent = "";
-    block.querySelectorAll(".cmp__pill").forEach(function(p){ p.setAttribute("aria-pressed", "false"); });
+  function cmpResetCase(block){
+    block.classList.remove("is-answered");
+    block.querySelector(".cmp__reveal").classList.remove("is-on");
+    block.querySelectorAll(".cmp__opt").forEach(function(o){ o.setAttribute("aria-pressed", "false"); });
   }
 
   document.getElementById("cmpTable").addEventListener("click", function(e){
@@ -1711,28 +1703,19 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
       var open = !row.classList.contains("is-open");
       row.classList.toggle("is-open", open);
       btn.setAttribute("aria-expanded", String(open));
-      btn.querySelector(".cmp__expandtext").textContent = open ? "收合詳情" : "展開看原因與案例";
+      btn.querySelector(".cmp__expandtext").textContent = open ? "收合詳細說明" : "展開看原因與案例";
       return;
     }
 
-    // 二選一 check card
-    var pill = e.target.closest(".cmp__pill");
-    if (pill){
-      var block = pill.closest(".cmp__block");
-      if (pill.getAttribute("aria-pressed") === "true"){ cmpHideToast(block); return; }
-      var tone = pill.getAttribute("data-fit");
-      block.querySelectorAll(".cmp__pill").forEach(function(p){ p.setAttribute("aria-pressed", String(p === pill)); });
-      var toast = block.querySelector(".cmp__toast");
-      toast.setAttribute("data-tone", tone);
-      block.querySelector(".cmp__toasticon").innerHTML = CMP_ICONS[tone];
-      block.querySelector(".cmp__toasttext").textContent = CMP_MESSAGES[tone];
-      toast.classList.add("is-on");
-      return;
+    // 情境互動：選一個做法，展開差異與我們的做法
+    var opt = e.target.closest(".cmp__opt");
+    if (opt){
+      var block = opt.closest(".cmp__block");
+      if (opt.getAttribute("aria-pressed") === "true"){ cmpResetCase(block); return; }
+      block.querySelectorAll(".cmp__opt").forEach(function(o){ o.setAttribute("aria-pressed", String(o === opt)); });
+      block.classList.add("is-answered");
+      block.querySelector(".cmp__reveal").classList.add("is-on");
     }
-
-    // 關閉提示
-    var close = e.target.closest(".cmp__toastclose");
-    if (close){ cmpHideToast(close.closest(".cmp__block")); }
   });
 })();
 </script>
