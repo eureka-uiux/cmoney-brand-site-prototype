@@ -215,14 +215,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* 事業群：板塊式卡片（依 Figma 33:2585 / 33:2592 改版）
    靜止＝產品手機稿，hover＝app 產品清單從下緣滑上，整張卡導向該事業群詳細頁。
-   版面：金融 720 + 合作夥伴 460 / 國際金融 590 + 消費 590 / AI Lab 通欄。
-   下排原本是三欄 380，但新卡的靜止內容加 4 筆產品清單塞不進 400px 高，改兩欄。 */
+   版面三排，份量由上往下遞減：
+     金融 通欄 480 ／ 合作夥伴 + 消費 對半 420 ／ 國際金融 + AI Lab 對半 360。
+   每一排的卡高、標題級數、產品清單欄數綁在一起調，同一排的視覺重量才會一致。 */
 .groups{margin-top:64px;display:flex;flex-wrap:wrap;gap:40px}
-.groups > .bgc:nth-child(1){flex:0 0 calc((100% - 40px) * .6102);height:520px}
-.groups > .bgc:nth-child(2){flex:0 0 calc((100% - 40px) * .3898);height:520px}
-.groups > .bgc:nth-child(3),
-.groups > .bgc:nth-child(4){flex:0 0 calc((100% - 40px) / 2);height:440px}
-.groups > .bgc:nth-child(5){flex:0 0 100%;height:360px}
+.groups > .bgc:nth-child(1){flex:0 0 100%;height:480px}
+.groups > .bgc:nth-child(2),
+.groups > .bgc:nth-child(3){flex:0 0 calc((100% - 40px) / 2);height:420px}
+.groups > .bgc:nth-child(4),
+.groups > .bgc:nth-child(5){flex:0 0 calc((100% - 40px) / 2);height:360px}
 
 .bgc{
   position:relative;overflow:hidden;border-radius:24px;cursor:pointer;
@@ -245,11 +246,16 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .bgc__eyebrow{margin:0;font-size:13px;font-weight:800;letter-spacing:.24em;line-height:1.2;color:var(--text-600);text-transform:uppercase}
 .bgc__eyebrow--red{color:var(--red-600)}
 .bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px}
-/* 標題級數依 Figma 分級：金融 36 / 合作夥伴 32 / 下排 28。
-   分欄之後文字欄變窄，全用 36 會讓「合作夥伴事業群」斷在詞中間。 */
+/* 標題級數跟著三排的卡高走：通欄 44 / 中排 32 / 下排 26。
+   下排不沿用 28，是為了跟中排拉開一級，讓「越下面越輕」在字級上也看得出來。 */
 .bgc__name{margin:0;font-size:clamp(24px,2vw,28px);font-weight:900;line-height:1.24;letter-spacing:-.02em;color:#191919;text-wrap:balance}
-.groups > .bgc:nth-child(1) .bgc__name{font-size:clamp(28px,2.6vw,36px)}
-.groups > .bgc:nth-child(2) .bgc__name{font-size:clamp(26px,2.3vw,32px)}
+.groups > .bgc:nth-child(1) .bgc__name{font-size:clamp(32px,3.2vw,44px)}
+.groups > .bgc:nth-child(2) .bgc__name,
+.groups > .bgc:nth-child(3) .bgc__name{font-size:clamp(26px,2.3vw,32px)}
+.groups > .bgc:nth-child(4) .bgc__name,
+.groups > .bgc:nth-child(5) .bgc__name{font-size:clamp(22px,1.9vw,26px)}
+/* 通欄卡的文字欄有 1000px 以上，內文不收窄會拉成難讀的長行 */
+.groups > .bgc:nth-child(1) .bgc__head{max-width:620px}
 .bgc--dark .bgc__name{color:#fff}
 .bgc__claim{margin:0;font-size:clamp(15px,1.3vw,18px);font-weight:600;line-height:1.55;color:var(--text-600)}
 .bgc--dark .bgc__claim{color:var(--text-300)}
@@ -271,9 +277,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* 位移量取「手機欄」的 100%（＝卡片內容區高度）而非手機自身高度：
    手機縮小時自身高度跟著變小，起始位置卻不變，會退不乾淨。 */
 .bgc:hover .bgc__hero,.bgc:focus-within .bgc__hero{transform:translateY(100%)}
-/* 合作夥伴卡 460 寬，42% 的手機欄會把文字欄壓到 184px，標題 224px 放不下而斷行。
-   這張的手機稿收窄，換回文字寬度。 */
-.groups > .bgc:nth-child(2) .bgc__hero{flex-basis:clamp(104px,30%,120px)}
+/* 通欄的金融卡不必讓手機稿吃掉 42%，固定一欄寬度即可 */
+.groups > .bgc:nth-child(1) .bgc__hero{flex:0 0 clamp(200px,20%,280px)}
 
 /* 手機稿在自己那一欄裡絕對定位，才能往卡片下緣出血；水平方向仍受欄寬約束 */
 .phone{
@@ -302,9 +307,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 .bgc__panelcap{margin:0;font-size:11px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--text-400)}
 /* 清單分欄 —— 面板高度由產品列數決定，分欄是把面板壓進卡高的槓桿 */
+/* 欄數也跟著排走：通欄 4 欄一列排完，對半的兩排各 2 欄。
+   欄數變多＝面板變矮，剛好對上越下面卡越矮的節奏。 */
 .bgc__products{margin:0;padding:0;list-style:none;display:grid;gap:10px 24px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.groups > .bgc:nth-child(2) .bgc__products{grid-template-columns:minmax(0,1fr)}
-.groups > .bgc:nth-child(5) .bgc__products{grid-template-columns:repeat(4,minmax(0,1fr))}
+.groups > .bgc:nth-child(1) .bgc__products{grid-template-columns:repeat(4,minmax(0,1fr))}
 .bgc__products li{display:flex;align-items:center;gap:12px;min-width:0}
 .bgc__products img{width:38px;height:38px;border-radius:9px;flex:0 0 auto;box-shadow:0 0 2px rgba(38,38,38,.18),0 2px 8px rgba(38,38,38,.1)}
 .bgc__products .p{display:flex;flex-direction:column;min-width:0}
@@ -1287,30 +1293,6 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
       </article>
 
       <article class="bgc">
-        <a class="bgc__hit" href="business-groups.html#g03" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__body">
-          <div class="bgc__main">
-            <p class="bgc__eyebrow">Global</p>
-            <div class="bgc__head">
-              <h3 class="bgc__name">國際金融事業群</h3>
-              <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
-            </div>
-          </div>
-          <!-- 待補：國際金融的手機稿素材。到位後在這裡加 <div class="bgc__hero"><div class="phone">… -->
-        </div>
-        <div class="bgc__panel">
-          <p class="bgc__panelcap">主要產品</p>
-          <ul class="bgc__products">
-            <li data-nocopy><img src="assets/icon-global-mike.png" alt="" loading="lazy"><span class="p"><b>Mike 是麥克</b></span></li>
-            <li data-nocopy><img src="assets/icon-global-rich.png" alt="" loading="lazy"><span class="p"><b>Rich 智富選股</b></span></li>
-            <li data-nocopy><img src="assets/icon-global-sky.png" alt="" loading="lazy"><span class="p"><b>穹蒼美股</b></span></li>
-            <li data-nocopy><img src="assets/icon-global-haoye.png" alt="" loading="lazy"><span class="p"><b>好葉智能選股</b></span></li>
-          </ul>
-          <a class="bgc__cta" href="business-groups.html#g03">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-
-      <article class="bgc">
         <a class="bgc__hit" href="business-groups.html#g04" tabindex="-1" aria-hidden="true"></a>
         <div class="bgc__body">
           <div class="bgc__main">
@@ -1331,6 +1313,30 @@ html{scroll-padding-top:calc(75px + env(safe-area-inset-top,0px))}
             <li data-nocopy><img src="assets/icon-consumer-dreamfapiao.png" alt="" loading="lazy"><span class="p"><b>夢幻發票</b></span></li>
           </ul>
           <a class="bgc__cta" href="business-groups.html#g04">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#g03" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow">Global</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">國際金融事業群</h3>
+              <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
+            </div>
+          </div>
+          <!-- 待補：國際金融的手機稿素材。到位後在這裡加 <div class="bgc__hero"><div class="phone">… -->
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li data-nocopy><img src="assets/icon-global-mike.png" alt="" loading="lazy"><span class="p"><b>Mike 是麥克</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-rich.png" alt="" loading="lazy"><span class="p"><b>Rich 智富選股</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-sky.png" alt="" loading="lazy"><span class="p"><b>穹蒼美股</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-haoye.png" alt="" loading="lazy"><span class="p"><b>好葉智能選股</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#g03">了解事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
 
