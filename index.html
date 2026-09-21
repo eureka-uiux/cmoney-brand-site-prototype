@@ -528,7 +528,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* 情境互動：兩種做法對照（版面依 Figma 6696:2938） */
 .cmp__case{display:grid;gap:12px;margin-top:14px}
-.cmp__caselabel{margin:0;font-size:12px;font-weight:600;line-height:16px;letter-spacing:var(--ls-caps);color:var(--red)}
+.cmp__caselabel{margin:0;font-size:14px;font-weight:600;line-height:20px;letter-spacing:var(--ls-caps);color:var(--red)}
 .cmp__casebox{display:grid;gap:18px;border-radius:16px;background:#f6f6f6;padding:24px 24px 26px}
 .cmp__caseq{margin:0;font-size:18px;font-weight:600;line-height:28px;color:var(--text-900);text-wrap:pretty}
 .cmp__opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
@@ -566,7 +566,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* 工作現場卡片 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401 */
 .cmp-field img{display:none}
-.cmp-field{display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--line-200);border-radius:16px;padding:20px}
+.cmp-field{position:relative;display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--line-200);border-radius:16px;padding:20px;cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.cmp-field:hover{border-color:var(--red);box-shadow:0 10px 22px -16px rgba(9,16,28,.6)}
 .cmp-field__body{flex:1 1 0;min-width:0;align-self:stretch;display:flex;flex-direction:column;gap:12px}
 .cmp-field__head{flex:1 1 auto;display:flex;flex-direction:column;gap:8px}
 .cmp-field__title{margin:0;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900)}
@@ -577,7 +578,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   color:var(--red);font-size:12px;font-weight:600;line-height:16px;white-space:nowrap;
   transition:background .25s var(--ease),color .25s var(--ease);
 }
-.cmp-field__link:hover{background:var(--red);color:#fff}
+.cmp-field__link::after{content:"";position:absolute;inset:0;border-radius:16px}
+.cmp-field:hover .cmp-field__link{background:var(--red);color:#fff}
+@supports selector(:has(*)){
+  .cmp-field__link:focus-visible{outline:none}
+  .cmp-field:has(.cmp-field__link:focus-visible){outline:2px solid var(--red);outline-offset:2px}
+}
 .cmp-field__link svg{width:14px;height:14px;flex:0 0 auto;fill:currentColor}
 .cmp-field__img{flex:0 0 auto;width:177px;height:118px;border-radius:16px;object-fit:cover}
 
