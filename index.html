@@ -554,6 +554,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cmp__reveal.is-on{grid-template-rows:1fr}
 .cmp__reveal>div{overflow:hidden}
 .cmp__revealin{display:grid;gap:12px;padding-top:4px}
+.cmp__verdict{display:grid;gap:8px;padding-inline-start:34px}
+.cmp__verdictrow{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-size:15px;line-height:24px;color:var(--text-600);text-wrap:pretty}
+.cmp__verdictkey{font-size:15px;font-weight:600;line-height:24px;color:var(--text-900);white-space:nowrap}
+.cmp__verdictrow--ours .cmp__verdictkey{color:var(--red)}
+.cmp__verdictrow b{color:var(--text-900);font-weight:600}
 .cmp__lead{margin:0;display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:24px;color:var(--text-900);text-wrap:pretty}
 .cmp__leadrule{flex:0 0 auto;width:22px;height:3px;border-radius:100px;background:var(--red);margin-top:12px}
 .cmp__ask{margin:0;padding-inline-start:34px;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900);text-wrap:pretty}
@@ -561,7 +566,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* 工作現場卡片 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401 */
 .cmp-field img{display:none}
-.cmp-field{display:flex;align-items:flex-start;gap:16px;background:#f6f6f6;border-radius:16px;padding:20px}
+.cmp-field{display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--line-200);border-radius:16px;padding:20px}
 .cmp-field__body{flex:1 1 0;min-width:0;align-self:stretch;display:flex;flex-direction:column;gap:12px}
 .cmp-field__head{flex:1 1 auto;display:flex;flex-direction:column;gap:8px}
 .cmp-field__title{margin:0;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900)}
@@ -1154,11 +1159,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="cmp__casebox">
                 <p class="cmp__caseq">核心產品留存率持續下滑。分析發現原因不在介面或功能，而是行銷端引流的客群不對，加上客服與售後導覽出現斷層。你手上還有既定的 Q3 產品 Roadmap，此時你會？</p>
                 <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
-                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">按時完成 Q3 的 PRD 與開發，同時產出跨部門數據分析、召開專案會議，協助行銷與客服建立改善指標與追蹤機制。</span></button>
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span></span><span class="cmp__opttext">按時完成 Q3 的 PRD 與開發，同時產出跨部門數據分析、召開專案會議，協助行銷與客服建立改善指標與追蹤機制。</span></button>
                 <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">暫停部分 Q3 Roadmap，直接進到行銷與客服現場，重新定義用戶標籤、重寫售後 Onboarding 流程，直到留存止跌。</span></button>
                 </div>
                 <div class="cmp__reveal"><div><div class="cmp__revealin">
-                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>兩個都不是推卸，差別在你把自己放在哪裡。選 A 的人是很強的專業模組管理者，守住交付品質，把別人的問題用機制推回給對的人；選 B 的人是商業問題解決者，問題在哪裡，人就走到哪裡。CMoney 期待後者：我們先找值得解的問題，再組成能把問題變成結果的人。代價很具體——你的專長不保證是你下一季的工作內容，而且 Q3 Roadmap 上會留下沒做完的項目。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
+                <div class="cmp__verdict"><p class="cmp__verdictrow"><span class="cmp__verdictkey">選 A</span><span>對<b>任務</b>負責：守住交付品質，把跨部門問題推回給該負責的人。</span></p><p class="cmp__verdictrow cmp__verdictrow--ours"><span class="cmp__verdictkey">選 B</span><span>對<b>結果</b>負責：問題在哪裡就走到哪裡，讓角色跟著問題移動。</span></p></div>
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>CMoney 期待對結果負責的人：真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生。代價是你的專長不保證是下一季的工作內容。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
                 <p class="cmp__ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你因此放掉了原本的哪些責任？最後那個問題有沒有前進？</p>
                 <p class="cmp__asknote">面試時，歡迎帶著這個案例，與主管討論這個職位哪些核心責任會保持穩定、哪些範圍會隨問題與能力調整。</p>
                 </div></div></div>
@@ -1216,11 +1222,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="cmp__casebox">
                 <p class="cmp__caseq">關於「如何提升 VIP 續約率」，營運主張增加專人客服，PM 主張自動化權益升級，雙方各自拿得出成功案例，僵持不下。你會選擇哪一條決策路徑？</p>
                 <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
-                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">建立效益分析模型，交叉比對兩案的 LTV 與 CAC，召開跨部門會議尋求共識，若無共識則上呈由高層裁決。</span></button>
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span></span><span class="cmp__opttext">建立效益分析模型，交叉比對兩案的 LTV 與 CAC，召開跨部門會議尋求共識，若無共識則上呈由高層裁決。</span></button>
                 <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">不再往內部論證投入時間，各抽 100 位 VIP 平行跑一週：一邊人工專人服務、一邊極簡自動化權益，讓留存數據決定。</span></button>
                 </div>
                 <div class="cmp__reveal"><div><div class="cmp__revealin">
-                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>這題不是在比誰比較有邏輯，是在比你把爭議送去哪裡解決。選 A 的人送進會議室，用模型與共識收斂；選 B 的人送進市場，用一週的真實反應收斂。CMoney 期待後者：當兩邊都拿得出歷史案例，通常代表內部資訊已經不足以分勝負，這時候最便宜的答案在用戶身上，不在下一場會議裡。代價是，B 要你在還沒贏得辯論之前就先動手，而且很可能證明錯的是你自己那一邊。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
+                <div class="cmp__verdict"><p class="cmp__verdictrow"><span class="cmp__verdictkey">選 A</span><span>對<b>論證</b>負責：用模型與共識收斂爭議，由決策機制給出答案。</span></p><p class="cmp__verdictrow cmp__verdictrow--ours"><span class="cmp__verdictkey">選 B</span><span>對<b>證據</b>負責：用一週的最小實驗收斂爭議，由市場給出答案。</span></p></div>
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>CMoney 期待對證據負責的人：實驗不是為了證明自己對，而是用最低成本取得能改變決策的資訊；職級與資歷，不能替一個還沒被驗證的觀點背書。代價是你得在贏得辯論之前就先動手。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
                 <p class="cmp__ask">請回想最近一次你用一個小實驗結束了一場內部爭論：你設計了什麼最小的測試？最後是誰的判斷被推翻？那個結果改變了資源怎麼放嗎？</p>
                 <p class="cmp__asknote">面試時，歡迎用這個實驗，與主管確認這個職位最先要驗證什麼、出現什麼證據後公司會增加投入。</p>
                 </div></div></div>
@@ -1278,11 +1285,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="cmp__casebox">
                 <p class="cmp__caseq">季初團隊設定了 5 大功能 Roadmap。執行到一半（完成 2 個）時，數據顯示這 2 個並未如預期帶動關鍵指標，原先的市場假設可能有瑕疵。此時你會？</p>
                 <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
-                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">守住執行力與對團隊的承諾，按質按量完成剩下 3 個，同時平行追蹤數據，季末做一次完整復盤作為下季依據。</span></button>
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span></span><span class="cmp__opttext">守住執行力與對團隊的承諾，按質按量完成剩下 3 個，同時平行追蹤數據，季末做一次完整復盤作為下季依據。</span></button>
                 <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">立刻向主管報告並喊停剩下 3 個，不計較沉沒成本與本季計畫完成度，把資源轉去驗證新的替代假設。</span></button>
                 </div>
                 <div class="cmp__reveal"><div><div class="cmp__revealin">
-                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>選 A 的人對承諾的完整負責，選 B 的人對問題的前進負責。A 站得住腳：團隊節奏、跨部門期程、季末復盤，每一項都是成熟組織的做法。但我們的判準是——工作準時完成卻沒有改變使用者結果時，不以完成度結案。做完三個已知方向可能錯的功能，換到的是一份更完整的復盤，不是更少的未知。代價是，B 會讓你這一季的完成度數字很難看，而且喊停的理由要說得出口：停掉一件答應的事不算失信，說不出為什麼要停才是。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
+                <div class="cmp__verdict"><p class="cmp__verdictrow"><span class="cmp__verdictkey">選 A</span><span>對<b>承諾</b>負責：把答應的事按質按量交完，用交付對團隊負責。</span></p><p class="cmp__verdictrow cmp__verdictrow--ours"><span class="cmp__verdictkey">選 B</span><span>對<b>目標</b>負責：讓資源跟著新證據走，用問題前進對結果負責。</span></p></div>
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>CMoney 期待對目標負責的人：工作準時完成卻沒有改變使用者結果時，我們不以完成度結案——一個被排除的錯誤假設，比三個做完的無效功能更有價值。代價是這一季的完成度數字會很難看。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
                 <p class="cmp__ask">請回想最近一次你中途喊停自己承諾過的計畫：你看到什麼新證據？怎麼跟相關的人說？後來問題有沒有前進？</p>
                 <p class="cmp__asknote">面試時，歡迎用這個例子，與主管確認這個職位目前的 Top 1 Thing 是什麼、哪個指標代表它真的前進。</p>
                 </div></div></div>
@@ -1340,11 +1348,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="cmp__casebox">
                 <p class="cmp__caseq">線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間，目前沒有既定 SOP，跨部門權責未明。你會？</p>
                 <div class="cmp__opts" role="group" aria-label="兩種做法，你會選哪一個？">
-                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span><span class="cmp__optbadge">同樣說得通</span></span><span class="cmp__opttext">立即通報跨部門主管並成立緊急應對小組，快速確定權責分工與處理程序，補償方案經財務與法務確認後一致對外。</span></button>
+                <button class="cmp__opt" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">A</span></span><span class="cmp__opttext">立即通報跨部門主管並成立緊急應對小組，快速確定權責分工與處理程序，補償方案經財務與法務確認後一致對外。</span></button>
                 <button class="cmp__opt cmp__opt--ours" type="button" aria-pressed="false"><span class="cmp__opthead"><span class="cmp__optkey">B</span><span class="cmp__optbadge cmp__optbadge--red">更接近 CMoney 的做法</span></span><span class="cmp__opttext">作為第一線發現者，不等權責劃分，依現場狀況先下補償決策、先回應客訴，事後概括承受內部檢討與費用歸屬。</span></button>
                 </div>
                 <div class="cmp__reveal"><div><div class="cmp__revealin">
-                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>選 A 的人先把秩序建立起來，選 B 的人先把用戶接住。灰色地帶最貴的成本，通常不是有人決定錯，而是沒有人決定；所以在 CMoney，第一線發現者先動是被允許的，也是被期待的。但「先動」不等於沒有邊界：補償金額、對外口徑、法遵這類不可跨越的邊界，應該在事情發生之前就被主管講清楚——說清楚任務與邊界是主管的責任，不是你臨場猜。所以我們心裡最完整的答案是 B 再加一句：我在邊界內先動，同時第一時間讓該知道的人知道。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
+                <div class="cmp__verdict"><p class="cmp__verdictrow"><span class="cmp__verdictkey">選 A</span><span>對<b>流程</b>負責：先把權責與程序定下來，讓每一步都有依據。</span></p><p class="cmp__verdictrow cmp__verdictrow--ours"><span class="cmp__verdictkey">選 B</span><span>對<b>現場</b>負責：先把用戶接住，補齊決策紀錄，並承擔後果。</span></p></div>
+                <p class="cmp__lead"><span class="cmp__leadrule" aria-hidden="true"></span><span>CMoney 期待對現場負責的人：誰最接近事實，誰就應該做決定；灰色地帶最貴的成本不是決定錯，是沒有人決定。但權力增加，責任也增加——金額與對外口徑這類邊界，主管有義務事前講清楚。比起你選哪一個，我們更想聽你實際做過什麼：</span></p>
                 <p class="cmp__ask">請回想最近一次你在權責未明時先動手：你當下怎麼判斷自己可以決定到哪裡？</p>
                 <p class="cmp__asknote">面試時，歡迎直接問：這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？</p>
                 </div></div></div>
