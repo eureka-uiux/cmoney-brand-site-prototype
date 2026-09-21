@@ -6,8 +6,6 @@
 ```
 index.html            # 首頁，全部樣式與腳本內嵌在此
 business-groups.html  # 事業群詳細頁
-proto-groups.html     # 事業群卡片原型（舊版，未連入首頁）
-proto-groups-v2.html  # 事業群卡片原型 v2
 assets/               # 47 個圖片檔，首頁與詳細頁共用
 .nojekyll             # GitHub Pages 不要跑 Jekyll
 ```
@@ -26,29 +24,29 @@ assets/               # 47 個圖片檔，首頁與詳細頁共用
 
 | # | section id | 底色 | 高度（1440×900） |
 |---|---|---|---|
-| 1 | `hero` | 深 `--ink-900` | 0.88 視窗 |
+| 1 | `hero` | 深 `--ink` | 0.88 視窗 |
 | 2 | `who` | 白 | 1.13 |
 | 3 | `northstar` | 深（新增） | 0.48 |
 | 4 | `values` | 白 | 0.58 |
-| 5 | `values-stack` | 暖灰 `#f3efe9`（新增） | 2.18 |
+| 5 | `values-stack` | 淺灰 `#f6f6f6`（新增） | 2.18 |
 | 6 | `values-outro` | 深（新增） | 0.46 |
 | 7 | `how` | 白 | 0.53 |
-| 8 | `how-compare` | 暖灰（新增） | 1.09 |
+| 8 | `how-compare` | 淺灰（新增） | 1.09 |
 | 9 | `what` | 深 | 0.57 |
 | 10 | `groups` | 白（新增） | 1.74 |
-| 11 | `founder` | 暖灰 | 1.29 |
+| 11 | `founder` | 淺灰 | 1.29 |
 | 12 | `cta` | 深 | 0.62 |
 
 新增的 class：`.section--statement`（短深色宣言段）。
-底色從 `#f9f9f9` / `#f6f6f6` 改成 `#f3efe9` 暖灰，和白色才分得出來。
+底色一度改成 `#f3efe9` 暖灰，後因對齊官網色票（官網僅有 `#f6f6f6` 一個淺灰底）改回 `#f6f6f6`。
 
 ### 2. Hero 與 `who` 的交界
 
 - `.hero__stats{margin-bottom:-64px}`：數據卡一半壓在深色、一半落進白區
 - `.hero` 拿掉 `overflow:hidden`，改由 `.hero__bg` 裁切（否則卡片會被切掉）
-- `.hero::after`：底部 180px 由 `rgba(9,16,28,0)` 漸層收束到 `#fff`
+- `.hero::after`：底部 180px 由 `rgba(0,0,0,0)` 漸層收束到 `#fff`
 - `#who` 上緣 `calc(var(--section-pad) + 64px)` 接住越界的卡片
-- `.stat` 底色改 `rgba(20,27,38,.92)` + `backdrop-filter`，避免浮在漸層白上失去對比
+- `.stat` 底色改 `rgba(38,38,38,.92)` + `backdrop-filter`，避免浮在漸層白上失去對比
 - `#who` 開頭一個 `.section-cue`（紅色漸淡細線 +「接下來：我們是誰」）
 
 ### 3. 進場動畫
@@ -61,6 +59,28 @@ reveal 觸發門檻太深，捲動時會出現整片空白的視窗。已改為
 `navOwner` 把新增的區塊對應回原本的五個選單項（`northstar`→`who`、
 `values-stack`/`values-outro`→`values`、`how-compare`→`how`、`groups`→`what`）。
 
+## 設計規範（對齊 cmoney.tw/careers）
+
+色票、字級、字重以官網實測值為準，**新增任何色值或字級前請先確認官網有無對應**。
+
+- **色票（全站僅這 11 色）**：`#e21e28`（主色）／`#a0151c` hover／`#811117` active／
+  `#f39ea3`（深底上的紅字）／`#262626`／`#595959`／`#959595`／`#bfbfbf`／`#d9d9d9`／
+  `#f6f6f6`／`#ffffff`
+- **字級（9 階，固定 px，不用 clamp）**：52/64 · 40/48 · 30/36 · 24/32 · 20/32 · 20/28 ·
+  18/28 · 18/24 · 16/24 · 14/20 · 12/16
+- **字重僅 400 / 500 / 600**，`letter-spacing` 一律 `.004em`（uppercase 標籤 `.08em`）
+- **字體**：官網系統字堆疊，不載入 webfont
+- **行動版斷點 `max-width:768px`**：H1 52→30、H2 30→24、H3 24→20、desc 20→18
+
+兩處刻意破格，已在 CSS 加註解：
+
+| 例外 | 值 | 理由 |
+|---|---|---|
+| `.hero__title` | `clamp(44px,6.4vw,92px)` / 700 / `-.075em` | 保留原視覺重量 |
+| Display 層（`.h2` / `.statement`） | 52/64，≤1200 降 40/48，≤768 降 30/36 | 借官網 H1 的階給章節主標，拉開與段內小標的層級 |
+
+深底上的紅字一律用 `#f39ea3`：`#e21e28` 在 `#262626` 上只有 3.21:1，不過 AA。
+
 ## 改動時要注意
 
 - **不要破壞 `assets/` 的相對路徑**，也不要把圖片轉成 data URI（檔案會爆）。
@@ -69,7 +89,8 @@ reveal 觸發門檻太深，捲動時會出現整片空白的視窗。已改為
 - `#how-compare` 的 `.cmp` 有展開互動（`.cmp__opt` / `.cmp__reveal`），
   以及 `prefers-reduced-motion` 的退場處理，改版面時要一起測。
 - 所有動效都有 `@media (prefers-reduced-motion:reduce)` 的對應規則，新增效果請比照。
-- 手機 ≤768px 有獨立的間距與越界量（`.hero__stats{margin-bottom:-48px}` 等）。
+- 手機 ≤768px 有獨立的間距與越界量（`.hero__stats{margin-bottom:-48px}` 等），
+  以及官網的字級降階規則，改標題時兩邊都要看。
 
 ## 還沒處理的兩塊
 
