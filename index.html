@@ -129,7 +129,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============================================================
    Hero
    ============================================================ */
-.hero{position:relative;background:var(--ink-900);color:#fff;overflow:hidden;padding-block:205px 80px;min-height:991px;display:flex;flex-direction:column}
+/* 高度改由視窗決定：hero 收在 88svh 內，讓數據卡完整露出、下一段願景區塊也露出一截 */
+.hero{
+  position:relative;background:var(--ink-900);color:#fff;overflow:hidden;
+  padding-block:clamp(104px,12vh,168px) clamp(32px,4.2vh,64px);
+  min-height:min(88vh,1000px);min-height:min(88svh,1000px);
+  display:flex;flex-direction:column;
+}
 .hero__bg{position:absolute;inset:0;z-index:0}
 /* 裁切:repo 的 hero.jpg 與設計稿內嵌圖的原始裁切不同，實測此設定最貼近 27:2095 的構圖 */
 .hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.04)}
@@ -146,8 +152,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   letter-spacing:-.075em;max-width:604px;
 }
 .hero__title .is-red{color:var(--red);display:block}
-.hero__text{margin:32px 0 0;max-width:630px;font-size:16px;line-height:1.85;color:var(--on-dark-4)}
-.hero__actions{display:flex;flex-wrap:wrap;gap:27px;margin-top:38px}
+.hero__text{margin:clamp(20px,2.6vh,32px) 0 0;max-width:630px;font-size:16px;line-height:1.85;color:var(--on-dark-4)}
+.hero__actions{display:flex;flex-wrap:wrap;gap:27px;margin-top:clamp(24px,3.2vh,38px)}
 
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:4px;
@@ -163,7 +169,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn--solid:hover .arrow{transform:translateY(3px)}
 .btn--ghost:hover .arrow{transform:translateX(4px)}
 
-.hero__stats{margin-top:auto;position:relative;z-index:1;width:100%}
+.hero__stats{margin-top:auto;padding-top:clamp(28px,4.2vh,56px);position:relative;z-index:1;width:100%}
 /* 數據卡 — 設計稿 27:2111：287×150、padding 24、gap 12 */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
 .stat{
