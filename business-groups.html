@@ -75,7 +75,7 @@ body{
   font-size:16px;line-height:24px;letter-spacing:var(--ls);-webkit-font-smoothing:antialiased;
   overflow-x:clip;
 }
-html{scroll-padding-top:calc(var(--bar) + env(safe-area-inset-top,0px) + 16px)}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + env(safe-area-inset-top,0px) + 16px)}
 .wrap{max-width:calc(var(--maxw) + 48px);margin-inline:auto;padding-inline:24px}
 .mono{font-variant-numeric:tabular-nums}
 a{color:inherit}
@@ -476,7 +476,7 @@ a{color:inherit}
 <body>
 <header class="site-header" id="siteHeader">
   <div class="wrap hdr">
-    <a class="brand" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/" aria-label="CMoney 首頁">
+    <a class="brand" href="index.html" aria-label="CMoney 首頁">
       <!-- CMoney wordmark — vector data from Figma node 6457:11007 -->
       <svg class="brand__logo" viewBox="0 0 86.21 20" role="img" aria-label="CMoney" focusable="false">
         <g transform="translate(0,0)"><path d="M 10.831383694555365 9.326328387092511 L 15.011765480041504 10.582380009675784 C 14.732335324072679 11.747133480118158 14.289662895336917 12.718223324105313 13.686536395913278 13.501181091948737 C 13.083409896489638 14.281372227133982 12.330897967534355 14.870665379096302 11.434508149165557 15.269060877644321 C 10.543651595987292 15.66745637619234 9.40655979470099 15.863886833190916 8.023242177833197 15.863886833190916 C 6.346661242020247 15.863886833190916 4.9744087703373125 15.623190451546666 3.9064875991385355 15.141795907291574 C 2.846866325725558 14.654868097720124 1.9311120580416175 13.799977155185083 1.1592208383832652 12.579891031579145 C 0.3873296187249129 11.359804907973206 0 9.799421977985459 0 7.895976862230513 C 0 5.358972274097219 0.6778246560317012 3.4084946010384205 2.0307092483898366 2.0500767126001183 C 3.391893804495496 0.6833588602255556 5.314707086100624 0 7.799145399348669 0 C 9.744090026711103 0 11.26850254188956 0.3900954686500342 12.377923333940785 1.1702866038352795 C 13.492877391182542 1.9504777390205248 14.322862486480116 3.151197434019216 14.8623563702509 4.766912489476723 L 10.651545649882001 5.696502118012221 C 10.504913990409422 5.22894073704802 10.34998713292389 4.888644392398291 10.189522293984545 4.672846847175212 C 9.923925317482484 4.310417639145234 9.597451540200074 4.030987592255349 9.210122614073265 3.837323124788127 C 8.822793687946456 3.6408920246627265 8.391200619147105 3.5440596672508797 7.915339351029178 3.5440596672508797 C 6.833584950892343 3.5440596672508797 6.0063664222283135 3.9756548896204897 5.4309063147190635 4.841611769132712 C 4.9965445685109975 5.4834711394855935 4.777976009145107 6.490526416488358 4.777976009145107 7.862777534179276 C 4.777976009145107 9.564258268002034 5.038041748779652 10.731778832834665 5.5581691714027075 11.365338305213013 C 6.078296594025763 11.993364512275004 6.808689281200116 12.305994728228127 7.746578654459638 12.305994728228127 C 8.68446802771916 12.305994728228127 9.34569991310288 12.05146369915416 9.810494617858879 11.542402795336422 C 10.280822620786273 11.033341891518683 10.62111941942993 10.294650740919053 10.831383694555365 9.326328387092511 Z"/></g>
@@ -488,12 +488,11 @@ a{color:inherit}
       </svg>
     </a>
 
+    <!-- 這一頁是分頁，nav 帶的是頁內目錄，最後一項才是回首頁 -->
     <nav class="nav" id="primaryNav" aria-label="主要導覽">
-      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#aboutus">關於我們</a>
-      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#values">價值觀</a>
-      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#work">工作文化</a>
-      <a class="nav__link is-active" href="#groups" aria-current="page">事業群</a>
-      <a class="nav__link" href="https://eureka-uiux.github.io/cmoney-brand-site-prototype/#founder">創辦人的話</a>
+      <a class="nav__link" href="#ms">里程碑</a>
+      <a class="nav__link" href="#groups">事業群</a>
+      <a class="nav__link nav__link--home" href="index.html">回 CMoney 形象官網</a>
     </nav>
 
     <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="primaryNav" aria-label="開啟選單"><i></i></button>
@@ -971,6 +970,20 @@ a{color:inherit}
     }
   });
 
+  /* nav 的頁內目錄：is-active 跟著捲動走，與首頁 nav 同一套語意 */
+  var navMs     = document.querySelector('.nav__link[href="#ms"]');
+  var navGroups = document.querySelector('.nav__link[href="#groups"]');
+  var secMs     = document.getElementById("ms");
+  var secGroups = document.getElementById("groups");
+  var navCurrent = null;
+
+  function setNavCurrent(next){
+    if (next === navCurrent) return;
+    if (navCurrent){ navCurrent.classList.remove("is-active"); navCurrent.removeAttribute("aria-current"); }
+    if (next){ next.classList.add("is-active"); next.setAttribute("aria-current", "true"); }
+    navCurrent = next;
+  }
+
   var rows   = Array.prototype.slice.call(document.querySelectorAll(".row"));
   var groups = Array.prototype.slice.call(document.querySelectorAll(".group"));
   var track  = document.getElementById("track");
@@ -1059,6 +1072,15 @@ a{color:inherit}
     }
     railG.classList.toggle("is-shown", gIdx > -1);
     rail.classList.toggle("is-on", railY.classList.contains("is-shown") || railG.classList.contains("is-shown"));
+
+    /* nav：里程碑段落內＝里程碑，過了事業群開頭就一路是事業群 */
+    var navNext = null;
+    if (secMs){
+      var ms = secMs.getBoundingClientRect();
+      if (ms.top <= readLine && ms.bottom > readLine) navNext = navMs;
+    }
+    if (secGroups && secGroups.getBoundingClientRect().top <= readLine) navNext = navGroups;
+    setNavCurrent(navNext);
   }
 
   function onScroll(){ if (!ticking){ ticking = true; requestAnimationFrame(update); } }
