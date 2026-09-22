@@ -329,16 +329,23 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* 通欄的金融卡不必讓手機稿吃掉 42%，固定一欄寬度即可 */
 .groups > .bgc:nth-child(1) .bgc__hero{flex:0 0 clamp(200px,20%,280px)}
 
-/* 手機稿在自己那一欄裡絕對定位，才能往卡片下緣出血；水平方向仍受欄寬約束 */
+/* 手機稿在自己那一欄裡絕對定位，才能往卡片下緣出血；水平方向仍受欄寬約束。
+   比例全部換算自 Figma「手機 mockup」(node 6723:11086)：機身 119.57×243.01，
+   螢幕 107.46×232.83 落在 (6.16, 5.04)。padding 的百分比一律以「寬度」為基準，
+   所以上下內縮也換算成寬度百分比，縮到任何斷點都維持同一組比例。 */
 .phone{
   position:absolute;inset-inline:0;inset-block-start:30%;
-  width:100%;aspect-ratio:279.37 / 567.62;
-  border-radius:13.5% / 6.6%;
-  background:var(--ink);padding:4.8%;
+  width:100%;aspect-ratio:119.57 / 243.01;
+  border-radius:13.5% / 6.64%;
+  background:var(--ink);
+  padding:4.215% 4.976% 4.299% 5.152%;
   box-shadow:-5px 14px 24px rgba(88,89,92,.34),0 2px 6px rgba(0,0,0,.18);
 }
-.phone__screen{width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:9.5% / 4.7%;background:#fff}
-.phone::after{content:"";position:absolute;inset-block-start:4.2%;inset-inline-start:50%;transform:translateX(-50%);width:31%;aspect-ratio:4.3;border-radius:999px;background:var(--ink)}
+/* 螢幕一律放「滿版方角」的原始 App 截圖（Figma 素材裡的 raw image），圓角交給
+   border-radius 裁；圖本身不帶透明圓角，機身內側就沒有縫可以露。底色壓成機身色
+   而不是白色：萬一有次像素縫或圖還沒載入，露出的是機身，不會是白邊。 */
+.phone__screen{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:10.3% / 4.77%;background:var(--ink)}
+.phone::after{content:"";position:absolute;inset-block-start:3.33%;inset-inline-start:50%;transform:translateX(-50%);width:28.68%;aspect-ratio:34.29 / 9.92;border-radius:999px;background:var(--ink)}
 
 /* hover 面板：app 產品清單 */
 .bgc__panel{
@@ -1394,7 +1401,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               <p class="bgc__desc">從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
             </div>
           </div>
-          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.png" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.webp" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
         </div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
@@ -1419,7 +1426,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
             </div>
             <p class="bgc__stat"><b>50+</b><span>專業投資創作者生態系</span></p>
           </div>
-          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-creator.png" alt="投資達人合作 App 畫面" loading="lazy"></div></div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-creator.webp" alt="投資達人合作 App 畫面" loading="lazy"></div></div>
         </div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
@@ -1443,7 +1450,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               <p class="bgc__desc">從每一張發票，看見更好的生活選擇。讓大量去識別化資料成為企業改善產品的強大依據。</p>
             </div>
           </div>
-          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-einvoice.png" alt="發票載具 App 畫面" loading="lazy"></div></div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-einvoice.webp" alt="發票載具 App 畫面" loading="lazy"></div></div>
         </div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
@@ -1467,7 +1474,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
             </div>
           </div>
-          <!-- 待補：國際金融的手機稿素材。到位後在這裡加 <div class="bgc__hero"><div class="phone">… -->
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-cboe.webp" alt="美股 K 線 App 畫面" loading="lazy"></div></div>
         </div>
         <div class="bgc__panel">
           <p class="bgc__panelcap">主要產品</p>
