@@ -207,17 +207,20 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* C：具名的下一段提示（靜態標記，不是按鈕） */
 .section-cue{
   display:flex;flex-direction:column;align-items:center;gap:10px;
-  margin-bottom:clamp(20px,2.4vh,28px);
+  margin-bottom:clamp(16px,1.8vh,20px);
 }
 .section-cue__line{
-  width:1px;height:28px;
+  width:1px;height:20px;
   background:linear-gradient(180deg,var(--red),rgba(226,30,40,0));
 }
 .section-cue__label{font-size:14px;font-weight:600;line-height:20px;color:var(--ink)}
-/* A：#aboutus 上緣要接住越界的數據卡（64px）＋其下 22px 的深色帶，共 86px；
-   取設計稿下一段 Section 的 120px，讓白底露出 34px 再開始放「接下來」提示 */
+/* A：#aboutus 上緣要接住越界的數據卡。注意實際越界量不是 -64px：
+   hero 自己的 padding-bottom（clamp 32–64）會先吃掉一段，卡片＋深色帶淨越界約 44px。
+   原本 120px 會在深色帶下方再留 76px 白，把下一段標題整個推出首屏；
+   收到 72px（白底留白約 28px，接近設計稿 34px 的一半多一點），
+   「我們不是從『要做什麼產品』開始」在 1664×990 可露出約 40px ≒ 標題區塊的三分之一 */
 /* 下緣同步收短，讓 METHOD 卡片與下一段 ONE COMPANY 讀成同一組敘事 */
-#aboutus{padding-block:120px clamp(40px,4.5vh,56px)}
+#aboutus{padding-block:72px clamp(40px,4.5vh,56px)}
 /* 數據卡 — 設計稿 27:2111：287×150、padding 24、gap 12 */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
 .stat{
