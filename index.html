@@ -673,8 +673,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .btn-pill svg{display:block;width:20px;height:20px;flex:0 0 auto;fill:currentColor}
 .btn-pill--solid{background:var(--red);color:#fff;border:1px solid var(--red)}
 .btn-pill--solid:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(226,30,40,.32)}
-.btn-pill--outline{background:transparent;color:var(--red-300);border:1px solid var(--red-300)}
-.btn-pill--outline:hover{background:var(--red);border-color:var(--red);color:#fff}
+/* Secondary：同 .btn--ghost，對齊官網 careers/aboutus 的白色線框鈕 */
+.btn-pill--outline{
+  background:rgba(0,0,0,.1);
+  -webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);
+  border:1px solid var(--line-200);color:#fff;
+}
+.btn-pill--outline:hover{background:rgba(0,0,0,.4);color:#fff;transform:translateY(-2px)}
+.btn-pill--outline:active{background:#000}
 
 /* Footer — node 9:1999 */
 .site-footer{background:var(--header-bg);color:#fff;padding-block:64px 40px}
