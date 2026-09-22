@@ -80,7 +80,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .section--tight-end{padding-block-end:var(--section-pad-tight)}
 .section--dark{background:var(--ink);color:#fff}
 .section--soft{background:var(--bg-soft)}
-.section--soft2{background:var(--bg-soft)}
 
 /* ---------- 共用字級 ---------- */
 .eyebrow{
@@ -395,14 +394,14 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .values-head p{margin:32px 0 0;max-width:780px;font-size:18px;line-height:28px;color:var(--text-600)}
 
 .btn-link{
-  display:inline-flex;align-items:center;gap:9px;
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
   border:1px solid var(--red);color:var(--red);border-radius:999px;
-  height:40px;padding-inline:16px;font-size:16px;font-weight:600;line-height:24px;
+  height:40px;padding-inline:16px;font-size:16px;font-weight:600;line-height:24px;white-space:nowrap;
   transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);
 }
 .btn-link:hover{background:var(--red);color:#fff;transform:translateY(-2px)}
-.btn-link .arrow{transition:transform .25s var(--ease)}
-.btn-link:hover .arrow{transform:translateX(4px)}
+.btn-link svg{display:block;width:20px;height:20px;flex:0 0 auto;fill:currentColor;transition:transform .25s var(--ease)}
+.btn-link:hover svg{transform:translateX(4px)}
 
 /* ---------- 價值觀卡片：捲動堆疊 ---------- */
 /* --stack-top：黏住時距畫面上緣的距離（要閃開 75px 的固定 header）
@@ -594,47 +593,42 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .how-outro h3{margin:0;font-size:24px;font-weight:600;line-height:32px;color:var(--text-900)}
 
 /* ============================================================
-   Section: 創辦人的話
+   Section: 創辦人的話 — Figma 1sL3DgPchc2IEgcwHCs0ws node 6727:13541
+   variation-a-editorial，1440×920 桌機稿。
+   全幅版面（不套 .container）：左欄 640px 人像出血到瀏覽器邊緣，
+   右欄 800px 內容，內距 100/100/100/80，三個區塊間距 48。
    ============================================================ */
-.founder-age{margin:0;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
-.founder-age b{font-size:52px;font-weight:600;line-height:64px;color:var(--red)}
-.founder-age span{font-size:20px;font-weight:400;line-height:32px;color:var(--text-600)}
-
-.founder{display:grid;grid-template-columns:310px 1fr;gap:82px;margin-top:40px;align-items:start}
-.founder__media{position:relative;height:690px;overflow:hidden;border-inline-end:1px solid rgba(38,38,38,.1)}
+.founder{display:grid;grid-template-columns:640px minmax(0,1fr);align-items:stretch}
+.founder__media{position:relative;min-height:920px;overflow:hidden}
 .founder__media img{
-  position:absolute;inset:0;width:310px;height:690px;object-fit:cover;object-position:left top;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
   transition:transform .9s var(--ease);
 }
-/* 互動動畫（依回饋新增）：紅色圓形光環，進場與 hover 時漸變放大。
-   照片本身已把淡粉圓與紅色外框烘進點陣圖、且背景不透明，無法單獨動那顆圓，
-   因此另外疊一圈與它同心、半徑更大的漸層環，只落在空白背景上，不會蓋到人像。 */
-.founder__media::after{
-  content:"";position:absolute;z-index:1;pointer-events:none;
-  inset-inline-start:100%;inset-block-start:69%;width:600px;height:600px;border-radius:50%;
-  background:radial-gradient(circle,rgba(226,30,40,0) 60%,rgba(226,30,40,.22) 71%,rgba(226,30,40,0) 82%);
-  opacity:0;transform:translate(-50%,-50%) scale(.85);
-  transition:opacity .9s var(--ease),transform 1.2s var(--ease);
-}
-.founder__media.is-in::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
-.founder__media:hover::after{opacity:1;transform:translate(-50%,-50%) scale(1.07)}
 .founder__media:hover img{transform:scale(1.03)}
-.founder__body{padding-top:54px}
-.founder__title{margin:0;font-size:30px;font-weight:600;line-height:36px}
-.founder__title .is-red{color:var(--red)}
-.founder__paras{margin:35px 0 0;display:grid;gap:14px;border-top:1px solid rgba(38,38,38,.1);padding-top:35px}
-.founder__paras p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
-.founder__quote{
-  margin:35px 0 0;padding:6px 0 6px 30px;border-inline-start:3px solid var(--red);
-  font-size:18px;font-weight:600;line-height:28px;color:var(--text-600);
-}
+
+.founder__body{display:flex;flex-direction:column;gap:48px;padding:100px 100px 100px 80px}
+.founder__head{display:flex;flex-direction:column;gap:16px}
+/* 稿上 16px / 500 / letter-spacing 2px / --text-900，比共用 .eyebrow（14/20、--text-300）重一階 */
+.founder__kicker{margin:0;font-size:16px;font-weight:500;line-height:24px;letter-spacing:2px;color:var(--text-900)}
+/* 稿上 44/60 Bold(700)，紅字 Black(900)：字級與字重都在既有 9 階／400-500-600 之外，照稿實作 */
+.founder__title{margin:0;font-size:44px;font-weight:700;line-height:60px;color:var(--text-900)}
+.founder__title .is-red{font-weight:900;color:var(--red)}
+
+.founder__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;align-items:start}
+.founder__paras{display:grid;gap:24px}
+.founder__paras p{margin:0;font-size:16px;line-height:28px;color:var(--text-600)}
+.founder__quote{margin:0;display:grid;gap:12px}
+/* 引號字符：72px / 900 / line-height 40 / 紅色 30% 不透明度，純裝飾 */
+.founder__qmark{display:block;font-size:72px;font-weight:900;line-height:40px;color:var(--red);opacity:.3}
+.founder__quote p{margin:0;font-size:18px;font-weight:500;line-height:32px;color:var(--text-900)}
+
 .founder__foot{
-  margin-top:35px;padding-top:35px;border-top:1px solid rgba(38,38,38,.1);
-  display:flex;align-items:center;gap:13px;flex-wrap:wrap;
+  padding-top:24px;border-top:1px solid rgba(38,38,38,.1);
+  display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;
 }
-.founder__foot b{font-size:18px;font-weight:600;line-height:24px}
-.founder__foot span{font-size:12px;line-height:16px;color:var(--text-400)}
-.founder__foot .btn-link{margin:0;margin-inline-start:auto}
+.founder__by{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.founder__by b{font-size:18px;font-weight:600;line-height:24px;color:var(--text-900)}
+.founder__by span{font-size:16px;line-height:24px;color:var(--text-600)}
 
 /* ============================================================
    CTA + Footer — Figma BZac0QWuVoUmSg0ZhWtoyG node 9:1987
@@ -722,7 +716,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
    註：#f6f6f6 與白的差距確實比 #f3efe9 小，若要保留暖灰需另外立案 */
 #values-stack{background:var(--bg-soft)}
 #work-compare{background:var(--bg-soft)}
-#founder{background:var(--bg-soft)}
 
 /* 切開後每塊都變短，上下留白同步收斂 */
 #values{padding-block-end:clamp(56px,6vh,80px)}
@@ -745,9 +738,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .vstack__item{position:static}
   .vstack__hold{display:none}
   *{animation-duration:.01ms!important;transition-duration:.01ms!important}
-  /* 創辦人區塊：光環直接停在最終狀態，hover 不再縮放 */
-  .founder__media::after{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  .founder__media:hover::after{transform:translate(-50%,-50%) scale(1)}
+  /* 創辦人照片：hover 不再縮放 */
   .founder__media:hover img{transform:none}
 }
 
@@ -759,9 +750,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   /* Display 層中間階：52/64 在 1152 以下會把標題斷出孤字，降到 40/48（官網既有配對） */
   .h2,.statement,.northstar__title{font-size:40px;line-height:48px}
   .split{grid-template-columns:1fr;gap:56px}
-  .founder{grid-template-columns:240px 1fr;gap:48px}
-  .founder__media{height:560px}
-  .founder__media img{width:240px;height:560px}
+  /* 人像欄改百分比（稿上 640/1440 = 44.4%），兩欄文字維持並排 */
+  .founder{grid-template-columns:minmax(0,42%) minmax(0,1fr)}
+  .founder__media{min-height:820px}
+  .founder__body{padding:80px 64px 80px 56px;gap:40px}
+  .founder__title{font-size:40px;line-height:48px}
+  .founder__grid{gap:32px}
   .vstack{--stack-top:80px}
   .vcard{padding:32px;gap:32px}
   .vcard__flag{flex-basis:200px}
@@ -814,11 +808,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .cmp__title{font-size:18px;line-height:28px}
   .cmp-field{flex-direction:column;gap:14px}
   .cmp-field__img{width:100%;height:auto;aspect-ratio:177/118}
-  .founder{grid-template-columns:1fr}
-  .founder__media{height:420px;border-inline-end:0}
-  .founder__media img{width:100%;height:420px;object-position:center 12%}
-  .founder__body{padding-top:0}
-  .founder__foot .btn-link{margin-inline-start:0}
+  /* 人像改為橫幅置頂；兩欄文字先保留，欄寬此時約 350–440，仍接近稿上的 290 */
+  .founder{grid-template-columns:minmax(0,1fr)}
+  .founder__media{min-height:0;height:460px}
+  .founder__media img{object-position:center 30%}
+  .founder__body{padding:56px 32px 64px;gap:36px}
+  .founder__grid{gap:32px}
   .cta{padding-block:88px}
   .cta__bg{height:100%}
   .cta__scrim{height:100%}
@@ -836,11 +831,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
    H1 52/64→30/36 · Hero desc 20/32→18/28 · H2 30/36→24/32 · H3 24/32→20/28
    ============================================================ */
 @media (max-width:768px){
-  .h2,.statement,.northstar__title,.cta__title,.founder-age b{font-size:30px;line-height:36px}
-  .founder__title,.vcard__name,.values-outro h3,
+  .h2,.statement,.northstar__title,.cta__title,.founder__title{font-size:30px;line-height:36px}
+  .vcard__name,.values-outro h3,
   .northstar__eyebrow,.bgc__name,.vcard__claim,.how-outro h3{font-size:20px;line-height:28px}
-  .hero__text,.cta__sub,.northstar__sub,.statement-sub,.vcard__quote p,
-  .founder-age span{font-size:18px;line-height:28px}
+  .hero__text,.cta__sub,.northstar__sub,.statement-sub,.vcard__quote p{font-size:18px;line-height:28px}
 }
 @media (max-width:640px){
   :root{--section-pad:72px;--section-pad-tight:48px;--block-gap:40px}
@@ -849,6 +843,11 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .stat__num{font-size:24px;line-height:32px}
   .stat__num em{font-size:16px;line-height:24px}
   .bgc{padding:32px 24px}
+  /* 單欄寬度已降到 592 以下，兩欄會擠成 10 字一行，改直排 */
+  .founder__media{height:380px}
+  .founder__body{padding:48px 24px 56px;gap:32px}
+  .founder__grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .founder__qmark{font-size:56px}
   .hero__actions .btn{width:100%}
   .cta{padding-block:72px}
   .cta__actions .btn-pill{flex:1 1 100%}
@@ -1516,26 +1515,33 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 創辦人的話 ========================= -->
-<section class="section section--soft2" id="founder">
-  <div class="container">
-    <p class="founder-age reveal"><b>29</b><span>歲時，寫下第一套投資分析工具</span></p>
-
-    <div class="founder">
-      <div class="founder__media reveal">
-        <img src="assets/founder.png" alt="CMoney 創辦人暨執行長 Ken 的人物照">
-      </div>
-      <div class="founder__body reveal">
+<!-- Figma node 6727:13541 variation-a-editorial：全幅版面，人像出血，故不套 .container -->
+<section id="founder">
+  <div class="founder">
+    <div class="founder__media reveal">
+      <img src="assets/founder.jpg" alt="CMoney 創辦人暨執行長 Ken 的人物照" width="832" height="1248">
+    </div>
+    <div class="founder__body reveal">
+      <div class="founder__head">
+        <p class="founder__kicker">29歲時，寫下第一套投資分析工具</p>
         <h2 class="founder__title">我最早想做的，只是一個能幫助人<span class="is-red">驗證投資判斷</span>的工具。</h2>
+      </div>
+
+      <div class="founder__grid">
         <div class="founder__paras">
           <p>大學時接觸投資，我得到的不只是投資上的經驗，而是開始理解：面對不確定，我們必須蒐集資訊、形成判斷，也承擔結果。</p>
           <p>29歲時，我看見金融研究人員每天處理大量資料，卻缺少真正能驗證判斷的工具，於是自己動手寫下分析軟體。</p>
           <p>後來我愈來愈確定，一個工具還不夠。我希望更多人都能取得幫助自己思考、行動與彼此支持的工具和社群。這成為CMoney的起點，也成為我們今天仍在做的事。</p>
         </div>
-        <blockquote class="founder__quote">CMoney從一個人的問題開始，但不能永遠依靠一個人的答案。<br>今天，我們要建立的是一套讓更多人做出好決定，也讓更多同事成為問題Owner的系統。</blockquote>
-        <div class="founder__foot">
-          <b>Ken</b><span>CMoney 創辦人暨執行長</span>
-          <a class="btn-link" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <span class="arrow" aria-hidden="true">→</span></a>
-        </div>
+        <blockquote class="founder__quote">
+          <span class="founder__qmark" aria-hidden="true">&ldquo;</span>
+          <p>CMoney從一個人的問題開始，但不能永遠依靠一個人的答案。今天，我們要建立的是一套讓更多人做出好決定，也讓更多同事成為問題Owner的系統。</p>
+        </blockquote>
+      </div>
+
+      <div class="founder__foot">
+        <div class="founder__by"><b>Ken</b><span>CMoney 創辦人暨執行長</span></div>
+        <a class="btn-link" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       </div>
     </div>
   </div>
