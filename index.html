@@ -176,11 +176,18 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 }
 .btn--solid{background:var(--red);color:#fff}
 .btn--solid:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(226,30,40,.35)}
-.btn--ghost{border:1px solid var(--red);color:var(--red);background:transparent}
-.btn--ghost:hover{background:var(--red);color:#fff;transform:translateY(-2px)}
-/* 深底上的紅一律改 --red-300：#e21e28 在 #262626 上只有 3.21:1，官網亦以 #f39ea3 承接 */
-.hero .btn--ghost{border-color:var(--red-300);color:var(--red-300)}
-.hero .btn--ghost:hover{background:var(--red);border-color:var(--red);color:#fff}
+/* Secondary：對齊官網 careers/aboutus 的白色線框鈕（.button[data-v-25a98364]）—
+   rgba(0,0,0,.1) 半透明底＋blur(25px)＋1px #d9d9d9 邊＋#fff 16/24 w600 字，
+   本來就是為了壓在照片上而設計，深底上不需要再借 --red-300。
+   官網只定義 :active（純黑底），沒有 hover；hover 沿用本站一致的加深＋上移。
+   左右 padding 官網是 35/37px，本站兩顆按鈕並排，維持 .btn 的 16px 以免寬度失衡 */
+.btn--ghost{
+  background:rgba(0,0,0,.1);
+  -webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);
+  border:1px solid var(--line-200);color:#fff;
+}
+.btn--ghost:hover{background:rgba(0,0,0,.4);color:#fff;transform:translateY(-2px)}
+.btn--ghost:active{background:#000}
 .btn .arrow{transition:transform .25s var(--ease)}
 .btn--solid:hover .arrow{transform:translateY(3px)}
 .btn--ghost:hover .arrow{transform:translateX(4px)}
