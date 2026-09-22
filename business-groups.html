@@ -11,23 +11,24 @@
    色票、字級、字重皆為官網既有值；新增色值前請先確認官網有無對應。
    ============================================================ */
 :root{
-  --ground:#262626;      /* GREY 800 */
-  --raise:#262626;
-  --tx-1:#ffffff;        /* Text/White */
-  --tx-2:#bfbfbf;        /* GREY 500 */
-  --tx-3:#959595;        /* GREY 550 */
-  --rule:#595959;        /* GREY 700 */
-  --rule-2:#595959;      /* GREY 700 */
-  --accent:#e21e28;      /* Primary — 官網唯一主色紅 */
-  --accent-tx:#f39ea3;   /* Primary/Border 300 — 深底上的小級數紅字 */
+  /* 白底區（頁面基底）—— 金融事業群以後 */
+  --ground:#ffffff;      /* --bg */
+  --raise:#f6f6f6;       /* --bg-soft，官網唯一的淺灰底 */
+  --tx-1:#262626;        /* --text-900 */
+  --tx-2:#595959;        /* --text-600 */
+  --tx-3:#959595;        /* --text-400 */
+  --rule:#d9d9d9;        /* --line-200 */
+  --rule-2:#d9d9d9;
+  --accent:#e21e28;      /* --red */
+  --accent-tx:#e21e28;   /* 白底可直接用主色紅 */
   --accent-wash:transparent;
-  --chip:transparent;
-  --chip-line:#595959;
-  --card:rgba(255,255,255,.05);       /* 深底：浮在 GREY 800 上的卡 */
-  --card-line:rgba(255,255,255,.10);
+  --chip:#f6f6f6;
+  --chip-line:#d9d9d9;
+  --card:#f6f6f6;        /* 白底上的卡＝唯一的淺灰底；不加邊框以免過重 */
+  --card-line:transparent;
   --card-shadow:none;
-  --wash:rgba(255,255,255,.05);       /* 灰底區塊（相關公開案例）：深底用提亮 */
-  --wash-hover:rgba(255,255,255,.09);
+  --wash:#f6f6f6;
+  --wash-hover:#d9d9d9;
 
   /* 字級：官網 9 階（12/14/16/18/20/24/30/40/52），固定 px、不使用 clamp；字重僅 400/500/600 */
   --ls:.004em;
@@ -39,19 +40,33 @@
   --ink-fixed:#262626;   /* 不隨主題切換的深底（Footer CTA），＝官網深色面 */
   --ease:cubic-bezier(.22,.61,.36,1);
 }
-@media (prefers-color-scheme: light){
-  :root{
-    --ground:#ffffff; --raise:#f6f6f6;
-    --tx-1:#262626; --tx-2:#595959; --tx-3:#959595;
-    --rule:#d9d9d9; --rule-2:#bfbfbf;
-    --accent:#e21e28; --accent-tx:#e21e28; --accent-wash:transparent;
-    --chip:#f6f6f6; --chip-line:#d9d9d9;
-    --card:#ffffff;                   /* Surface/Base */
-    --card-line:rgba(38,38,38,.1);   /* Surface/Light.Border */
-    --card-shadow:0 1px 2px rgba(38,38,38,.04),0 8px 20px rgba(38,38,38,.06);
-    --wash:#f6f6f6; --wash-hover:#d9d9d9;
-  }
+/* 這一頁是固定兩區的設計，不隨 viewer 主題切換（官網本身也不是可切換的）：
+   hero → 里程碑 → 過渡 = 深色面 #262626；金融事業群以後 = 白底。
+   兩區共用同一組 token 名稱，.zone-dark 只在區段層級重新定義它們，
+   底下所有元件的 CSS 一行都不必分岔。 */
+.zone-dark{
+  --ground:#262626;      /* --ink，深色面唯一值 */
+  --raise:#262626;
+  --tx-1:#ffffff;
+  --tx-2:#bfbfbf;        /* --text-300，深底次要文字 */
+  --tx-3:#959595;        /* --text-400 */
+  --rule:#595959;        /* --text-600 當深底分隔線 */
+  --rule-2:#595959;
+  --accent:#e21e28;      /* --red：線與大字 */
+  --accent-tx:#f39ea3;   /* --red-300：深底紅字鐵則 */
+  --accent-wash:transparent;
+  --chip:transparent;
+  --chip-line:#595959;
+  --card:rgba(255,255,255,.05);
+  --card-line:rgba(255,255,255,.10);
+  --card-shadow:none;
+  --wash:rgba(255,255,255,.05);
+  --wash-hover:rgba(255,255,255,.09);
+
+  background:var(--ground);
+  color:var(--tx-1);
 }
+
 *,*::before,*::after{box-sizing:border-box}
 body{
   margin:0;background:var(--ground);color:var(--tx-1);
@@ -177,7 +192,8 @@ a{color:inherit}
 .rail:hover .rail__lbl{opacity:1;transform:none}
 .rail__btn:hover,.rail__btn:focus-visible{color:var(--tx-1);outline:none}
 .rail__btn:focus-visible .rail__tick{width:26px}
-.rail__btn[aria-current="true"]{color:var(--accent-tx)}
+.rail__btn[aria-current="true"]{color:#e21e28}                 /* 事業群 rail 在白底 */
+#railYears .rail__btn[aria-current="true"]{color:#f39ea3}      /* 年份 rail 在深底，用 --red-300 */
 .rail__btn[aria-current="true"] .rail__tick{width:26px}
 .rail__btn[aria-current="true"] .rail__lbl{opacity:1;transform:none}
 @media (min-width:1240px){.rail{display:flex}}
@@ -488,6 +504,7 @@ a{color:inherit}
   <div class="rail__group" id="railGroups" data-for="groups"></div>
 </nav>
 
+<div class="zone-dark">
 <header class="hero">
   <div class="hero__bg" aria-hidden="true"><img src="assets/hero-groups.jpg" alt="" fetchpriority="high"></div>
   <div class="hero__fade" aria-hidden="true"></div>
@@ -613,6 +630,8 @@ a{color:inherit}
     <h2 class="bridge__t" id="bridge-t">二十年累積下來的能力，現在分別由這些團隊往前推</h2>
   </div>
 </section>
+
+</div><!-- /.zone-dark：白底從這裡開始 -->
 
 <!-- ============ 01 金融事業群 ============ -->
 <section class="group" id="g01" data-label="金融事業群" aria-labelledby="g01-name">
