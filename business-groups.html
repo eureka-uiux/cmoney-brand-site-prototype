@@ -181,6 +181,7 @@ a{color:inherit}
 .rail__btn{
   display:flex;align-items:center;gap:9px;background:none;border:0;
   padding:5px 2px;cursor:pointer;font:inherit;color:var(--tx-3);text-align:left;
+  text-decoration:none;
 }
 .rail__tick{display:block;width:14px;height:1px;background:currentColor;flex:0 0 auto;transition:width .3s var(--ease)}
 .rail__lbl{
@@ -501,7 +502,14 @@ a{color:inherit}
 
 <nav class="rail" id="rail" aria-label="頁面導覽">
   <div class="rail__group" id="railYears" data-for="ms"></div>
-  <div class="rail__group" id="railGroups" data-for="groups"></div>
+  <!-- 事業群捷徑：寫死成真錨點，爬蟲讀得到、點了網址也會帶 hash -->
+  <div class="rail__group" id="railGroups" data-for="groups">
+    <a class="rail__btn" href="#finance"><span class="rail__tick" aria-hidden="true"></span><span class="rail__lbl rail__lbl--cjk">金融事業群</span></a>
+    <a class="rail__btn" href="#partnership"><span class="rail__tick" aria-hidden="true"></span><span class="rail__lbl rail__lbl--cjk">合作夥伴事業群</span></a>
+    <a class="rail__btn" href="#global"><span class="rail__tick" aria-hidden="true"></span><span class="rail__lbl rail__lbl--cjk">國際金融事業群</span></a>
+    <a class="rail__btn" href="#consumer"><span class="rail__tick" aria-hidden="true"></span><span class="rail__lbl rail__lbl--cjk">消費事業群</span></a>
+    <a class="rail__btn" href="#ai-lab"><span class="rail__tick" aria-hidden="true"></span><span class="rail__lbl rail__lbl--cjk">AI 實驗室</span></a>
+  </div>
 </nav>
 
 <div class="zone-dark">
@@ -634,11 +642,11 @@ a{color:inherit}
 </div><!-- /.zone-dark：白底從這裡開始 -->
 
 <!-- ============ 01 金融事業群 ============ -->
-<section class="group" id="g01" data-label="金融事業群" aria-labelledby="g01-name">
+<section class="group" id="finance" data-label="金融事業群" aria-labelledby="finance-name">
   <div class="wrap">
     <div class="group__grid">
       <div class="group__aside">
-        <h2 class="group__name" id="g01-name">金融事業群</h2>
+        <h2 class="group__name" id="finance-name">金融事業群</h2>
         <hr class="group__rule">
         <p class="group__promise">陪伴每個人成為更成熟的投資人。</p>
       </div>
@@ -688,11 +696,11 @@ a{color:inherit}
 </section>
 
 <!-- ============ 02 合作夥伴事業群 ============ -->
-<section class="group" id="g02" data-label="合作夥伴事業群" aria-labelledby="g02-name">
+<section class="group" id="partnership" data-label="合作夥伴事業群" aria-labelledby="partnership-name">
   <div class="wrap">
     <div class="group__grid">
       <div class="group__aside">
-        <h2 class="group__name" id="g02-name">合作夥伴事業群</h2>
+        <h2 class="group__name" id="partnership-name">合作夥伴事業群</h2>
         <hr class="group__rule">
         <p class="group__promise">讓專業知識成為真正能被使用的工具。</p>
       </div>
@@ -749,11 +757,11 @@ a{color:inherit}
 </section>
 
 <!-- ============ 03 國際金融事業群 ============ -->
-<section class="group" id="g03" data-label="國際金融事業群" aria-labelledby="g03-name">
+<section class="group" id="global" data-label="國際金融事業群" aria-labelledby="global-name">
   <div class="wrap">
     <div class="group__grid">
       <div class="group__aside">
-        <h2 class="group__name" id="g03-name">國際金融事業群</h2>
+        <h2 class="group__name" id="global-name">國際金融事業群</h2>
         <hr class="group__rule">
         <p class="group__promise">讓好的投資方法跨越市場與語言。</p>
       </div>
@@ -801,11 +809,11 @@ a{color:inherit}
 </section>
 
 <!-- ============ 04 消費事業群 ============ -->
-<section class="group" id="g04" data-label="消費事業群" aria-labelledby="g04-name">
+<section class="group" id="consumer" data-label="消費事業群" aria-labelledby="consumer-name">
   <div class="wrap">
     <div class="group__grid">
       <div class="group__aside">
-        <h2 class="group__name" id="g04-name">消費事業群</h2>
+        <h2 class="group__name" id="consumer-name">消費事業群</h2>
         <hr class="group__rule">
         <p class="group__promise">從每一張發票，看見更好的生活選擇。</p>
       </div>
@@ -855,11 +863,11 @@ a{color:inherit}
 </section>
 
 <!-- ============ 05 AI 實驗室 ============ -->
-<section class="group" id="g05" data-label="AI 實驗室" aria-labelledby="g05-name">
+<section class="group" id="ai-lab" data-label="AI 實驗室" aria-labelledby="ai-lab-name">
   <div class="wrap">
     <div class="group__grid">
       <div class="group__aside">
-        <h2 class="group__name" id="g05-name">AI 實驗室</h2>
+        <h2 class="group__name" id="ai-lab-name">AI 實驗室</h2>
         <hr class="group__rule">
         <p class="group__promise">讓 AI 不只是工具，而是公司持續進化的能力。</p>
       </div>
@@ -987,7 +995,19 @@ a{color:inherit}
   }
 
   var yearBtns  = rows.map(function(r){ var b = mkBtn(r.dataset.year, r, false); railY.appendChild(b); return b; });
-  var groupBtns = groups.map(function(g){ var b = mkBtn(g.dataset.label, g, true); railG.appendChild(b); return b; });
+  var groupBtns = Array.prototype.slice.call(railG.querySelectorAll(".rail__btn"));
+
+  /* 事業群錨點：維持平滑捲動，並把 hash 寫進網址方便分享 */
+  railG.addEventListener("click", function(e){
+    var a = e.target.closest(".rail__btn");
+    if (!a) return;
+    var hash = a.getAttribute("href");
+    var target = document.querySelector(hash);
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+    history.replaceState(null, "", hash);
+  });
 
   root.classList.add("js-on");
   var activeRow = -1, activeGroup = -1, ticking = false;
