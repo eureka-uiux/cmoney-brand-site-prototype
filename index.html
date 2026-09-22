@@ -136,11 +136,13 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* ============================================================
    Hero
    ============================================================ */
-/* 高度改由視窗決定：hero 收在 88svh 內，讓數據卡完整露出、下一段願景區塊也露出一截 */
+/* 高度改由內容決定：min-height 只當短視窗的地板（72svh），一般視窗下 hero 就是內容高度。
+   原本 88svh 會在高視窗把按鈕與數據卡之間撐出大片空白（margin-top:auto 吃掉的餘裕），
+   改成 72svh 後餘裕歸零，按鈕到數據卡只剩 .hero__stats 的 padding-top，下一段願景區塊也露出更多 */
 .hero{
   position:relative;background:var(--ink);color:#fff;
   padding-block:clamp(104px,12vh,168px) clamp(32px,4.2vh,64px);
-  min-height:min(88vh,1000px);min-height:min(88svh,1000px);
+  min-height:min(72vh,880px);min-height:min(72svh,880px);
   display:flex;flex-direction:column;
 }
 .hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
