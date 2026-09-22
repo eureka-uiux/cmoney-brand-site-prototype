@@ -95,6 +95,50 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .muted{color:var(--text-400)}
 
 /* ============================================================
+   Button — 全站唯一一組（原 .btn / .btn-pill / .btn-link 三套整併）
+   基準對齊官網 careers：高 40、圓角 100、16/24 · 600、icon 20 · gap 4。
+   變體依「按鈕站在什麼底上」挑，不要為單一段落再開新的一套：
+     --solid  主要動作，任何底都用這個
+     --ghost  次要動作，壓在照片／深底上（官網 .button[data-v-25a98364]）
+     --line   次要動作，站在白底／淺灰底上
+   icon 一律掛 .btn__icon，方向修飾詞決定 hover 的位移方向。
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  height:40px;padding-inline:16px;
+  border:1px solid transparent;border-radius:100px;
+  font-size:16px;font-weight:600;line-height:24px;text-align:center;white-space:nowrap;
+  transition:transform .25s var(--ease),background-color .25s var(--ease),
+             border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease);
+}
+.btn__icon{flex:0 0 auto;transition:transform .25s var(--ease)}
+svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
+.btn:hover .btn__icon{transform:translateX(4px)}
+.btn:hover .btn__icon--down{transform:translateY(3px)}
+.btn:hover .btn__icon--up{transform:translateY(-3px)}
+
+.btn--solid{background:var(--red);border-color:var(--red);color:#fff}
+.btn--solid:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(226,30,40,.35)}
+.btn--solid:active{background:var(--red-active);border-color:var(--red-active)}
+
+/* 官網 careers/aboutus 的白色線框鈕：rgba(0,0,0,.1) 底＋blur(25px)＋1px #d9d9d9＋白字。
+   它本來就是為壓在照片上而設計，所以深底上不需要再借 --red-300。
+   官網只定義 :active（純黑底），hover 是本站補的，加深方向與 :active 一致。
+   左右 padding 官網是 35/37px，本站按鈕多為並排，維持 16px 以免寬度失衡 */
+.btn--ghost{
+  background:rgba(0,0,0,.1);
+  -webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);
+  border-color:var(--line-200);color:#fff;
+}
+.btn--ghost:hover{background:rgba(0,0,0,.4);color:#fff;transform:translateY(-2px)}
+.btn--ghost:active{background:#000}
+
+/* 白底沒有照片可襯，半透明黑底會糊掉，淺底的次要動作維持官網主色紅線框 */
+.btn--line{background:transparent;border-color:var(--red);color:var(--red)}
+.btn--line:hover{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-2px)}
+.btn--line:active{background:var(--red-active);border-color:var(--red-active);color:#fff}
+
+/* ============================================================
    Header
    ============================================================ */
 .site-header{
@@ -167,30 +211,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .hero__title .is-red{color:var(--red);display:block}
 .hero__text{margin:clamp(20px,2.6vh,32px) 0 0;max-width:630px;font-size:20px;line-height:32px;color:var(--on-dark-2)}
 .hero__actions{display:flex;flex-wrap:wrap;gap:27px;margin-top:clamp(24px,3.2vh,38px)}
-
-.btn{
-  display:inline-flex;align-items:center;justify-content:center;gap:4px;
-  height:40px;padding-inline:16px;border-radius:999px;
-  font-size:16px;font-weight:600;line-height:24px;
-  transition:transform .25s var(--ease),background .25s var(--ease),box-shadow .25s var(--ease),color .25s var(--ease);
-}
-.btn--solid{background:var(--red);color:#fff}
-.btn--solid:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(226,30,40,.35)}
-/* Secondary：對齊官網 careers/aboutus 的白色線框鈕（.button[data-v-25a98364]）—
-   rgba(0,0,0,.1) 半透明底＋blur(25px)＋1px #d9d9d9 邊＋#fff 16/24 w600 字，
-   本來就是為了壓在照片上而設計，深底上不需要再借 --red-300。
-   官網只定義 :active（純黑底），沒有 hover；hover 沿用本站一致的加深＋上移。
-   左右 padding 官網是 35/37px，本站兩顆按鈕並排，維持 .btn 的 16px 以免寬度失衡 */
-.btn--ghost{
-  background:rgba(0,0,0,.1);
-  -webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);
-  border:1px solid var(--line-200);color:#fff;
-}
-.btn--ghost:hover{background:rgba(0,0,0,.4);color:#fff;transform:translateY(-2px)}
-.btn--ghost:active{background:#000}
-.btn .arrow{transition:transform .25s var(--ease)}
-.btn--solid:hover .arrow{transform:translateY(3px)}
-.btn--ghost:hover .arrow{transform:translateX(4px)}
 
 .hero__stats{
   margin-top:auto;padding-top:clamp(28px,4.2vh,56px);
@@ -405,16 +425,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .values-head{max-width:none}
 .values-head .h2 .is-red{color:var(--red);display:block}
 .values-head p{margin:32px 0 0;max-width:780px;font-size:18px;line-height:28px;color:var(--text-600)}
-
-.btn-link{
-  display:inline-flex;align-items:center;justify-content:center;gap:4px;
-  border:1px solid var(--red);color:var(--red);border-radius:999px;
-  height:40px;padding-inline:16px;font-size:16px;font-weight:600;line-height:24px;white-space:nowrap;
-  transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);
-}
-.btn-link:hover{background:var(--red);color:#fff;transform:translateY(-2px)}
-.btn-link svg{display:block;width:20px;height:20px;flex:0 0 auto;fill:currentColor;transition:transform .25s var(--ease)}
-.btn-link:hover svg{transform:translateX(4px)}
 
 /* ---------- 價值觀卡片：捲動堆疊 ---------- */
 /* --stack-top：黏住時距畫面上緣的距離（要閃開 75px 的固定 header）
@@ -663,25 +673,6 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .cta__sub{margin:27px 0 0;max-width:700px;font-size:20px;line-height:32px;color:var(--on-dark-2)}
 .cta__actions{margin-top:50px;display:flex;align-items:center;gap:27px;flex-wrap:wrap}
 
-/* 按鈕Button(新版上線) — 圓角膠囊，node I9:1997 / I9:1998 */
-.btn-pill{
-  display:inline-flex;align-items:center;justify-content:center;gap:4px;
-  padding:8px 16px;border-radius:100px;
-  font-size:16px;font-weight:600;line-height:24px;text-align:center;white-space:nowrap;
-  transition:transform .25s var(--ease),box-shadow .25s var(--ease),background-color .25s var(--ease),color .25s var(--ease);
-}
-.btn-pill svg{display:block;width:20px;height:20px;flex:0 0 auto;fill:currentColor}
-.btn-pill--solid{background:var(--red);color:#fff;border:1px solid var(--red)}
-.btn-pill--solid:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(226,30,40,.32)}
-/* Secondary：同 .btn--ghost，對齊官網 careers/aboutus 的白色線框鈕 */
-.btn-pill--outline{
-  background:rgba(0,0,0,.1);
-  -webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);
-  border:1px solid var(--line-200);color:#fff;
-}
-.btn-pill--outline:hover{background:rgba(0,0,0,.4);color:#fff;transform:translateY(-2px)}
-.btn-pill--outline:active{background:#000}
-
 /* Footer — node 9:1999 */
 .site-footer{background:var(--header-bg);color:#fff;padding-block:64px 40px}
 .site-footer__inner{
@@ -871,7 +862,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .founder__qmark{font-size:56px}
   .hero__actions .btn{width:100%}
   .cta{padding-block:72px}
-  .cta__actions .btn-pill{flex:1 1 100%}
+  .cta__actions .btn{flex:1 1 100%}
   .fnav__brand{flex-direction:column;align-items:flex-start}
   .fnav__brand-links{align-items:flex-start}
   .fnav__cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px}
@@ -937,8 +928,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     </h1>
     <p class="hero__text">CMoney 用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇，幫助每個人在重要的人生面向持續做得更好。</p>
     <div class="hero__actions">
-      <a class="btn btn--solid" href="#aboutus">從使命開始認識 <span class="arrow" aria-hidden="true">↓</span></a>
-      <a class="btn btn--ghost" href="#work">看我們如何工作 <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn--solid" href="#aboutus">從使命開始認識 <span class="btn__icon btn__icon--down" aria-hidden="true">↓</span></a>
+      <a class="btn btn--ghost" href="#work">看我們如何工作 <span class="btn__icon" aria-hidden="true">→</span></a>
     </div>
   </div>
 
@@ -1562,7 +1553,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
       <div class="founder__foot">
         <div class="founder__by"><b>Ken</b><span>CMoney 創辦人暨執行長</span></div>
-        <a class="btn-link" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--line" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       </div>
     </div>
   </div>
@@ -1578,8 +1569,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     <h2 class="cta__title reveal">一家公司真正的樣子，<br>藏在每天做出的<span class="is-red">選擇裡。</span></h2>
     <p class="cta__sub reveal">使命讓我們知道往哪裡去；價值觀幫助我們取捨；工作原則讓相信真的發生。</p>
     <div class="cta__actions reveal">
-      <a class="btn-pill btn-pill--solid" href="#top">重新認識 CMoney <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.41074 2.74408C9.73618 2.41864 10.2638 2.41864 10.5893 2.74408L15.5893 7.74408C15.9147 8.06951 15.9147 8.59715 15.5893 8.92259C15.2638 9.24803 14.7362 9.24803 14.4107 8.92259L10.8333 5.34518V16.6667C10.8333 17.1269 10.4602 17.5 10 17.5C9.53976 17.5 9.16667 17.1269 9.16667 16.6667V5.34518L5.58926 8.92259C5.26382 9.24803 4.73618 9.24803 4.41074 8.92259C4.08531 8.59715 4.08531 8.06951 4.41074 7.74408L9.41074 2.74408Z"></path></svg></a>
-      <a class="btn-pill btn-pill--outline" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">加入CMoney <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      <a class="btn btn--solid" href="#top">重新認識 CMoney <svg class="btn__icon btn__icon--up" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M9.41074 2.74408C9.73618 2.41864 10.2638 2.41864 10.5893 2.74408L15.5893 7.74408C15.9147 8.06951 15.9147 8.59715 15.5893 8.92259C15.2638 9.24803 14.7362 9.24803 14.4107 8.92259L10.8333 5.34518V16.6667C10.8333 17.1269 10.4602 17.5 10 17.5C9.53976 17.5 9.16667 17.1269 9.16667 16.6667V5.34518L5.58926 8.92259C5.26382 9.24803 4.73618 9.24803 4.41074 8.92259C4.08531 8.59715 4.08531 8.06951 4.41074 7.74408L9.41074 2.74408Z"></path></svg></a>
+      <a class="btn btn--ghost" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">加入CMoney <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
     </div>
   </div>
 </section>
