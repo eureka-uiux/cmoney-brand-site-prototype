@@ -144,8 +144,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   display:flex;flex-direction:column;
 }
 .hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
-/* 裁切:repo 的 hero.jpg 與設計稿內嵌圖的原始裁切不同，實測此設定最貼近 27:2095 的構圖 */
-.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%;transform:scale(1.04)}
+/* 裁切:對齊 Figma node 6739:11254（1440×920 圖框內放 1626×1083、偏移 -180/-57），焦點換算後為 55% 48%。
+   原本的 scale(1.04) 是為舊圖調的，新圖的 CMoney 字標已貼近右緣，再放大會被切掉，故移除 */
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:55% 48%}
 .hero__bg::after{
   content:"";position:absolute;inset:0;
   /* 照片壓黑層：改用官網 scrim 的純黑 rgba(0,0,0,*)，密度維持原設定；
@@ -638,7 +639,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:var(--ink);color:#fff;padding-block:110px;
 }
 .cta__bg{position:absolute;inset-block-start:0;inset-inline-start:0;width:100%;height:719px;overflow:hidden;z-index:-2;pointer-events:none}
-.cta__bg img{position:absolute;inset-block-start:-2.65%;inset-inline-start:0;display:block;width:100%;height:117.14%;object-fit:cover;object-position:center top}
+/* 裁切:Figma node 6739:11324 是 object-cover 置中填滿圖框，這裡照搬，不再做偏移 */
+.cta__bg img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
 .cta__scrim{
   position:absolute;inset-block-start:0;inset-inline-start:0;width:100%;height:774px;z-index:-1;pointer-events:none;
   background:linear-gradient(to bottom,rgba(0,0,0,.8) 26.615%,rgba(0,0,0,0) 76.55%);
@@ -1550,7 +1552,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <!-- ========================= CTA ========================= -->
 <section class="cta" id="cta">
   <div class="cta__bg">
-    <img src="assets/cta-team.jpg" alt="CMoney 團隊成員在辦公室的合影" loading="lazy">
+    <img src="assets/cta-team.jpg" alt="CMoney 同事在書牆前的沙發區，各自看著筆電與雜誌討論" loading="lazy">
   </div>
   <div class="cta__scrim" aria-hidden="true"></div>
   <div class="container">

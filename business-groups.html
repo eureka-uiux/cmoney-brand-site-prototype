@@ -133,7 +133,8 @@ a{color:inherit}
   padding-block:calc(var(--bar) + clamp(76px,9vw,124px)) clamp(72px,9vw,124px);
 }
 .hero__bg{position:absolute;inset:0;z-index:0}
-.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:62% 52%;display:block}
+/* 裁切:對齊 Figma node 6739:11300，Y 由該圖框反推為 52%；X 只在窄螢幕生效，取 46% 讓人物群留在畫面內 */
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:46% 52%;display:block}
 .hero__bg::after{
   content:"";position:absolute;inset:0;
   background:
