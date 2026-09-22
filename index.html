@@ -381,9 +381,10 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .bgc__cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;line-height:20px;color:var(--red);text-decoration:none}
 .bgc__cta span{transition:transform .25s var(--ease)}
 .bgc:hover .bgc__cta span{transform:translateX(4px)}
-.bgc--dark .bgc__cta{color:var(--red-300)}
-.bgc--dark .bgc__eyebrow--red{color:var(--red-300)}
-.bgc--dark .bgc__stat b{color:var(--red-300)}
+/* 事業群卡片的紅字一律用 Primary #e21e28，深淺底同一個值，不再在深底上換 --red-300 */
+.bgc--dark .bgc__cta{color:var(--red)}
+.bgc--dark .bgc__eyebrow--red{color:var(--red)}
+.bgc--dark .bgc__stat b{color:var(--red)}
 
 /* ============================================================
    Section: 價值觀（node 6341:67665）
