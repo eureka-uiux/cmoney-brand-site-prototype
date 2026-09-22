@@ -186,7 +186,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .hero__stats{
   margin-top:auto;padding-top:clamp(28px,4.2vh,56px);
   position:relative;z-index:3;width:100%;
-  margin-bottom:-64px; /* A：跨過 hero 與 #who 的交界 */
+  margin-bottom:-64px; /* A：跨過 hero 與 #aboutus 的交界 */
 }
 /* C：深色不被切斷，而是收束進下一段的白 */
 .hero::after{
@@ -213,9 +213,9 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   background:linear-gradient(180deg,var(--red),rgba(226,30,40,0));
 }
 .section-cue__label{font-size:14px;font-weight:600;line-height:20px;color:var(--ink)}
-/* A：#who 上緣接住越界的數據卡（64px）後即收斂，標題才會在 hero 之後立刻露出一截 */
+/* A：#aboutus 上緣接住越界的數據卡（64px）後即收斂，標題才會在 hero 之後立刻露出一截 */
 /* 下緣同步收短，讓 METHOD 卡片與下一段 ONE COMPANY 讀成同一組敘事 */
-#who{padding-block:88px clamp(40px,4.5vh,56px)}
+#aboutus{padding-block:88px clamp(40px,4.5vh,56px)}
 /* 數據卡 — 設計稿 27:2111：287×150、padding 24、gap 12 */
 .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
 .stat{
@@ -721,15 +721,15 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 /* 區塊底色：官網僅有 #f6f6f6 一個淺灰底，暖灰 #f3efe9 不在色票內，已統一。
    註：#f6f6f6 與白的差距確實比 #f3efe9 小，若要保留暖灰需另外立案 */
 #values-stack{background:var(--bg-soft)}
-#how-compare{background:var(--bg-soft)}
+#work-compare{background:var(--bg-soft)}
 #founder{background:var(--bg-soft)}
 
 /* 切開後每塊都變短，上下留白同步收斂 */
 #values{padding-block-end:clamp(56px,6vh,80px)}
 #values-stack{padding-block:clamp(72px,8vh,104px)}
 
-#how{padding-block-end:clamp(56px,6vh,80px)}
-#how-compare{padding-block:clamp(72px,8vh,104px)}
+#work{padding-block-end:clamp(56px,6vh,80px)}
+#work-compare{padding-block:clamp(72px,8vh,104px)}
 #groups{padding-block:clamp(72px,8vh,104px)}
 
 /* ============================================================
@@ -780,7 +780,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
   .hero{padding-block:150px 0;min-height:auto}
   .hero__stats{margin-bottom:-48px}
   .hero::after{height:clamp(240px,30vh,300px)}
-  #who{padding-block-start:72px}
+  #aboutus{padding-block-start:72px}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   /* 單欄：卡高改由內容決定；觸控沒有 hover，面板改成接在內容後面一起捲 */
   .groups{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
@@ -892,16 +892,16 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="開啟選單"><i></i></button>
 
     <nav class="nav" id="primaryNav" aria-label="主要導覽">
-      <a class="nav__link" href="#who">關於我們</a>
+      <a class="nav__link" href="#aboutus">關於我們</a>
       <a class="nav__link" href="#values">價值觀</a>
-      <a class="nav__link" href="#how">工作文化</a>
-      <a class="nav__link" href="#what">事業群</a>
+      <a class="nav__link" href="#work">工作文化</a>
+      <a class="nav__link" href="#business">事業群</a>
       <a class="nav__link" href="#founder">創辦人的話</a>
     </nav>
   </div>
 </header>
 
-<main id="top">
+<main>
 
 <!-- ========================= Hero ========================= -->
 <section class="hero" id="hero">
@@ -917,8 +917,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     </h1>
     <p class="hero__text">CMoney 用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇，幫助每個人在重要的人生面向持續做得更好。</p>
     <div class="hero__actions">
-      <a class="btn btn--solid" href="#who">從使命開始認識 <span class="arrow" aria-hidden="true">↓</span></a>
-      <a class="btn btn--ghost" href="#how">看我們如何工作 <span class="arrow" aria-hidden="true">→</span></a>
+      <a class="btn btn--solid" href="#aboutus">從使命開始認識 <span class="arrow" aria-hidden="true">↓</span></a>
+      <a class="btn btn--ghost" href="#work">看我們如何工作 <span class="arrow" aria-hidden="true">→</span></a>
     </div>
   </div>
 
@@ -951,7 +951,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們是誰 ========================= -->
-<section class="section" id="who">
+<section class="section" id="aboutus">
   <div class="container">
     <div class="section-cue">
       <span class="section-cue__line" aria-hidden="true"></span>
@@ -1100,7 +1100,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們怎麼工作 ========================= -->
-<section class="section" id="how">
+<section class="section" id="work">
   <div class="container">
     <div class="how-head reveal">
       <h2 class="h2">CMoney 的運作方式<br>把公司形塑成一個<span class="is-red">事業實驗場。</span></h2>
@@ -1110,7 +1110,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   </div>
 </section>
 
-<section class="section" id="how-compare">
+<section class="section" id="work-compare">
   <div class="container">
     <!-- 四列對照卡片：沿用白底卡片語彙，互動區塊（面試提問＋二選一 check card）併入每一列 -->
     <div class="cmp reveal" id="cmpTable">
@@ -1375,7 +1375,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 我們創造什麼 ========================= -->
-<section class="section section--statement" id="what">
+<section class="section section--statement" id="business">
   <div class="container">
     <h2 class="statement reveal">外界看 CMoney，會看到豐富的 App 產品線；<br>在 CMoney 我們打造的是一套<span class="is-red">決策基礎建設。</span></h2>
     <p class="statement-sub lead reveal">不同事業面對不同人群、場景與市場，<br>我們做的是同一件事：縮短人與好決定之間的距離。</p>
@@ -1698,8 +1698,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   });
 
   /* ---------- 導覽 active 狀態 ---------- */
-  var navOwner = {northstar:"who","values-stack":"values","values-outro":"values","how-compare":"how",groups:"what"};
-  var sections = ["who","northstar","values","values-stack","values-outro","how","how-compare","what","groups","founder"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  var navOwner = {northstar:"aboutus","values-stack":"values","values-outro":"values","work-compare":"work",groups:"business"};
+  var sections = ["aboutus","northstar","values","values-stack","values-outro","work","work-compare","business","groups","founder"].map(function(id){ return document.getElementById(id); }).filter(Boolean);
   var navLinks = {};
   document.querySelectorAll('.nav__link[href^="#"]').forEach(function(a){
     navLinks[a.getAttribute("href").slice(1)] = a;

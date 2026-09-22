@@ -45,9 +45,9 @@ assets/               # 47 個圖片檔，首頁與詳細頁共用
 - `.hero__stats{margin-bottom:-64px}`：數據卡一半壓在深色、一半落進白區
 - `.hero` 拿掉 `overflow:hidden`，改由 `.hero__bg` 裁切（否則卡片會被切掉）
 - `.hero::after`：底部 180px 由 `rgba(0,0,0,0)` 漸層收束到 `#fff`
-- `#who` 上緣 `calc(var(--section-pad) + 64px)` 接住越界的卡片
+- `#aboutus` 上緣 `calc(var(--section-pad) + 64px)` 接住越界的卡片
 - `.stat` 底色改 `rgba(38,38,38,.92)` + `backdrop-filter`，避免浮在漸層白上失去對比
-- `#who` 開頭一個 `.section-cue`（紅色漸淡細線 +「接下來：我們是誰」）
+- `#aboutus` 開頭一個 `.section-cue`（紅色漸淡細線 +「接下來：我們是誰」）
 
 ### 3. 進場動畫
 
@@ -88,7 +88,7 @@ reveal 觸發門檻太深，捲動時會出現整片空白的視窗。已改為
 - **不要破壞 `assets/` 的相對路徑**，也不要把圖片轉成 data URI（檔案會爆）。
 - `#values-stack` 的 `.vstack` 是 sticky 堆疊卡，由 `updateStack()` 計算景深；
   三張卡必須留在**同一個** section 裡，拆開就失效。
-- `#how-compare` 的 `.cmp` 有展開互動（`.cmp__opt` / `.cmp__reveal`），
+- `#work-compare` 的 `.cmp` 有展開互動（`.cmp__opt` / `.cmp__reveal`），
   以及 `prefers-reduced-motion` 的退場處理，改版面時要一起測。
 - 所有動效都有 `@media (prefers-reduced-motion:reduce)` 的對應規則，新增效果請比照。
 - 手機 ≤768px 有獨立的間距與越界量（`.hero__stats{margin-bottom:-48px}` 等），
