@@ -1752,7 +1752,20 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         obs.unobserve(el);
       });
     }, {rootMargin:"0px 0px -5% 0px", threshold:0.05});
-    revealEls.forEach(function(el){ revealObserver.observe(el); });
+    /* 首屏已經露出來的元素不交給 observer：門檻是「露出自身 5% 且越過底部 5% 內縮」，
+       跨在摺線上、只露一小截的區塊（#aboutus 的標題）會達不到門檻而一直留在 opacity:0，
+       直到使用者點錨點捲過去才顯示。改成一進場就標記，下一幀加 class 讓轉場仍然跑得到 */
+    var pending = [];
+    revealEls.forEach(function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight) pending.push(el);
+      else revealObserver.observe(el);
+    });
+    requestAnimationFrame(function(){
+      pending.forEach(function(el, i){
+        el.style.transitionDelay = Math.min(i * 90, 270) + "ms";
+        el.classList.add("is-in");
+      });
+    });
   }
 
   /* ---------- Hero 數字動畫 ---------- */
