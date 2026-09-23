@@ -269,6 +269,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
 .split__intro{display:grid;gap:64px;align-content:start}
 .split .h2 .is-red{color:var(--red)}
+.split .h2 .nobr{white-space:nowrap}
 .split__aside{display:grid;gap:16px}
 .split__aside p{margin:0;font-size:18px;line-height:28px;color:var(--text-600)}
 
@@ -283,6 +284,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   display:block;font-size:12px;font-weight:500;color:var(--text-300);
   letter-spacing:var(--ls-caps);line-height:16px;
 }
+.pillar__label{margin-inline-start:8px;letter-spacing:var(--ls)}
 .pillar__title{margin:0;font-size:18px;font-weight:600;line-height:24px;color:var(--text-900)}
 .pillar__body{margin:0;font-size:14px;line-height:20px;color:var(--text-600)}
 
@@ -1090,7 +1092,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     </div>
     <div class="split">
       <div class="split__intro reveal">
-        <h2 class="h2">我們不是從「要做什麼產品」<span class="is-red">開始</span></h2>
+        <h2 class="h2"><span class="nobr">先問<span class="is-red">什麼問題值得解決</span>，</span><span class="nobr">再決定做什麼產品。</span></h2>
         <div class="split__aside">
           <p>產品會改變，技術會改變，市場也一定會改變。真正值得長期存在的，是我們選擇替誰解決什麼問題。</p>
           <p>企業存在的理由不是維持既有業務，而是持續為使用者創造比昨天更好的答案。</p>
@@ -1100,23 +1102,23 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       <div class="pillars pillars--flow" id="pillarsFlow">
         <article class="pillar reveal">
           <div class="pillar__head">
-            <span class="pillar__ghost" aria-hidden="true">VISION</span>
+            <span class="pillar__ghost">VISION<span class="pillar__label">我們希望看見的世界</span></span>
             <h3 class="pillar__title">每個人，都能擁有自己的美好人生。</h3>
           </div>
-          <p class="pillar__body">好的工具改變行動，緊密的社群促成互助；當好的改變被反覆強化，就會形成正向循環。</p>
+          <p class="pillar__body">好的工具改變行動，好的社群促成互助；當好的改變被反覆強化，就會形成正向循環。</p>
         </article>
-        <p class="pillar-link" aria-hidden="true">為了實現它，我們的使命是</p>
+        <p class="pillar-link" aria-hidden="true">因此，我們選擇承擔的問題</p>
         <article class="pillar reveal">
           <div class="pillar__head">
-            <span class="pillar__ghost" aria-hidden="true">MISSION</span>
+            <span class="pillar__ghost">MISSION<span class="pillar__label">我們選擇承擔的問題</span></span>
             <h3 class="pillar__title">創造更好的工具與社群，幫助每個人做好人生投資。</h3>
           </div>
-          <p class="pillar__body">我們在財富、健康、工作、家庭與人際關係中，幫助人們取得更好的資訊、形成更好的判斷，做出更好的決定。</p>
+          <p class="pillar__body">在人生重要的選擇裡，幫助人取得更好的資訊，形成更好的判斷，做出更好的決定。</p>
         </article>
-        <p class="pillar-link" aria-hidden="true">我們的方法是</p>
+        <p class="pillar-link" aria-hidden="true">而我們相信，改變可以這樣發生</p>
         <article class="pillar reveal">
           <div class="pillar__head">
-            <span class="pillar__ghost" aria-hidden="true">METHOD</span>
+            <span class="pillar__ghost">METHOD<span class="pillar__label">我們相信的改變方式</span></span>
             <h3 class="pillar__title">把混亂的資訊，變成更好的決定。</h3>
           </div>
           <p class="pillar__body">以資料看見真實，以產品降低行動成本，以社群讓經驗流動，再從結果持續學習。</p>
