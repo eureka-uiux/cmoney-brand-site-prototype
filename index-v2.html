@@ -1,0 +1,2250 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CMoney 形象網站_價值觀互動</title>
+<meta name="description" content="CMoney 用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇，幫助每個人在重要的人生面向持續做得更好。">
+<meta property="og:type" content="website">
+<meta property="og:title" content="CMoney 形象網站｜我們的使命，是幫助每個人做好人生的投資">
+<meta property="og:description" content="用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇。">
+<meta property="og:image" content="assets/hero.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+/* ============================================================
+   Design tokens — 對齊官網 cmoney.tw/careers 實測規範
+   色票、字級、字重皆為官網既有值；新增色值前請先確認官網有無對應。
+   ============================================================ */
+:root{
+  /* ---- 色票（官網全站僅這些值） ---- */
+  --red:#e21e28;          /* Primary */
+  --red-hover:#a0151c;
+  --red-active:#811117;
+  --red-300:#f39ea3;      /* 深底上的紅字 / 淺紅邊框 */
+
+  --ink:#262626;          /* 官網深色面唯一值（Header / Footer / 深色區塊） */
+
+  --text-900:#262626;     /* 文字 主 */
+  --text-600:#595959;     /* 文字 次 */
+  --text-400:#959595;     /* 文字 弱 */
+  --text-300:#bfbfbf;     /* 文字 更弱 / 深底次要 */
+  --line-200:#d9d9d9;     /* 邊框 / 分隔線 */
+
+  --on-dark-1:#ffffff;
+  --on-dark-2:#bfbfbf;
+  --on-dark-3:#959595;
+
+  --header-bg:#262626;
+
+  --bg:#ffffff;
+  --bg-soft:#f6f6f6;      /* 官網唯一的淺灰底 */
+
+  /* ---- 字級（官網 9 階，固定 px，不使用 clamp） ----
+     12/16 · 14/20 · 16/24 · 18/24 · 18/28 · 20/28 · 20/32 · 24/32 · 30/36 · 40/48 · 52/64
+     字重僅 400 / 500 / 600；行動版斷點 max-width:768px */
+  --ls:.004em;
+  --ls-caps:.08em;        /* 官網無 eyebrow 元件；uppercase 標籤保留正字距以維持可讀性 */
+
+  --container:1152px;     /* 官網 .container max-width */
+  /* 段間節奏：standard = 換底色/換主題；tight = 同底色、同一組敘事的相鄰邊 */
+  --section-pad:120px;
+  --section-pad-tight:80px;
+  /* 段內大區塊間距，必須恆小於 tight，層級才立得住 */
+  --block-gap:72px;
+
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text-900);
+  /* 官網字體堆疊（不載入 webfont） */
+  font-family:-apple-system,system-ui,"Microsoft JhengHei","Noto Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size:16px;
+  line-height:24px;
+  letter-spacing:var(--ls);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+[hidden]{display:none!important}
+
+.container{max-width:calc(var(--container) + 48px);margin-inline:auto;padding-inline:24px}
+.section{padding-block:var(--section-pad)}
+.section--tight-start{padding-block-start:var(--section-pad-tight)}
+.section--tight-end{padding-block-end:var(--section-pad-tight)}
+.section--dark{background:var(--ink);color:#fff}
+.section--soft{background:var(--bg-soft)}
+
+/* ---------- 共用字級 ---------- */
+.eyebrow{
+  font-weight:500;letter-spacing:var(--ls-caps);color:var(--text-300);
+  font-size:14px;line-height:20px;text-transform:uppercase;
+}
+/* ---------- Display 破格層 ----------
+   官網 H2 規範為 30/36。以下「章節主標」與 Hero 經確認刻意採用官網 H1 的 52/64 一階，
+   目的是把章名與段內小標的層級拉開；未新增任何字級，只是把 H1 的階借給 H2 角色。
+   這是全站唯一允許超過 30/36 的標題群組，新增標題請勿沿用。 */
+.h2{font-size:52px;font-weight:600;line-height:64px;color:var(--text-900);margin:0}
+.lead{color:var(--text-600);margin:0}
+.muted{color:var(--text-400)}
+
+/* ============================================================
+   Button — 全站唯一一組（原 .btn / .btn-pill / .btn-link 三套整併）
+   基準對齊官網 careers：高 40、圓角 100、16/24 · 600、icon 20 · gap 4。
+   變體依「按鈕站在什麼底上」挑，不要為單一段落再開新的一套：
+     --solid  主要動作，任何底都用這個
+     --ghost  次要動作，壓在照片／深底上（官網 .button[data-v-25a98364]）
+     --line   次要動作，站在白底／淺灰底上
+   icon 一律掛 .btn__icon，方向修飾詞決定 hover 的位移方向。
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:4px;
+  height:40px;padding-inline:16px;
+  border:1px solid transparent;border-radius:100px;
+  font-size:16px;font-weight:600;line-height:24px;text-align:center;white-space:nowrap;
+  transition:transform .25s var(--ease),background-color .25s var(--ease),
+             border-color .25s var(--ease),color .25s var(--ease),box-shadow .25s var(--ease);
+}
+.btn__icon{flex:0 0 auto;transition:transform .25s var(--ease)}
+svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
+.btn:hover .btn__icon{transform:translateX(4px)}
+.btn:hover .btn__icon--down{transform:translateY(3px)}
+.btn:hover .btn__icon--up{transform:translateY(-3px)}
+
+.btn--solid{background:var(--red);border-color:var(--red);color:#fff}
+.btn--solid:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(226,30,40,.35)}
+.btn--solid:active{background:var(--red-active);border-color:var(--red-active)}
+
+/* 官網 careers/aboutus 的白色線框鈕：rgba(0,0,0,.1) 底＋blur(25px)＋1px #d9d9d9＋白字。
+   它本來就是為壓在照片上而設計，所以深底上不需要再借 --red-300。
+   官網只定義 :active（純黑底），hover 是本站補的，加深方向與 :active 一致。
+   左右 padding 官網是 35/37px，本站按鈕多為並排，維持 16px 以免寬度失衡 */
+.btn--ghost{
+  background:rgba(0,0,0,.1);
+  -webkit-backdrop-filter:blur(25px);backdrop-filter:blur(25px);
+  border-color:var(--line-200);color:#fff;
+}
+.btn--ghost:hover{background:rgba(0,0,0,.4);color:#fff;transform:translateY(-2px)}
+.btn--ghost:active{background:#000}
+
+/* 白底沒有照片可襯，半透明黑底會糊掉，淺底的次要動作維持官網主色紅線框 */
+.btn--line{background:transparent;border-color:var(--red);color:var(--red)}
+.btn--line:hover{background:var(--red);border-color:var(--red);color:#fff;transform:translateY(-2px)}
+.btn--line:active{background:var(--red-active);border-color:var(--red-active);color:#fff}
+
+/* ============================================================
+   Header
+   ============================================================ */
+.site-header{
+  position:fixed;inset-block-start:0;inset-inline:0;z-index:60;
+  height:64px;display:flex;align-items:center;
+  background:var(--header-bg);
+  border-bottom:1px solid rgba(255,255,255,.14);
+  transition:box-shadow .3s var(--ease);
+}
+.site-header.is-scrolled{box-shadow:0 8px 24px rgba(0,0,0,.28)}
+.site-header .container{display:flex;align-items:center;gap:34px;width:100%}
+.brand{display:flex;align-items:center;gap:9px;flex:0 0 auto}
+.brand__logo{width:86px;height:20px;display:block;color:#fff;fill:currentColor}
+
+.nav{margin-inline-start:auto;display:flex;align-items:center;gap:25px}
+.nav__link{
+  font-size:14px;font-weight:500;line-height:20px;color:var(--on-dark-2);position:relative;padding-block:2px;
+  transition:color .2s var(--ease);white-space:nowrap;
+}
+.nav__link::after{
+  content:"";position:absolute;inset-block-end:0;inset-inline-start:0;
+  width:100%;height:1.5px;background:var(--red);
+  transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease);
+}
+.nav__link:hover{color:#fff}
+.nav__link:hover::after,.nav__link.is-active::after{transform:scaleX(1)}
+.nav__link.is-active{color:#fff}
+.nav__link[data-undefined]{opacity:.55;cursor:not-allowed}
+.nav__link[data-undefined]::after{display:none}
+
+.nav-toggle{display:none;margin-inline-start:auto;width:40px;height:40px;place-items:center}
+.nav-toggle i{display:block;width:20px;height:1.5px;background:#fff;position:relative;transition:.25s var(--ease)}
+.nav-toggle i::before,.nav-toggle i::after{content:"";position:absolute;inset-inline:0;height:1.5px;background:#fff;transition:.25s var(--ease)}
+.nav-toggle i::before{top:-6px}.nav-toggle i::after{top:6px}
+.nav-toggle[aria-expanded="true"] i{background:transparent}
+.nav-toggle[aria-expanded="true"] i::before{top:0;transform:rotate(45deg)}
+.nav-toggle[aria-expanded="true"] i::after{top:0;transform:rotate(-45deg)}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+/* 高度改由內容決定：min-height 只當短視窗的地板（72svh），一般視窗下 hero 就是內容高度。
+   原本 88svh 會在高視窗把按鈕與數據卡之間撐出大片空白（margin-top:auto 吃掉的餘裕），
+   改成 72svh 後餘裕歸零，按鈕到數據卡只剩 .hero__stats 的 padding-top，下一段願景區塊也露出更多 */
+.hero{
+  position:relative;background:var(--ink);color:#fff;
+  padding-block:clamp(104px,12vh,168px) clamp(32px,4.2vh,64px);
+  min-height:min(72vh,880px);min-height:min(72svh,880px);
+  display:flex;flex-direction:column;
+}
+.hero__bg{position:absolute;inset:0;z-index:0;overflow:hidden}
+/* 裁切:對齊 Figma node 6739:11254（1440×920 圖框內放 1626×1083、偏移 -180/-57），焦點換算後為 55% 48%。
+   原本的 scale(1.04) 是為舊圖調的，新圖的 CMoney 字標已貼近右緣，再放大會被切掉，故移除 */
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:55% 48%}
+.hero__bg::after{
+  content:"";position:absolute;inset:0;
+  /* 照片壓黑層：改用官網 scrim 的純黑 rgba(0,0,0,*)，密度維持原設定；
+     比原本的 #0f0f0f 再深一點，文字對比只會更好，不會掉 */
+  background:linear-gradient(90deg,rgba(0,0,0,.86) 0%,rgba(0,0,0,.66) 45%,rgba(0,0,0,.42) 100%),
+             linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 28%,rgba(0,0,0,.35) 100%);
+}
+.hero .container{position:relative;z-index:2;width:100%}
+.hero__eyebrow{display:flex;align-items:center;gap:12px;margin:0 0 22px}
+.hero__eyebrow i{width:28px;height:2px;background:var(--red);flex:0 0 auto}
+/* 例外：Hero 主標刻意破格，不套用官網 52px 上限與 .004em 字距（經確認保留原視覺重量） */
+.hero__title{
+  margin:0;font-weight:700;font-size:clamp(44px,6.4vw,92px);line-height:1.03;
+  letter-spacing:-.075em;max-width:604px;
+}
+.hero__title .is-red{color:var(--red);display:block}
+.hero__text{margin:clamp(20px,2.6vh,32px) 0 0;max-width:630px;font-size:20px;line-height:32px;color:var(--on-dark-2)}
+.hero__actions{display:flex;flex-wrap:wrap;gap:27px;margin-top:clamp(24px,3.2vh,38px)}
+
+.hero__stats{
+  margin-top:auto;padding-top:clamp(28px,4.2vh,56px);
+  position:relative;z-index:3;width:100%;
+  margin-bottom:-64px; /* A：跨過 hero 與 #aboutus 的交界 */
+}
+/* C：數據卡底下的深色帶 — Figma node 6751:12224
+   設計稿是 1440×223、由下往上 #25282f → 42.3% #030508 → 91.9% 透明：
+   照片不再在 hero 內部就被收成白色，而是往下淡出，卡片正好站在最深的那一段上。
+   這裡綁在 .hero__stats 而非固定 223px，數據卡在窄螢幕換行變高時漸層會一起長高。
+   下緣多蓋 22px＝設計稿卡片下方的留白；照片在 hero 下緣被切斷的那條線，
+   此時漸層已經完全不透明，所以看不到接縫。 */
+.hero__stats::before{
+  content:"";position:absolute;left:0;right:0;top:0;bottom:-22px;
+  z-index:-1;pointer-events:none;
+  background:linear-gradient(0deg,
+    #25282f 0%,
+    #030508 42.296%,
+    rgba(42,42,42,0) 91.928%);
+}
+/* C：具名的下一段提示（靜態標記，不是按鈕） */
+.section-cue{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  margin-bottom:clamp(16px,1.8vh,20px);
+}
+.section-cue__line{
+  width:1px;height:20px;
+  background:linear-gradient(180deg,var(--red),rgba(226,30,40,0));
+}
+.section-cue__label{font-size:14px;font-weight:600;line-height:20px;color:var(--ink)}
+/* A：#aboutus 上緣要接住越界的數據卡。注意實際越界量不是 -64px：
+   hero 自己的 padding-bottom（clamp 32–64）會先吃掉一段，卡片＋深色帶淨越界約 44px。
+   原本 120px 會在深色帶下方再留 76px 白，把下一段標題整個推出首屏；
+   收到 72px（白底留白約 28px，接近設計稿 34px 的一半多一點），
+   「我們不是從『要做什麼產品』開始」在 1664×990 可露出約 40px ≒ 標題區塊的三分之一 */
+/* 下緣同步收短，讓 METHOD 卡片與下一段 ONE COMPANY 讀成同一組敘事 */
+#aboutus{padding-block:72px clamp(40px,4.5vh,56px)}
+/* 數據卡 — 設計稿 27:2111：287×150、padding 24、gap 12 */
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.stat{
+  display:grid;gap:12px;align-content:start;padding:24px;border-radius:12px;
+  background:rgba(38,38,38,.92);backdrop-filter:blur(6px);
+  box-shadow:0 2px 6px rgba(0,0,0,.1),0 8px 20px rgba(0,0,0,.2);
+}
+.stat__num{margin:0;display:flex;align-items:baseline;font-size:40px;font-weight:600;line-height:48px;color:#fff}
+.stat__num b,.stat__num em{font-weight:inherit;font-style:normal}
+/* 官網數據單位獨立一階：count 40/48、unit 24/32 */
+.stat__num em{font-size:24px;line-height:32px}
+.stat__label{margin:0;font-size:16px;font-weight:600;line-height:24px;color:#fff}
+.stat__desc{margin:0;font-size:12px;font-weight:400;line-height:16px;color:var(--on-dark-2);overflow-wrap:anywhere}
+
+/* ============================================================
+   Section: 我們是誰
+   ============================================================ */
+/* 左右兩欄：左＝標題＋導言，右＝VISION / MISSION / METHOD 卡片（node 6341:67528） */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.split__intro{display:grid;gap:64px;align-content:start}
+.split .h2 .is-red{color:var(--red)}
+.split .h2 .nobr{white-space:nowrap}
+.split__aside{display:grid;gap:16px}
+.split__aside p{margin:0;font-size:18px;line-height:28px;color:var(--text-600)}
+
+.pillars{display:grid;gap:24px}
+.pillar{
+  display:grid;gap:20px;padding:24px;
+  background:var(--bg);border-radius:20px;
+  box-shadow:0 0 0 1px rgba(38,38,38,.05),0 1px 3px rgba(38,38,38,.15);
+}
+.pillar__head{display:grid;gap:10px}
+.pillar__ghost{
+  display:block;font-size:12px;font-weight:500;color:var(--text-300);
+  letter-spacing:var(--ls-caps);line-height:16px;
+}
+.pillar__label{margin-inline-start:8px;letter-spacing:var(--ls)}
+.pillar__title{margin:0;font-size:18px;font-weight:600;line-height:24px;color:var(--text-900)}
+.pillar__body{margin:0;font-size:14px;line-height:20px;color:var(--text-600)}
+
+.northstar{display:grid;gap:32px;padding-block:var(--block-gap) 0}
+.northstar__eyebrow{margin:0;font-size:24px;font-weight:600;color:var(--text-300);letter-spacing:var(--ls-caps);line-height:32px}
+/* 併入 Display 層：與 .h2 同為章節主標 */
+.northstar__title{margin:0;font-size:52px;font-weight:600;line-height:64px}
+.northstar__sub{margin:0;font-size:20px;color:var(--text-600);line-height:32px}
+
+/* ============================================================
+   Section: 我們創造什麼
+   ============================================================ */
+.statement{margin:0;font-size:52px;font-weight:600;line-height:64px;color:var(--text-900)}
+.statement .is-red{color:var(--red)}
+.statement-sub{margin:40px 0 0;max-width:640px;font-size:20px;line-height:32px;color:var(--text-600)}
+
+/* 事業群：板塊式卡片（依 Figma 33:2585 / 33:2592 改版）
+   四張卡統一淺底。靜止＝產品手機稿，hover＝名稱下方換成 app 產品清單，整張卡導向該事業群詳細頁。
+   版面 2／2 對半兩排：金融 + 合作夥伴 ／ 消費 + 國際金融，四張卡同為 420 高。
+   （AI Lab 已整併入消費事業群，卡片先拿掉，詳細頁區塊同步移除。）
+   卡高、標題級數、產品清單欄數綁在一起調，四張卡的視覺重量才會一致。 */
+.groups{margin-top:64px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
+.groups > .bgc{height:420px}
+
+.bgc{
+  position:relative;overflow:hidden;border-radius:24px;cursor:pointer;
+  display:flex;flex-direction:column;min-width:0;
+  background:var(--bg-soft);border:1px solid #fff;
+  padding:clamp(28px,3.3vw,48px);
+  transition:box-shadow .4s var(--ease),transform .4s var(--ease);
+}
+.bgc:hover,.bgc:focus-within{transform:translateY(-4px);box-shadow:0 28px 60px -34px rgba(38,38,38,.5)}
+
+/* 整張卡導向該事業群的詳細頁區塊。疊 hit area 而不是把 <article> 換成 <a>：
+   卡內已有帶文字的 CTA 連結，包起來會是巢狀連結。
+   這層 aria-hidden + tabindex="-1"，讀屏／鍵盤只會讀到 CTA 一個連結。 */
+.bgc__hit{position:absolute;inset:-1px;z-index:6;border-radius:inherit}
+.bgc:focus-within .bgc__cta{text-decoration:underline;text-underline-offset:3px}
+.bgc__cta:focus-visible{outline:2px solid var(--red);outline-offset:3px;border-radius:3px}
+
+.bgc__main{position:relative;z-index:2;display:flex;flex-direction:column}
+.bgc__eyebrow{margin:0;font-size:14px;font-weight:500;letter-spacing:var(--ls-caps);line-height:20px;color:var(--text-600);text-transform:uppercase}
+.bgc__eyebrow--red{color:var(--red)}
+.bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px}
+/* 事業群名稱四張卡統一 30/36（官網既有階，與 .vcard__name、.founder__title 同級）。 */
+.bgc__name{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900);text-wrap:balance}
+.bgc__desc{margin:0;font-size:14px;font-weight:400;line-height:20px;color:var(--text-600)}
+
+.bgc__stat{margin:auto 0 0;display:flex;flex-direction:column;gap:4px}
+.bgc__stat b{font-size:40px;font-weight:600;line-height:48px;color:var(--red);font-variant-numeric:tabular-nums}
+.bgc__stat span{font-size:14px;font-weight:400;line-height:20px;color:var(--text-400)}
+
+/* 圖文分欄 —— 文字欄與手機稿欄各佔一欄，手機稿不再是浮在內容上的絕對定位層，
+   所以文字不可能被壓到；卡片變窄時是文字欄變窄，不是文字鑽到圖下面。 */
+.bgc__body{display:flex;gap:clamp(16px,2vw,28px);flex:1;min-height:0}
+.bgc__main{flex:1 1 auto;min-width:0}
+.bgc__hero{position:relative;flex:0 0 clamp(130px,42%,280px);pointer-events:none;
+  transform:translateY(0);transition:transform .55s var(--ease)}
+/* 位移量取「手機欄」的 100%（＝卡片內容區高度）而非手機自身高度：
+   手機縮小時自身高度跟著變小，起始位置卻不變，會退不乾淨。 */
+.bgc:hover .bgc__hero,.bgc:focus-within .bgc__hero{transform:translateY(100%)}
+
+/* 手機稿在自己那一欄裡絕對定位，才能往卡片下緣出血；水平方向仍受欄寬約束。
+   比例全部換算自 Figma「手機 mockup」(node 6723:11086)：機身 119.57×243.01，
+   螢幕 107.46×232.83 落在 (6.16, 5.04)。padding 的百分比一律以「寬度」為基準，
+   所以上下內縮也換算成寬度百分比，縮到任何斷點都維持同一組比例。 */
+.phone{
+  position:absolute;inset-inline:0;inset-block-start:30%;
+  width:100%;aspect-ratio:119.57 / 243.01;
+  border-radius:13.5% / 6.64%;
+  background:var(--bg);
+  padding:4.215% 4.976% 4.299% 5.152%;
+  /* 白機身：一圈細框線勾邊（淺灰卡上才看得出輪廓），陰影比深色機身時收淡 */
+  box-shadow:0 0 0 1px rgba(38,38,38,.08),-4px 12px 24px rgba(88,89,92,.18),0 2px 6px rgba(0,0,0,.08);
+}
+/* 螢幕一律放「滿版方角」的原始 App 截圖（Figma 素材裡的 raw image），圓角交給
+   border-radius 裁；圖本身不帶透明圓角，機身內側就沒有縫可以露。底色壓成機身色
+   而不是白色：萬一有次像素縫或圖還沒載入，露出的是機身，不會是白邊。
+   （機身改白後，底色改淺灰：圖未載入時看得出螢幕範圍。） */
+.phone__screen{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:10.3% / 4.77%;background:var(--bg-soft)}
+.phone::after{content:"";position:absolute;inset-block-start:3.33%;inset-inline-start:50%;transform:translateX(-50%);width:28.68%;aspect-ratio:34.29 / 9.92;border-radius:999px;background:var(--ink)}
+
+/* hover 面板：app 產品清單。英文標籤與事業群名稱固定不動，只換名稱「以下」的內容：
+   內文／數字淡出，產品清單在同一位置淡入（不再整片從下緣滑上，也不會把內文切半行）。
+   面板上緣 --panel-top＝名稱下緣，由 JS 依實際排版量（名稱可能換行）。 */
+.bgc__panel{
+  position:absolute;z-index:3;inset:0;
+  padding:var(--panel-top,132px) clamp(28px,3.3vw,48px) clamp(28px,3.3vw,48px);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .3s var(--ease),transform .4s var(--ease);
+  display:flex;flex-direction:column;gap:14px;
+}
+.bgc:hover .bgc__panel,.bgc:focus-within .bgc__panel{opacity:1;transform:none;transition-delay:.08s}
+.bgc__desc,.bgc__stat{transition:opacity .2s var(--ease)}
+.bgc:hover .bgc__desc,.bgc:focus-within .bgc__desc,
+.bgc:hover .bgc__stat,.bgc:focus-within .bgc__stat{opacity:0}
+
+.bgc__panelcap{margin:0;font-size:12px;font-weight:500;line-height:16px;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-400)}
+/* 清單分欄 —— 面板高度由產品列數決定，分欄是把面板壓進卡高的槓桿 */
+/* 對半卡一律 2 欄 */
+.bgc__products{margin:0;padding:0;list-style:none;display:grid;gap:10px 24px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.bgc__products li{display:flex;align-items:center;gap:12px;min-width:0}
+.bgc__products img{width:38px;height:38px;border-radius:9px;flex:0 0 auto;box-shadow:0 0 2px rgba(38,38,38,.18),0 2px 8px rgba(38,38,38,.1)}
+.bgc__products .p{display:flex;flex-direction:column;min-width:0}
+.bgc__products b{font-size:14px;font-weight:600;line-height:20px;color:var(--text-900)}
+.bgc__products .p span{font-size:12px;font-weight:400;line-height:16px;color:var(--text-600)}
+/* 尚未定義一句話文案的產品：只給名稱，不補 */
+.bgc__products li[data-nocopy] b{color:var(--text-600);font-weight:500}
+
+.bgc__cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;line-height:20px;color:var(--red);text-decoration:none}
+.bgc__cta span{transition:transform .25s var(--ease)}
+.bgc:hover .bgc__cta span{transform:translateX(4px)}
+
+/* ============================================================
+   Section: 價值觀（node 6341:67665）
+   ============================================================ */
+/* 官網手法：主標滿版左對齊、說明文字縮在窄欄，層級靠寬度對比而非字級對比 */
+.values-head{max-width:none}
+.values-head .h2 .is-red{color:var(--red);display:block}
+.values-head p{margin:32px 0 0;max-width:780px;font-size:18px;line-height:28px;color:var(--text-600)}
+
+/* ---------- 價值觀卡片：捲動堆疊 ---------- */
+/* --stack-top：黏住時距畫面上緣的距離（要閃開 75px 的固定 header）
+   --stack-peek：每張卡片往下錯開、露出上緣的高度          */
+.vstack{--stack-top:88px;--stack-peek:22px;padding-block:60px 0}
+.vstack__item{position:sticky;inset-block-start:calc(var(--stack-top) + var(--i) * var(--stack-peek))}
+.vstack__item + .vstack__item{margin-top:32px}
+/* sticky 的可黏範圍只算到容器的 content box，padding 撐不出來；
+   用這塊空白讓三張卡片疊好之後還能多停一段捲動距離 */
+.vstack__hold{height:220px}
+
+.vcard{
+  position:relative;display:flex;gap:48px;align-items:flex-start;
+  background:var(--bg);border:1px solid rgba(38,38,38,.1);border-radius:20px;
+  padding:40px;overflow:hidden;
+  /* 只往上打的淡影：單張卡片時幾乎看不出來，疊起來時讓露出的上緣讀得出層次 */
+  box-shadow:0 -10px 24px rgba(38,38,38,.06);
+  transform-origin:top center;transition:transform .12s linear;
+}
+/* 被上層卡片蓋住時淡入一層與底色同色的薄膜，做出往後退的景深 */
+.vcard::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:var(--bg-soft);opacity:var(--veil,0);transition:opacity .12s linear;
+}
+.vcard__flag{flex:0 0 274px;display:flex;flex-direction:column;gap:16px}
+.vcard__num{font-size:40px;font-weight:600;line-height:48px;color:var(--line-200)}
+.vcard__name{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900)}
+.vcard__sheet{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:20px}
+.vcard__claim{margin:0;font-size:24px;font-weight:600;line-height:32px;color:var(--text-900)}
+.vcard__narrative{display:flex;flex-direction:column;gap:12px}
+.vcard__narrative p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+.vcard__quote{
+  margin:0;display:flex;align-items:center;min-height:54px;padding-block:12px;
+  padding-inline:24px 16px;border-radius:12px;background:var(--bg-soft);
+  border-inline-start:4px solid var(--red);
+}
+.vcard__quote p{margin:0;font-size:20px;font-weight:600;line-height:32px;color:var(--text-900)}
+.vcard__sub{display:flex;flex-direction:column;gap:12px}
+.vcard__sub h4{margin:0;font-size:18px;font-weight:600;line-height:24px;color:var(--text-900)}
+.vcard__sub p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+/* 延伸閱讀：對照表指定的部落格文章，接在 sheet 最後 */
+.vcard__more{
+  align-self:flex-start;display:inline-flex;align-items:baseline;gap:6px;
+  font-size:16px;font-weight:600;line-height:24px;color:var(--red);
+}
+.vcard__more span{flex:0 0 auto}
+
+.values-outro{padding-block:var(--block-gap) 0;text-align:center}
+.values-outro h3{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900)}
+.values-outro p{margin:44px 0 0;font-size:18px;line-height:28px;color:var(--text-600)}
+
+/* ============================================================
+   Section: 運作方式
+   ============================================================ */
+.how-head{max-width:none}
+.how-head .h2 .is-red{color:var(--red)}
+.how-head p{margin:32px 0 0;max-width:600px;font-size:18px;line-height:28px;color:var(--text-600)}
+
+/* 四列對照卡片：沿用白底卡片那套語彙——20px 圓角、var(--line-200) 細邊、低擴散陰影、膠囊展開鈕。
+   依回饋移除上方「文化自我選擇」區塊與雙軌切換器，互動區塊改併入每一列的展開內容 */
+.cmp{margin-top:42px;display:grid;gap:16px}
+.cmp__head{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);border-radius:16px;overflow:hidden}
+.cmp__head div{padding:16px 24px;font-size:14px;font-weight:600;line-height:20px;color:#fff}
+.cmp__head div:first-child{background:var(--ink)}
+.cmp__head div:last-child{background:var(--red)}
+.cmp__row{
+  border-radius:20px;overflow:hidden;border:1px solid var(--line-200);background:#fff;
+  box-shadow:0 20px 44px -30px rgba(38,38,38,.4);
+  transition:box-shadow .3s var(--ease),border-color .3s var(--ease);
+}
+.cmp__row:hover{box-shadow:0 22px 48px -26px rgba(38,38,38,.45)}
+.cmp__row.is-open{border-color:var(--red-300)}
+.cmp__cells{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr)}
+.cmp__cell{padding:28px 30px}
+.cmp__cell--old{background:var(--bg-soft)}
+.cmp__cell--new{background:#fff;border-inline-start:1px solid var(--line-200);display:flex;align-items:center;gap:20px;transition:background .3s var(--ease)}
+.cmp__cell h4{margin:0;font-size:18px;font-weight:600;line-height:24px}
+.cmp__cell--old h4{color:var(--text-600)}
+.cmp__cell p{margin:6px 0 0;font-size:16px;font-weight:400;line-height:24px;color:var(--text-600)}
+.cmp__cell--old p{color:#959595}
+.cmp__expand{
+  margin-inline-start:auto;flex:0 0 auto;display:inline-flex;align-items:center;gap:9px;
+  height:40px;padding-inline:18px;border-radius:999px;background:#fff;
+  border:1px solid var(--red);color:var(--red);white-space:nowrap;
+  transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);
+}
+.cmp__expand span{font-size:14px;font-weight:600;line-height:20px}
+.cmp__expand svg{width:17px;height:17px;flex:0 0 auto;transition:transform .35s var(--ease)}
+.cmp__expand:hover{background:var(--red);color:#fff;transform:translateY(-1px)}
+.cmp__row.is-open .cmp__expand{background:var(--red);color:#fff}
+.cmp__row.is-open .cmp__expand svg{transform:rotate(180deg)}
+.cmp__expand:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.cmp__panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s var(--ease);background:#fff}
+.cmp__row.is-open .cmp__panel{grid-template-rows:1fr}
+.cmp__panel>div{overflow:hidden}
+.cmp__panelinner{
+  opacity:0;transform:translateY(8px);
+  transition:opacity .4s var(--ease) .08s,transform .4s var(--ease) .08s;
+}
+.cmp__row.is-open .cmp__panelinner{opacity:1;transform:none}
+.cmp__row.is-open .cmp__cell--new{background:var(--bg-soft)}
+
+/* 展開內容 — 版面依 Figma 6471:11566（左 WHY／右 IN PRACTICE＋面試提問），
+   卡片語彙沿用 prototype：白底、check 互動、工作現場文章卡 */
+.cmp__inner{padding:0;border-top:1px solid var(--line-200)}
+.cmp__detail{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);align-items:stretch}
+.cmp__col{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start;min-width:0;padding:36px 34px 40px}
+.cmp__col--why{border-inline-end:1px solid var(--line-200);background:var(--bg-soft)}
+.cmp__block{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.cmp__kicker{
+  margin:0;display:flex;align-items:center;gap:7px;
+  font-size:14px;font-weight:600;letter-spacing:var(--ls-caps);line-height:20px;color:var(--red);
+}
+.cmp__kicker svg{width:15px;height:15px;flex:0 0 auto}
+.cmp__kicker--zh{font-size:14px;font-weight:600;letter-spacing:var(--ls);gap:8px}
+.cmp__kicker--zh svg{width:15px;height:15px}
+/* 群組之間的間距：設計稿群組內 16px、群組間 40px */
+.cmp__kicker--case,.cmp__check{margin-top:14px}
+.cmp__title{margin:0;font-size:20px;font-weight:600;line-height:32px;color:var(--text-900);text-wrap:pretty}
+.cmp__col>p:not([class]){margin:0;max-width:44em;font-size:16px;line-height:24px;color:var(--text-600);text-wrap:pretty}
+.cmp__col>p:not([class]) b{color:var(--text-900);font-weight:600}
+.cmp__col>p:not([class])+p:not([class]){margin-top:-4px}
+/* 你會感受到的差異：整條區塊，左欄標籤、右欄內容（設計稿 6366:70148） */
+.cmp__check{display:grid;gap:16px}
+
+/* 情境互動：兩種做法對照（版面依 Figma 6696:2938） */
+.cmp__case{display:grid;gap:12px;margin-top:14px}
+.cmp__caselabel{margin:0;font-size:14px;font-weight:600;line-height:20px;letter-spacing:var(--ls-caps);color:var(--red)}
+.cmp__casebox{display:grid;gap:18px;border-radius:16px;background:#f6f6f6;padding:24px 24px 26px}
+.cmp__caseq{margin:0;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900);text-wrap:pretty}
+.cmp__opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cmp__opt{
+  display:grid;gap:12px;align-content:start;text-align:start;
+  border:1px solid var(--line-200);border-radius:12px;padding:16px 18px 18px;background:#fff;
+  font:inherit;color:var(--text-900);cursor:pointer;
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease),background .25s var(--ease);
+}
+.cmp__opt--ours{transition:border-color .28s var(--ease),background .28s var(--ease),box-shadow .25s var(--ease)}
+.cmp__case.is-answered .cmp__opt--ours{border-color:var(--red);background:#fff}
+.cmp__opthead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.cmp__optkey{font-size:12px;font-weight:600;line-height:16px;color:var(--text-600)}
+.cmp__optbadge{opacity:0;transform:translateY(-2px);transition:opacity .28s var(--ease),transform .28s var(--ease);font-size:12px;font-weight:600;line-height:16px;color:var(--text-600);background:var(--bg-soft);border-radius:100px;padding:3px 10px}
+.cmp__optbadge--red{color:#fff;background:var(--red)}
+.cmp__case.is-answered .cmp__optbadge{opacity:1;transform:none}
+.cmp__opttext{font-size:16px;line-height:24px;text-wrap:pretty}
+.cmp__opt:hover{border-color:var(--red);box-shadow:0 10px 22px -16px rgba(38,38,38,.6)}
+.cmp__opt[aria-pressed="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
+.cmp__opt:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.cmp__case.is-answered .cmp__opt:not([aria-pressed="true"]){opacity:.8}
+.cmp__reveal{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.cmp__reveal.is-on{grid-template-rows:1fr}
+.cmp__reveal>div{overflow:hidden}
+.cmp__revealin{display:grid;gap:12px;padding-top:4px}
+.cmp__verdict{display:grid;gap:8px;padding-inline-start:34px}
+.cmp__verdictrow{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px;align-items:start;font-size:15px;line-height:24px;color:var(--text-600);text-wrap:pretty}
+.cmp__verdictkey{font-size:15px;font-weight:600;line-height:24px;color:var(--text-900);white-space:nowrap}
+.cmp__verdictrow--ours .cmp__verdictkey{color:var(--red)}
+.cmp__verdictrow b{color:var(--text-900);font-weight:600}
+.cmp__lead{margin:0;display:flex;gap:12px;align-items:flex-start;font-size:16px;line-height:24px;color:var(--text-900);text-wrap:pretty}
+.cmp__leadrule{flex:0 0 auto;width:22px;height:3px;border-radius:100px;background:var(--red);margin-top:12px}
+.cmp__ask{margin:0;padding-inline-start:34px;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900);text-wrap:pretty}
+
+/* 工作現場卡片 — Figma BZac0QWuVoUmSg0ZhWtoyG node 16:2401 */
+.cmp-field img{display:none}
+.cmp-field{position:relative;display:flex;align-items:flex-start;gap:16px;background:#fff;border:1px solid var(--line-200);border-radius:16px;padding:20px;cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.cmp-field:hover{border-color:var(--red);box-shadow:0 10px 22px -16px rgba(9,16,28,.6)}
+.cmp-field__body{flex:1 1 0;min-width:0;align-self:stretch;display:flex;flex-direction:column;gap:12px}
+.cmp-field__head{flex:1 1 auto;display:flex;flex-direction:column;gap:8px}
+.cmp-field__title{margin:0;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900)}
+.cmp-field__desc{margin:0;font-size:14px;line-height:20px;color:var(--text-600)}
+.cmp-field__link{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:4px;
+  padding:6px 12px;border:1px solid var(--red);border-radius:100px;
+  color:var(--red);font-size:12px;font-weight:600;line-height:16px;white-space:nowrap;
+  transition:background .25s var(--ease),color .25s var(--ease);
+}
+.cmp-field__link::after{content:"";position:absolute;inset:0;border-radius:16px}
+.cmp-field:hover .cmp-field__link{background:var(--red);color:#fff}
+@supports selector(:has(*)){
+  .cmp-field__link:focus-visible{outline:none}
+  .cmp-field:has(.cmp-field__link:focus-visible){outline:2px solid var(--red);outline-offset:2px}
+}
+.cmp-field__link svg{width:14px;height:14px;flex:0 0 auto;fill:currentColor}
+.cmp-field__img{flex:0 0 auto;width:177px;height:118px;border-radius:16px;object-fit:cover}
+
+.how-outro{margin-top:var(--block-gap);text-align:center}
+/* 與 #values-outro 的收尾句同一階（官網 30/36），兩段收尾在視覺上才是同一種句子 */
+.how-outro h3{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900)}
+
+/* ============================================================
+   Section: 創辦人的話 — Figma 1sL3DgPchc2IEgcwHCs0ws node 6727:13541
+   variation-a-editorial，1440×920 桌機稿。
+   全幅版面（不套 .container）：左欄 640px 人像出血到瀏覽器邊緣，
+   右欄 800px 內容，內距 100/100/100/80，三個區塊間距 48。
+   ============================================================ */
+.founder{display:grid;grid-template-columns:640px minmax(0,1fr);align-items:stretch}
+.founder__media{position:relative;min-height:920px;overflow:hidden}
+.founder__media img{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  transition:transform .9s var(--ease);
+}
+.founder__media:hover img{transform:scale(1.03)}
+
+/* 文字區深底：與前面的北極星、後面的 CTA 連成一整段深色 */
+.founder__body{display:flex;flex-direction:column;gap:48px;padding:100px 100px 100px 80px;background:var(--ink)}
+.founder__head{display:flex;flex-direction:column;gap:16px}
+/* 稿上 16px / 500 / letter-spacing 2px / --text-900，比共用 .eyebrow（14/20、--text-300）重一階 */
+.founder__kicker{margin:0;font-size:16px;font-weight:500;line-height:24px;letter-spacing:2px;color:var(--on-dark-2)}
+/* 稿上 44/60 Bold(700)，紅字 Black(900)：字級與字重都在既有 9 階／400-500-600 之外，照稿實作 */
+.founder__title{margin:0;font-size:44px;font-weight:700;line-height:60px;color:#fff}
+.founder__title .is-red{font-weight:900;color:var(--red)}
+
+.founder__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;align-items:start}
+.founder__paras{display:grid;gap:24px}
+.founder__paras p{margin:0;font-size:16px;line-height:28px;color:var(--on-dark-2)}
+.founder__quote{margin:0;display:grid;gap:12px}
+/* 引號字符：72px / 900 / line-height 40 / 紅色 30% 不透明度，純裝飾 */
+.founder__qmark{display:block;font-size:72px;font-weight:900;line-height:40px;color:var(--red);opacity:.3}
+.founder__quote p{margin:0;font-size:18px;font-weight:500;line-height:32px;color:#fff}
+
+.founder__foot{
+  padding-top:24px;border-top:1px solid rgba(255,255,255,.14);
+  display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;
+}
+.founder__by{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.founder__by b{font-size:18px;font-weight:600;line-height:24px;color:#fff}
+.founder__by span{font-size:16px;line-height:24px;color:var(--on-dark-2)}
+
+/* ============================================================
+   CTA + Footer — Figma BZac0QWuVoUmSg0ZhWtoyG node 9:1987
+   ============================================================ */
+.cta{
+  position:relative;isolation:isolate;overflow:hidden;
+  background:var(--ink);color:#fff;padding-block:110px;
+}
+.cta__bg{position:absolute;inset-block-start:0;inset-inline-start:0;width:100%;height:719px;overflow:hidden;z-index:-2;pointer-events:none}
+/* 裁切:Figma node 6739:11324 是 object-cover 置中填滿圖框，這裡照搬，不再做偏移 */
+.cta__bg img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+.cta__scrim{
+  position:absolute;inset-block-start:0;inset-inline-start:0;width:100%;height:774px;z-index:-1;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(0,0,0,.8) 26.615%,rgba(0,0,0,0) 76.55%);
+}
+.cta__title{margin:0;font-size:52px;font-weight:600;line-height:64px;max-width:1070px}
+.cta__title .is-red{color:var(--red)}
+.cta__sub{margin:27px 0 0;max-width:700px;font-size:20px;line-height:32px;color:var(--on-dark-2)}
+.cta__actions{margin-top:50px;display:flex;align-items:center;gap:27px;flex-wrap:wrap}
+
+/* Footer — node 9:1999 */
+.site-footer{background:var(--header-bg);color:#fff;padding-block:64px 40px}
+.site-footer__inner{
+  max-width:calc(1152px + 48px);margin-inline:auto;padding-inline:24px;
+  display:flex;flex-direction:column;gap:24px;
+}
+.fnav{display:flex;align-items:flex-start;gap:36px;width:100%}
+.fnav__brand{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:24px}
+.fnav__logo{
+  height:35px;display:flex;align-items:center;padding-block-start:2px;
+  filter:drop-shadow(0 4px 2px rgba(0,0,0,.25));
+}
+.fnav__logo img{display:block;width:86.21px;height:20px}
+.fnav__brand-links{display:flex;flex-direction:column;align-items:center;gap:8px}
+.fnav__divider{flex:0 0 auto;align-self:stretch;width:1px;background:rgba(255,255,255,.12)}
+.fnav__cols{flex:1 1 0;min-width:0;display:flex;justify-content:space-between;gap:24px}
+.fcol{display:flex;flex-direction:column;gap:16px;padding-block-start:11px}
+.fcol__title{margin:0;font-size:14px;font-weight:500;line-height:20px;color:var(--text-400)}
+.fcol__list{display:flex;flex-direction:column;gap:8px}
+.flink{font-size:14px;line-height:20px;color:#fff;white-space:nowrap;transition:color .2s var(--ease)}
+.flink:hover{color:var(--red-300)}
+.fmeta{display:flex;align-items:center;gap:16px;width:100%}
+.fmeta__left{flex:1 1 0;min-width:0;display:flex;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.fmeta__copy{margin:0;font-size:12px;line-height:16px;color:var(--text-400);white-space:pre-wrap}
+.fpolicy{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fpolicy a{font-size:12px;line-height:16px;color:var(--text-400);transition:color .2s var(--ease)}
+.fpolicy a:hover{color:#fff}
+.fpolicy__sep{flex:0 0 auto;width:1px;height:12px;background:var(--text-600)}
+.fsocial{flex:0 0 auto;display:flex;align-items:flex-end;gap:16px}
+.fsocial a{display:block;width:24px;height:24px;transition:opacity .2s var(--ease)}
+.fsocial a:hover{opacity:.75}
+.fsocial img{display:block;width:100%;height:100%}
+
+/* ============================================================
+   切塊後的節奏（每塊 ≤ 1.1 視窗）
+   ============================================================ */
+/* 過場宣言塊：短、深、只講一句話 */
+.section--statement{
+  background:var(--ink);color:#fff;
+  padding-block:clamp(88px,10vh,124px);
+}
+/* 北極星：事業群卡片之後的深色收尾塊，下方接求職入口 */
+.section--statement .northstar{padding-block:0}
+.section--statement .northstar__sub{color:var(--on-dark-2)}
+.section--statement .statement{color:#fff}
+.section--statement .statement-sub{color:var(--on-dark-2)}
+.section--statement .values-outro{padding-block:0}
+.section--statement .values-outro h3{color:#fff}
+.section--statement .values-outro p{color:var(--on-dark-2)}
+
+/* 區塊底色：官網僅有 #f6f6f6 一個淺灰底，暖灰 #f3efe9 不在色票內，已統一。
+   註：#f6f6f6 與白的差距確實比 #f3efe9 小，若要保留暖灰需另外立案 */
+#values,#values-stack{background:var(--bg-soft)}
+#work-compare{background:var(--bg-soft)}
+
+/* 切開後每塊都變短，上下留白同步收斂 */
+/* 價值觀主標段與三張卡同底色，視為同一塊：中間不再留兩段 section 留白，
+   收尾句「如果您也認同…」到第一張卡只剩 .vstack 自己的上距 */
+#values{padding-block-end:0}
+#values-stack{padding-block:0 clamp(72px,8vh,104px)}
+
+#work{padding-block-end:clamp(56px,6vh,80px)}
+#work-compare{padding-block:clamp(72px,8vh,104px)}
+#groups{padding-block:clamp(72px,8vh,104px)}
+
+/* ============================================================
+   Scroll reveal
+   ============================================================ */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.reveal.is-in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .reveal{opacity:1;transform:none;transition:none}
+  /* 價值觀：不做黏頂堆疊，退成一般直列 */
+  .vstack__item{position:static}
+  .vstack__hold{display:none}
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  /* 創辦人照片：hover 不再縮放 */
+  .founder__media:hover img{transform:none}
+}
+
+/* ============================================================
+   Responsive（設計稿僅有 1440 桌機版，以下為原型自行延伸）
+   ============================================================ */
+@media (max-width:1200px){
+  :root{--section-pad:96px;--section-pad-tight:64px;--block-gap:56px}
+  /* Display 層中間階：52/64 在 1152 以下會把標題斷出孤字，降到 40/48（官網既有配對） */
+  .h2,.statement,.northstar__title{font-size:40px;line-height:48px}
+  .split{grid-template-columns:1fr;gap:56px}
+  /* 人像欄改百分比（稿上 640/1440 = 44.4%），兩欄文字維持並排 */
+  .founder{grid-template-columns:minmax(0,42%) minmax(0,1fr)}
+  .founder__media{min-height:820px}
+  .founder__body{padding:80px 64px 80px 56px;gap:40px}
+  .founder__title{font-size:40px;line-height:48px}
+  .founder__grid{gap:32px}
+  .vstack{--stack-top:80px}
+  .vcard{padding:32px;gap:32px}
+  .vcard__flag{flex-basis:200px}
+  .fnav__cols{flex-wrap:wrap;justify-content:flex-start;gap:28px 44px}
+}
+@media (max-width:980px){
+  .nav-toggle{display:grid}
+  .nav{
+    position:fixed;inset-block-start:64px;inset-inline:0;flex-direction:column;align-items:stretch;
+    background:var(--header-bg);padding:20px 24px 28px;gap:4px;
+    border-bottom:1px solid rgba(255,255,255,.14);
+    transform:translateY(-12px);opacity:0;pointer-events:none;transition:.28s var(--ease);
+  }
+  .nav.is-open{transform:none;opacity:1;pointer-events:auto}
+  .nav__link{font-size:16px;line-height:24px;padding-block:12px}
+  .hero{padding-block:150px 0;min-height:auto}
+  .hero__stats{margin-bottom:-48px}
+  /* 窄螢幕卡片只越界 48px，深色帶再往下 22px＝70px，上緣留白比照桌機多給一些 */
+  #aboutus{padding-block-start:104px}
+  .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* 單欄：卡高改由內容決定；觸控沒有 hover，面板改成接在內容後面一起捲 */
+  .groups{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
+  .groups > .bgc{height:auto}
+  .bgc__body{display:block}
+  .bgc__hero{display:none}
+  .bgc__stat{margin-top:24px}
+  .bgc__panel{
+    position:static;transform:none;background:none;backdrop-filter:none;
+    padding:24px 0 0;margin-top:24px;
+    border-block-start:1px solid rgba(38,38,38,.1);
+  }
+  /* 單欄：面板是接在內文後面的一般區塊，永遠顯示，hover 也不藏內文 */
+  .bgc__panel{opacity:1}
+  .bgc:hover .bgc__desc,.bgc:focus-within .bgc__desc,
+  .bgc:hover .bgc__stat,.bgc:focus-within .bgc__stat{opacity:1}
+  .groups > .bgc .bgc__products{grid-template-columns:minmax(0,1fr)}
+  .bgc:hover{transform:none;box-shadow:0 20px 44px -30px rgba(38,38,38,.4)}
+  /* 單欄之後卡片高度已超過一個畫面，黏頂堆疊會吃掉內容，改回一般直列 */
+  .vstack{padding-block:40px 0}
+  .vstack__item{position:static}
+  .vstack__item + .vstack__item{margin-top:24px}
+  .vstack__hold{display:none}
+  .vcard{flex-direction:column;gap:24px;padding:24px}
+  .vcard__flag{flex-basis:auto;flex-direction:row;align-items:baseline;gap:12px}
+  .vcard__num{font-size:30px;line-height:36px}
+  .vcard__name{font-size:24px;line-height:32px}
+  .cmp__head,.cmp__cells{grid-template-columns:1fr}
+  .cmp__cell--new{border-inline-start:0;border-top:1px solid var(--line-200);flex-wrap:wrap}
+  .cmp__detail{grid-template-columns:minmax(0,1fr)}
+  .cmp__opts{grid-template-columns:minmax(0,1fr)}
+  .cmp__col{padding:24px 20px 26px;gap:16px}
+  .cmp__col--why{border-inline-end:0;border-bottom:1px solid var(--line-200)}
+  .cmp__title{font-size:18px;line-height:28px}
+  .cmp-field{flex-direction:column;gap:14px}
+  .cmp-field__img{width:100%;height:auto;aspect-ratio:177/118}
+  /* 人像改為橫幅置頂；兩欄文字先保留，欄寬此時約 350–440，仍接近稿上的 290 */
+  .founder{grid-template-columns:minmax(0,1fr)}
+  .founder__media{min-height:0;height:460px}
+  .founder__media img{object-position:center 30%}
+  .founder__body{padding:56px 32px 64px;gap:36px}
+  .founder__grid{gap:32px}
+  .cta{padding-block:88px}
+  .cta__bg{height:100%}
+  .cta__scrim{height:100%}
+  .fnav{flex-direction:column;gap:32px}
+  .fnav__brand{flex-direction:row;align-items:center;gap:24px}
+  .fnav__brand-links{flex-direction:row;gap:20px}
+  .fnav__divider{display:none}
+  .fnav__cols{width:100%;gap:28px 40px}
+  .fcol{padding-block-start:0}
+  .fmeta{flex-wrap:wrap;align-items:flex-start;gap:20px}
+  .fsocial{width:100%;justify-content:flex-start}
+}
+/* ============================================================
+   官網行動版斷點 max-width:768px
+   H1 52/64→30/36 · Hero desc 20/32→18/28 · H2 30/36→24/32 · H3 24/32→20/28
+   ============================================================ */
+@media (max-width:768px){
+  .h2,.statement,.northstar__title,.cta__title,.founder__title{font-size:30px;line-height:36px}
+  .vcard__name,.values-outro h3,
+  .northstar__eyebrow,.bgc__name,.vcard__claim,.how-outro h3{font-size:20px;line-height:28px}
+  .hero__text,.cta__sub,.northstar__sub,.statement-sub,.vcard__quote p{font-size:18px;line-height:28px}
+}
+@media (max-width:640px){
+  :root{--section-pad:72px;--section-pad-tight:48px;--block-gap:40px}
+  /* Hero 數據卡在 375 寬是兩欄、內容區僅 104px，40px 數字會斷行 */
+  .stat{padding:16px}
+  .stat__num{font-size:24px;line-height:32px}
+  .stat__num em{font-size:16px;line-height:24px}
+  .bgc{padding:32px 24px}
+  /* 單欄寬度已降到 592 以下，兩欄會擠成 10 字一行，改直排 */
+  .founder__media{height:380px}
+  .founder__body{padding:48px 24px 56px;gap:32px}
+  .founder__grid{grid-template-columns:minmax(0,1fr);gap:28px}
+  .founder__qmark{font-size:56px}
+  .hero__actions .btn{width:100%}
+  .cta{padding-block:72px}
+  .cta__actions .btn{flex:1 1 100%}
+  .cta__actions .btn--solid{order:-1}   /* 同 .job-cue：堆疊時主要動作排最上 */
+  .fnav__brand{flex-direction:column;align-items:flex-start}
+  .fnav__brand-links{align-items:flex-start}
+  .fnav__cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px}
+  .flink{white-space:normal}
+}
+
+/* ============================================================
+   Artifact 發佈環境適配 — 只補手機安全區偏移，未更動任何設計 token
+   ============================================================ */
+html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
+.site-header{
+  padding-block-start:env(safe-area-inset-top,0px);
+  height:calc(64px + env(safe-area-inset-top,0px));
+}
+@media (max-width:980px){
+  .nav{inset-block-start:calc(64px + env(safe-area-inset-top,0px))}
+}
+
+/* ============================================================
+   v2 檢視版（2026-09-23）— 以下全部是新增／覆寫，原本的規則未刪。
+   色值、字級皆取自既有 9 階與 11 色，未新增 token。
+   ============================================================ */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ---------- Header：看職缺 ---------- */
+/* 高 32、14/20：Header 只有 64 高，全尺寸 40 的按鈕會壓迫導覽字 */
+.header-cta{height:32px;padding-inline:14px;font-size:14px;line-height:20px;flex:0 0 auto}
+.site-header .header-cta:hover{box-shadow:0 8px 20px rgba(226,30,40,.35)}
+
+/* ---------- Hero ---------- */
+/* 主標改成兩個不斷字的片段，「做好」不會再被拆到兩行 */
+.hero__title{max-width:none}
+.hero__title .nobr{display:inline-block;white-space:nowrap}
+/* 等寬數字＋JS 以最終數字寬度鎖 min-width：跑數時單位不跳 */
+.stat__num b{display:inline-block;font-variant-numeric:tabular-nums}
+
+/* ---------- 進場動畫 ---------- */
+.reveal{transform:translateY(16px)}
+/* 深色宣言帶：文字不從全透明開始，快速捲動時不會出現一整片空的深色塊 */
+.section--statement .reveal:not(.is-in){opacity:.4}
+/* 大區塊（對照表、事業群）：容器本身不動，子元素依序出現。
+   用 animation + backwards 而不是 transition：動畫跑完就交還原本的 hover 位移，
+   不會覆蓋 .bgc / .cmp__row 自己的 transition。 */
+.reveal[data-stagger]{opacity:1;transform:none}
+.reveal[data-stagger]:not(.is-in) > *{opacity:0}
+.reveal[data-stagger].is-in > *{animation:v2-rise .5s var(--ease) var(--d,0ms) backwards}
+@keyframes v2-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ---------- About：VISION → MISSION → METHOD 跟著捲動變清晰 ----------
+   不用節點與軌道（和卡片語彙不搭），改成每張卡的文字依捲動進度 --lit 從淡轉實；
+   捲到的那張卡框線由灰轉紅。 */
+.pillars--flow{gap:0}
+.pillars--flow .pillar{transition:box-shadow .3s var(--ease),opacity .55s var(--ease),transform .55s var(--ease)}
+.pillars--flow .pillar__head,.pillars--flow .pillar__body{opacity:calc(.22 + var(--lit,1) * .78)}
+.pillars--flow .pillar.is-current{box-shadow:0 0 0 1px var(--red-300),0 12px 28px -18px rgba(38,38,38,.35)}
+.pillars--flow .pillar.is-current .pillar__ghost{color:var(--red)}
+.pillar-link{margin:0;padding-block:10px;padding-inline-start:24px;font-size:12px;font-weight:500;line-height:16px;color:var(--text-400);letter-spacing:var(--ls);
+  opacity:calc(.22 + var(--lit,1) * .78)}
+.pillar-link::before{content:"↓";color:var(--red)}
+
+/* 價值觀主標段：主標與三行說明各自依捲動 --lit 由淡轉實（同 VISION 三卡） */
+.lit-item{opacity:calc(.22 + var(--lit,1) * .78)}
+.lit-line{display:block}
+
+/* ---------- 北極星：產品 icon 4×4（一列一個事業群），由右往左淡入 ---------- */
+.ns-layout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center}
+.nsviz{display:grid;grid-template-columns:repeat(4,44px);gap:14px;justify-self:end}
+.nsviz__icon{display:block;width:44px;height:44px;border-radius:11px;box-shadow:0 6px 14px rgba(0,0,0,.35);will-change:transform,opacity}
+
+/* ---------- 工作文化：求職入口 ----------
+   接在置中的收尾句後面，沿用同一條中軸往下讀：不加外框、不左右分欄，
+   用一條淡出的紅色短線（同 .section-cue）把視線從標題帶到問句。 */
+.job-cue{margin-top:40px;display:flex;flex-direction:column;align-items:center;text-align:center}
+.job-cue__line{width:1px;height:40px;background:linear-gradient(180deg,rgba(226,30,40,0),var(--red))}
+/* 與上方 .how-outro h3 同一階（30/36 · 600），≤768 同步降 20/28 */
+.job-cue__q{margin:20px 0 0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900)}
+.job-cue__sub{margin:8px 0 0;font-size:16px;line-height:24px;color:var(--text-600)}
+.job-cue__actions{margin-top:24px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+/* 主要動作「看開放職缺」放右邊（視線由左往右讀，最後落在主要動作） */
+/* 深底版（北極星收尾）：問句白字、副標 --on-dark-2，次要鈕用深底專用的 .btn--ghost */
+#northstar .job-cue{margin-top:var(--block-gap)}
+.section--statement .job-cue__q{color:#fff}
+.section--statement .job-cue__sub{color:var(--on-dark-2)}
+
+@media (max-width:1200px){
+  .nsviz{grid-template-columns:repeat(4,36px);gap:12px}
+  .nsviz__icon{width:36px;height:36px;border-radius:9px}
+}
+@media (max-width:980px){
+  .header-cta{margin-inline-start:auto}
+  .site-header .nav-toggle{margin-inline-start:0}
+  .site-header .container{gap:16px}
+  .ns-layout{grid-template-columns:minmax(0,1fr)}
+  .nsviz{justify-self:start}
+}
+@media (max-width:768px){
+  .nsviz{grid-template-columns:repeat(4,32px);gap:10px}
+  .nsviz__icon{width:32px;height:32px;border-radius:8px}
+  .job-cue__q{font-size:20px;line-height:28px}
+  .job-cue__actions{width:100%}
+  .job-cue__actions .btn{flex:1 1 100%}
+  /* 單欄堆疊時主要動作排最上面 */
+  .job-cue__actions .btn--solid{order:-1}
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal[data-stagger] > *{opacity:1!important;animation:none!important}
+  .section--statement .reveal:not(.is-in){opacity:1}
+}
+/* 北極星主標：以逗號為斷點，不再斷成「一個共／同目標」 */
+.northstar__title .nobr{display:inline-block}
+@media (min-width:769px){ .northstar__title .nobr{white-space:nowrap} }
+
+/* ---------- 逐字柔和淡入：僅創辦人引言 ---------- */
+.is-typing-ready .tw-ch{opacity:0;filter:blur(4px);transition:opacity .8s var(--ease),filter .8s var(--ease)}
+.is-typing-ready .tw-ch.is-on{opacity:1;filter:none}
+.is-reset .tw-ch{transition:none!important}
+
+
+/* ============================================================
+   v2 工作文化：先看差異 → 換你判斷 → 你的適合度
+   沿用 11 色與 9 階字級，文字不小於 16px
+   ============================================================ */
+#work{padding-block-end:0}
+#work-compare{background:#fff}
+.wk-head{display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
+.wk-head .h2 .is-red{color:var(--red)}
+.wk-kicker{margin:0 0 16px;font-size:16px;line-height:24px;font-weight:600;letter-spacing:var(--ls-caps);color:var(--red)}
+.wk-head__lead{margin:0;max-width:420px;font-size:18px;line-height:28px;color:var(--text-600)}
+.wk-step{display:flex;flex-direction:column;gap:12px}
+.wk-step--first{margin-top:var(--block-gap)}
+.wk-step .wk-kicker{margin:0}
+.wk-step h3{margin:0;font-size:30px;line-height:36px;font-weight:600;color:var(--text-900)}
+#work-compare .container{border-top:1px solid var(--line-200);padding-top:var(--section-pad-tight)}
+#work-compare{padding-block-start:0}
+
+/* STEP 1 對照表 */
+.wk-table{margin-top:32px;display:grid;grid-template-columns:240px minmax(0,1fr) minmax(0,1fr);column-gap:16px}
+.wk-th{padding:16px 32px;font-size:16px;line-height:24px;font-weight:600;border-radius:16px 16px 0 0}
+.wk-th--old{background:var(--bg-soft);color:var(--text-600)}
+.wk-th--new{background:var(--ink);color:#fff}
+.wk-q{margin:0;padding:28px 0;font-size:20px;line-height:28px;font-weight:600;color:var(--text-900);border-bottom:1px solid var(--line-200)}
+.wk-cell{padding:28px 32px;display:flex;flex-direction:column;gap:8px}
+.wk-cell--old{background:var(--bg-soft);border-bottom:1px solid var(--line-200)}
+.wk-cell--new{background:var(--ink);border-bottom:1px solid var(--text-600)}
+.wk-q.is-last,.wk-cell.is-last{border-bottom:0}
+.wk-cell h4{margin:0;font-size:18px;line-height:24px;font-weight:600}
+.wk-cell p{margin:0;font-size:16px;line-height:24px}
+.wk-cell--old h4{color:var(--text-900)}
+.wk-cell--old p{color:var(--text-600)}
+.wk-cell--new h4{color:#fff}
+.wk-cell--new p{color:var(--on-dark-2)}
+.wk-tag{display:none;font-size:16px;line-height:24px;font-weight:600}
+.wk-cap{height:16px;border-radius:0 0 16px 16px}
+.wk-cap--old{background:var(--bg-soft)}
+.wk-cap--new{background:var(--ink)}
+.wk-why{display:grid;grid-template-rows:0fr;transition:grid-template-rows .4s var(--ease)}
+.wk-why>div{overflow:hidden}
+.wk-why.is-open{grid-template-rows:1fr}
+.wk-why__in{display:flex;flex-direction:column;gap:8px;padding-top:16px}
+.wk-cell .wk-why__k{font-weight:600;color:var(--red)}
+.wk-cell .wk-why__t{font-size:18px;line-height:28px;font-weight:600;color:#fff}
+.wk-toggle{
+  align-self:flex-start;margin-top:8px;display:inline-flex;align-items:center;gap:4px;
+  height:40px;padding-inline:16px;border-radius:100px;border:1px solid var(--line-200);
+  background:rgba(0,0,0,.1);color:#fff;font:inherit;font-size:16px;line-height:24px;font-weight:600;cursor:pointer;
+  transition:background-color .25s var(--ease),border-color .25s var(--ease)
+}
+.wk-toggle svg{width:20px;height:20px;transition:transform .35s var(--ease)}
+.wk-toggle:hover,.wk-toggle[aria-expanded="true"]{background:var(--red);border-color:var(--red)}
+.wk-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.wk-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.wk-outro{margin:var(--block-gap) 0 0;text-align:center;font-size:30px;line-height:36px;font-weight:600;color:var(--text-900)}
+
+/* STEP 2 情境 */
+.wk-nav{display:flex;gap:8px;margin-top:32px;overflow-x:auto;scrollbar-width:none}
+.wk-nav::-webkit-scrollbar{display:none}
+.wk-pill{
+  flex:0 0 auto;height:40px;display:inline-flex;align-items:center;gap:8px;padding-inline:16px;
+  border-radius:100px;border:1px solid var(--line-200);background:#fff;color:var(--text-600);
+  font:inherit;font-size:16px;line-height:24px;font-weight:600;cursor:pointer
+}
+.wk-pill .n{opacity:.7}
+.wk-pill.is-done{border-color:var(--ink);color:var(--ink)}
+.wk-pill[aria-current="step"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.wk-pill:disabled{background:var(--bg-soft);border-color:var(--bg-soft);color:var(--text-400);cursor:default}
+.wk-pill:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.wk-stage{margin-top:32px}
+.wk-quiz,.wk-result{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:32px;align-items:start}
+.wk-quiz__main{grid-column:span 7;display:flex;flex-direction:column;gap:20px;padding-top:8px}
+.wk-quiz__side{grid-column:span 5}
+.wk-quiz__main .wk-kicker{margin:0}
+.wk-quiz h4{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
+.wk-quiz__q{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--text-900)}
+.wk-opts{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.wk-opt{
+  display:flex;gap:16px;align-items:flex-start;width:100%;text-align:start;
+  border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;background:#fff;
+  font:inherit;color:var(--text-900);cursor:pointer;
+  transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease)
+}
+.wk-opt:hover{border-color:var(--red)}
+.wk-opt:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.wk-opt__key{
+  flex:0 0 auto;width:32px;height:32px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;
+  background:var(--bg-soft);color:var(--text-600);font-size:16px;line-height:24px;font-weight:600
+}
+.wk-opt__body{display:flex;flex-direction:column;gap:12px}
+.wk-opt__text{font-size:16px;line-height:24px}
+.wk-opt__tag{display:none;align-self:flex-start;font-size:16px;line-height:24px;font-weight:600;padding:2px 12px;border-radius:100px;background:var(--red);color:#fff}
+.wk-opt[aria-pressed="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
+.wk-opt[aria-pressed="true"] .wk-opt__key{background:var(--ink);color:#fff}
+.is-answered .wk-opt[aria-pressed="false"]{opacity:.8}
+.is-answered .wk-opt--ours{border-color:var(--red)}
+.is-answered .wk-opt--ours .wk-opt__tag{display:inline-block}
+
+.wk-panel{border-radius:16px;background:var(--ink);color:#fff;padding:40px;display:flex;flex-direction:column;gap:32px}
+.wk-panel p{margin:0;font-size:16px;line-height:24px}
+.wk-panel .sub{color:var(--on-dark-2)}
+.wk-panel .strong{font-weight:600}
+.wk-panel .verdict{font-size:24px;line-height:32px;font-weight:600}
+.wk-panel .wk-lead{font-size:18px;line-height:28px;font-weight:600}
+.wk-grp{display:flex;flex-direction:column;gap:4px}
+.wk-grp--16{gap:16px}
+.wk-rule{width:22px;height:3px;border-radius:100px;background:var(--red)}
+.wk-card{display:flex;gap:16px;align-items:center;padding:12px;border-radius:12px;background:#fff;color:var(--text-900);text-decoration:none}
+.wk-card img{width:96px;height:96px;object-fit:cover;border-radius:8px;flex:0 0 auto}
+.wk-card span{display:block;font-size:16px;line-height:24px}
+.wk-card .t{font-weight:600}
+.wk-card:hover .t{text-decoration:underline}
+.wk-panel__foot{display:flex;justify-content:flex-end}
+
+.wk-lock{position:relative;min-height:720px;border-radius:16px;background:var(--ink);overflow:hidden}
+.wk-lock__blur{position:absolute;inset:0;padding:40px;display:flex;flex-direction:column;gap:24px;color:#fff;filter:blur(7px);opacity:.7;user-select:none;pointer-events:none}
+.wk-lock__blur p{margin:0;font-size:16px;line-height:24px}
+.wk-lock__cover{position:absolute;inset:0;background:rgba(38,38,38,.35);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:12px;padding:40px;text-align:center;color:#fff}
+.wk-lock__icon{width:64px;height:64px;border-radius:100px;border:1px solid var(--line-200);background:rgba(0,0,0,.1);display:inline-flex;align-items:center;justify-content:center}
+.wk-lock__cover p{margin:0;font-size:16px;line-height:24px}
+.wk-lock__cover .t{font-size:24px;line-height:32px;font-weight:600}
+.wk-lock__cover .sub{max-width:320px;color:var(--on-dark-2)}
+.wk-lock__cover .hint{margin-top:8px;font-weight:600}
+.wk-lock__cover .hint--m{display:none}
+
+/* STEP 3 適合度 */
+.wk-fit{grid-column:span 5;border-radius:16px;background:var(--ink);color:#fff;padding:48px 40px;display:flex;flex-direction:column;gap:20px}
+.wk-fit p{margin:0}
+.wk-fit__lv{font-size:40px;line-height:48px;font-weight:600}
+.wk-segs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.wk-seg{height:6px;border-radius:100px;background:var(--text-600)}
+.wk-seg.is-on{background:var(--red)}
+.wk-fit__score{font-size:16px;line-height:24px;color:var(--on-dark-2)}
+.wk-fit__msg{font-size:18px;line-height:28px}
+.wk-fit__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
+.wk-restart{align-self:flex-start;min-height:40px;padding:0;border:0;background:none;color:var(--on-dark-2);font:inherit;font-size:16px;line-height:24px;text-decoration:underline;cursor:pointer}
+.wk-asks{grid-column:span 7;display:flex;flex-direction:column;gap:12px}
+.wk-asks__t{margin:0 0 4px;font-size:20px;line-height:28px;font-weight:600;color:var(--text-900)}
+.wk-ask{border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;display:flex;flex-direction:column;gap:8px;background:#fff}
+.wk-ask__head{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.wk-ask__head b{font-size:18px;line-height:24px;font-weight:600;color:var(--text-900)}
+.wk-ask__tag{flex:0 0 auto;font-size:16px;line-height:24px;font-weight:600;padding:2px 12px;border-radius:100px;background:var(--bg-soft);color:var(--text-600)}
+.wk-ask__tag.is-ours{background:var(--red);color:#fff}
+.wk-ask p{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--text-900)}
+
+@media (max-width:980px){
+  .wk-table{grid-template-columns:160px minmax(0,1fr) minmax(0,1fr)}
+  .wk-quiz__main,.wk-quiz__side,.wk-fit,.wk-asks{grid-column:1 / -1}
+  .wk-lock{min-height:480px}
+  .wk-lock__cover .hint--d{display:none}
+  .wk-lock__cover .hint--m{display:block}
+}
+@media (max-width:768px){
+  .wk-head{flex-direction:column;align-items:flex-start;gap:16px}
+  .wk-step h3{font-size:24px;line-height:32px}
+  .wk-table{grid-template-columns:1fr}
+  .wk-th,.wk-cap{display:none}
+  .wk-q{padding:32px 0 12px;border-bottom:0}
+  .wk-q:first-of-type{padding-top:0}
+  .wk-cell{padding:20px;border-bottom:0}
+  .wk-cell--old{border-radius:12px 12px 0 0}
+  .wk-cell--new{border-radius:0 0 12px 12px}
+  .wk-tag{display:block}
+  .wk-cell--old .wk-tag{color:var(--text-600)}
+  .wk-cell--new .wk-tag{color:var(--on-dark-2)}
+  .wk-outro{font-size:20px;line-height:28px}
+  .wk-nav{margin-inline:-24px;padding-inline:24px}
+  .wk-quiz h4{font-size:20px;line-height:28px}
+  .wk-opt{padding:16px}
+  .wk-panel,.wk-fit{padding:24px}
+  .wk-lock{min-height:420px}
+  .wk-lock__blur,.wk-lock__cover{padding:24px}
+  .wk-fit__lv{font-size:30px;line-height:36px}
+  .wk-card img{width:72px;height:72px}
+  .wk-ask{padding:16px}
+  .wk-ask__head{flex-direction:column;align-items:flex-start;gap:8px}
+  .wk-panel__foot .btn,.wk-fit__cta .btn{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){
+  .wk-why,.wk-toggle,.wk-toggle svg,.wk-opt{transition:none}
+}
+</style>
+
+<!-- ========================= Header ========================= -->
+</head>
+<body id="top">
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <a class="brand" href="#top" aria-label="CMoney 首頁">
+      <!-- CMoney wordmark — vector data from Figma node 6457:11007 -->
+      <svg class="brand__logo" viewBox="0 0 86.21 20" role="img" aria-label="CMoney" focusable="false">
+        <g transform="translate(0,0)"><path d="M 10.831383694555365 9.326328387092511 L 15.011765480041504 10.582380009675784 C 14.732335324072679 11.747133480118158 14.289662895336917 12.718223324105313 13.686536395913278 13.501181091948737 C 13.083409896489638 14.281372227133982 12.330897967534355 14.870665379096302 11.434508149165557 15.269060877644321 C 10.543651595987292 15.66745637619234 9.40655979470099 15.863886833190916 8.023242177833197 15.863886833190916 C 6.346661242020247 15.863886833190916 4.9744087703373125 15.623190451546666 3.9064875991385355 15.141795907291574 C 2.846866325725558 14.654868097720124 1.9311120580416175 13.799977155185083 1.1592208383832652 12.579891031579145 C 0.3873296187249129 11.359804907973206 0 9.799421977985459 0 7.895976862230513 C 0 5.358972274097219 0.6778246560317012 3.4084946010384205 2.0307092483898366 2.0500767126001183 C 3.391893804495496 0.6833588602255556 5.314707086100624 0 7.799145399348669 0 C 9.744090026711103 0 11.26850254188956 0.3900954686500342 12.377923333940785 1.1702866038352795 C 13.492877391182542 1.9504777390205248 14.322862486480116 3.151197434019216 14.8623563702509 4.766912489476723 L 10.651545649882001 5.696502118012221 C 10.504913990409422 5.22894073704802 10.34998713292389 4.888644392398291 10.189522293984545 4.672846847175212 C 9.923925317482484 4.310417639145234 9.597451540200074 4.030987592255349 9.210122614073265 3.837323124788127 C 8.822793687946456 3.6408920246627265 8.391200619147105 3.5440596672508797 7.915339351029178 3.5440596672508797 C 6.833584950892343 3.5440596672508797 6.0063664222283135 3.9756548896204897 5.4309063147190635 4.841611769132712 C 4.9965445685109975 5.4834711394855935 4.777976009145107 6.490526416488358 4.777976009145107 7.862777534179276 C 4.777976009145107 9.564258268002034 5.038041748779652 10.731778832834665 5.5581691714027075 11.365338305213013 C 6.078296594025763 11.993364512275004 6.808689281200116 12.305994728228127 7.746578654459638 12.305994728228127 C 8.68446802771916 12.305994728228127 9.34569991310288 12.05146369915416 9.810494617858879 11.542402795336422 C 10.280822620786273 11.033341891518683 10.62111941942993 10.294650740919053 10.831383694555365 9.326328387092511 Z"></path></g>
+        <g transform="translate(15.86,0.17)"><path d="M 0 0 L 6.205560598833415 0 L 8.651256608747723 9.398259732741607 L 11.033325413963155 0 L 17.241655349731445 0 L 17.241655349731445 15.520823478698729 L 13.396042633036094 15.520823478698729 L 13.362844362219217 3.7072911766547825 L 10.391480920702989 15.520823478698729 L 6.8806202491112805 15.520823478698729 L 3.87881098751223 3.7072911766547825 L 3.8843496613819837 15.520823478698729 L 0 15.520823478698729 L 0 0 Z"></path></g>
+        <g transform="translate(33.79,4.14)"><path d="M 4.3270047361339765 5.881867080576631 C 4.3270047361339765 6.880622367983864 4.528967071651302 7.622080758829072 4.930129199676669 8.100708658129438 C 5.33959122561076 8.579336557429803 5.85141806543026 8.820033394622332 6.468377736967638 8.820033394622332 C 7.0853374085050165 8.820033394622332 7.599936982420331 8.584869031063317 7.9955658121923525 8.11177439693715 C 8.39949457285396 7.638679762810984 8.598690275735045 6.883388604800619 8.598690275735045 5.8403671300380635 C 8.598690275735045 4.869278168501832 8.396727940217719 4.1471861398045995 7.9955658121923525 3.674091505678433 C 7.5916370515307445 3.195463606378067 7.093652873380867 2.954766241491748 6.501592895569662 2.954766241491748 C 5.873566693487318 2.954766241491748 5.3534379109456145 3.1982304368503387 4.943975885011524 3.6823916013249045 C 4.534513859077433 4.161019500625271 4.329774073200947 4.894177729862284 4.329774073200947 5.879099854334016 L 4.3270047361339765 5.881867080576631 Z M 0 5.8929328193843435 C 0 4.1803855989263505 0.5782179757588328 2.7721684247814244 1.737438171693344 1.668280967140945 C 2.8966583676278552 0.5560936117391657 4.462582729769656 0 6.4324270137019 0 C 8.687234657052192 0 10.388707330053373 0.6501593835474613 11.542394260715401 1.953244585344312 C 12.469217051358727 3.0017993252810675 12.93125057220459 4.293817732882622 12.93125057220459 5.829300335842768 C 12.93125057220459 7.555680653274536 12.35579045617256 8.969431950096075 11.202103525510532 10.076086040323654 C 10.056716558718954 11.174440232789934 8.471431111023197 11.725000381469727 6.443487475768156 11.725000381469727 C 4.634108016661369 11.725000381469727 3.170562056520349 11.268505806713057 2.055607982765702 10.352749562880549 C 0.6833568759554207 9.218429146781968 0 7.732745798466176 0 5.89570004562696 L 0 5.8929328193843435 Z"></path></g>
+        <g transform="translate(47.42,4.14)"><path d="M 0 0.17153135274363415 L 3.9645760429755454 0.17153135274363415 L 3.9645760429755454 2.1552088354412673 C 4.564935896341313 1.4026840443285833 5.220633809232878 0.8078573440475774 5.837593457798008 0.48969429892431265 C 6.4517864738299116 0.16323135601942607 7.201543230717207 0 8.084099866319022 0 C 9.276519609489153 0 10.208871607023973 0.3568960003800864 10.881163972215365 1.073454501810685 C 11.558989602473211 1.7817131054596613 11.899300575256346 2.882833933209086 11.899300575256346 4.371283719871211 L 11.899300575256346 11.550702095031737 L 7.588878249617811 11.550702095031737 L 7.588878249617811 5.342373013593731 C 7.588878249617811 4.634114409944754 7.436713311876449 4.127819721801681 7.173882973863422 3.837323035598018 C 6.913819268383622 3.538526418631871 6.545862204026641 3.391894594328792 6.072767579112762 3.391894594328792 C 5.549873535619935 3.391894594328792 5.126568204160576 3.5910927677240965 4.800105268412036 3.9867215914375564 C 4.476408965196723 4.3851170807257525 4.313174776401392 5.096141921198258 4.313174776401392 6.125330235545236 L 4.313174776401392 11.550702095031737 L 0 11.550702095031737 L 0 0.17153135274363415 Z"></path></g>
+        <g transform="translate(60.35,4.13)"><path d="M 8.468666155397587 4.872044801088932 C 8.38566709746292 4.042054233418248 8.164346406924983 3.4472276994979576 7.8046838500254765 3.087565133366339 C 7.453321190674222 2.7279025672347204 6.985760493341226 2.5480710533028774 6.4047671372698485 2.5480710533028774 C 5.735241408760345 2.5480710533028774 5.198514898525254 2.81920144260902 4.797352787922768 3.36146195737441 C 4.5428223490866 3.698991462809228 4.379588177793168 4.202519055393495 4.310422298929351 4.872044801088932 L 8.471435492344282 4.872044801088932 L 8.468666155397587 4.872044801088932 Z M 12.762489318847656 6.899987872629428 L 4.313191635876046 6.899987872629428 C 4.387890788017246 7.588880046434565 4.55665351632492 8.136674485991394 4.8471501943606095 8.474203991426213 C 5.253845569995263 8.96113178848788 5.7877946959535445 9.201828295871787 6.443487195920906 9.201828295871787 C 6.85848246910381 9.201828295871787 7.251350058038407 9.096696785255778 7.624845810499194 8.883665878163907 C 7.851709891193663 8.750867390304874 8.100702332244094 8.529535983550973 8.363532668628514 8.189239845529055 L 12.502424938871668 8.535069248725174 C 11.866098866516893 9.661089833024176 11.119107361595319 10.502147326813605 10.219950936365693 10.99737502163657 C 9.320794511136068 11.484302818698236 8.031545209798903 11.725000381469727 6.349431056938616 11.725000381469727 C 4.8914143357662825 11.725000381469727 3.7432573561943903 11.517502739552056 2.9049669122803303 11.102507455716713 C 2.0694431008823537 10.67921227412007 1.372257115690459 10.015219463790213 0.8189300847799199 9.104996485131906 C 0.2739029514176322 8.189240241299398 0 7.093652285649876 0 5.862499663041072 C 0 4.108452887814856 0.5394891190861184 2.7223693680222443 1.6378432833589454 1.637848338491465 C 2.7444973451800236 0.5533273089606856 4.263385390567424 0 6.208329962264285 0 C 7.785311947589944 0 9.04689696857966 0.243463931511695 9.959886556389705 0.727625095986261 C 10.87287614419975 1.214552893047927 11.56729549687556 1.9172780978651163 12.045923383890115 2.8413342394589245 C 12.521784638388585 3.7626237484656326 12.762489318847656 4.9633438743484035 12.762489318847656 6.443493693643101 L 12.762489318847656 6.897221701774395 L 12.762489318847656 6.899987872629428 Z"></path></g>
+        <g transform="translate(72.94,4.31)"><path d="M 0 0 L 4.556640055023288 0 L 6.877851033379714 7.431181771235411 L 9.027531980759255 0 L 13.277079582214357 0 L 8.817265004413105 11.929731714774695 C 8.30820411994254 13.288149552627319 7.788075353044527 14.206671626899675 7.259648040702746 14.68253288811797 C 6.509889893252481 15.354825258637263 5.3700375452507405 15.692355155944824 3.837321659713843 15.692355155944824 C 3.2148287416264347 15.692355155944824 2.254811005543012 15.609355090921817 0.9544925183075827 15.440590340153205 L 0.6141849071363715 12.455390712942656 C 1.2366778252237793 12.651821805753222 1.9283393275293252 12.748655478793625 2.6919306377447434 12.748655478793625 C 3.2009915222153094 12.748655478793625 3.6104541954514175 12.632456796044204 3.9203173382186063 12.402826079590945 C 4.238480378644887 12.170428730582532 4.506853449152592 11.758199177120776 4.725417635217615 11.163372584107478 L 0 0.0027666985168756874 L 0 0 Z"></path></g>
+      </svg>
+    </a>
+
+    <nav class="nav" id="primaryNav" aria-label="主要導覽">
+      <a class="nav__link" href="#aboutus">關於我們</a>
+      <a class="nav__link" href="#values">價值觀</a>
+      <a class="nav__link" href="#work">工作文化</a>
+      <a class="nav__link" href="#business">事業群</a>
+      <a class="nav__link" href="#founder">創辦人的話</a>
+    </nav>
+    <!-- v2：Header 常駐求職入口 -->
+    <a class="btn btn--solid header-cta" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看職缺</a>
+
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="開啟選單"><i></i></button>
+
+  </div>
+</header>
+
+<main>
+
+<!-- ========================= Hero ========================= -->
+<section class="hero" id="hero">
+  <div class="hero__bg">
+    <img src="assets/hero.jpg" alt="CMoney 辦公室中，同事圍著桌子討論，牆面上是 CMoney 立體字標誌" fetchpriority="high">
+  </div>
+
+  <div class="container">
+    <p class="hero__eyebrow eyebrow"><i aria-hidden="true"></i>Build Better Decisions</p>
+    <h1 class="hero__title reveal">
+      我們的使命，
+      <span class="is-red"><span class="nobr">是幫助每個人</span><span class="nobr">做好人生的投資。</span></span>
+    </h1>
+    <p class="hero__text">CMoney 用資料、產品與社群，把複雜資訊變成可理解、可比較、可行動的選擇，幫助每個人在重要的人生面向持續做得更好。</p>
+    <div class="hero__actions">
+      <a class="btn btn--solid" href="#aboutus">從使命開始認識 <span class="btn__icon btn__icon--down" aria-hidden="true">↓</span></a>
+      <a class="btn btn--ghost" href="#work">看我們如何工作 <span class="btn__icon" aria-hidden="true">→</span></a>
+    </div>
+  </div>
+
+  <div class="hero__stats">
+    <div class="container">
+      <div class="stats">
+        <div class="stat">
+          <p class="stat__num"><b data-count="1300" data-format="comma">1,300</b><em>萬+</em></p>
+          <p class="stat__label">累計使用者</p>
+          <p class="stat__desc">台灣主流金融理財高頻用戶首選</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num"><b data-count="90">90</b><em>%</em></p>
+          <p class="stat__label">台灣金融機構合作</p>
+          <p class="stat__desc">深受信賴的決策數據與技術夥伴</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num"><b data-count="200">200</b><em>+</em></p>
+          <p class="stat__label">數位產品與服務</p>
+          <p class="stat__desc">橫跨投資、社群、記帳等生活層面</p>
+        </div>
+        <div class="stat">
+          <p class="stat__num"><b data-count="5">5</b><em>大</em></p>
+          <p class="stat__label">人生重要面向</p>
+          <p class="stat__desc">財富、健康、工作、家庭與人際關係</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 我們是誰 ========================= -->
+<section class="section" id="aboutus">
+  <div class="container">
+    <div class="section-cue">
+      <span class="section-cue__line" aria-hidden="true"></span>
+      <span class="section-cue__label">接下來：我們是誰</span>
+    </div>
+    <div class="split">
+      <div class="split__intro reveal">
+        <h2 class="h2"><span class="nobr">先問<span class="is-red">什麼問題值得解決</span>，</span><span class="nobr">再決定做什麼產品。</span></h2>
+        <div class="split__aside">
+          <p>產品會改變，技術會改變，市場也一定會改變。真正值得長期存在的，是我們選擇替誰解決什麼問題。</p>
+          <p>企業存在的理由不是維持既有業務，而是持續為使用者創造比昨天更好的答案。</p>
+        </div>
+      </div>
+
+      <div class="pillars pillars--flow" id="pillarsFlow">
+        <article class="pillar reveal">
+          <div class="pillar__head">
+            <span class="pillar__ghost">VISION<span class="pillar__label">我們希望看見的世界</span></span>
+            <h3 class="pillar__title">每個人，都能擁有自己的美好人生。</h3>
+          </div>
+          <p class="pillar__body">好的工具改變行動，好的社群促成互助；當好的改變被反覆強化，就會形成正向循環。</p>
+        </article>
+        <p class="pillar-link" aria-hidden="true"></p>
+        <article class="pillar reveal">
+          <div class="pillar__head">
+            <span class="pillar__ghost">MISSION<span class="pillar__label">我們選擇承擔的問題</span></span>
+            <h3 class="pillar__title">創造更好的工具與社群，幫助每個人做好人生投資。</h3>
+          </div>
+          <p class="pillar__body">在人生重要的選擇裡，幫助人取得更好的資訊，形成更好的判斷，做出更好的決定。</p>
+        </article>
+        <p class="pillar-link" aria-hidden="true"></p>
+        <article class="pillar reveal">
+          <div class="pillar__head">
+            <span class="pillar__ghost">METHOD<span class="pillar__label">我們相信的改變方式</span></span>
+            <h3 class="pillar__title">把混亂的資訊，變成更好的決定。</h3>
+          </div>
+          <p class="pillar__body">以資料看見真實，以產品降低行動成本，以社群讓經驗流動，再從結果持續學習。</p>
+        </article>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========================= 價值觀 ========================= -->
+<section class="section" id="values">
+  <div class="container">
+    <div class="values-head reveal">
+      <h2 class="h2 lit-item">價值觀<span class="is-red">是每天做選擇的方式。</span></h2>
+      <p><span class="lit-item lit-line">當沒有標準答案或想法衝突時，我們不迴避摩擦，而是用嚴謹的邏輯與坦誠的對話找出突破口。</span>
+         <span class="lit-item lit-line">正是這些日常的勇敢選擇，塑造了我們每一個人，也築起了 CMoney 的企業文化。</span>
+         <span class="lit-item lit-line">如果您也認同這些理念，請繼續閱讀。</span></p>
+    </div>
+
+  </div>
+</section>
+
+<section class="section" id="values-stack">
+  <div class="container">
+    <!-- 三張卡片依序 sticky 黏在畫面上緣，後一張蓋住前一張；被蓋住的卡片縮小＋淡入薄膜做景深（JS：updateStack） -->
+    <div class="vstack" id="valuesStack">
+      <article class="vstack__item" style="--i:0">
+        <div class="vcard">
+          <div class="vcard__flag">
+            <span class="vcard__num" aria-hidden="true">01</span>
+            <h3 class="vcard__name">貢獻價值</h3>
+          </div>
+          <div class="vcard__sheet">
+            <p class="vcard__claim">不是把事情做完，而是真的讓事情變得更好。</p>
+            <div class="vcard__narrative">
+            <p>完成專案、達成KPI、推出功能、開完會，都不是目的。真正重要的是：使用者的問題有沒有因此被解決？產品有沒有因此變得更好？團隊是不是能做到以前做不到的事情？公司是否因此更接近自己的使命？</p>
+            <p>所以在CMoney，我們不把「很努力」本身當成成果。努力值得尊重，但只有當努力最終轉化成價值，它才有意義。</p>
+            </div>
+            <blockquote class="vcard__quote"><p>我們尊重經驗，但更尊重事實。</p></blockquote>
+            <div class="vcard__sub">
+              <h4>從使用者與問題出發，並對結果負責，而不是只對工作負責</h4>
+              <p>如果一件事情沒有產生預期效果，我們不希望回答：「可是我的部分已經做完了。」真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生。</p>
+            </div>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/cmoney-engineering-culture-teamwork" target="_blank" rel="noopener">延伸閱讀〈CMoney 工程文化：為什麼我們更看重一起把事情做完〉<span aria-hidden="true">→</span><span class="sr-only">（另開新分頁）</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="vstack__item" style="--i:1">
+        <div class="vcard">
+          <div class="vcard__flag">
+            <span class="vcard__num" aria-hidden="true">02</span>
+            <h3 class="vcard__name">自我超越</h3>
+          </div>
+          <div class="vcard__sheet">
+            <p class="vcard__claim">今天的自己，不應該成為明天的上限。</p>
+            <div class="vcard__narrative">
+            <p>在CMoney，成長不是額外的要求，而是工作的一部分。自我超越，不是要求每個人變成別人，而是不讓今天的能力，限制明天能解決的問題。</p>
+            <p>不知道沒有關係；重要的是能否快速學習、承認差距，讓自己具備解決下一個問題的能力。</p>
+            </div>
+            <blockquote class="vcard__quote"><p>Truth-seeking 要走在 Ego-protection 前面。</p></blockquote>
+            <div class="vcard__sub">
+              <h4>把問題當成升級自己的機會</h4>
+              <p>有些問題一直出現，不一定只是環境不好；它也可能在提醒我們，目前的能力、認知或工作方法，已經不足以解決下一個階段的問題。</p>
+            </div>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/learning-culture-at-cmoney" target="_blank" rel="noopener">延伸閱讀〈自我超越：學習成長的關鍵在於主動追求〉<span aria-hidden="true">→</span><span class="sr-only">（另開新分頁）</span></a>
+          </div>
+        </div>
+      </article>
+      <article class="vstack__item" style="--i:2">
+        <div class="vcard">
+          <div class="vcard__flag">
+            <span class="vcard__num" aria-hidden="true">03</span>
+            <h3 class="vcard__name">身心靈一致</h3>
+          </div>
+          <div class="vcard__sheet">
+            <p class="vcard__claim">讓你的力量朝向同一個方向。</p>
+            <div class="vcard__narrative">
+            <p>身，是行動；心，是思考與判斷；靈，是我們真實的感受。當三者與自己真正認同的目標一致，一個人的力量便不需要消耗在內部互相拉扯。</p>
+            <p>重要的事情，本來就會產生衝突。你可能理性知道應該停止一個專案，情感上卻捨不得；你可能認同公司的目標，卻不認同主管提出的方法；也可能嘴上說某件事最重要，每天真正花時間的卻是另一件事。</p>
+            </div>
+            <blockquote class="vcard__quote"><p>當思考、感受與行動彼此衝突，通常代表有一個問題還沒有真正被解決。</p></blockquote>
+            <div class="vcard__sub">
+              <h4>有衝突，就把它拿到桌面上，想清楚，說清楚，然後做到</h4>
+              <p>如果不同意，就把原因說清楚；如果不知道，就承認不知道；如果看到風險，就提出來。我們鼓勵彼此說服，也願意被說服，因為討論的目的不是證明誰比較厲害，而是一起更接近事實。</p>
+            </div>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/unity-of-body-and-mind" target="_blank" rel="noopener">延伸閱讀〈身心靈一致：CMoney 價值觀的底層根基，從五種失衡檢視你的內在整合力〉<span aria-hidden="true">→</span><span class="sr-only">（另開新分頁）</span></a>
+          </div>
+        </div>
+      </article>
+      <div class="vstack__hold" aria-hidden="true"></div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section--statement" id="values-outro">
+  <div class="container">
+    <div class="values-outro reveal">
+      <h3>找到值得做的事，<br>不斷讓自己更有能力做到。</h3>
+      <p>這是我們希望一起工作的人長成的樣子，也是我們希望 CMoney 成為的公司。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 我們怎麼工作 ========================= -->
+<!-- ========================= v2 工作文化：先看差異 → 換你判斷 → 你的適合度 ========================= -->
+<section class="section" id="work">
+  <div class="container">
+    <div class="wk-head reveal">
+      <div>
+        <p class="wk-kicker">CMoney 的運作方式</p>
+        <h2 class="h2">把公司形塑成一個<br><span class="is-red">事業實驗場。</span></h2>
+      </div>
+      <p class="wk-head__lead">多數公司先畫組織圖，再把人放進職缺；CMoney 先找值得解的問題，再組成能把問題變成結果的人。</p>
+    </div>
+
+    <div class="wk-step wk-step--first reveal">
+      <p class="wk-kicker">STEP 1　先看差異</p>
+      <h3>同樣四件事，兩種公司的預設不一樣</h3>
+    </div>
+    <div class="wk-table reveal" id="wkTable">
+      <div aria-hidden="true"></div>
+      <div class="wk-th wk-th--old">在多數公司</div>
+      <div class="wk-th wk-th--new">在 CMoney</div>
+      <p class="wk-q">工作怎麼定義？</p>
+      <div class="wk-cell wk-cell--old">
+        <span class="wk-tag">在多數公司</span>
+        <h4>職務先被定義</h4>
+        <p>先有職缺與職責範圍，在既定範圍內把事情做好。</p>
+      </div>
+      <div class="wk-cell wk-cell--new">
+        <span class="wk-tag">在 CMoney</span>
+        <h4>問題先被定義</h4>
+        <p>先找值得解的問題，角色跟著問題與能力改變。</p>
+        <div class="wk-why" id="wkWhy1"><div><div class="wk-why__in">
+          <p class="wk-why__k">為什麼會不同</p>
+          <p class="wk-why__t">新事業一開始，連「真正的問題」都還沒有被完全確認。</p>
+          <p>當商業模式已經穩定，工作可以被切成明確職能：產品、行銷、業務各自把分內工作做好。但新事業看起來像行銷問題，實際可能是產品價值不夠；看起來缺業務，可能其實是客群選錯了。</p>
+        </div></div></div>
+        <button class="wk-toggle" type="button" aria-expanded="false" aria-controls="wkWhy1"><span>為什麼不同？</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      </div>
+      <p class="wk-q">資源怎麼取得？</p>
+      <div class="wk-cell wk-cell--old">
+        <span class="wk-tag">在多數公司</span>
+        <h4>計畫爭取資源</h4>
+        <p>先寫好計畫、說服主管，拿到預算再開始執行。</p>
+      </div>
+      <div class="wk-cell wk-cell--new">
+        <span class="wk-tag">在 CMoney</span>
+        <h4>實驗換取資源</h4>
+        <p>先用低成本取得市場證據，再依證據增加投入。</p>
+        <div class="wk-why" id="wkWhy2"><div><div class="wk-why__in">
+          <p class="wk-why__k">為什麼會不同</p>
+          <p class="wk-why__t">新事業最大的風險，不是資源不夠，而是方向還沒確認就投入太多。</p>
+          <p>簡報完整、預測漂亮，不代表客戶真的需要。因此，我們傾向先用最小成本取得真實答案，再依據市場證據增加投入。</p>
+        </div></div></div>
+        <button class="wk-toggle" type="button" aria-expanded="false" aria-controls="wkWhy2"><span>為什麼不同？</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      </div>
+      <p class="wk-q">成果怎麼衡量？</p>
+      <div class="wk-cell wk-cell--old">
+        <span class="wk-tag">在多數公司</span>
+        <h4>績效看完成度</h4>
+        <p>看是否準時交付了承諾的項目。</p>
+      </div>
+      <div class="wk-cell wk-cell--new">
+        <span class="wk-tag">在 CMoney</span>
+        <h4>績效看問題是否前進</h4>
+        <p>看未知有沒有變少、價值有沒有變大；新證據出現時，原定工作可以停。</p>
+        <div class="wk-why" id="wkWhy3"><div><div class="wk-why__in">
+          <p class="wk-why__k">為什麼會不同</p>
+          <p class="wk-why__t">最大的浪費，往往不是事情沒做完，而是很努力地做完了錯的事情。</p>
+          <p>CMoney 重視的不只是執行力，也包括你能不能找出真正的 Top 1 Thing：目前哪一個問題，最限制產品或事業的成長？</p>
+        </div></div></div>
+        <button class="wk-toggle" type="button" aria-expanded="false" aria-controls="wkWhy3"><span>為什麼不同？</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      </div>
+      <p class="wk-q is-last">誰來做決定？</p>
+      <div class="wk-cell wk-cell--old is-last">
+        <span class="wk-tag">在多數公司</span>
+        <h4>權責跟著職級</h4>
+        <p>職位越高，決定越多。</p>
+      </div>
+      <div class="wk-cell wk-cell--new is-last">
+        <span class="wk-tag">在 CMoney</span>
+        <h4>權責跟著承擔</h4>
+        <p>誰最接近事實，誰應該做決定；權力增加，責任也一起增加。</p>
+        <div class="wk-why" id="wkWhy4"><div><div class="wk-why__in">
+          <p class="wk-why__k">為什麼會不同</p>
+          <p class="wk-why__t">離客戶最近、真正承擔題目的人，必須有足以讓結果發生的決策權。</p>
+          <p>新事業的資訊變化很快。如果每個決定都要逐層請示，最接近事實的人反而無法即時行動。因此，決策權不應只跟著年資或職稱，而應跟著對問題的理解與承擔。</p>
+        </div></div></div>
+        <button class="wk-toggle" type="button" aria-expanded="false" aria-controls="wkWhy4"><span>為什麼不同？</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+      </div>
+      <div aria-hidden="true"></div>
+      <div class="wk-cap wk-cap--old" aria-hidden="true"></div>
+      <div class="wk-cap wk-cap--new" aria-hidden="true"></div>
+    </div>
+    <p class="wk-outro reveal">自由度越高，<br>越必須說清楚任務、權責、成功標準與失敗代價</p>
+  </div>
+</section>
+
+<section class="section" id="work-compare">
+  <div class="container">
+    <div class="wk-step reveal">
+      <p class="wk-kicker">STEP 2　換你判斷</p>
+      <h3>看懂差異之後，試試真實情境</h3>
+    </div>
+    <nav class="wk-nav" id="wkNav" aria-label="情境進度"></nav>
+    <div class="wk-stage" id="wkStage"></div>
+    <script type="application/json" id="wkData">[{"moment": "工作怎麼定義？", "title": "當真正的問題，不在你的職權內", "q": "到職第六週，你負責的新事業線成長停滯。你判斷卡住的不是流量或素材，而是對這群客戶的「價值主張」一開始就說錯了。但產品定位不在你的職權範圍，OKR 只寫著「達成成長數字」。你會？", "a": "先用增長實驗把轉換極限跑出來，拿到「行銷做對了、用戶依然不買單」的硬數據，再去跟產品團隊談定位調整。", "b": "整理目前的證據與假設，和相關負責人討論最小驗證方式，一起判斷哪些投入應先暫停。", "va": "歸因", "vb": "真問題", "aNote": "先排除自己這端的變因，用完整數據推動轉向。", "bNote": "證據足以支持假設時就提出，讓驗證與資源調整同時進行。", "lead": "CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。", "ask": "這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？", "article": "運用 Problem Solving 框架解題", "url": "https://blogs.cmoney.tw/problem-solving-framework", "imgFile": "field-problem-solving.jpg", "alt": "CMoney 同事在辦公室圍著螢幕一起討論問題"}, {"moment": "資源怎麼取得？", "title": "當市場訊號還很微弱", "q": "社群與客服陸續收到少數用戶詢問「希望提供美股個股籌碼分析」。這可能是機會，但訊號微弱、充滿未知。作為專案負責人，你會怎麼驗證？", "a": "投入資源建好數據串接與完整圖表後正式推出，用真實的留存與使用頻率來檢驗。", "b": "拆解各階段要驗證的假設，先用輕量測試看反應；有初步興趣再驗證使用與付費意願，依結果爭取研發資源。", "va": "完整度", "vb": "證據", "aNote": "把功能做到體驗順暢再推出，用完整的產品換取真實數據。", "bNote": "每個階段驗證一件事，用最低代價取得下一步的決策依據。", "lead": "CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。", "ask": "這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？", "article": "我們如何在兩個極端的害怕中做出決定", "url": "https://blogs.cmoney.tw/product-decision", "imgFile": "field-live-feature-decision.jpg", "alt": "CMoney 同事在雙螢幕前一邊看直播畫面、一邊追即時數據"}, {"moment": "成果怎麼衡量？", "title": "當目標提前達成", "q": "專案以「提升留存率」為目標列出 5 個假設，做到第 3 個時留存已提升 25%，超過 OKR 的 10%。剩下 2 個假設，你會？", "a": "按原計畫把剩下 2 個做完，維持專案完整度與排程貫徹力，發揮既有規劃的邊際效益。", "b": "先暫停照原計畫推進，重新比較剩下 2 個假設與其他產品瓶頸的預期價值，再決定續做、調整或轉移資源。", "va": "承諾", "vb": "目標", "aNote": "把答應的事按質按量交完，用計畫完整度對團隊負責。", "bNote": "依當下的目標與瓶頸重新排序，而不是照原清單做到底。", "lead": "CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。", "ask": "這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？", "article": "流程都做對了，為什麼問題還是沒解決？", "url": "https://blogs.cmoney.tw/cmoney-goal-misalignment", "imgFile": "field-quick-decision.jpg", "alt": "CMoney 同事在書牆前的沙發上圍著筆電一起討論"}, {"moment": "誰來做決定？", "title": "當權責還沒釐清", "q": "線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間。沒有既定 SOP，跨部門權責未明。你會？", "a": "立即通報跨部門主管並成立應對小組，確定分工與處理程序，補償方案經財務與法務確認後一致對外。", "b": "不等權責完全釐清。先接住用戶、確認影響並採取可逆的止損，同步找到決策負責人；超出授權的補償立即升級。", "va": "流程", "vb": "現場", "aNote": "先把權責與程序定下來，讓每一步都有依據。", "bNote": "授權範圍內的事先處理，超出範圍的決策同步升級。", "lead": "CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。", "ask": "這個職位可以獨立決定什麼？哪些需要共同決定？主管會在哪些節點介入與校正？", "article": "如何鍛鍊「決策正確」的能力？", "url": "https://blogs.cmoney.tw/make-proper-decision", "imgFile": "field-decision-quality.jpg", "alt": "CMoney 同事站在開放式辦公區前"}]</script>
+  </div>
+</section>
+
+<!-- ========================= 我們創造什麼 ========================= -->
+<section class="section section--statement" id="business">
+  <div class="container">
+    <h2 class="statement reveal">外界看 CMoney，會看到豐富的 App 產品線；<br>在 CMoney 我們打造的是一套<span class="is-red">決策基礎建設。</span></h2>
+    <p class="statement-sub lead reveal">不同事業面對不同人群、場景與市場，<br>我們做的是同一件事：縮短人與好決定之間的距離。</p>
+
+    <!-- 領導團隊：依回饋移除，預計改放事業群詳細頁（人物照素材保留於 assets/leader-*.png） -->
+
+  </div>
+</section>
+
+<section class="section" id="groups">
+  <div class="container">
+    <!-- 事業群 -->
+    <!-- 板塊式卡片：靜止＝產品手機稿，hover＝app 產品清單滑上，整張卡導向詳細頁對應區塊 -->
+    <div class="groups reveal" data-stagger>
+
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#finance" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow bgc__eyebrow--red">Finance</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">金融事業群</h3>
+              <p class="bgc__desc">陪伴每個人成為更成熟的投資人。從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
+            </div>
+          </div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.webp" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li><img src="assets/icon-finance-chipk.png" alt="" loading="lazy"><span class="p"><b>籌碼K線</b><span>超過百萬投資高手愛用的籌碼K線App</span></span></li>
+            <li><img src="assets/icon-finance-bole.png" alt="" loading="lazy"><span class="p"><b>股市爆料同學會</b><span>最大台股投資討論區</span></span></li>
+            <li data-nocopy><img src="assets/icon-finance-licaibao.png" alt="" loading="lazy"><span class="p"><b>理財寶</b></span></li>
+            <li data-nocopy><img src="assets/icon-finance-moneymag.png" alt="" loading="lazy"><span class="p"><b>Money錢</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#finance">了解金融事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#partnership" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow bgc__eyebrow--red">Partnership</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">合作夥伴事業群</h3>
+              <p class="bgc__desc">讓專業知識成為真正能被使用的工具。</p>
+            </div>
+            <p class="bgc__stat"><b>50+</b><span>專業投資創作者生態系</span></p>
+          </div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-creator.webp" alt="投資達人合作 App 畫面" loading="lazy"></div></div>
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li><img src="assets/icon-partner-quan.png" alt="" loading="lazy"><span class="p"><b>投資達人合作App</b><span>網羅各領域投資達人合作開發App</span></span></li>
+            <li data-nocopy><img src="assets/icon-partner-lin.png" alt="" loading="lazy"><span class="p"><b>林恩如 強棒旺旺來</b></span></li>
+            <li data-nocopy><img src="assets/icon-partner-emily.png" alt="" loading="lazy"><span class="p"><b>艾蜜莉 定存股</b></span></li>
+            <li data-nocopy><img src="assets/icon-partner-inst.png" alt="" loading="lazy"><span class="p"><b>法人投資決策支援系統</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#partnership">了解合作夥伴事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#consumer" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow">Consumer</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">消費事業群</h3>
+              <p class="bgc__desc">從每一張發票，看見更好的生活選擇。讓大量去識別化資料成為企業改善產品的強大依據。</p>
+            </div>
+          </div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-einvoice.webp" alt="發票載具 App 畫面" loading="lazy"></div></div>
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li><img src="assets/icon-consumer-einvoice.png" alt="" loading="lazy"><span class="p"><b>發票載具</b><span>全台最多人使用的發票載具App</span></span></li>
+            <li data-nocopy><img src="assets/icon-consumer-easynote.png" alt="" loading="lazy"><span class="p"><b>簡單記帳</b></span></li>
+            <li data-nocopy><img src="assets/icon-consumer-cwmoney.png" alt="" loading="lazy"><span class="p"><b>CWMoney</b></span></li>
+            <li data-nocopy><img src="assets/icon-consumer-dreamfapiao.png" alt="" loading="lazy"><span class="p"><b>夢幻發票</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#consumer">了解消費事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+      <article class="bgc">
+        <a class="bgc__hit" href="business-groups.html#global" tabindex="-1" aria-hidden="true"></a>
+        <div class="bgc__body">
+          <div class="bgc__main">
+            <p class="bgc__eyebrow">Global</p>
+            <div class="bgc__head">
+              <h3 class="bgc__name">國際金融事業群</h3>
+              <p class="bgc__desc">讓好的投資方法跨越市場與語言。從美股出發，與全球創作者共同建立在地化工具、內容與合作平台。</p>
+            </div>
+          </div>
+          <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-cboe.webp" alt="美股 K 線 App 畫面" loading="lazy"></div></div>
+        </div>
+        <div class="bgc__panel">
+          <p class="bgc__panelcap">主要產品</p>
+          <ul class="bgc__products">
+            <li data-nocopy><img src="assets/icon-global-mike.png" alt="" loading="lazy"><span class="p"><b>Mike 是麥克</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-rich.png" alt="" loading="lazy"><span class="p"><b>Rich 智富選股</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-sky.png" alt="" loading="lazy"><span class="p"><b>穹蒼美股</b></span></li>
+            <li data-nocopy><img src="assets/icon-global-haoye.png" alt="" loading="lazy"><span class="p"><b>好葉智能選股</b></span></li>
+          </ul>
+          <a class="bgc__cta" href="business-groups.html#global">了解國際金融事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 事業群收尾：北極星＋求職入口 ========================= -->
+<section class="section section--statement" id="northstar">
+  <div class="container">
+    <div class="ns-layout">
+      <div class="northstar reveal">
+        <p class="northstar__eyebrow">ONE COMPANY, ONE NORTH STAR</p>
+        <h3 class="northstar__title"><span class="nobr">很多產品，很多專業，</span><span class="nobr">一個共同目標。</span></h3>
+        <p class="northstar__sub">讓每一次累積，都成為下一次更好決定的基礎。</p>
+      </div>
+      <!-- v2：4×4，一列一個事業群（金融／合作夥伴／消費／國際金融），隨捲動由右往左依序淡入（JS：updateNorthstar） -->
+      <div class="nsviz" id="nsviz" aria-hidden="true">
+        <img class="nsviz__icon" src="assets/icon-finance-chipk.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-finance-bole.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-finance-licaibao.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-finance-moneymag.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-quan.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-lin.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-emily.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-inst.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-einvoice.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-easynote.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-cwmoney.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-dreamfapiao.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-mike.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-rich.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-sky.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-haoye.png" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- 事業群結尾的求職入口（比照工作文化結尾 .job-cue，深底版） -->
+    <div class="job-cue reveal">
+      <span class="job-cue__line" aria-hidden="true"></span>
+      <h3 class="job-cue__q">想加入其中一個事業群？</h3>
+      <p class="job-cue__sub">每個產品背後，都有還沒被解決的問題，正在等人一起推進。</p>
+      <div class="job-cue__actions">
+        <a class="btn btn--ghost" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 創辦人的話 ========================= -->
+<!-- Figma node 6727:13541 variation-a-editorial：全幅版面，人像出血，故不套 .container -->
+<section id="founder">
+  <div class="founder">
+    <div class="founder__media reveal">
+      <img src="assets/founder.jpg" alt="CMoney 創辦人暨執行長 Ken 的人物照" width="832" height="1248">
+    </div>
+    <div class="founder__body reveal">
+      <div class="founder__head">
+        <p class="founder__kicker">29歲時，寫下第一套投資分析工具</p>
+        <h2 class="founder__title">我最早想做的，只是一個能幫助人<span class="is-red">驗證投資判斷</span>的工具。</h2>
+      </div>
+
+      <div class="founder__grid">
+        <div class="founder__paras">
+          <p>大學時接觸投資，我得到的不只是投資上的經驗，而是開始理解：面對不確定，我們必須蒐集資訊、形成判斷，也承擔結果。</p>
+          <p>29歲時，我看見金融研究人員每天處理大量資料，卻缺少真正能驗證判斷的工具，於是自己動手寫下分析軟體。</p>
+          <p>後來我愈來愈確定，一個工具還不夠。我希望更多人都能取得幫助自己思考、行動與彼此支持的工具和社群。這成為CMoney的起點，也成為我們今天仍在做的事。</p>
+        </div>
+        <blockquote class="founder__quote">
+          <span class="founder__qmark" aria-hidden="true">&ldquo;</span>
+          <p>CMoney從一個人的問題開始，但不能永遠依靠一個人的答案。今天，我們要建立的是一套讓更多人做出好決定，也讓更多同事成為問題Owner的系統。</p>
+        </blockquote>
+      </div>
+
+      <div class="founder__foot">
+        <div class="founder__by"><b>Ken</b><span>CMoney 創辦人暨執行長</span></div>
+        <a class="btn btn--ghost" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================= CTA ========================= -->
+<section class="cta" id="cta">
+  <div class="cta__bg">
+    <img src="assets/cta-team.jpg" alt="CMoney 同事在書牆前的沙發區，各自看著筆電與雜誌討論" loading="lazy">
+  </div>
+  <div class="cta__scrim" aria-hidden="true"></div>
+  <div class="container">
+    <h2 class="cta__title reveal">一家公司真正的樣子，<br>藏在每天做出的<span class="is-red">選擇裡。</span></h2>
+    <p class="cta__sub reveal">使命讓我們知道往哪裡去；價值觀幫助我們取捨；工作原則讓相信真的發生。</p>
+    <div class="cta__actions reveal">
+      <a class="btn btn--ghost" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ========================= Footer ========================= -->
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div class="fnav">
+      <div class="fnav__brand">
+        <a class="fnav__logo" href="#top" aria-label="CMoney 首頁">
+          <img src="assets/logo-cmoney.svg" alt="CMoney" width="86" height="20">
+        </a>
+        <div class="fnav__brand-links">
+          <a class="flink" href="https://www.cmoney.tw/careers/" target="_blank" rel="noopener">集團介紹</a>
+          <a class="flink" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">加入我們</a>
+          <a class="flink" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">面試流程</a>
+        </div>
+      </div>
+      <div class="fnav__divider" aria-hidden="true"></div>
+      <nav class="fnav__cols" aria-label="網站地圖">
+      <div class="fcol">
+        <p class="fcol__title">理財寶商城</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://www.cmoney.tw/app/" target="_blank" rel="noopener">理財寶</a>
+          <a class="flink" href="https://www.cmoney.tw/app/classes.aspx" target="_blank" rel="noopener">課程／講座</a>
+          <a class="flink" href="https://www.cmoney.tw/app/media/" target="_blank" rel="noopener">影音直播</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <p class="fcol__title">股市社群</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://www.cmoney.tw/forum/" target="_blank" rel="noopener">股市爆料同學會</a>
+          <a class="flink" href="https://www.cmoney.tw/usforum/" target="_blank" rel="noopener">美股爆料同學會</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <p class="fcol__title">投資理財</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://money.cmoney.tw/" target="_blank" rel="noopener">Money錢</a>
+          <a class="flink" href="https://cmnews.com.tw/" target="_blank" rel="noopener">投資網誌</a>
+          <a class="flink" href="https://www.cmoney.tw/learn" target="_blank" rel="noopener">投資小學堂</a>
+          <a class="flink" href="https://magnifier.cmoney.tw/" target="_blank" rel="noopener">美股放大鏡</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <p class="fcol__title">即時股市</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://www.cmoney.tw/finance/" target="_blank" rel="noopener">台股股市</a>
+          <a class="flink" href="https://www.cmoney.tw/usfinance/" target="_blank" rel="noopener">美股股市</a>
+          <a class="flink" href="https://www.cmoney.tw/etf/tw/" target="_blank" rel="noopener">台股ETF</a>
+          <a class="flink" href="https://www.cmoney.tw/etf/us/" target="_blank" rel="noopener">美股ETF</a>
+          <a class="flink" href="https://www.cmoney.tw/bond/" target="_blank" rel="noopener">債券</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <p class="fcol__title">美股專區</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://www.cmoney.tw/usfinance" target="_blank" rel="noopener">美股股市</a>
+          <a class="flink" href="https://www.cmoney.tw/etf/us/" target="_blank" rel="noopener">美股ETF</a>
+          <a class="flink" href="https://www.cmoney.tw/usforum" target="_blank" rel="noopener">美股爆料同學會</a>
+          <a class="flink" href="https://magnifier.cmoney.tw/" target="_blank" rel="noopener">美股放大鏡</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <p class="fcol__title">模擬投資</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://www.cmoney.tw/vt/" target="_blank" rel="noopener">股市大富翁</a>
+          <a class="flink" href="https://www.cmoney.tw/screeners/" target="_blank" rel="noopener">選股網</a>
+          <a class="flink" href="https://www.cmoney.tw/notice/" target="_blank" rel="noopener">雲端控股</a>
+          <a class="flink" href="https://www.cmoney.tw/stockgame/" target="_blank" rel="noopener">報名牌</a>
+        </div>
+      </div>
+      <div class="fcol">
+        <p class="fcol__title">聯絡我們</p>
+        <div class="fcol__list">
+          <a class="flink" href="https://www.cmoney.tw/member/" target="_blank" rel="noopener">會員中心</a>
+          <a class="flink" href="http://www.cmoney.com.tw/cmweb/classroom/index.html" target="_blank" rel="noopener">場地租借</a>
+          <a class="flink" href="https://www.cmoney.tw/app/we-want-you.aspx" target="_blank" rel="noopener">成為CMoney作者</a>
+        </div>
+      </div>
+      </nav>
+    </div>
+
+    <div class="fmeta">
+      <div class="fmeta__left">
+        <p class="fmeta__copy">版權所有 CMoney 全曜財經資訊股份有限公司     Copyright © 2026 CMoney Corporation. All rights reserved.</p>
+        <div class="fpolicy">
+          <a href="https://www.cmoney.tw/member/privacy.aspx" target="_blank" rel="noopener">隱私權條款</a>
+          <span class="fpolicy__sep" aria-hidden="true"></span>
+          <a href="https://www.cmoney.tw/member/tos.aspx" target="_blank" rel="noopener">使用條款</a>
+          <span class="fpolicy__sep" aria-hidden="true"></span>
+          <a href="https://www.cmoney.tw/member/cr.aspx" target="_blank" rel="noopener">著作權政策</a>
+          <span class="fpolicy__sep" aria-hidden="true"></span>
+          <a href="https://www.cmoney.tw/member/community-guidelines.aspx" target="_blank" rel="noopener">社群規範</a>
+          <span class="fpolicy__sep" aria-hidden="true"></span>
+          <a href="https://www.cmoney.tw/member/disclaimer.aspx" target="_blank" rel="noopener">免責聲明</a>
+        </div>
+      </div>
+      <div class="fsocial">
+        <a href="https://www.linkedin.com/company/cmoney/?utm_source=social&amp;utm_medium=website" target="_blank" rel="noopener" aria-label="CMoney LinkedIn"><img src="assets/social-linkedin.svg" alt="" width="24" height="24"></a>
+        <a href="https://www.instagram.com/cmoneycareers/?utm_source=social&amp;utm_medium=website" target="_blank" rel="noopener" aria-label="CMoney Instagram"><img src="assets/social-instagram.svg" alt="" width="24" height="24"></a>
+        <a href="https://www.facebook.com/CMoneyCareers?utm_source=social&amp;utm_medium=website" target="_blank" rel="noopener" aria-label="CMoney Facebook"><img src="assets/social-facebook.svg" alt="" width="24" height="24"></a>
+        <a href="https://line.me/ti/g2/v82lbnl5Sj9j0Q1NOOO3j8nfWExvB0UL2s6KMw?utm_source=social&amp;utm_medium=website" target="_blank" rel="noopener" aria-label="CMoney LINE"><img src="assets/social-line.svg" alt="" width="24" height="24"></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------- Header：捲動狀態 + 手機選單 ---------- */
+  var header = document.getElementById("siteHeader");
+  var nav = document.getElementById("primaryNav");
+  var navToggle = document.getElementById("navToggle");
+
+  function onScroll(){
+    header.classList.toggle("is-scrolled", window.scrollY > 12);
+  }
+  onScroll();
+  window.addEventListener("scroll", onScroll, {passive:true});
+
+  navToggle.addEventListener("click", function(){
+    var open = nav.classList.toggle("is-open");
+    navToggle.setAttribute("aria-expanded", String(open));
+    navToggle.setAttribute("aria-label", open ? "關閉選單" : "開啟選單");
+  });
+  nav.addEventListener("click", function(e){
+    if (e.target.closest("a") && nav.classList.contains("is-open")){
+      nav.classList.remove("is-open");
+      navToggle.setAttribute("aria-expanded","false");
+    }
+  });
+
+  /* ---------- 尚未定義連結：不導航，提示待確認 ---------- */
+  document.querySelectorAll("[data-undefined]").forEach(function(el){
+    el.setAttribute("title", el.getAttribute("data-undefined"));
+    el.addEventListener("click", function(e){ e.preventDefault(); });
+  });
+
+  /* ---------- 導覽 active 狀態（v2）----------
+     舊版只在畫面中間 5% 的窄帶偵測，長段落或快速跳轉時會標錯章節。
+     改成：每一章＝主標段＋後面所有內容段；畫面 35% 高的那條線落在哪一章，就點亮哪一章。
+     落在 Hero / CTA / Footer 時全部熄滅。 */
+  var chapters = [
+    ["aboutus",  ["aboutus"]],
+    ["values",   ["values","values-stack","values-outro"]],
+    ["work",     ["work","work-compare"]],
+    ["business", ["business","groups","northstar"]],
+    ["founder",  ["founder"]]
+  ].map(function(c){
+    return {key:c[0], els:c[1].map(function(id){ return document.getElementById(id); }).filter(Boolean)};
+  }).filter(function(c){ return c.els.length; });
+  var navLinks = {};
+  document.querySelectorAll('.nav__link[href^="#"]').forEach(function(a){
+    navLinks[a.getAttribute("href").slice(1)] = a;
+  });
+  var navActive = null, navTicking = false;
+  function updateNav(){
+    navTicking = false;
+    var line = window.innerHeight * 0.35, hit = null;
+    for (var i = 0; i < chapters.length; i++){
+      var els = chapters[i].els;
+      var top = els[0].getBoundingClientRect().top;
+      var bottom = els[els.length - 1].getBoundingClientRect().bottom;
+      if (top <= line && bottom > line){ hit = chapters[i].key; break; }
+    }
+    if (hit === navActive) return;
+    navActive = hit;
+    Object.keys(navLinks).forEach(function(k){
+      var on = k === hit;
+      navLinks[k].classList.toggle("is-active", on);
+      if (on) navLinks[k].setAttribute("aria-current", "location");
+      else navLinks[k].removeAttribute("aria-current");
+    });
+  }
+  function requestNav(){ if (!navTicking){ navTicking = true; requestAnimationFrame(updateNav); } }
+  updateNav();
+  addEventListener("scroll", requestNav, {passive:true});
+  addEventListener("resize", requestNav);
+
+  /* ---------- Scroll reveal ---------- */
+  var revealEls = document.querySelectorAll(".reveal");
+  /* v2：data-stagger 的大區塊不整塊淡入，改成子元素每個間隔 70ms 依序出現 */
+  function staggerKids(el){
+    if (!el.hasAttribute("data-stagger")) return;
+    [].forEach.call(el.children, function(k, i){ k.style.setProperty("--d", Math.min(i * 70, 420) + "ms"); });
+  }
+  if (reduce || !("IntersectionObserver" in window)){
+    revealEls.forEach(function(el){ el.classList.add("is-in"); });
+  } else {
+    var revealObserver = new IntersectionObserver(function(entries, obs){
+      entries.forEach(function(entry, i){
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        el.style.transitionDelay = Math.min(i * 90, 270) + "ms";
+        staggerKids(el);
+        el.classList.add("is-in");
+        obs.unobserve(el);
+      });
+    }, {rootMargin:"0px 0px -5% 0px", threshold:0.05});
+    /* 首屏已經露出來的元素不交給 observer：門檻是「露出自身 5% 且越過底部 5% 內縮」，
+       跨在摺線上、只露一小截的區塊（#aboutus 的標題）會達不到門檻而一直留在 opacity:0，
+       直到使用者點錨點捲過去才顯示。改成一進場就標記，下一幀加 class 讓轉場仍然跑得到 */
+    var pending = [];
+    revealEls.forEach(function(el){
+      if (el.getBoundingClientRect().top < window.innerHeight) pending.push(el);
+      else revealObserver.observe(el);
+    });
+    requestAnimationFrame(function(){
+      pending.forEach(function(el, i){
+        el.style.transitionDelay = Math.min(i * 90, 270) + "ms";
+        staggerKids(el);
+        el.classList.add("is-in");
+      });
+    });
+  }
+
+  /* ---------- Hero 數字動畫 ---------- */
+  function countUp(el){
+    var target = parseFloat(el.getAttribute("data-count"));
+    var comma = el.getAttribute("data-format") === "comma";
+    el.textContent = comma ? target.toLocaleString("en-US") : String(target);
+    el.style.minWidth = el.getBoundingClientRect().width + "px";
+    if (reduce){ el.textContent = comma ? target.toLocaleString("en-US") : String(target); return; }
+    var start = performance.now(), dur = 1400;
+    function tick(now){
+      var p = Math.min((now - start) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      var v = Math.round(target * eased);
+      el.textContent = comma ? v.toLocaleString("en-US") : String(v);
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var counters = document.querySelectorAll("[data-count]");
+  function startCounters(){ counters.forEach(function(el){ countUp(el); }); }
+  if (document.hidden){
+    document.addEventListener("visibilitychange", function once(){
+      if (document.hidden) return;
+      document.removeEventListener("visibilitychange", once);
+      startCounters();
+    });
+  } else {
+    startCounters();
+  }
+
+  /* ---------- 事業群：hover 面板從名稱下緣開始 ----------
+     名稱在窄卡會換行，高度不固定，所以量實際位置寫進 --panel-top。 */
+  var bgcCards = [].slice.call(document.querySelectorAll(".bgc"));
+  function placePanels(){
+    bgcCards.forEach(function(card){
+      var name = card.querySelector(".bgc__name");
+      if (!name) return;
+      var gap = 22;   /* 名稱與「主要產品」之間，比照 .bgc__head 名稱到內文的距離再鬆一點 */
+      var top = name.getBoundingClientRect().bottom - card.getBoundingClientRect().top - card.clientTop + gap;
+      card.style.setProperty("--panel-top", Math.round(top) + "px");
+    });
+  }
+  placePanels();
+  if (window.ResizeObserver) new ResizeObserver(placePanels).observe(document.querySelector(".groups") || document.body);
+  else window.addEventListener("resize", placePanels);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placePanels);
+
+  /* ---------- 價值觀：三張卡片捲動堆疊 ---------- */
+  var vstack = document.getElementById("valuesStack");
+  if (vstack) {
+    var vitems = [].slice.call(vstack.querySelectorAll(".vstack__item"));
+    var vcards = vitems.map(function(it){ return it.querySelector(".vcard"); });
+    var vTravel = 300;   /* 下一張卡片開始「壓」上來之後，前一張退到底所需的捲動距離 */
+    var vTop = 100, vPeek = 16, vTicking = false;
+
+    function readStackVars(){
+      var cs = getComputedStyle(vstack);
+      vTop  = parseFloat(cs.getPropertyValue("--stack-top"))  || vTop;
+      vPeek = parseFloat(cs.getPropertyValue("--stack-peek")) || vPeek;
+    }
+
+    function clearStack(){
+      vcards.forEach(function(c){ c.style.transform = ""; c.style.setProperty("--veil", "0"); });
+    }
+
+    function updateStack(){
+      vTicking = false;
+      /* 手機版與 reduced-motion 下 sticky 被關掉，就不做景深 */
+      if (getComputedStyle(vitems[0]).position !== "sticky"){ clearStack(); return; }
+
+      /* progress[i]：第 i+1 張卡片把第 i 張蓋掉的進度（0～1） */
+      var progress = vitems.map(function(it, i){
+        var next = vitems[i + 1];
+        if (!next) return 0;
+        var d = next.getBoundingClientRect().top - (vTop + (i + 1) * vPeek);
+        return Math.min(1, Math.max(0, 1 - d / vTravel));
+      });
+
+      for (var i = 0; i < vcards.length; i++){
+        var depth = 0;                                  /* 疊在這張卡片上面的張數（可為小數） */
+        for (var j = i; j < progress.length; j++) depth += progress[j];
+        vcards[i].style.transform = depth ? "scale(" + (1 - 0.035 * depth).toFixed(4) + ")" : "";
+        vcards[i].style.setProperty("--veil", Math.min(0.55, 0.3 * depth).toFixed(3));
+      }
+    }
+
+    function requestStack(){
+      if (vTicking) return;
+      vTicking = true;
+      requestAnimationFrame(updateStack);
+    }
+
+    readStackVars();
+    updateStack();
+    addEventListener("scroll", requestStack, {passive:true});
+    addEventListener("resize", function(){ readStackVars(); requestStack(); });
+  }
+  /* ---------- v2：About 三卡跟著捲動變清晰 ----------
+     每張卡依自己的位置算 --lit（0＝淡、1＝清晰）：卡片上緣從畫面 85% 走到 50% 的過程中逐漸變實。
+     已經清晰、且最靠下的那張卡是「目前」這張，框線轉紅。 */
+  var flow = document.getElementById("pillarsFlow");
+  if (flow){
+    var fCards = [].slice.call(flow.querySelectorAll(".pillar"));
+    var fLinks = [].slice.call(flow.querySelectorAll(".pillar-link"));
+    /* 價值觀主標段（主標＋三行說明）也吃同一套 --lit，一行一行由淡轉實 */
+    var litItems = [].slice.call(document.querySelectorAll(".lit-item"));
+    var fTicking = false;
+    function litFor(el, vh){
+      var t = el.getBoundingClientRect().top;
+      return Math.min(1, Math.max(0, (vh * 0.85 - t) / (vh * 0.35)));
+    }
+    function updateFlow(){
+      fTicking = false;
+      var vh = window.innerHeight, current = -1;
+      fCards.forEach(function(c, i){
+        var lit = reduce ? 1 : litFor(c, vh);
+        c.style.setProperty("--lit", lit.toFixed(3));
+        if (lit > 0.6) current = i;
+      });
+      fLinks.forEach(function(l){ l.style.setProperty("--lit", (reduce ? 1 : litFor(l, vh)).toFixed(3)); });
+      litItems.forEach(function(l){ l.style.setProperty("--lit", (reduce ? 1 : litFor(l, vh)).toFixed(3)); });
+      fCards.forEach(function(c, i){ c.classList.toggle("is-current", i === current && !reduce); });
+    }
+    function requestFlow(){ if (!fTicking){ fTicking = true; requestAnimationFrame(updateFlow); } }
+    updateFlow();
+    addEventListener("scroll", requestFlow, {passive:true});
+    addEventListener("resize", requestFlow);
+  }
+
+  /* ---------- v2：北極星 — 產品 icon 由右往左淡入 ----------
+     4 欄 × 4 列，一列一個事業群。捲動進度 P 推進時，最右一欄先出現、往左一欄一欄接上；
+     同一欄上到下再錯開一點。每顆從右側 40px 滑進定位。reduced-motion 直接全部顯示。 */
+  var ns = document.getElementById("nsviz");
+  if (ns){
+    var nsSec = document.getElementById("northstar");
+    var nsIcons = [].slice.call(ns.querySelectorAll(".nsviz__icon"));
+    var COLS = 4, nsTicking = false;
+    function updateNorthstar(){
+      nsTicking = false;
+      var vh = window.innerHeight, rect = nsSec.getBoundingClientRect();
+      var P = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.95 - rect.top) / (vh * 0.6)));
+      nsIcons.forEach(function(img, i){
+        var col = i % COLS, row = Math.floor(i / COLS);
+        var start = (COLS - 1 - col) * 0.16 + row * 0.04;   /* 右欄先、左欄後 */
+        var t = Math.min(1, Math.max(0, (P - start) / 0.4));
+        var e = 1 - Math.pow(1 - t, 3);
+        img.style.opacity = e.toFixed(3);
+        img.style.transform = e < 1 ? "translateX(" + ((1 - e) * 40).toFixed(1) + "px)" : "";
+      });
+    }
+    function requestNorthstar(){ if (!nsTicking){ nsTicking = true; requestAnimationFrame(updateNorthstar); } }
+    updateNorthstar();
+    addEventListener("scroll", requestNorthstar, {passive:true});
+    addEventListener("resize", requestNorthstar);
+  }
+
+  /* ---------- v2：逐字柔和淡入（僅創辦人引言）----------
+     每個字各自 0.8s 淡入並從輕微模糊轉清晰，前後字相隔 28ms 重疊進場，整句像慢慢浮現。
+     - 捲動：第一次露出 60% 時播一次，之後來回捲不重播。
+     - 點對應錨點（例如導覽「創辦人的話」→ #founder）：每次清空重播。
+     - 保留原本的巢狀結構（紅字 .is-red、不斷行 .nobr、<br>），只把文字拆成逐字 <span>；
+       未出現的字透明但佔位，版面不跳。讀屏以元素的 aria-label 唸全文。 */
+  function fadeChars(el, anchors, opt){
+    opt = opt || {};
+    var gap = opt.gap || 28, dur = opt.dur || 800;
+    if (!el || reduce || !("IntersectionObserver" in window)) return;
+    el.setAttribute("aria-label", el.innerText.replace(/\s+/g, " ").trim());
+    var chars = [];
+    (function split(node){
+      [].slice.call(node.childNodes).forEach(function(n){
+        if (n.nodeType === 1){ split(n); return; }
+        if (n.nodeType !== 3) return;
+        var frag = document.createDocumentFragment();
+        Array.from(n.textContent).forEach(function(ch){
+          if (/\s/.test(ch)){ frag.appendChild(document.createTextNode(ch)); return; }
+          var s = document.createElement("span");
+          s.className = "tw-ch"; s.setAttribute("aria-hidden", "true"); s.textContent = ch;
+          frag.appendChild(s); chars.push(s);
+        });
+        n.replaceWith(frag);
+      });
+    })(el);
+    chars.forEach(function(s, i){
+      s.style.transitionDelay = (i * gap) + "ms";
+      s.style.transitionDuration = dur + "ms";
+    });
+    el.classList.add("is-typing-ready");
+
+    function reset(){
+      el.classList.add("is-reset");                 /* 重設時關掉轉場，瞬間歸零 */
+      chars.forEach(function(s){ s.classList.remove("is-on"); });
+      void el.offsetWidth;
+      el.classList.remove("is-reset");
+    }
+    function play(){
+      reset();
+      requestAnimationFrame(function(){ chars.forEach(function(s){ s.classList.add("is-on"); }); });
+    }
+    function whenVisible(){
+      var o = new IntersectionObserver(function(entries){
+        if (!entries[0].isIntersecting) return;
+        o.disconnect();
+        setTimeout(play, 200);
+      }, {threshold:0.6});
+      o.observe(el);
+    }
+    whenVisible();
+    (anchors || []).forEach(function(hash){
+      document.querySelectorAll('a[href="' + hash + '"]').forEach(function(a){
+        a.addEventListener("click", function(){ reset(); setTimeout(whenVisible, 450); });  /* 等平滑捲動停好 */
+      });
+    });
+  }
+  /* 章節主標（Hero／價值觀／工作文化）改回整塊淡入（.reveal），與「我們不是從…開始」一致；
+     逐字淡入只留給創辦人引言，避免整頁動態過多 */
+  fadeChars(document.querySelector(".founder__quote p"), ["#founder"]);
+
+  /* ---------- v2 工作文化：對照表「為什麼不同？」＋情境二選一＋適合度 ---------- */
+  document.getElementById("wkTable").addEventListener("click", function(e){
+    var btn = e.target.closest(".wk-toggle");
+    if (!btn) return;
+    var open = btn.getAttribute("aria-expanded") !== "true";
+    btn.setAttribute("aria-expanded", String(open));
+    btn.querySelector("span").textContent = open ? "收合說明" : "為什麼不同？";
+    document.getElementById(btn.getAttribute("aria-controls")).classList.toggle("is-open", open);
+  });
+
+  (function(){
+    var D = JSON.parse(document.getElementById("wkData").textContent);
+    var nav = document.getElementById("wkNav");
+    var stage = document.getElementById("wkStage");
+    var mobile = window.matchMedia("(max-width: 980px)");
+    var state = { step: 0, answers: {} };
+    var FIT = [
+      { min: 4, level: "高度契合", msg: "你習慣跟著問題走、用證據說話。你想要的，正是我們每天在做的事。", jobs: true },
+      { min: 3, level: "契合", msg: "大部分時候，你的直覺和 CMoney 一致。面試時，把你選 A 的那一題拿出來和我們聊聊。", jobs: true },
+      { min: 2, level: "部分契合", msg: "兩種做法你都能工作。面試時，用這裡的問題確認這個職位的真實節奏。", jobs: true },
+      { min: 0, level: "節奏不同", msg: "你偏好清楚的範圍與流程，這在很多地方是優勢。CMoney 的節奏可能和你習慣的不同；如果仍然好奇，面試時直接問我們。", jobs: false }
+    ];
+    var ARROW = '<svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false" style="width:20px;height:20px;fill:currentColor"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg>';
+
+    function esc(s){ return String(s).replace(/[&<>"']/g, function(c){ return { "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" }[c]; }); }
+    function done(){ return Object.keys(state.answers).length === 4; }
+    function scrollTo(el){
+      if (!el) return;
+      var top = el.getBoundingClientRect().top + window.pageYOffset - 88;
+      window.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
+    }
+
+    function renderNav(){
+      var html = D.map(function(d, i){
+        var a = state.answers[i];
+        return '<button type="button" class="wk-pill' + (a ? " is-done" : "") + '" data-go="' + i + '"' +
+          (state.step === i ? ' aria-current="step"' : "") + '><span class="n">0' + (i + 1) + '</span><span>' + esc(d.moment) + '</span>' +
+          (a ? '<span>' + a + '</span>' : "") + '</button>';
+      }).join("");
+      html += '<button type="button" class="wk-pill" data-go="4"' + (state.step === 4 ? ' aria-current="step"' : "") + (done() ? "" : " disabled") + '>你的適合度</button>';
+      nav.innerHTML = html;
+    }
+
+    function panel(d, key){
+      return '<div class="wk-panel" id="wkPanel">' +
+        '<div class="wk-grp"><p class="sub">你選了 ' + key + '</p><p class="verdict">對「' + esc(key === "A" ? d.va : d.vb) + '」負責</p></div>' +
+        '<div class="wk-grp wk-grp--16">' +
+          '<div class="wk-grp"><p class="strong">選 A・對' + esc(d.va) + '負責</p><p class="sub">' + esc(d.aNote) + '</p></div>' +
+          '<div class="wk-grp"><p class="strong">選 B・對' + esc(d.vb) + '負責</p><p class="sub">' + esc(d.bNote) + '</p></div>' +
+        '</div>' +
+        '<div class="wk-grp wk-grp--16"><span class="wk-rule" aria-hidden="true"></span><p class="wk-lead">' + esc(d.lead) + '</p></div>' +
+        '<div class="wk-grp"><p class="sub">面試時，建議你確認</p><p class="strong">「' + esc(d.ask) + '」</p></div>' +
+        '<a class="wk-card" href="' + esc(d.url) + '" target="_blank" rel="noopener"><img src="assets/' + esc(d.imgFile) + '" alt="' + esc(d.alt) + '" loading="lazy">' +
+          '<span><span class="t">' + esc(d.article) + '</span><span>閱讀工作現場文章 →</span></span></a>' +
+        '<div class="wk-panel__foot"><button type="button" class="btn btn--solid" data-next>' + (state.step === 3 ? "看你的適合度" : "下一個情境") + ' ' + ARROW + '</button></div>' +
+      '</div>';
+    }
+
+    function lock(d){
+      return '<div class="wk-lock">' +
+        '<div class="wk-lock__blur" aria-hidden="true"><p class="strong">你選了 B</p><p style="font-size:24px;line-height:32px;font-weight:600">對「' + esc(d.vb) + '」負責</p>' +
+          '<p>選 A・對' + esc(d.va) + '負責：' + esc(d.aNote) + '</p><p>選 B・對' + esc(d.vb) + '負責：' + esc(d.bNote) + '</p><p>' + esc(d.lead) + '</p></div>' +
+        '<div class="wk-lock__cover"><span class="wk-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>' +
+          '<p class="t">選完才揭曉</p><p class="sub">兩種做法各自在對什麼負責、面試時可以問什麼，都藏在這裡。</p>' +
+          '<p class="hint hint--d">← 先從左邊選 A 或 B</p><p class="hint hint--m">↑ 先從上面選 A 或 B</p></div>' +
+      '</div>';
+    }
+
+    function renderQuiz(){
+      var i = state.step, d = D[i], key = state.answers[i];
+      stage.innerHTML = '<div class="wk-quiz' + (key ? " is-answered" : "") + '">' +
+        '<div class="wk-quiz__main"><p class="wk-kicker">情境 ' + (i + 1) + '　' + esc(d.moment) + '</p><h4>' + esc(d.title) + '</h4><p class="wk-quiz__q">' + esc(d.q) + '</p>' +
+          '<div class="wk-opts" role="group" aria-label="兩種做法，你會選哪一個？">' +
+          ["A", "B"].map(function(k){
+            return '<button type="button" class="wk-opt' + (k === "B" ? " wk-opt--ours" : "") + '" data-pick="' + k + '" aria-pressed="' + (key === k) + '">' +
+              '<span class="wk-opt__key">' + k + '</span><span class="wk-opt__body"><span class="wk-opt__text">' + esc(k === "A" ? d.a : d.b) + '</span>' +
+              (k === "B" ? '<span class="wk-opt__tag">更接近 CMoney 的做法</span>' : "") + '</span></button>';
+          }).join("") + '</div></div>' +
+        '<div class="wk-quiz__side" aria-live="polite">' + (key ? panel(d, key) : lock(d)) + '</div>' +
+      '</div>';
+    }
+
+    function renderResult(){
+      var score = Object.keys(state.answers).filter(function(k){ return state.answers[k] === "B"; }).length;
+      var fit = FIT.filter(function(f){ return score >= f.min; })[0];
+      var segs = [0, 1, 2, 3].map(function(i){ return '<span class="wk-seg' + (i < score ? " is-on" : "") + '"></span>'; }).join("");
+      var asks = D.map(function(d, i){
+        var k = state.answers[i];
+        return '<div class="wk-ask"><div class="wk-ask__head"><b>0' + (i + 1) + '　' + esc(d.moment) + '</b>' +
+          '<span class="wk-ask__tag' + (k === "B" ? " is-ours" : "") + '">你選 ' + k + '・對' + esc(k === "A" ? d.va : d.vb) + '負責</span></div>' +
+          '<p>「' + esc(d.ask) + '」</p></div>';
+      }).join("");
+      stage.innerHTML = '<div class="wk-result">' +
+        '<div class="wk-fit"><p class="wk-kicker" style="color:#fff">STEP 3　你的適合度</p><p class="wk-fit__lv">' + fit.level + '</p>' +
+          '<div class="wk-segs" aria-hidden="true">' + segs + '</div>' +
+          '<p class="wk-fit__score">4 個情境中，有 ' + score + ' 次選了更接近 CMoney 的做法</p><p class="wk-fit__msg">' + fit.msg + '</p>' +
+          '<div class="wk-fit__cta">' +
+            (fit.jobs ? '<a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 ' + ARROW + '</a>' : "") +
+            '<a class="btn btn--ghost" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 ' + ARROW + '</a>' +
+          '</div><button type="button" class="wk-restart" data-restart>重新選一次</button></div>' +
+        '<div class="wk-asks"><p class="wk-asks__t">面試時，帶著這 4 個問題來確認</p>' + asks + '</div>' +
+      '</div>';
+    }
+
+    function render(){ renderNav(); if (state.step < 4) renderQuiz(); else renderResult(); }
+
+    nav.addEventListener("click", function(e){
+      var b = e.target.closest("[data-go]");
+      if (!b || b.disabled) return;
+      state.step = +b.getAttribute("data-go"); render();
+    });
+    stage.addEventListener("click", function(e){
+      var p = e.target.closest("[data-pick]");
+      if (p){
+        state.answers[state.step] = p.getAttribute("data-pick"); render();
+        if (mobile.matches) scrollTo(document.getElementById("wkPanel"));
+        return;
+      }
+      if (e.target.closest("[data-next]")){ state.step += 1; render(); scrollTo(nav); return; }
+      if (e.target.closest("[data-restart]")){ state = { step: 0, answers: {} }; render(); scrollTo(nav); }
+    });
+    render();
+  })();
+})();
+</script>
+</body>
+</html>
