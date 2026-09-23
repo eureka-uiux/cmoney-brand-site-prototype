@@ -914,7 +914,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 /* ---------- 北極星：產品 icon 4×4（一列一個事業群），由右往左淡入 ---------- */
 .ns-layout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center}
 .nsviz{display:grid;grid-template-columns:repeat(4,44px);gap:14px;justify-self:end}
-.nsviz__icon{display:block;width:44px;height:44px;border-radius:11px;box-shadow:0 6px 14px rgba(0,0,0,.35);will-change:transform,opacity}
+.nsviz__icon{display:block;width:44px;height:44px;border-radius:11px;box-shadow:0 6px 14px rgba(0,0,0,.12);will-change:transform,opacity}
 
 /* ---------- 工作文化：求職入口 ----------
    接在置中的收尾句後面，沿用同一條中軸往下讀：不加外框、不左右分欄，
@@ -928,6 +928,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 /* 主要動作「看開放職缺」放右邊（視線由左往右讀，最後落在主要動作） */
 /* 深底版（北極星收尾）：問句白字、副標 --on-dark-2，次要鈕用深底專用的 .btn--ghost */
 #northstar .job-cue{margin-top:var(--block-gap)}
+/* 北極星改淺底：與上方事業群同底色，視為事業群的收尾，不另起頂部留白 */
+#northstar{padding-block:0 var(--section-pad)}
+#northstar .northstar{padding-block:0}
 .section--statement .job-cue__q{color:#fff}
 .section--statement .job-cue__sub{color:var(--on-dark-2)}
 
@@ -1601,7 +1604,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 </section>
 
 <!-- ========================= 事業群收尾：北極星＋求職入口 ========================= -->
-<section class="section section--statement" id="northstar">
+<section class="section" id="northstar">
   <div class="container">
     <div class="ns-layout">
       <div class="northstar reveal">
@@ -1636,7 +1639,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       <h3 class="job-cue__q">想加入其中一個事業群？</h3>
       <p class="job-cue__sub">每個產品背後，都有還沒被解決的問題，正在等人一起推進。</p>
       <div class="job-cue__actions">
-        <a class="btn btn--ghost" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--line" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
         <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       </div>
     </div>
