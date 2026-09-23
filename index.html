@@ -608,29 +608,30 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 }
 .founder__media:hover img{transform:scale(1.03)}
 
-.founder__body{display:flex;flex-direction:column;gap:48px;padding:100px 100px 100px 80px}
+/* 文字區深底：與前面的北極星、後面的 CTA 連成一整段深色 */
+.founder__body{display:flex;flex-direction:column;gap:48px;padding:100px 100px 100px 80px;background:var(--ink)}
 .founder__head{display:flex;flex-direction:column;gap:16px}
 /* 稿上 16px / 500 / letter-spacing 2px / --text-900，比共用 .eyebrow（14/20、--text-300）重一階 */
-.founder__kicker{margin:0;font-size:16px;font-weight:500;line-height:24px;letter-spacing:2px;color:var(--text-900)}
+.founder__kicker{margin:0;font-size:16px;font-weight:500;line-height:24px;letter-spacing:2px;color:var(--on-dark-2)}
 /* 稿上 44/60 Bold(700)，紅字 Black(900)：字級與字重都在既有 9 階／400-500-600 之外，照稿實作 */
-.founder__title{margin:0;font-size:44px;font-weight:700;line-height:60px;color:var(--text-900)}
+.founder__title{margin:0;font-size:44px;font-weight:700;line-height:60px;color:#fff}
 .founder__title .is-red{font-weight:900;color:var(--red)}
 
 .founder__grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px;align-items:start}
 .founder__paras{display:grid;gap:24px}
-.founder__paras p{margin:0;font-size:16px;line-height:28px;color:var(--text-600)}
+.founder__paras p{margin:0;font-size:16px;line-height:28px;color:var(--on-dark-2)}
 .founder__quote{margin:0;display:grid;gap:12px}
 /* 引號字符：72px / 900 / line-height 40 / 紅色 30% 不透明度，純裝飾 */
 .founder__qmark{display:block;font-size:72px;font-weight:900;line-height:40px;color:var(--red);opacity:.3}
-.founder__quote p{margin:0;font-size:18px;font-weight:500;line-height:32px;color:var(--text-900)}
+.founder__quote p{margin:0;font-size:18px;font-weight:500;line-height:32px;color:#fff}
 
 .founder__foot{
-  padding-top:24px;border-top:1px solid rgba(38,38,38,.1);
+  padding-top:24px;border-top:1px solid rgba(255,255,255,.14);
   display:flex;align-items:center;justify-content:space-between;gap:16px 24px;flex-wrap:wrap;
 }
 .founder__by{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
-.founder__by b{font-size:18px;font-weight:600;line-height:24px;color:var(--text-900)}
-.founder__by span{font-size:16px;line-height:24px;color:var(--text-600)}
+.founder__by b{font-size:18px;font-weight:600;line-height:24px;color:#fff}
+.founder__by span{font-size:16px;line-height:24px;color:var(--on-dark-2)}
 
 /* ============================================================
    CTA + Footer — Figma BZac0QWuVoUmSg0ZhWtoyG node 9:1987
@@ -703,12 +704,14 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 
 /* 區塊底色：官網僅有 #f6f6f6 一個淺灰底，暖灰 #f3efe9 不在色票內，已統一。
    註：#f6f6f6 與白的差距確實比 #f3efe9 小，若要保留暖灰需另外立案 */
-#values-stack{background:var(--bg-soft)}
+#values,#values-stack{background:var(--bg-soft)}
 #work-compare{background:var(--bg-soft)}
 
 /* 切開後每塊都變短，上下留白同步收斂 */
-#values{padding-block-end:clamp(56px,6vh,80px)}
-#values-stack{padding-block:clamp(72px,8vh,104px)}
+/* 價值觀主標段與三張卡同底色，視為同一塊：中間不再留兩段 section 留白，
+   收尾句「如果您也認同…」到第一張卡只剩 .vstack 自己的上距 */
+#values{padding-block-end:0}
+#values-stack{padding-block:0 clamp(72px,8vh,104px)}
 
 #work{padding-block-end:clamp(56px,6vh,80px)}
 #work-compare{padding-block:clamp(72px,8vh,104px)}
@@ -1659,7 +1662,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
       <div class="founder__foot">
         <div class="founder__by"><b>Ken</b><span>CMoney 創辦人暨執行長</span></div>
-        <a class="btn btn--line" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--ghost" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       </div>
     </div>
   </div>
