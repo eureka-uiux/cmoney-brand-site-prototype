@@ -1066,7 +1066,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wk-panel .sub{color:var(--on-dark-2)}
 .wk-panel .strong{font-weight:600}
 .wk-panel .verdict{font-size:24px;line-height:32px;font-weight:600}
-.wk-panel .wk-lead{font-size:18px;line-height:28px;font-weight:600}
+/* 字級只留兩階：24（結論）／16（其餘）；粗體只給結論、A/B 標題與 CMoney 期待，其他一律 400 */
+.wk-panel .wk-lead{font-weight:600}
 .wk-grp{display:flex;flex-direction:column;gap:4px}
 .wk-grp--16{gap:16px}
 .wk-rule{width:22px;height:3px;border-radius:100px;background:var(--red)}
@@ -2174,13 +2175,13 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
     function panel(d, key){
       return '<div class="wk-panel" id="wkPanel">' +
-        '<div class="wk-grp"><p class="sub">你選了 ' + key + '</p><p class="verdict">對「' + esc(key === "A" ? d.va : d.vb) + '」負責</p></div>' +
+        '<p class="verdict">你選了 ' + key + '・對「' + esc(key === "A" ? d.va : d.vb) + '」負責</p>' +
         '<div class="wk-grp wk-grp--16">' +
           '<div class="wk-grp"><p class="strong">選 A・對' + esc(d.va) + '負責</p><p class="sub">' + esc(d.aNote) + '</p></div>' +
           '<div class="wk-grp"><p class="strong">選 B・對' + esc(d.vb) + '負責</p><p class="sub">' + esc(d.bNote) + '</p></div>' +
         '</div>' +
         '<div class="wk-grp wk-grp--16"><span class="wk-rule" aria-hidden="true"></span><p class="wk-lead">' + esc(d.lead) + '</p></div>' +
-        '<div class="wk-grp"><p class="sub">面試時，建議你確認</p><p class="strong">「' + esc(d.ask) + '」</p></div>' +
+        '<div class="wk-grp"><p class="sub">面試時，建議你確認</p><p>「' + esc(d.ask) + '」</p></div>' +
         '<a class="wk-card" href="' + esc(d.url) + '" target="_blank" rel="noopener"><img src="assets/' + esc(d.imgFile) + '" alt="' + esc(d.alt) + '" loading="lazy">' +
           '<span><span class="t">' + esc(d.article) + '</span><span>閱讀工作現場文章 →</span></span></a>' +
         '<div class="wk-panel__foot"><button type="button" class="btn btn--solid" data-next>' + (state.step === 3 ? "看你的適合度" : "下一個情境") + ' ' + ARROW + '</button></div>' +
