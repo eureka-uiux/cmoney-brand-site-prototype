@@ -333,16 +333,12 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 /* 事業群名稱四張卡統一 30/36（官網既有階，與 .vcard__name、.founder__title 同級）。 */
 .bgc__name{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900);text-wrap:balance}
 .bgc--dark .bgc__name{color:#fff}
-.bgc__claim{margin:0;font-size:18px;font-weight:600;line-height:28px;color:var(--text-600)}
-.bgc--dark .bgc__claim{color:var(--text-300)}
 .bgc__desc{margin:0;font-size:14px;font-weight:400;line-height:20px;color:var(--text-600)}
 .bgc--dark .bgc__desc{color:var(--text-300)}
 
 .bgc__stat{margin:auto 0 0;display:flex;flex-direction:column;gap:4px}
 .bgc__stat b{font-size:40px;font-weight:600;line-height:48px;color:var(--red);font-variant-numeric:tabular-nums}
 .bgc__stat span{font-size:14px;font-weight:400;line-height:20px;color:var(--text-400)}
-/* 跑數會改寫 b 的 textContent，「+」用 ::after 掛著才不會被洗掉 */
-.bgc__stat b[data-count]::after{content:"+"}
 
 /* 圖文分欄 —— 文字欄與手機稿欄各佔一欄，手機稿不再是浮在內容上的絕對定位層，
    所以文字不可能被壓到；卡片變窄時是文字欄變窄，不是文字鑽到圖下面。 */
@@ -362,29 +358,32 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   position:absolute;inset-inline:0;inset-block-start:30%;
   width:100%;aspect-ratio:119.57 / 243.01;
   border-radius:13.5% / 6.64%;
-  background:var(--ink);
+  background:var(--bg);
   padding:4.215% 4.976% 4.299% 5.152%;
-  box-shadow:-5px 14px 24px rgba(88,89,92,.34),0 2px 6px rgba(0,0,0,.18);
+  /* 白機身：一圈細框線勾邊（淺灰卡上才看得出輪廓），陰影比深色機身時收淡 */
+  box-shadow:0 0 0 1px rgba(38,38,38,.08),-4px 12px 24px rgba(88,89,92,.18),0 2px 6px rgba(0,0,0,.08);
 }
 /* 螢幕一律放「滿版方角」的原始 App 截圖（Figma 素材裡的 raw image），圓角交給
    border-radius 裁；圖本身不帶透明圓角，機身內側就沒有縫可以露。底色壓成機身色
-   而不是白色：萬一有次像素縫或圖還沒載入，露出的是機身，不會是白邊。 */
-.phone__screen{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:10.3% / 4.77%;background:var(--ink)}
+   而不是白色：萬一有次像素縫或圖還沒載入，露出的是機身，不會是白邊。
+   （機身改白後，底色改淺灰：圖未載入時看得出螢幕範圍。） */
+.phone__screen{display:block;width:100%;height:100%;object-fit:cover;object-position:top center;border-radius:10.3% / 4.77%;background:var(--bg-soft)}
 .phone::after{content:"";position:absolute;inset-block-start:3.33%;inset-inline-start:50%;transform:translateX(-50%);width:28.68%;aspect-ratio:34.29 / 9.92;border-radius:999px;background:var(--ink)}
 
-/* hover 面板：app 產品清單 */
+/* hover 面板：app 產品清單。英文標籤與事業群名稱固定不動，只換名稱「以下」的內容：
+   內文／數字淡出，產品清單在同一位置淡入（不再整片從下緣滑上，也不會把內文切半行）。
+   面板上緣 --panel-top＝名稱下緣，由 JS 依實際排版量（名稱可能換行）。 */
 .bgc__panel{
-  position:absolute;z-index:3;inset-inline:0;inset-block-end:0;
-  padding:clamp(22px,2.4vw,32px) clamp(28px,3.3vw,48px) clamp(26px,2.8vw,36px);
-  background:rgba(246,246,246,.97);
-  backdrop-filter:blur(10px);
-  border-block-start:1px solid rgba(38,38,38,.08);
-  transform:translateY(100%);
-  transition:transform .48s var(--ease);
+  position:absolute;z-index:3;inset:0;
+  padding:var(--panel-top,132px) clamp(28px,3.3vw,48px) clamp(28px,3.3vw,48px);
+  opacity:0;transform:translateY(8px);
+  transition:opacity .3s var(--ease),transform .4s var(--ease);
   display:flex;flex-direction:column;gap:14px;
 }
-.bgc--dark .bgc__panel{background:rgba(38,38,38,.97);border-block-start-color:rgba(255,255,255,.12)}
-.bgc:hover .bgc__panel,.bgc:focus-within .bgc__panel{transform:translateY(0)}
+.bgc:hover .bgc__panel,.bgc:focus-within .bgc__panel{opacity:1;transform:none;transition-delay:.08s}
+.bgc__desc,.bgc__stat{transition:opacity .2s var(--ease)}
+.bgc:hover .bgc__desc,.bgc:focus-within .bgc__desc,
+.bgc:hover .bgc__stat,.bgc:focus-within .bgc__stat{opacity:0}
 
 .bgc__panelcap{margin:0;font-size:12px;font-weight:500;line-height:16px;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-400)}
 /* 清單分欄 —— 面板高度由產品列數決定，分欄是把面板壓進卡高的槓桿 */
@@ -791,6 +790,10 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
     border-block-start:1px solid rgba(38,38,38,.1);
   }
   .bgc--dark .bgc__panel{background:none;border-block-start-color:rgba(255,255,255,.14)}
+  /* 單欄：面板是接在內文後面的一般區塊，永遠顯示，hover 也不藏內文 */
+  .bgc__panel{opacity:1}
+  .bgc:hover .bgc__desc,.bgc:focus-within .bgc__desc,
+  .bgc:hover .bgc__stat,.bgc:focus-within .bgc__stat{opacity:1}
   .groups > .bgc .bgc__products{grid-template-columns:minmax(0,1fr)}
   .bgc:hover{transform:none;box-shadow:0 20px 44px -30px rgba(38,38,38,.4)}
   /* 單欄之後卡片高度已超過一個畫面，黏頂堆疊會吃掉內容，改回一般直列 */
@@ -1565,8 +1568,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
             <p class="bgc__eyebrow bgc__eyebrow--red">Finance</p>
             <div class="bgc__head">
               <h3 class="bgc__name">金融事業群</h3>
-              <p class="bgc__claim">陪伴每個人成為更成熟的投資人。</p>
-              <p class="bgc__desc">從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
+              <p class="bgc__desc">陪伴每個人成為更成熟的投資人。從學習、選股、交易到社群討論，提供台股與美股完整的投資決策工具，旗下包含深受百萬用戶喜愛的經典應用。</p>
             </div>
           </div>
           <div class="bgc__hero"><div class="phone"><img class="phone__screen" src="assets/screen-chipk.webp" alt="籌碼K線 App 畫面" loading="lazy"></div></div>
@@ -1956,29 +1958,22 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     startCounters();
   }
 
-  /* ---------- 事業群：AI Lab 的 30+ 當 hover 焦點 ----------
-     這張卡沒有手機稿素材，暫時用數字動態補位（待素材補上後移除）。
-     自帶 rAF 取消：上面的 countUp 沒有取消機制，滑走後數字會繼續跑完。 */
-  [].forEach.call(document.querySelectorAll(".bgc"), function(card){
-    var n = card.querySelector(".bgc__stat b[data-count]");
-    if (!n) return;
-    var target = parseFloat(n.getAttribute("data-count")), raf = null;
-    card.addEventListener("mouseenter", function(){
-      if (reduce) return;
-      if (raf) cancelAnimationFrame(raf);
-      n.textContent = "0";
-      var start = performance.now(), dur = 900;
-      (function tick(now){
-        var p = Math.min((now - start) / dur, 1);
-        n.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
-        if (p < 1) raf = requestAnimationFrame(tick);
-      })(performance.now());
+  /* ---------- 事業群：hover 面板從名稱下緣開始 ----------
+     名稱在窄卡會換行，高度不固定，所以量實際位置寫進 --panel-top。 */
+  var bgcCards = [].slice.call(document.querySelectorAll(".bgc"));
+  function placePanels(){
+    bgcCards.forEach(function(card){
+      var name = card.querySelector(".bgc__name");
+      if (!name) return;
+      var gap = 22;   /* 名稱與「主要產品」之間，比照 .bgc__head 名稱到內文的距離再鬆一點 */
+      var top = name.getBoundingClientRect().bottom - card.getBoundingClientRect().top - card.clientTop + gap;
+      card.style.setProperty("--panel-top", Math.round(top) + "px");
     });
-    card.addEventListener("mouseleave", function(){
-      if (raf) cancelAnimationFrame(raf);
-      n.textContent = String(target);
-    });
-  });
+  }
+  placePanels();
+  if (window.ResizeObserver) new ResizeObserver(placePanels).observe(document.querySelector(".groups") || document.body);
+  else window.addEventListener("resize", placePanels);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(placePanels);
 
   /* ---------- 價值觀：三張卡片捲動堆疊 ---------- */
   var vstack = document.getElementById("valuesStack");
