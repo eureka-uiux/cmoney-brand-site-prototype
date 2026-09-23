@@ -266,7 +266,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
    Section: 我們是誰
    ============================================================ */
 /* 左右兩欄：左＝標題＋導言，右＝VISION / MISSION / METHOD 卡片（node 6341:67528） */
-.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
 .split__intro{display:grid;gap:64px;align-content:start}
 .split .h2 .is-red{color:var(--red)}
 .split .h2 .nobr{white-space:nowrap}
@@ -969,7 +969,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
    v2 工作文化：先看差異 → 換你判斷 → 你的適合度
    沿用 11 色與 9 階字級，文字不小於 16px
    ============================================================ */
-#work{padding-block-end:0}
+#work{padding-block-end:var(--section-pad-tight)}
 #work-compare{background:#fff}
 .wk-head{display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
 .wk-head .h2 .is-red{color:var(--red)}
@@ -1018,7 +1018,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wk-toggle:hover,.wk-toggle[aria-expanded="true"]{background:var(--red);border-color:var(--red)}
 .wk-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 .wk-toggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
-.wk-outro{margin:var(--block-gap) 0 0;text-align:center;font-size:30px;line-height:36px;font-weight:600;color:var(--text-900)}
 
 /* STEP 2 情境 */
 .wk-nav{display:flex;gap:8px;margin-top:32px;overflow-x:auto;scrollbar-width:none}
@@ -1129,7 +1128,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wk-tag{display:block}
   .wk-cell--old .wk-tag{color:var(--text-600)}
   .wk-cell--new .wk-tag{color:var(--on-dark-2)}
-  .wk-outro{font-size:20px;line-height:28px}
   .wk-nav{margin-inline:-24px;padding-inline:24px}
   .wk-quiz h4{font-size:20px;line-height:28px}
   .wk-opt{padding:16px}
@@ -1461,7 +1459,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       <div class="wk-cap wk-cap--old" aria-hidden="true"></div>
       <div class="wk-cap wk-cap--new" aria-hidden="true"></div>
     </div>
-    <p class="wk-outro reveal">自由度越高，<br>越必須說清楚任務、權責、成功標準與失敗代價</p>
   </div>
 </section>
 
