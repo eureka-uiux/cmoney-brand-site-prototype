@@ -460,7 +460,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
    Section: 運作方式
    ============================================================ */
 .how-head{max-width:none}
-.how-head .h2 .is-red{color:var(--red)}
+.how-head .h2 .is-red{color:var(--red);white-space:nowrap}
 .how-head p{margin:32px 0 0;max-width:600px;font-size:18px;line-height:28px;color:var(--text-600)}
 
 /* 四列對照卡片：沿用白底卡片那套語彙——20px 圓角、var(--line-200) 細邊、低擴散陰影、膠囊展開鈕。
@@ -971,10 +971,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
    ============================================================ */
 #work{padding-block-end:var(--section-pad-tight)}
 #work-compare{background:#fff}
-.wk-head{display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
-.wk-head .h2 .is-red{color:var(--red)}
 .wk-kicker{margin:0 0 16px;font-size:16px;line-height:24px;font-weight:600;letter-spacing:var(--ls-caps);color:var(--red)}
-.wk-head__lead{margin:0;max-width:420px;font-size:18px;line-height:28px;color:var(--text-600)}
 .wk-step{display:flex;flex-direction:column;gap:12px}
 .wk-step--first{margin-top:var(--block-gap)}
 .wk-step .wk-kicker{margin:0}
@@ -1116,7 +1113,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wk-lock__cover .hint--m{display:block}
 }
 @media (max-width:768px){
-  .wk-head{flex-direction:column;align-items:flex-start;gap:16px}
   .wk-step h3{font-size:24px;line-height:32px}
   .wk-table{grid-template-columns:1fr}
   .wk-th,.wk-cap{display:none}
@@ -1371,12 +1367,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <!-- ========================= v2 工作文化：先看差異 → 換你判斷 → 你的適合度 ========================= -->
 <section class="section" id="work">
   <div class="container">
-    <div class="wk-head reveal">
-      <div>
-        <p class="wk-kicker">CMoney 的運作方式</p>
-        <h2 class="h2">把公司形塑成一個<br><span class="is-red">事業實驗場。</span></h2>
-      </div>
-      <p class="wk-head__lead">多數公司先畫組織圖，再把人放進職缺；CMoney 先找值得解的問題，再組成能把問題變成結果的人。</p>
+    <div class="how-head reveal">
+      <h2 class="h2 lit-item">CMoney 的運作方式<br>把公司形塑成一個<span class="is-red">事業實驗場。</span></h2>
+      <p><span class="lit-item lit-line">多數公司先畫組織圖，再把人放進職缺；</span><span class="lit-item lit-line">CMoney 先找值得解的問題，再組成能把問題變成結果的人。</span></p>
     </div>
 
     <div class="wk-step wk-step--first reveal">
@@ -1471,6 +1464,21 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     <nav class="wk-nav" id="wkNav" aria-label="情境進度"></nav>
     <div class="wk-stage" id="wkStage"></div>
     <script type="application/json" id="wkData">[{"moment": "工作怎麼定義？", "title": "當真正的問題，不在你的職權內", "q": "到職第六週，你負責的新事業線成長停滯。你判斷卡住的不是流量或素材，而是對這群客戶的「價值主張」一開始就說錯了。但產品定位不在你的職權範圍，OKR 只寫著「達成成長數字」。你會？", "a": "先用增長實驗把轉換極限跑出來，拿到「行銷做對了、用戶依然不買單」的硬數據，再去跟產品團隊談定位調整。", "b": "整理目前的證據與假設，和相關負責人討論最小驗證方式，一起判斷哪些投入應先暫停。", "va": "歸因", "vb": "真問題", "aNote": "先排除自己這端的變因，用完整數據推動轉向。", "bNote": "證據足以支持假設時就提出，讓驗證與資源調整同時進行。", "lead": "CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。", "ask": "這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？", "article": "運用 Problem Solving 框架解題", "url": "https://blogs.cmoney.tw/problem-solving-framework", "imgFile": "field-problem-solving.jpg", "alt": "CMoney 同事在辦公室圍著螢幕一起討論問題"}, {"moment": "資源怎麼取得？", "title": "當市場訊號還很微弱", "q": "社群與客服陸續收到少數用戶詢問「希望提供美股個股籌碼分析」。這可能是機會，但訊號微弱、充滿未知。作為專案負責人，你會怎麼驗證？", "a": "投入資源建好數據串接與完整圖表後正式推出，用真實的留存與使用頻率來檢驗。", "b": "拆解各階段要驗證的假設，先用輕量測試看反應；有初步興趣再驗證使用與付費意願，依結果爭取研發資源。", "va": "完整度", "vb": "證據", "aNote": "把功能做到體驗順暢再推出，用完整的產品換取真實數據。", "bNote": "每個階段驗證一件事，用最低代價取得下一步的決策依據。", "lead": "CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。", "ask": "這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？", "article": "我們如何在兩個極端的害怕中做出決定", "url": "https://blogs.cmoney.tw/product-decision", "imgFile": "field-live-feature-decision.jpg", "alt": "CMoney 同事在雙螢幕前一邊看直播畫面、一邊追即時數據"}, {"moment": "成果怎麼衡量？", "title": "當目標提前達成", "q": "專案以「提升留存率」為目標列出 5 個假設，做到第 3 個時留存已提升 25%，超過 OKR 的 10%。剩下 2 個假設，你會？", "a": "按原計畫把剩下 2 個做完，維持專案完整度與排程貫徹力，發揮既有規劃的邊際效益。", "b": "先暫停照原計畫推進，重新比較剩下 2 個假設與其他產品瓶頸的預期價值，再決定續做、調整或轉移資源。", "va": "承諾", "vb": "目標", "aNote": "把答應的事按質按量交完，用計畫完整度對團隊負責。", "bNote": "依當下的目標與瓶頸重新排序，而不是照原清單做到底。", "lead": "CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。", "ask": "這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？", "article": "流程都做對了，為什麼問題還是沒解決？", "url": "https://blogs.cmoney.tw/cmoney-goal-misalignment", "imgFile": "field-quick-decision.jpg", "alt": "CMoney 同事在書牆前的沙發上圍著筆電一起討論"}, {"moment": "誰來做決定？", "title": "當權責還沒釐清", "q": "線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間。沒有既定 SOP，跨部門權責未明。你會？", "a": "立即通報跨部門主管並成立應對小組，確定分工與處理程序，補償方案經財務與法務確認後一致對外。", "b": "不等權責完全釐清。先接住用戶、確認影響並採取可逆的止損，同步找到決策負責人；超出授權的補償立即升級。", "va": "流程", "vb": "現場", "aNote": "先把權責與程序定下來，讓每一步都有依據。", "bNote": "授權範圍內的事先處理，超出範圍的決策同步升級。", "lead": "CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。", "ask": "這個職位可以獨立決定什麼？哪些需要共同決定？主管會在哪些節點介入與校正？", "article": "如何鍛鍊「決策正確」的能力？", "url": "https://blogs.cmoney.tw/make-proper-decision", "imgFile": "field-decision-quality.jpg", "alt": "CMoney 同事站在開放式辦公區前"}]</script>
+
+    <div class="how-outro reveal">
+      <h3>自由度越高，<br>越必須說清楚任務、權責、成功標準與失敗代價</h3>
+    </div>
+
+    <!-- 工作文化測驗結尾的求職入口 -->
+    <div class="job-cue reveal">
+      <span class="job-cue__line" aria-hidden="true"></span>
+      <h3 class="job-cue__q">認同這樣的工作方式？</h3>
+      <p class="job-cue__sub">看看現在有哪些問題，正在等人一起把它變成結果。</p>
+      <div class="job-cue__actions">
+        <a class="btn btn--line" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      </div>
+    </div>
   </div>
 </section>
 
