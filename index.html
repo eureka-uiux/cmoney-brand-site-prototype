@@ -912,6 +912,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   opacity:calc(.22 + var(--lit,1) * .78)}
 .pillar-link::before{content:"↓ ";color:var(--red)}
 
+/* 價值觀主標段：主標與三行說明各自依捲動 --lit 由淡轉實（同 VISION 三卡） */
+.lit-item{opacity:calc(.22 + var(--lit,1) * .78)}
+.lit-line{display:block}
+
 /* ---------- 北極星：產品 icon 4×4（一列一個事業群），由右往左淡入 ---------- */
 .ns-layout{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:48px;align-items:center}
 .nsviz{display:grid;grid-template-columns:repeat(4,44px);gap:14px;justify-self:end}
@@ -989,10 +993,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .northstar__title .nobr{display:inline-block}
 @media (min-width:769px){ .northstar__title .nobr{white-space:nowrap} }
 
-/* ---------- 創辦人引言：逐字柔和淡入 ---------- */
-.founder__quote p.is-typing-ready .tw-ch{opacity:0;filter:blur(4px);transition:opacity .8s var(--ease),filter .8s var(--ease)}
-.founder__quote p.is-typing-ready .tw-ch.is-on{opacity:1;filter:none}
-.founder__quote p.is-reset .tw-ch{transition:none!important}
+/* ---------- 逐字柔和淡入：僅創辦人引言 ---------- */
+.is-typing-ready .tw-ch{opacity:0;filter:blur(4px);transition:opacity .8s var(--ease),filter .8s var(--ease)}
+.is-typing-ready .tw-ch.is-on{opacity:1;filter:none}
+.is-reset .tw-ch{transition:none!important}
 
 </style>
 
@@ -1038,7 +1042,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
   <div class="container">
     <p class="hero__eyebrow eyebrow"><i aria-hidden="true"></i>Build Better Decisions</p>
-    <h1 class="hero__title">
+    <h1 class="hero__title reveal">
       我們的使命，
       <span class="is-red"><span class="nobr">是幫助每個人</span><span class="nobr">做好人生的投資。</span></span>
     </h1>
@@ -1158,10 +1162,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <section class="section" id="values">
   <div class="container">
     <div class="values-head reveal">
-      <h2 class="h2">價值觀<span class="is-red">是每天做選擇的方式。</span></h2>
-      <p>當沒有標準答案或想法衝突時，我們不迴避摩擦，而是用嚴謹的邏輯與坦誠的對話找出突破口。<br>
-         正是這些日常的勇敢選擇，塑造了我們每一個人，也築起了 CMoney 的企業文化。<br>
-         如果您也認同這些理念，請繼續閱讀。</p>
+      <h2 class="h2 lit-item">價值觀<span class="is-red">是每天做選擇的方式。</span></h2>
+      <p><span class="lit-item lit-line">當沒有標準答案或想法衝突時，我們不迴避摩擦，而是用嚴謹的邏輯與坦誠的對話找出突破口。</span>
+         <span class="lit-item lit-line">正是這些日常的勇敢選擇，塑造了我們每一個人，也築起了 CMoney 的企業文化。</span>
+         <span class="lit-item lit-line">如果您也認同這些理念，請繼續閱讀。</span></p>
     </div>
 
   </div>
@@ -1253,8 +1257,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <section class="section" id="work">
   <div class="container">
     <div class="how-head reveal">
-      <h2 class="h2">CMoney 的運作方式<br>把公司形塑成一個<span class="is-red">事業實驗場。</span></h2>
-      <p>多數公司先畫組織圖，再把人放進職缺；<br>CMoney 先找值得解的問題，再組成能把問題變成結果的人。</p>
+      <h2 class="h2 lit-item">CMoney 的運作方式<br>把公司形塑成一個<span class="is-red">事業實驗場。</span></h2>
+      <p><span class="lit-item lit-line">多數公司先畫組織圖，再把人放進職缺；</span><span class="lit-item lit-line">CMoney 先找值得解的問題，再組成能把問題變成結果的人。</span></p>
     </div>
 
   </div>
@@ -2031,6 +2035,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   if (flow){
     var fCards = [].slice.call(flow.querySelectorAll(".pillar"));
     var fLinks = [].slice.call(flow.querySelectorAll(".pillar-link"));
+    /* 價值觀主標段（主標＋三行說明）也吃同一套 --lit，一行一行由淡轉實 */
+    var litItems = [].slice.call(document.querySelectorAll(".lit-item"));
     var fTicking = false;
     function litFor(el, vh){
       var t = el.getBoundingClientRect().top;
@@ -2045,6 +2051,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         if (lit > 0.6) current = i;
       });
       fLinks.forEach(function(l){ l.style.setProperty("--lit", (reduce ? 1 : litFor(l, vh)).toFixed(3)); });
+      litItems.forEach(function(l){ l.style.setProperty("--lit", (reduce ? 1 : litFor(l, vh)).toFixed(3)); });
       fCards.forEach(function(c, i){ c.classList.toggle("is-current", i === current && !reduce); });
     }
     function requestFlow(){ if (!fTicking){ fTicking = true; requestAnimationFrame(updateFlow); } }
@@ -2096,50 +2103,66 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     });
   }
 
-  /* ---------- v2：創辦人引言 — 逐字柔和淡入 ----------
-     每個字各自 0.8s 淡入並從輕微模糊轉清晰，前後字相隔 28ms 重疊進場，
-     讀起來像一整句慢慢浮現，而不是一格一格打出來。
-     一般捲動：第一次露出 60% 時播一次；點「#founder」錨點：每次都清空重播。
-     未出現的字透明但佔位，版面不跳；讀屏以 <p> 的 aria-label 唸全文。 */
-  var fq = document.querySelector(".founder__quote p");
-  if (fq && !reduce && "IntersectionObserver" in window){
-    var fText = fq.textContent.trim();
-    fq.setAttribute("aria-label", fText);
-    fq.textContent = "";
-    var fChars = Array.from(fText).map(function(ch, i){
-      var s = document.createElement("span");
-      s.className = "tw-ch"; s.setAttribute("aria-hidden", "true"); s.textContent = ch;
-      s.style.transitionDelay = (i * 28) + "ms";
-      fq.appendChild(s); return s;
+  /* ---------- v2：逐字柔和淡入（僅創辦人引言）----------
+     每個字各自 0.8s 淡入並從輕微模糊轉清晰，前後字相隔 28ms 重疊進場，整句像慢慢浮現。
+     - 捲動：第一次露出 60% 時播一次，之後來回捲不重播。
+     - 點對應錨點（例如導覽「創辦人的話」→ #founder）：每次清空重播。
+     - 保留原本的巢狀結構（紅字 .is-red、不斷行 .nobr、<br>），只把文字拆成逐字 <span>；
+       未出現的字透明但佔位，版面不跳。讀屏以元素的 aria-label 唸全文。 */
+  function fadeChars(el, anchors, opt){
+    opt = opt || {};
+    var gap = opt.gap || 28, dur = opt.dur || 800;
+    if (!el || reduce || !("IntersectionObserver" in window)) return;
+    el.setAttribute("aria-label", el.innerText.replace(/\s+/g, " ").trim());
+    var chars = [];
+    (function split(node){
+      [].slice.call(node.childNodes).forEach(function(n){
+        if (n.nodeType === 1){ split(n); return; }
+        if (n.nodeType !== 3) return;
+        var frag = document.createDocumentFragment();
+        Array.from(n.textContent).forEach(function(ch){
+          if (/\s/.test(ch)){ frag.appendChild(document.createTextNode(ch)); return; }
+          var s = document.createElement("span");
+          s.className = "tw-ch"; s.setAttribute("aria-hidden", "true"); s.textContent = ch;
+          frag.appendChild(s); chars.push(s);
+        });
+        n.replaceWith(frag);
+      });
+    })(el);
+    chars.forEach(function(s, i){
+      s.style.transitionDelay = (i * gap) + "ms";
+      s.style.transitionDuration = dur + "ms";
     });
-    fq.classList.add("is-typing-ready");
+    el.classList.add("is-typing-ready");
 
-    function twReset(){
-      fq.classList.add("is-reset");            /* 重設時關掉轉場，瞬間歸零 */
-      fChars.forEach(function(s){ s.classList.remove("is-on"); });
-      void fq.offsetWidth;
-      fq.classList.remove("is-reset");
+    function reset(){
+      el.classList.add("is-reset");                 /* 重設時關掉轉場，瞬間歸零 */
+      chars.forEach(function(s){ s.classList.remove("is-on"); });
+      void el.offsetWidth;
+      el.classList.remove("is-reset");
     }
-    function twPlay(){
-      twReset();
-      requestAnimationFrame(function(){ fChars.forEach(function(s){ s.classList.add("is-on"); }); });
+    function play(){
+      reset();
+      requestAnimationFrame(function(){ chars.forEach(function(s){ s.classList.add("is-on"); }); });
     }
-    function twWhenVisible(){
+    function whenVisible(){
       var o = new IntersectionObserver(function(entries){
         if (!entries[0].isIntersecting) return;
         o.disconnect();
-        setTimeout(twPlay, 200);
+        setTimeout(play, 200);
       }, {threshold:0.6});
-      o.observe(fq);
+      o.observe(el);
     }
-    twWhenVisible();
-    document.querySelectorAll('a[href="#founder"]').forEach(function(a){
-      a.addEventListener("click", function(){
-        twReset();
-        setTimeout(twWhenVisible, 450);       /* 等平滑捲動停好再偵測 */
+    whenVisible();
+    (anchors || []).forEach(function(hash){
+      document.querySelectorAll('a[href="' + hash + '"]').forEach(function(a){
+        a.addEventListener("click", function(){ reset(); setTimeout(whenVisible, 450); });  /* 等平滑捲動停好 */
       });
     });
   }
+  /* 章節主標（Hero／價值觀／工作文化）改回整塊淡入（.reveal），與「我們不是從…開始」一致；
+     逐字淡入只留給創辦人引言，避免整頁動態過多 */
+  fadeChars(document.querySelector(".founder__quote p"), ["#founder"]);
 
   /* ---------- 四列對照卡片：展開 + 每列各自的 check card ---------- */
   function cmpResetCase(block){
