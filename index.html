@@ -301,15 +301,11 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 
 /* 事業群：板塊式卡片（依 Figma 33:2585 / 33:2592 改版）
    靜止＝產品手機稿，hover＝app 產品清單從下緣滑上，整張卡導向該事業群詳細頁。
-   版面三排，份量由上往下遞減：
-     金融 通欄 480 ／ 合作夥伴 + 消費 對半 420 ／ 國際金融 + AI Lab 對半 360。
-   每一排的卡高、標題級數、產品清單欄數綁在一起調，同一排的視覺重量才會一致。 */
-.groups{margin-top:64px;display:flex;flex-wrap:wrap;gap:40px}
-.groups > .bgc:nth-child(1){flex:0 0 100%;height:480px}
-.groups > .bgc:nth-child(2),
-.groups > .bgc:nth-child(3){flex:0 0 calc((100% - 40px) / 2);height:420px}
-.groups > .bgc:nth-child(4),
-.groups > .bgc:nth-child(5){flex:0 0 calc((100% - 40px) / 2);height:360px}
+   版面 2／2 對半兩排：金融 + 合作夥伴 ／ 消費 + 國際金融，四張卡同為 420 高。
+   （AI Lab 已整併入消費事業群，卡片先拿掉，詳細頁區塊同步移除。）
+   卡高、標題級數、產品清單欄數綁在一起調，四張卡的視覺重量才會一致。 */
+.groups{margin-top:64px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px}
+.groups > .bgc{height:420px}
 
 .bgc{
   position:relative;overflow:hidden;border-radius:24px;cursor:pointer;
@@ -332,11 +328,8 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 .bgc__eyebrow{margin:0;font-size:14px;font-weight:500;letter-spacing:var(--ls-caps);line-height:20px;color:var(--text-600);text-transform:uppercase}
 .bgc__eyebrow--red{color:var(--red)}
 .bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px}
-/* 事業群名稱五張卡統一 30/36（官網既有階，與 .vcard__name、.founder__title 同級）。
-   卡高仍是 480/420/360 的三排遞減，但層級改由卡片尺寸與留白表達，不再靠字級。 */
+/* 事業群名稱四張卡統一 30/36（官網既有階，與 .vcard__name、.founder__title 同級）。 */
 .bgc__name{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900);text-wrap:balance}
-/* 通欄卡的文字欄有 1000px 以上，內文不收窄會拉成難讀的長行 */
-.groups > .bgc:nth-child(1) .bgc__head{max-width:620px}
 .bgc--dark .bgc__name{color:#fff}
 .bgc__claim{margin:0;font-size:18px;font-weight:600;line-height:28px;color:var(--text-600)}
 .bgc--dark .bgc__claim{color:var(--text-300)}
@@ -358,8 +351,6 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 /* 位移量取「手機欄」的 100%（＝卡片內容區高度）而非手機自身高度：
    手機縮小時自身高度跟著變小，起始位置卻不變，會退不乾淨。 */
 .bgc:hover .bgc__hero,.bgc:focus-within .bgc__hero{transform:translateY(100%)}
-/* 通欄的金融卡不必讓手機稿吃掉 42%，固定一欄寬度即可 */
-.groups > .bgc:nth-child(1) .bgc__hero{flex:0 0 clamp(200px,20%,280px)}
 
 /* 手機稿在自己那一欄裡絕對定位，才能往卡片下緣出血；水平方向仍受欄寬約束。
    比例全部換算自 Figma「手機 mockup」(node 6723:11086)：機身 119.57×243.01，
@@ -395,10 +386,8 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 
 .bgc__panelcap{margin:0;font-size:12px;font-weight:500;line-height:16px;letter-spacing:var(--ls-caps);text-transform:uppercase;color:var(--text-400)}
 /* 清單分欄 —— 面板高度由產品列數決定，分欄是把面板壓進卡高的槓桿 */
-/* 欄數也跟著排走：通欄 4 欄一列排完，對半的兩排各 2 欄。
-   欄數變多＝面板變矮，剛好對上越下面卡越矮的節奏。 */
+/* 對半卡一律 2 欄 */
 .bgc__products{margin:0;padding:0;list-style:none;display:grid;gap:10px 24px;grid-template-columns:repeat(2,minmax(0,1fr))}
-.groups > .bgc:nth-child(1) .bgc__products{grid-template-columns:repeat(4,minmax(0,1fr))}
 .bgc__products li{display:flex;align-items:center;gap:12px;min-width:0}
 .bgc__products img{width:38px;height:38px;border-radius:9px;flex:0 0 auto;box-shadow:0 0 2px rgba(38,38,38,.18),0 2px 8px rgba(38,38,38,.1)}
 .bgc__products .p{display:flex;flex-direction:column;min-width:0}
@@ -790,7 +779,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
   /* 單欄：卡高改由內容決定；觸控沒有 hover，面板改成接在內容後面一起捲 */
   .groups{display:grid;grid-template-columns:minmax(0,1fr);gap:20px}
-  .groups > .bgc:nth-child(n){flex:none;width:auto;height:auto}
+  .groups > .bgc{height:auto}
   .bgc__body{display:block}
   .bgc__hero{display:none}
   .bgc__stat{margin-top:24px}
@@ -800,7 +789,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
     border-block-start:1px solid rgba(38,38,38,.1);
   }
   .bgc--dark .bgc__panel{background:none;border-block-start-color:rgba(255,255,255,.14)}
-  .groups > .bgc:nth-child(n) .bgc__products{grid-template-columns:minmax(0,1fr)}
+  .groups > .bgc .bgc__products{grid-template-columns:minmax(0,1fr)}
   .bgc:hover{transform:none;box-shadow:0 20px 44px -30px rgba(38,38,38,.4)}
   /* 單欄之後卡片高度已超過一個畫面，黏頂堆疊會吃掉內容，改回一般直列 */
   .vstack{padding-block:40px 0}
@@ -1497,28 +1486,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
             <li data-nocopy><img src="assets/icon-global-haoye.png" alt="" loading="lazy"><span class="p"><b>好葉智能選股</b></span></li>
           </ul>
           <a class="bgc__cta" href="business-groups.html#global">了解國際金融事業群的挑戰 <span aria-hidden="true">&rarr;</span></a>
-        </div>
-      </article>
-
-      <article class="bgc bgc--dark">
-        <a class="bgc__hit" href="business-groups.html#ai-lab" tabindex="-1" aria-hidden="true"></a>
-        <div class="bgc__body">
-          <div class="bgc__main">
-            <p class="bgc__eyebrow bgc__eyebrow--red">Innovation</p>
-            <div class="bgc__head">
-              <h3 class="bgc__name">AI Lab</h3>
-              <p class="bgc__desc">建立平台級 AI 核心能力，打造 AI 原生產品，將領先技術輸出至所有事業單位。</p>
-            </div>
-            <p class="bgc__stat"><b data-count="30">30</b><span>近三年推出之新產品原型</span></p>
-          </div>
-        </div>
-        <div class="bgc__panel">
-          <p class="bgc__panelcap">主要產品</p>
-          <ul class="bgc__products">
-            <li data-nocopy><img src="assets/icon-ailab-diary.png" alt="" loading="lazy"><span class="p"><b>AI日日記</b></span></li>
-            <li data-nocopy><img src="assets/icon-ailab-taigang.png" alt="" loading="lazy"><span class="p"><b>抬槓</b></span></li>
-          </ul>
-          <a class="bgc__cta" href="business-groups.html#ai-lab">了解 AI Lab 的挑戰 <span aria-hidden="true">&rarr;</span></a>
         </div>
       </article>
 
