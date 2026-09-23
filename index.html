@@ -843,6 +843,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   .hero__actions .btn{width:100%}
   .cta{padding-block:72px}
   .cta__actions .btn{flex:1 1 100%}
+  .cta__actions .btn--solid{order:-1}   /* 同 .job-cue：堆疊時主要動作排最上 */
   .fnav__brand{flex-direction:column;align-items:flex-start}
   .fnav__brand-links{align-items:flex-start}
   .fnav__cols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px}
@@ -1674,8 +1675,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     <h2 class="cta__title reveal">一家公司真正的樣子，<br>藏在每天做出的<span class="is-red">選擇裡。</span></h2>
     <p class="cta__sub reveal">使命讓我們知道往哪裡去；價值觀幫助我們取捨；工作原則讓相信真的發生。</p>
     <div class="cta__actions reveal">
-      <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       <a class="btn btn--ghost" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
     </div>
   </div>
 </section>
