@@ -450,9 +450,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   align-self:flex-start;display:inline-flex;align-items:baseline;gap:6px;
   font-size:16px;font-weight:600;line-height:24px;color:var(--red);
 }
-.vcard__more span{flex:0 0 auto;transition:transform .25s var(--ease)}
-.vcard__more:hover{text-decoration:underline;text-underline-offset:3px}
-.vcard__more:hover span{transform:translateX(4px)}
+.vcard__more span{flex:0 0 auto}
 
 .values-outro{padding-block:var(--block-gap) 0;text-align:center}
 .values-outro h3{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900)}
@@ -694,8 +692,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   background:var(--ink);color:#fff;
   padding-block:clamp(88px,10vh,124px);
 }
-/* 使命願景的收束句：緊接在 VISION／MISSION／METHOD 之後，不另起一塊 */
-#northstar{padding-block-start:clamp(48px,5.5vh,64px)}
+/* 北極星：事業群卡片之後的深色收尾塊，下方接求職入口 */
 .section--statement .northstar{padding-block:0}
 .section--statement .northstar__sub{color:var(--on-dark-2)}
 .section--statement .statement{color:#fff}
@@ -915,30 +912,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .nsviz{display:grid;grid-template-columns:repeat(4,44px);gap:14px;justify-self:end}
 .nsviz__icon{display:block;width:44px;height:44px;border-radius:11px;box-shadow:0 6px 14px rgba(0,0,0,.35);will-change:transform,opacity}
 
-/* ---------- 價值觀：金句放大 ---------- */
-.vcard__quote{position:relative;padding-block:20px;padding-inline:64px 24px}
-.vcard__quote::before{
-  content:"\201C";position:absolute;inset-block-start:10px;inset-inline-start:18px;
-  font-size:40px;font-weight:600;line-height:48px;color:var(--red);opacity:.45;
-}
-.vcard__quote p{font-size:24px;line-height:32px}
-
-/* ---------- 價值觀：延伸閱讀卡 ---------- */
-.vcard__more{
-  align-self:stretch;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;
-  padding:16px 20px;border:1px solid var(--line-200);border-radius:12px;background:var(--bg);color:var(--text-900);
-  transition:border-color .25s var(--ease),box-shadow .25s var(--ease);
-}
-.vcard__more:hover{text-decoration:none;border-color:var(--red);box-shadow:0 12px 28px -20px rgba(38,38,38,.45)}
-.vcard__more:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.vcard__morecap{grid-column:1;font-size:12px;font-weight:500;line-height:16px;color:var(--text-400);letter-spacing:var(--ls)}
-.vcard__moretitle{grid-column:1;font-size:16px;font-weight:600;line-height:24px;color:var(--text-900)}
-.vcard__morego{grid-column:2;grid-row:1 / span 2;display:grid;place-items:center;width:40px;height:40px;border-radius:100px;
-  border:1px solid var(--red);color:var(--red);font-size:18px;line-height:24px;
-  transition:background-color .25s var(--ease),color .25s var(--ease),transform .25s var(--ease)}
-.vcard__more:hover .vcard__morego{background:var(--red);color:#fff;transform:translate(2px,-2px)}
-.vcard__more:hover span.vcard__morego{transform:translate(2px,-2px)}
-
 /* ---------- 工作文化：求職入口 ----------
    接在置中的收尾句後面，沿用同一條中軸往下讀：不加外框、不左右分欄，
    用一條淡出的紅色短線（同 .section-cue）把視線從標題帶到問句。 */
@@ -948,14 +921,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .job-cue__q{margin:20px 0 0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900)}
 .job-cue__sub{margin:8px 0 0;font-size:16px;line-height:24px;color:var(--text-600)}
 .job-cue__actions{margin-top:24px;display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
-
-/* ---------- 價值觀：延伸閱讀卡進場微動畫 ----------
-   卡片捲進畫面時上浮淡入，箭頭按鈕晚一拍從左下滑進定位 */
-.vcard__more.is-pending{opacity:0;transform:translateY(16px)}
-.vcard__more.is-pending .vcard__morego{opacity:0;transform:translate(-10px,10px)}
-.vcard__more{transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .5s var(--ease),transform .5s var(--ease)}
-.vcard__morego{transition:background-color .25s var(--ease),color .25s var(--ease),opacity .4s var(--ease) .25s,transform .4s var(--ease) .25s}
-.vcard__more:hover .vcard__morego{transition-delay:0s}
+/* 主要動作「看開放職缺」放右邊（視線由左往右讀，最後落在主要動作） */
+/* 深底版（北極星收尾）：問句白字、副標 --on-dark-2，次要鈕用深底專用的 .btn--ghost */
+#northstar .job-cue{margin-top:var(--block-gap)}
+.section--statement .job-cue__q{color:#fff}
+.section--statement .job-cue__sub{color:var(--on-dark-2)}
 
 @media (max-width:1200px){
   .nsviz{grid-template-columns:repeat(4,36px);gap:12px}
@@ -969,19 +939,17 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .nsviz{justify-self:start}
 }
 @media (max-width:768px){
-  .vcard__quote p{font-size:18px;line-height:28px}
-  .vcard__quote{padding-inline:52px 20px}
-  .vcard__quote::before{inset-inline-start:14px}
   .nsviz{grid-template-columns:repeat(4,32px);gap:10px}
   .nsviz__icon{width:32px;height:32px;border-radius:8px}
   .job-cue__q{font-size:20px;line-height:28px}
   .job-cue__actions{width:100%}
   .job-cue__actions .btn{flex:1 1 100%}
+  /* 單欄堆疊時主要動作排最上面 */
+  .job-cue__actions .btn--solid{order:-1}
 }
 @media (prefers-reduced-motion:reduce){
   .reveal[data-stagger] > *{opacity:1!important;animation:none!important}
   .section--statement .reveal:not(.is-in){opacity:1}
-  .vcard__more.is-pending,.vcard__more.is-pending .vcard__morego{opacity:1;transform:none}
 }
 /* 北極星主標：以逗號為斷點，不再斷成「一個共／同目標」 */
 .northstar__title .nobr{display:inline-block}
@@ -1121,37 +1089,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   </div>
 </section>
 
-<section class="section section--statement" id="northstar">
-  <div class="container">
-    <div class="ns-layout">
-      <div class="northstar reveal">
-        <p class="northstar__eyebrow">ONE COMPANY, ONE NORTH STAR</p>
-        <h3 class="northstar__title"><span class="nobr">很多產品，很多專業，</span><span class="nobr">一個共同目標。</span></h3>
-        <p class="northstar__sub">讓每一次累積，都成為下一次更好決定的基礎。</p>
-      </div>
-      <!-- v2：4×4，一列一個事業群（金融／合作夥伴／消費／國際金融），隨捲動由右往左依序淡入（JS：updateNorthstar） -->
-      <div class="nsviz" id="nsviz" aria-hidden="true">
-        <img class="nsviz__icon" src="assets/icon-finance-chipk.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-finance-bole.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-finance-licaibao.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-finance-moneymag.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-partner-quan.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-partner-lin.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-partner-emily.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-partner-inst.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-consumer-einvoice.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-consumer-easynote.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-consumer-cwmoney.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-consumer-dreamfapiao.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-global-mike.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-global-rich.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-global-sky.png" alt="" loading="lazy">
-        <img class="nsviz__icon" src="assets/icon-global-haoye.png" alt="" loading="lazy">
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ========================= 價值觀 ========================= -->
 <section class="section" id="values">
   <div class="container">
@@ -1186,7 +1123,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               <h4>從使用者與問題出發，並對結果負責，而不是只對工作負責</h4>
               <p>如果一件事情沒有產生預期效果，我們不希望回答：「可是我的部分已經做完了。」真正的責任不是完成自己那一小塊，而是關心最後的結果有沒有發生。</p>
             </div>
-            <a class="vcard__more" href="https://blogs.cmoney.tw/cmoney-engineering-culture-teamwork" target="_blank" rel="noopener"><span class="vcard__morecap">延伸閱讀・部落格文章</span><span class="vcard__moretitle">CMoney 工程文化：為什麼我們更看重一起把事情做完</span><span class="vcard__morego" aria-hidden="true">&#8599;</span><span class="sr-only">（另開新分頁）</span></a>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/cmoney-engineering-culture-teamwork" target="_blank" rel="noopener">延伸閱讀〈CMoney 工程文化：為什麼我們更看重一起把事情做完〉<span aria-hidden="true">→</span><span class="sr-only">（另開新分頁）</span></a>
           </div>
         </div>
       </article>
@@ -1207,7 +1144,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               <h4>把問題當成升級自己的機會</h4>
               <p>有些問題一直出現，不一定只是環境不好；它也可能在提醒我們，目前的能力、認知或工作方法，已經不足以解決下一個階段的問題。</p>
             </div>
-            <a class="vcard__more" href="https://blogs.cmoney.tw/learning-culture-at-cmoney" target="_blank" rel="noopener"><span class="vcard__morecap">延伸閱讀・部落格文章</span><span class="vcard__moretitle">自我超越：學習成長的關鍵在於主動追求</span><span class="vcard__morego" aria-hidden="true">&#8599;</span><span class="sr-only">（另開新分頁）</span></a>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/learning-culture-at-cmoney" target="_blank" rel="noopener">延伸閱讀〈自我超越：學習成長的關鍵在於主動追求〉<span aria-hidden="true">→</span><span class="sr-only">（另開新分頁）</span></a>
           </div>
         </div>
       </article>
@@ -1228,7 +1165,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               <h4>有衝突，就把它拿到桌面上，想清楚，說清楚，然後做到</h4>
               <p>如果不同意，就把原因說清楚；如果不知道，就承認不知道；如果看到風險，就提出來。我們鼓勵彼此說服，也願意被說服，因為討論的目的不是證明誰比較厲害，而是一起更接近事實。</p>
             </div>
-            <a class="vcard__more" href="https://blogs.cmoney.tw/unity-of-body-and-mind" target="_blank" rel="noopener"><span class="vcard__morecap">延伸閱讀・部落格文章</span><span class="vcard__moretitle">身心靈一致：CMoney 價值觀的底層根基，從五種失衡檢視你的內在整合力</span><span class="vcard__morego" aria-hidden="true">&#8599;</span><span class="sr-only">（另開新分頁）</span></a>
+            <a class="vcard__more" href="https://blogs.cmoney.tw/unity-of-body-and-mind" target="_blank" rel="noopener">延伸閱讀〈身心靈一致：CMoney 價值觀的底層根基，從五種失衡檢視你的內在整合力〉<span aria-hidden="true">→</span><span class="sr-only">（另開新分頁）</span></a>
           </div>
         </div>
       </article>
@@ -1526,8 +1463,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       <h3 class="job-cue__q">認同這樣的工作方式？</h3>
       <p class="job-cue__sub">看看現在有哪些問題，正在等人一起把它變成結果。</p>
       <div class="job-cue__actions">
-        <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
         <a class="btn btn--line" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       </div>
     </div>
   </div>
@@ -1647,6 +1584,49 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         </div>
       </article>
 
+    </div>
+  </div>
+</section>
+
+<!-- ========================= 事業群收尾：北極星＋求職入口 ========================= -->
+<section class="section section--statement" id="northstar">
+  <div class="container">
+    <div class="ns-layout">
+      <div class="northstar reveal">
+        <p class="northstar__eyebrow">ONE COMPANY, ONE NORTH STAR</p>
+        <h3 class="northstar__title"><span class="nobr">很多產品，很多專業，</span><span class="nobr">一個共同目標。</span></h3>
+        <p class="northstar__sub">讓每一次累積，都成為下一次更好決定的基礎。</p>
+      </div>
+      <!-- v2：4×4，一列一個事業群（金融／合作夥伴／消費／國際金融），隨捲動由右往左依序淡入（JS：updateNorthstar） -->
+      <div class="nsviz" id="nsviz" aria-hidden="true">
+        <img class="nsviz__icon" src="assets/icon-finance-chipk.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-finance-bole.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-finance-licaibao.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-finance-moneymag.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-quan.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-lin.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-emily.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-partner-inst.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-einvoice.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-easynote.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-cwmoney.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-consumer-dreamfapiao.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-mike.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-rich.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-sky.png" alt="" loading="lazy">
+        <img class="nsviz__icon" src="assets/icon-global-haoye.png" alt="" loading="lazy">
+      </div>
+    </div>
+
+    <!-- 事業群結尾的求職入口（比照工作文化結尾 .job-cue，深底版） -->
+    <div class="job-cue reveal">
+      <span class="job-cue__line" aria-hidden="true"></span>
+      <h3 class="job-cue__q">想加入其中一個事業群？</h3>
+      <p class="job-cue__sub">每個產品背後，都有還沒被解決的問題，正在等人一起推進。</p>
+      <div class="job-cue__actions">
+        <a class="btn btn--ghost" href="https://cmoney-interview-journeyf.vercel.app/" target="_blank" rel="noopener">了解面試流程 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+        <a class="btn btn--solid" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看開放職缺 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
+      </div>
     </div>
   </div>
 </section>
@@ -1845,10 +1825,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
      改成：每一章＝主標段＋後面所有內容段；畫面 35% 高的那條線落在哪一章，就點亮哪一章。
      落在 Hero / CTA / Footer 時全部熄滅。 */
   var chapters = [
-    ["aboutus",  ["aboutus","northstar"]],
+    ["aboutus",  ["aboutus"]],
     ["values",   ["values","values-stack","values-outro"]],
     ["work",     ["work","work-compare"]],
-    ["business", ["business","groups"]],
+    ["business", ["business","groups","northstar"]],
     ["founder",  ["founder"]]
   ].map(function(c){
     return {key:c[0], els:c[1].map(function(id){ return document.getElementById(id); }).filter(Boolean)};
@@ -2071,22 +2051,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     updateNorthstar();
     addEventListener("scroll", requestNorthstar, {passive:true});
     addEventListener("resize", requestNorthstar);
-  }
-
-  /* ---------- v2：延伸閱讀卡 — 捲進畫面時上浮淡入，箭頭晚一拍滑入 ---------- */
-  if (!reduce && "IntersectionObserver" in window){
-    var moreObs = new IntersectionObserver(function(entries){
-      entries.forEach(function(en){
-        if (!en.isIntersecting) return;
-        en.target.classList.remove("is-pending");
-        moreObs.unobserve(en.target);
-      });
-    }, {rootMargin:"0px 0px -12% 0px", threshold:0.4});
-    document.querySelectorAll(".vcard__more").forEach(function(a){
-      if (a.getBoundingClientRect().top < window.innerHeight * 0.88) return;   /* 已在畫面內的不藏 */
-      a.classList.add("is-pending");
-      moreObs.observe(a);
-    });
   }
 
   /* ---------- v2：逐字柔和淡入（僅創辦人引言）----------
