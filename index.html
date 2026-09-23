@@ -302,7 +302,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 .statement-sub{margin:40px 0 0;max-width:640px;font-size:20px;line-height:32px;color:var(--text-600)}
 
 /* 事業群：板塊式卡片（依 Figma 33:2585 / 33:2592 改版）
-   靜止＝產品手機稿，hover＝app 產品清單從下緣滑上，整張卡導向該事業群詳細頁。
+   四張卡統一淺底。靜止＝產品手機稿，hover＝名稱下方換成 app 產品清單，整張卡導向該事業群詳細頁。
    版面 2／2 對半兩排：金融 + 合作夥伴 ／ 消費 + 國際金融，四張卡同為 420 高。
    （AI Lab 已整併入消費事業群，卡片先拿掉，詳細頁區塊同步移除。）
    卡高、標題級數、產品清單欄數綁在一起調，四張卡的視覺重量才會一致。 */
@@ -316,7 +316,6 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
   padding:clamp(28px,3.3vw,48px);
   transition:box-shadow .4s var(--ease),transform .4s var(--ease);
 }
-.bgc--dark{background:#262626;border-color:#262626}
 .bgc:hover,.bgc:focus-within{transform:translateY(-4px);box-shadow:0 28px 60px -34px rgba(38,38,38,.5)}
 
 /* 整張卡導向該事業群的詳細頁區塊。疊 hit area 而不是把 <article> 換成 <a>：
@@ -332,9 +331,7 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 .bgc__head{margin-top:clamp(22px,2.6vw,36px);display:flex;flex-direction:column;gap:14px}
 /* 事業群名稱四張卡統一 30/36（官網既有階，與 .vcard__name、.founder__title 同級）。 */
 .bgc__name{margin:0;font-size:30px;font-weight:600;line-height:36px;color:var(--text-900);text-wrap:balance}
-.bgc--dark .bgc__name{color:#fff}
 .bgc__desc{margin:0;font-size:14px;font-weight:400;line-height:20px;color:var(--text-600)}
-.bgc--dark .bgc__desc{color:var(--text-300)}
 
 .bgc__stat{margin:auto 0 0;display:flex;flex-direction:column;gap:4px}
 .bgc__stat b{font-size:40px;font-weight:600;line-height:48px;color:var(--red);font-variant-numeric:tabular-nums}
@@ -394,19 +391,12 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
 .bgc__products .p{display:flex;flex-direction:column;min-width:0}
 .bgc__products b{font-size:14px;font-weight:600;line-height:20px;color:var(--text-900)}
 .bgc__products .p span{font-size:12px;font-weight:400;line-height:16px;color:var(--text-600)}
-.bgc--dark .bgc__products b{color:#fff}
-.bgc--dark .bgc__products .p span{color:var(--text-300)}
 /* 尚未定義一句話文案的產品：只給名稱，不補 */
 .bgc__products li[data-nocopy] b{color:var(--text-600);font-weight:500}
-.bgc--dark .bgc__products li[data-nocopy] b{color:var(--text-300)}
 
 .bgc__cta{margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;line-height:20px;color:var(--red);text-decoration:none}
 .bgc__cta span{transition:transform .25s var(--ease)}
 .bgc:hover .bgc__cta span{transform:translateX(4px)}
-/* 事業群卡片的紅字一律用 Primary #e21e28，深淺底同一個值，不再在深底上換 --red-300 */
-.bgc--dark .bgc__cta{color:var(--red)}
-.bgc--dark .bgc__eyebrow--red{color:var(--red)}
-.bgc--dark .bgc__stat b{color:var(--red)}
 
 /* ============================================================
    Section: 價值觀（node 6341:67665）
@@ -789,7 +779,6 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
     padding:24px 0 0;margin-top:24px;
     border-block-start:1px solid rgba(38,38,38,.1);
   }
-  .bgc--dark .bgc__panel{background:none;border-block-start-color:rgba(255,255,255,.14)}
   /* 單欄：面板是接在內文後面的一般區塊，永遠顯示，hover 也不藏內文 */
   .bgc__panel{opacity:1}
   .bgc:hover .bgc__desc,.bgc:focus-within .bgc__desc,
@@ -1585,7 +1574,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         </div>
       </article>
 
-      <article class="bgc bgc--dark">
+      <article class="bgc">
         <a class="bgc__hit" href="business-groups.html#partnership" tabindex="-1" aria-hidden="true"></a>
         <div class="bgc__body">
           <div class="bgc__main">
