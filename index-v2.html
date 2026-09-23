@@ -971,10 +971,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
    ============================================================ */
 #work{padding-block-end:var(--section-pad-tight)}
 #work-compare{background:#fff}
-.wk-head{display:flex;justify-content:space-between;align-items:flex-end;gap:48px}
-.wk-head .h2 .is-red{color:var(--red)}
 .wk-kicker{margin:0 0 16px;font-size:16px;line-height:24px;font-weight:600;letter-spacing:var(--ls-caps);color:var(--red)}
-.wk-head__lead{margin:0;max-width:420px;font-size:18px;line-height:28px;color:var(--text-600)}
 .wk-step{display:flex;flex-direction:column;gap:12px}
 .wk-step--first{margin-top:var(--block-gap)}
 .wk-step .wk-kicker{margin:0}
@@ -1116,7 +1113,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wk-lock__cover .hint--m{display:block}
 }
 @media (max-width:768px){
-  .wk-head{flex-direction:column;align-items:flex-start;gap:16px}
   .wk-step h3{font-size:24px;line-height:32px}
   .wk-table{grid-template-columns:1fr}
   .wk-th,.wk-cap{display:none}
@@ -1371,12 +1367,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <!-- ========================= v2 工作文化：先看差異 → 換你判斷 → 你的適合度 ========================= -->
 <section class="section" id="work">
   <div class="container">
-    <div class="wk-head reveal">
-      <div>
-        <p class="wk-kicker">CMoney 的運作方式</p>
-        <h2 class="h2">把公司形塑成一個<br><span class="is-red">事業實驗場。</span></h2>
-      </div>
-      <p class="wk-head__lead">多數公司先畫組織圖，再把人放進職缺；CMoney 先找值得解的問題，再組成能把問題變成結果的人。</p>
+    <div class="how-head reveal">
+      <h2 class="h2 lit-item">CMoney 的運作方式<br>把公司形塑成一個<span class="is-red">事業實驗場。</span></h2>
+      <p><span class="lit-item lit-line">多數公司先畫組織圖，再把人放進職缺；</span><span class="lit-item lit-line">CMoney 先找值得解的問題，再組成能把問題變成結果的人。</span></p>
     </div>
 
     <div class="wk-step wk-step--first reveal">
