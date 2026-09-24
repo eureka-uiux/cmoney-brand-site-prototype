@@ -74,16 +74,6 @@ archive/                封存版本，不再維護
 - `footer-cta-office.jpg` 現在在 1440 寬螢幕上被放大約 2.2 倍，是五張裡最糊的。
 - 輸出 JPG，品質約 80%，每張盡量控制在 500KB 以內。
 
-**頁面標題**
-
-- [ ] `<title>` 與 `og:title` 還是工作中的名稱。官網格式是「CMoney｜頁名」（實測 `cmoney.tw/careers/aboutus` 為「CMoney｜關於我們」）。建議：
-
-  | 頁面 | 欄位 | 現在 | 建議 |
-  |---|---|---|---|
-  | `index.html` | `<title>` | CMoney 形象網站_價值觀互動 | CMoney｜關於我們 |
-  | `index.html` | `og:title` | CMoney 形象網站｜我們的使命，是幫助每個人做好人生的投資 | CMoney｜我們的使命，是幫助每個人做好人生的投資 |
-  | `business-groups.html` | `<title>` | CMoney 事業群 | CMoney｜事業群 |
-
 ## 封存
 
 - `archive/index-v2.html`：工作文化區「先看差異、情境二選一、適合度」的另一個版本（commit `457ad40`）。圖片路徑已經改成 `../assets/`，還是可以直接打開，但不再維護。
