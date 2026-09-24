@@ -1034,52 +1034,60 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-tab__t{font-size:18px;line-height:28px;font-weight:600}
 .w5-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .w5-tab[aria-selected="true"] .w5-tab__n,.w5-tab[aria-selected="true"] .w5-tab__s{color:var(--text-300)}
-/* 題目區：Q 掛在左側留白，選項、解析、上下題都對齊題目文字左緣（40 + Q 40 + 間距 20） */
-.w5-box{display:flex;flex-direction:column;padding:40px 40px 40px 100px;border-radius:16px;background:var(--bg)}
-.w5-panel{display:flex;flex-direction:column;gap:16px}
-.w5-q{display:flex;gap:20px;align-items:flex-start}
-.w5-q__mark{flex:0 0 auto;width:40px;margin-left:-60px;font-size:40px;line-height:40px;font-weight:600;color:var(--text-300)}
-.w5-q p{margin:0;max-width:860px;padding-top:6px;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
-.w5-opts{margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:16px}
-.w5-opt{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:12px;align-items:start;justify-items:start;text-align:start;width:100%;border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;background:var(--bg);font:inherit;color:var(--text-900);cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease)}
+/* 情境區（同 V4）：左邊題目＋選項（7）、右邊解答（5），選完不用往下捲就看得到解答 */
+.w5-box{display:flex;flex-direction:column;padding:40px;border-radius:16px;background:var(--bg)}
+.w5-panel{display:grid;grid-template-columns:7fr 5fr;gap:40px;align-items:stretch}
+.w5-ask{display:flex;flex-direction:column;gap:16px}
+.w5-q{display:flex;gap:16px;align-items:flex-start}
+.w5-q__mark{flex:0 0 auto;width:32px;font-size:40px;line-height:40px;font-weight:600;color:var(--text-300)}
+.w5-q p{margin:0;padding-top:6px;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-opts{padding-left:48px;display:flex;flex-direction:column;gap:12px}
+.w5-opt{display:flex;gap:16px;align-items:flex-start;text-align:start;width:100%;border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;background:var(--bg);font:inherit;color:var(--text-900);cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease)}
 .w5-opt:hover{border-color:var(--red)}
-.w5-opt__head{justify-self:stretch;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.w5-opt__key{width:32px;height:32px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;line-height:24px;font-weight:600;background:var(--bg-soft);color:var(--text-600)}
-.w5-opt__badge{display:none;font-size:16px;line-height:24px;font-weight:600;padding:2px 12px;border-radius:100px;background:var(--red);color:#fff}
+.w5-opt__key{flex:0 0 auto;width:32px;height:32px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;line-height:24px;font-weight:600;background:var(--bg-soft);color:var(--text-600)}
+.w5-opt__body{display:flex;flex-direction:column;gap:8px;align-items:flex-start}
 .w5-opt__text{font-size:16px;line-height:24px;font-weight:600}
-.w5-opt__verdict{display:none;justify-self:stretch;margin-top:4px;padding-top:16px;border-top:1px dashed var(--line-200);flex-direction:column;gap:4px}
-.w5-opt__vh{font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
-.w5-opt__vh b{font-weight:600}
-.w5-opt--ours .w5-opt__vh b{color:var(--red)}
-.w5-opt__vp{font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-opt__badge{display:none;font-size:16px;line-height:24px;font-weight:600;padding:2px 12px;border-radius:100px;background:var(--red);color:#fff}
 .w5-opt[aria-pressed="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
 .w5-opt[aria-pressed="true"] .w5-opt__key{background:var(--ink);color:#fff}
 .w5-panel.is-answered .w5-opt[aria-pressed="false"]{opacity:.8}
-.w5-panel.is-answered .w5-opt--ours{border-color:var(--red)}
-.w5-panel.is-answered .w5-opt__verdict{display:flex}
 .w5-panel.is-answered .w5-opt__badge{display:inline-block}
-/* 解鎖區只要放得下鎖頭＋兩行說明＋提示；解析內容展開後自然長高 */
-.w5-lock{position:relative;margin-top:16px;min-height:240px;border-radius:16px;overflow:hidden}
-.w5-lock__blur{display:flex;flex-direction:column;gap:16px;max-width:860px;filter:blur(6px);opacity:.6;user-select:none;pointer-events:none}
-.w5-lock__cover{position:absolute;inset:0;background:rgba(255,255,255,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.w5-ans{display:flex;flex-direction:column;padding:32px;border-radius:16px;background:var(--bg-soft)}
+.w5-lock{position:relative;flex:1 1 auto;min-height:420px;overflow:hidden}
+.w5-lock__blur{display:flex;flex-direction:column;gap:12px;filter:blur(6px);opacity:.55;user-select:none;pointer-events:none}
+.w5-lock__blur p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-lock__blur .w5-way__h{font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-lock__cover{position:absolute;inset:0;background:rgba(246,246,246,.5);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
 .w5-lock__cover p{margin:0}
-.w5-lock__icon{width:64px;height:64px;border-radius:100px;background:var(--ink);display:inline-flex;align-items:center;justify-content:center}
-.w5-lock__t{font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
-.w5-lock__sub{font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-lock__icon{width:56px;height:56px;border-radius:100px;background:var(--ink);display:inline-flex;align-items:center;justify-content:center}
+.w5-lock__t{font-size:20px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-lock__sub{max-width:320px;font-size:16px;line-height:24px;color:var(--text-600)}
 .w5-lock__hint{margin-top:4px!important;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
-.w5-result{display:none;margin-top:24px;max-width:860px;flex-direction:column;gap:16px}
+.w5-hint--m{display:none}
+.w5-result{display:none;flex-direction:column;gap:24px}
 .w5-panel.is-answered .w5-lock{display:none}
 .w5-panel.is-answered .w5-result{display:flex;animation:w5In .4s var(--ease)}
+/* 解答上半：選 A／選 B 各對什麼負責；下半：CMoney 的期待＋延伸提問＋文章 */
+.w5-both{display:flex;flex-direction:column;gap:16px;padding-bottom:24px;border-bottom:1px solid var(--line-200)}
+.w5-way p{margin:0}
+.w5-way__h{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-way__h b{font-weight:600}
+.w5-way--ours .w5-way__h b{color:var(--red)}
+.w5-way__key{flex:0 0 auto;width:28px;height:28px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;line-height:24px;font-weight:600;background:var(--bg);color:var(--text-600)}
+.w5-way.is-mine .w5-way__key{background:var(--ink);color:#fff}
+.w5-way__mine{display:none;font-size:16px;line-height:24px;font-weight:600;color:var(--text-600)}
+.w5-way.is-mine .w5-way__mine{display:inline}
+.w5-way__p{padding-left:36px;font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-view{display:flex;flex-direction:column;gap:12px}
 @keyframes w5In{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .w5-rule{width:22px;height:3px;border-radius:100px;background:var(--red)}
-.w5-lead{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
-.w5-ask{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--text-600)}
-.w5-field{margin-top:16px;display:flex;gap:16px;align-items:center;max-width:560px;padding:12px;border-radius:12px;background:var(--bg-soft);color:var(--text-900);text-decoration:none}
-.w5-field img{width:96px;height:96px;object-fit:cover;border-radius:8px;flex:0 0 auto}
-.w5-field>span{display:flex;flex-direction:column;gap:4px}
-.w5-field span span{font-size:16px;line-height:24px}
-.w5-field__t{font-weight:600}
-.w5-field__d{color:var(--text-600)}
+.w5-lead{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-ask-p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-field{margin-top:12px;display:flex;gap:12px;align-items:center;color:var(--text-900);text-decoration:none}
+.w5-field img{width:72px;height:72px;object-fit:cover;border-radius:8px;flex:0 0 auto}
+.w5-field>span{display:flex;flex-direction:column;gap:2px}
+.w5-field span span{font-size:16px;line-height:24px;font-weight:600}
+.w5-field__l{color:var(--red)}
 .w5-field:hover .w5-field__t{text-decoration:underline}
 .w5-pager{margin-top:24px;padding-top:24px;border-top:1px solid var(--line-200);display:flex;justify-content:space-between;align-items:center;gap:16px}
 .w5-prev .btn__icon{transform:scaleX(-1)}
@@ -1093,9 +1101,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .w5-tabs{display:flex;overflow-x:auto;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
   .w5-tabs::-webkit-scrollbar{display:none}
   .w5-tab{flex:0 0 auto;width:auto;min-width:176px}
-  .w5-box{padding:24px 24px 24px 66px}
-  .w5-q{gap:12px}
-  .w5-q__mark{width:30px;margin-left:-42px;font-size:30px;line-height:36px}
+  .w5-box{padding:24px}
+  .w5-panel{grid-template-columns:1fr;gap:24px}
+  .w5-hint--d{display:none}
+  .w5-hint--m{display:inline}
+  .w5-lock{min-height:300px}
 }
 @media (max-width:768px){
   .w5-h{font-size:24px;line-height:32px}
@@ -1107,13 +1117,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .w5-detail{grid-template-columns:1fr;row-gap:24px}
   .w5-why,.w5-work{padding-inline:20px}
   .w5-q{gap:12px}
-  .w5-q__mark{width:30px;margin-left:-42px;font-size:30px;line-height:36px}
+  .w5-q__mark{width:24px;font-size:30px;line-height:36px}
   .w5-q p{font-size:16px;line-height:24px;padding-top:4px}
-  .w5-opts{grid-template-columns:1fr;grid-template-rows:none;row-gap:12px}
-  .w5-opt{grid-row:auto;grid-template-rows:none;padding:16px}
-  .w5-lock{min-height:272px}
-  .w5-lock__t,.w5-lead{font-size:20px;line-height:28px}
-  .w5-field img{width:72px;height:72px}
+  .w5-opts{padding-left:0}
+  .w5-opt{padding:16px}
+  .w5-ans{padding:20px}
   .w5-pager .btn{flex:1 1 0;min-width:0}
   .w5-next__l{overflow:hidden;text-overflow:ellipsis}
 }
@@ -1463,135 +1471,131 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         </div>
         <div class="w5-box">
           <div class="w5-panel" role="tabpanel" id="w5Panel1" aria-labelledby="w5Tab1">
-            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>你到職第六週，負責的新事業線成長停滯。翻完數據、也跟第一線用戶與業務談過後，你判斷卡住的不是流量或素材，而是我們對這群客戶的「價值主張」可能一開始就說錯了。但產品定位不在你的職權範圍，此時你會怎麼做？</p></div>
-            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="w5-opt" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
-                <span class="w5-opt__text">先用增長實驗把現有產品的轉換極限跑出來，拿到「行銷做對了用戶依然不買單」的硬數據，再去跟產品團隊談定位調整。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>歸因</b>負責</span><span class="w5-opt__vp">先排除自己這端的變因，用完整數據推動轉向。</span></span>
-              </button>
-              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="w5-opt__text">整理目前的證據與「價值主張可能有誤」的假設，和相關負責人討論最小驗證方式，一起判斷哪些投入應先暫停。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>真問題</b>負責</span><span class="w5-opt__vp">證據足以支持假設時就提出討論，讓驗證與資源調整同時進行。</span></span>
-              </button>
-            </div>
-            <div class="w5-lock">
-              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p><p class="w5-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p></div>
-              <div class="w5-lock__cover">
-                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-ask">
+              <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>你到職第六週，負責的新事業線成長停滯。翻完數據、也跟第一線用戶與業務談過後，你判斷卡住的不是流量或素材，而是我們對這群客戶的「價值主張」可能一開始就說錯了。但產品定位不在你的職權範圍，此時你會怎麼做？</p></div>
+              <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="w5-opt" type="button" aria-pressed="false" data-k="A"><span class="w5-opt__key">A</span><span class="w5-opt__body"><span class="w5-opt__text">先用增長實驗把現有產品的轉換極限跑出來，拿到「行銷做對了用戶依然不買單」的硬數據，再去跟產品團隊談定位調整。</span></span></button>
+                <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false" data-k="B"><span class="w5-opt__key">B</span><span class="w5-opt__body"><span class="w5-opt__text">整理目前的證據與「價值主張可能有誤」的假設，和相關負責人討論最小驗證方式，一起判斷哪些投入應先暫停。</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span></button>
               </div>
             </div>
-            <div class="w5-result" aria-live="polite">
-              <span class="w5-rule" aria-hidden="true"></span>
-              <p class="w5-lead">CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p>
-              <p class="w5-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p>
-              <a class="w5-field" href="https://blogs.cmoney.tw/problem-solving-framework" target="_blank" rel="noopener">
-                <img src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
-                <span><span class="w5-field__t">運用 Problem Solving 框架解題</span><span class="w5-field__d">我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</span><span>閱讀工作現場文章 →</span></span>
-              </a>
+            <div class="w5-ans">
+              <div class="w5-lock">
+                <div class="w5-lock__blur" aria-hidden="true"><p class="w5-way__h">A　對歸因負責</p><p>先排除自己這端的變因，用完整數據推動轉向。</p><p class="w5-way__h">B　對真問題負責</p><p>證據足以支持假設時就提出討論，讓驗證與資源調整同時進行。</p><p class="w5-way__h">CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p></div>
+                <div class="w5-lock__cover">
+                  <span class="w5-lock__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                  <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                  <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                  <p class="w5-lock__hint"><span class="w5-hint--d">← 先從左邊選 A 或 B</span><span class="w5-hint--m">↑ 先從上面選 A 或 B</span></p>
+                </div>
+              </div>
+              <div class="w5-result" aria-live="polite">
+                <div class="w5-both">
+                  <div class="w5-way" data-k="A"><p class="w5-way__h"><span class="w5-way__key">A</span><span>對<b>歸因</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">先排除自己這端的變因，用完整數據推動轉向。</p></div>
+                  <div class="w5-way w5-way--ours" data-k="B"><p class="w5-way__h"><span class="w5-way__key">B</span><span>對<b>真問題</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">證據足以支持假設時就提出討論，讓驗證與資源調整同時進行。</p></div>
+                </div>
+                <div class="w5-view">
+                  <span class="w5-rule" aria-hidden="true"></span>
+                  <p class="w5-lead">CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p>
+                  <p class="w5-ask-p">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p>
+                  <a class="w5-field" href="https://blogs.cmoney.tw/problem-solving-framework" target="_blank" rel="noopener"><img src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy"><span><span class="w5-field__t">運用 Problem Solving 框架解題</span><span class="w5-field__l">閱讀工作現場文章 →</span></span></a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="w5-panel" role="tabpanel" id="w5Panel2" aria-labelledby="w5Tab2" hidden>
-            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>你在負責一款投資產品時，社群與客服陸續收到少數用戶詢問「希望提供美股個股籌碼分析」。這代表了一個潛在機會，但目前市場訊號仍相當微弱且充滿未知。作為專案負責人，你會如何驗證這個潛在機會？</p></div>
-            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="w5-opt" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
-                <span class="w5-opt__text">投入資源建置基礎數據庫串接與完整 UI 圖表後正式推出，提供體驗順暢的功能，透過測試檢驗真實的用戶留存與使用頻率。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>完整度</b>負責</span><span class="w5-opt__vp">把功能做到體驗順暢再推出，用完整的產品換取真實數據。</span></span>
-              </button>
-              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="w5-opt__text">拆解各階段要驗證的假設，先用輕量測試觀察市場反應；有初步興趣後，再驗證實際使用與付費意願，並依結果爭取研發資源。如果反應冷淡，先檢查觸達對象與測試方式，再判斷是否止損。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>證據</b>負責</span><span class="w5-opt__vp">每個階段驗證一件事，用最低代價取得下一步的決策依據。</span></span>
-              </button>
-            </div>
-            <div class="w5-lock">
-              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p><p class="w5-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p></div>
-              <div class="w5-lock__cover">
-                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-ask">
+              <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>你在負責一款投資產品時，社群與客服陸續收到少數用戶詢問「希望提供美股個股籌碼分析」。這代表了一個潛在機會，但目前市場訊號仍相當微弱且充滿未知。作為專案負責人，你會如何驗證這個潛在機會？</p></div>
+              <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="w5-opt" type="button" aria-pressed="false" data-k="A"><span class="w5-opt__key">A</span><span class="w5-opt__body"><span class="w5-opt__text">投入資源建置基礎數據庫串接與完整 UI 圖表後正式推出，提供體驗順暢的功能，透過測試檢驗真實的用戶留存與使用頻率。</span></span></button>
+                <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false" data-k="B"><span class="w5-opt__key">B</span><span class="w5-opt__body"><span class="w5-opt__text">拆解各階段要驗證的假設，先用輕量測試觀察市場反應；有初步興趣後，再驗證實際使用與付費意願，並依結果爭取研發資源。如果反應冷淡，先檢查觸達對象與測試方式，再判斷是否止損。</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span></button>
               </div>
             </div>
-            <div class="w5-result" aria-live="polite">
-              <span class="w5-rule" aria-hidden="true"></span>
-              <p class="w5-lead">CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p>
-              <p class="w5-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p>
-              <a class="w5-field" href="https://blogs.cmoney.tw/product-decision" target="_blank" rel="noopener">
-                <img src="assets/field-live-feature-decision.jpg" alt="CMoney 同事在雙螢幕前一邊看直播畫面、一邊追即時數據" loading="lazy">
-                <span><span class="w5-field__t">我們如何在兩個極端的害怕中做出決定</span><span class="w5-field__d">直播功能在供給、需求、成本三重不確定下，用「不要預測，用驗證的」推進。</span><span>閱讀工作現場文章 →</span></span>
-              </a>
+            <div class="w5-ans">
+              <div class="w5-lock">
+                <div class="w5-lock__blur" aria-hidden="true"><p class="w5-way__h">A　對完整度負責</p><p>把功能做到體驗順暢再推出，用完整的產品換取真實數據。</p><p class="w5-way__h">B　對證據負責</p><p>每個階段驗證一件事，用最低代價取得下一步的決策依據。</p><p class="w5-way__h">CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p></div>
+                <div class="w5-lock__cover">
+                  <span class="w5-lock__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                  <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                  <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                  <p class="w5-lock__hint"><span class="w5-hint--d">← 先從左邊選 A 或 B</span><span class="w5-hint--m">↑ 先從上面選 A 或 B</span></p>
+                </div>
+              </div>
+              <div class="w5-result" aria-live="polite">
+                <div class="w5-both">
+                  <div class="w5-way" data-k="A"><p class="w5-way__h"><span class="w5-way__key">A</span><span>對<b>完整度</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">把功能做到體驗順暢再推出，用完整的產品換取真實數據。</p></div>
+                  <div class="w5-way w5-way--ours" data-k="B"><p class="w5-way__h"><span class="w5-way__key">B</span><span>對<b>證據</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">每個階段驗證一件事，用最低代價取得下一步的決策依據。</p></div>
+                </div>
+                <div class="w5-view">
+                  <span class="w5-rule" aria-hidden="true"></span>
+                  <p class="w5-lead">CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p>
+                  <p class="w5-ask-p">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p>
+                  <a class="w5-field" href="https://blogs.cmoney.tw/product-decision" target="_blank" rel="noopener"><img src="assets/field-live-feature-decision.jpg" alt="CMoney 同事在雙螢幕前一邊看直播畫面、一邊追即時數據" loading="lazy"><span><span class="w5-field__t">我們如何在兩個極端的害怕中做出決定</span><span class="w5-field__l">閱讀工作現場文章 →</span></span></a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="w5-panel" role="tabpanel" id="w5Panel3" aria-labelledby="w5Tab3" hidden>
-            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>A 專案以「提升留存率」為目標列出 5 個假設，做到第 3 個時數據已大幅突破，並超越 OKR 10% 的目標（提升 25%）。剩下 2 個假設，你會選擇怎麼做？</p></div>
-            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="w5-opt" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
-                <span class="w5-opt__text">繼續完成既有計畫，按原計畫把剩餘 2 個假設做完，維持專案完整度與排程貫徹力，發揮既有規劃的邊際效益。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>承諾</b>負責</span><span class="w5-opt__vp">把答應的事按質按量交完，用計畫完整度對團隊負責。</span></span>
-              </button>
-              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="w5-opt__text">暫停照原計畫推進，重新比較剩下 2 個假設與其他產品瓶頸的預期價值，再決定續做、調整或轉移資源。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>目標</b>負責</span><span class="w5-opt__vp">依當下的目標與瓶頸重新排序，而不是照原清單做到底。</span></span>
-              </button>
-            </div>
-            <div class="w5-lock">
-              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p><p class="w5-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p></div>
-              <div class="w5-lock__cover">
-                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-ask">
+              <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>A 專案以「提升留存率」為目標列出 5 個假設，做到第 3 個時數據已大幅突破，並超越 OKR 10% 的目標（提升 25%）。剩下 2 個假設，你會選擇怎麼做？</p></div>
+              <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="w5-opt" type="button" aria-pressed="false" data-k="A"><span class="w5-opt__key">A</span><span class="w5-opt__body"><span class="w5-opt__text">繼續完成既有計畫，按原計畫把剩餘 2 個假設做完，維持專案完整度與排程貫徹力，發揮既有規劃的邊際效益。</span></span></button>
+                <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false" data-k="B"><span class="w5-opt__key">B</span><span class="w5-opt__body"><span class="w5-opt__text">暫停照原計畫推進，重新比較剩下 2 個假設與其他產品瓶頸的預期價值，再決定續做、調整或轉移資源。</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span></button>
               </div>
             </div>
-            <div class="w5-result" aria-live="polite">
-              <span class="w5-rule" aria-hidden="true"></span>
-              <p class="w5-lead">CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p>
-              <p class="w5-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p>
-              <a class="w5-field" href="https://blogs.cmoney.tw/cmoney-goal-misalignment" target="_blank" rel="noopener">
-                <img src="assets/field-quick-decision.jpg" alt="CMoney 同事在書牆前的沙發上圍著筆電一起討論" loading="lazy">
-                <span><span class="w5-field__t">流程都做對了，為什麼問題還是沒解決？</span><span class="w5-field__d">在 CMoney，我們願意為了用戶的真實感受，推翻一套已經「看起來很完整」的做法。</span><span>閱讀工作現場文章 →</span></span>
-              </a>
+            <div class="w5-ans">
+              <div class="w5-lock">
+                <div class="w5-lock__blur" aria-hidden="true"><p class="w5-way__h">A　對承諾負責</p><p>把答應的事按質按量交完，用計畫完整度對團隊負責。</p><p class="w5-way__h">B　對目標負責</p><p>依當下的目標與瓶頸重新排序，而不是照原清單做到底。</p><p class="w5-way__h">CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p></div>
+                <div class="w5-lock__cover">
+                  <span class="w5-lock__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                  <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                  <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                  <p class="w5-lock__hint"><span class="w5-hint--d">← 先從左邊選 A 或 B</span><span class="w5-hint--m">↑ 先從上面選 A 或 B</span></p>
+                </div>
+              </div>
+              <div class="w5-result" aria-live="polite">
+                <div class="w5-both">
+                  <div class="w5-way" data-k="A"><p class="w5-way__h"><span class="w5-way__key">A</span><span>對<b>承諾</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">把答應的事按質按量交完，用計畫完整度對團隊負責。</p></div>
+                  <div class="w5-way w5-way--ours" data-k="B"><p class="w5-way__h"><span class="w5-way__key">B</span><span>對<b>目標</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">依當下的目標與瓶頸重新排序，而不是照原清單做到底。</p></div>
+                </div>
+                <div class="w5-view">
+                  <span class="w5-rule" aria-hidden="true"></span>
+                  <p class="w5-lead">CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p>
+                  <p class="w5-ask-p">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p>
+                  <a class="w5-field" href="https://blogs.cmoney.tw/cmoney-goal-misalignment" target="_blank" rel="noopener"><img src="assets/field-quick-decision.jpg" alt="CMoney 同事在書牆前的沙發上圍著筆電一起討論" loading="lazy"><span><span class="w5-field__t">流程都做對了，為什麼問題還是沒解決？</span><span class="w5-field__l">閱讀工作現場文章 →</span></span></a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="w5-panel" role="tabpanel" id="w5Panel4" aria-labelledby="w5Tab4" hidden>
-            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間，目前沒有既定 SOP，跨部門權責未明。你會？</p></div>
-            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="w5-opt" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
-                <span class="w5-opt__text">立即通報跨部門主管並成立緊急應對小組，快速確定權責分工與處理程序，補償方案經財務與法務確認後一致對外。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>流程</b>負責</span><span class="w5-opt__vp">先把權責與程序定下來，讓每一步都有依據。</span></span>
-              </button>
-              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
-                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="w5-opt__text">不等待權責完全釐清才開始處理。先接住用戶、確認影響並採取可逆的止損措施，同步找到決策負責人。涉及超出授權的補償與對外承諾，立即升級，不讓問題停在部門邊界。</span>
-                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>現場</b>負責</span><span class="w5-opt__vp">授權範圍內的事先處理，超出範圍的決策同步升級。</span></span>
-              </button>
-            </div>
-            <div class="w5-lock">
-              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p><p class="w5-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p></div>
-              <div class="w5-lock__cover">
-                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-ask">
+              <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間，目前沒有既定 SOP，跨部門權責未明。你會？</p></div>
+              <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+                <button class="w5-opt" type="button" aria-pressed="false" data-k="A"><span class="w5-opt__key">A</span><span class="w5-opt__body"><span class="w5-opt__text">立即通報跨部門主管並成立緊急應對小組，快速確定權責分工與處理程序，補償方案經財務與法務確認後一致對外。</span></span></button>
+                <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false" data-k="B"><span class="w5-opt__key">B</span><span class="w5-opt__body"><span class="w5-opt__text">不等待權責完全釐清才開始處理。先接住用戶、確認影響並採取可逆的止損措施，同步找到決策負責人。涉及超出授權的補償與對外承諾，立即升級，不讓問題停在部門邊界。</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span></button>
               </div>
             </div>
-            <div class="w5-result" aria-live="polite">
-              <span class="w5-rule" aria-hidden="true"></span>
-              <p class="w5-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p>
-              <p class="w5-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p>
-              <a class="w5-field" href="https://blogs.cmoney.tw/make-proper-decision" target="_blank" rel="noopener">
-                <img src="assets/field-decision-quality.jpg" alt="CMoney 同事站在開放式辦公區前" loading="lazy">
-                <span><span class="w5-field__t">如何鍛鍊「決策正確」的能力？</span><span class="w5-field__d">「決策」是一種極度個人化且極具價值的技能，也需要在不同場景中不斷磨練。</span><span>閱讀工作現場文章 →</span></span>
-              </a>
+            <div class="w5-ans">
+              <div class="w5-lock">
+                <div class="w5-lock__blur" aria-hidden="true"><p class="w5-way__h">A　對流程負責</p><p>先把權責與程序定下來，讓每一步都有依據。</p><p class="w5-way__h">B　對現場負責</p><p>授權範圍內的事先處理，超出範圍的決策同步升級。</p><p class="w5-way__h">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p></div>
+                <div class="w5-lock__cover">
+                  <span class="w5-lock__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                  <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                  <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                  <p class="w5-lock__hint"><span class="w5-hint--d">← 先從左邊選 A 或 B</span><span class="w5-hint--m">↑ 先從上面選 A 或 B</span></p>
+                </div>
+              </div>
+              <div class="w5-result" aria-live="polite">
+                <div class="w5-both">
+                  <div class="w5-way" data-k="A"><p class="w5-way__h"><span class="w5-way__key">A</span><span>對<b>流程</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">先把權責與程序定下來，讓每一步都有依據。</p></div>
+                  <div class="w5-way w5-way--ours" data-k="B"><p class="w5-way__h"><span class="w5-way__key">B</span><span>對<b>現場</b>負責</span><span class="w5-way__mine">・你的選擇</span></p><p class="w5-way__p">授權範圍內的事先處理，超出範圍的決策同步升級。</p></div>
+                </div>
+                <div class="w5-view">
+                  <span class="w5-rule" aria-hidden="true"></span>
+                  <p class="w5-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p>
+                  <p class="w5-ask-p">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p>
+                  <a class="w5-field" href="https://blogs.cmoney.tw/make-proper-decision" target="_blank" rel="noopener"><img src="assets/field-decision-quality.jpg" alt="CMoney 同事站在開放式辦公區前" loading="lazy"><span><span class="w5-field__t">如何鍛鍊「決策正確」的能力？</span><span class="w5-field__l">閱讀工作現場文章 →</span></span></a>
+                </div>
+              </div>
             </div>
           </div>
           <div class="w5-pager">
@@ -2314,6 +2318,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       var p = opt.closest(".w5-panel");
       p.querySelectorAll(".w5-opt").forEach(function(o){ o.setAttribute("aria-pressed", String(o === opt)); });
       p.classList.add("is-answered");
+      p.querySelectorAll(".w5-way").forEach(function(w){ w.classList.toggle("is-mine", w.getAttribute("data-k") === opt.getAttribute("data-k")); });
       w5Show(w5Cur);
       return;
     }
