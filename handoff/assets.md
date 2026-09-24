@@ -6,15 +6,15 @@
 
 | 檔案 | 尺寸 (px) | KB | 用在 |
 |---|---|---|---|
-| `cta-team.jpg` | 1264 × 842 | 252 | index.html:1817 `#cta` |
+| `cta-team.jpg` | 1536 × 1024 | 361 | index.html:1817 `#cta` |
 | `field-decision-quality.jpg` | 430 × 286 | 33 | index.html:1592 `#work-compare` |
 | `field-live-feature-decision.jpg` | 1024 × 683 | 83 | index.html:1526 `#work-compare` |
 | `field-problem-solving.jpg` | 1024 × 683 | 162 | index.html:1493 `#work-compare` |
 | `field-quick-decision.jpg` | 430 × 286 | 35 | index.html:1559 `#work-compare` |
 | `footer-cta-office.jpg` | 659 × 440 | 159 | business-groups.html:841 `section.fcta` |
 | `founder.jpg` | 832 × 1248 | 128 | index.html:1786 `#founder` |
-| `hero-groups.jpg` | 1264 × 843 | 197 | business-groups.html:491 `header.hero` |
-| `hero.jpg` | 1248 × 832 | 204 | index.html:11 `head`<br>index.html:1163 `#hero` |
+| `hero-groups.jpg` | 1536 × 1024 | 364 | business-groups.html:491 `header.hero` |
+| `hero.jpg` | 1536 × 1024 | 312 | index.html:11 `head`<br>index.html:1163 `#hero` |
 | `icon-consumer-cwmoney.png` | 110 × 110 | 8 | index.html:1703 `#groups`<br>index.html:1759 `#northstar`<br>business-groups.html:816 `#consumer` |
 | `icon-consumer-dreamfapiao.png` | 220 × 220 | 31 | index.html:1704 `#groups`<br>index.html:1760 `#northstar`<br>business-groups.html:817 `#consumer` |
 | `icon-consumer-easynote.png` | 220 × 220 | 64 | index.html:1702 `#groups`<br>index.html:1758 `#northstar`<br>business-groups.html:815 `#consumer` |
