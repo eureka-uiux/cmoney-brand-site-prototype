@@ -1020,10 +1020,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-tab__t{font-size:18px;line-height:28px;font-weight:600}
 .w5-tab[aria-selected="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset;color:var(--text-900)}
 .w5-tab[aria-selected="true"] .w5-tab__n{color:var(--red)}
-.w5-box{display:flex;flex-direction:column;padding:40px;border-radius:16px;background:var(--bg)}
+/* 題目區：Q 掛在左側留白，選項、解析、上下題都對齊題目文字左緣（40 + Q 40 + 間距 20） */
+.w5-box{display:flex;flex-direction:column;padding:40px 40px 40px 100px;border-radius:16px;background:var(--bg)}
 .w5-panel{display:flex;flex-direction:column;gap:16px}
 .w5-q{display:flex;gap:20px;align-items:flex-start}
-.w5-q__mark{flex:0 0 auto;font-size:40px;line-height:40px;font-weight:600;color:var(--text-300)}
+.w5-q__mark{flex:0 0 auto;width:40px;margin-left:-60px;font-size:40px;line-height:40px;font-weight:600;color:var(--text-300)}
 .w5-q p{margin:0;max-width:860px;padding-top:6px;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
 .w5-opts{margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:16px}
 .w5-opt{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:12px;align-items:start;justify-items:start;text-align:start;width:100%;border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;background:var(--bg);font:inherit;color:var(--text-900);cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease)}
@@ -1077,7 +1078,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .w5-tabs{display:flex;overflow-x:auto;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
   .w5-tabs::-webkit-scrollbar{display:none}
   .w5-tab{flex:0 0 auto;width:auto;min-width:176px}
-  .w5-box{padding:24px}
+  .w5-box{padding:24px 24px 24px 66px}
+  .w5-q{gap:12px}
+  .w5-q__mark{width:30px;margin-left:-42px;font-size:30px;line-height:36px}
 }
 @media (max-width:768px){
   .w5-h{font-size:24px;line-height:32px}
@@ -1090,7 +1093,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .w5-why,.w5-work{padding-inline:20px}
   .w5-toggle{margin-right:20px}
   .w5-q{gap:12px}
-  .w5-q__mark{font-size:30px;line-height:36px}
+  .w5-q__mark{width:30px;margin-left:-42px;font-size:30px;line-height:36px}
   .w5-q p{font-size:16px;line-height:24px;padding-top:4px}
   .w5-opts{grid-template-columns:1fr;grid-template-rows:none;row-gap:12px}
   .w5-opt{grid-row:auto;grid-template-rows:none;padding:16px}
