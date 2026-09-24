@@ -1444,15 +1444,15 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
             <span class="w5-tab__t">工作怎麼定義？</span>
           </button>
           <button class="w5-tab" type="button" role="tab" id="w5Tab2" aria-controls="w5Panel2" aria-selected="false" tabindex="-1">
-            <span class="w5-tab__top"><span class="w5-tab__n">情境 02</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">未作答</span></span></span>
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 02</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st"></span></span></span>
             <span class="w5-tab__t">資源怎麼取得？</span>
           </button>
           <button class="w5-tab" type="button" role="tab" id="w5Tab3" aria-controls="w5Panel3" aria-selected="false" tabindex="-1">
-            <span class="w5-tab__top"><span class="w5-tab__n">情境 03</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">未作答</span></span></span>
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 03</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st"></span></span></span>
             <span class="w5-tab__t">成果怎麼衡量？</span>
           </button>
           <button class="w5-tab" type="button" role="tab" id="w5Tab4" aria-controls="w5Panel4" aria-selected="false" tabindex="-1">
-            <span class="w5-tab__top"><span class="w5-tab__n">情境 04</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">未作答</span></span></span>
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 04</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st"></span></span></span>
             <span class="w5-tab__t">誰來做決定？</span>
           </button>
         </div>
@@ -2290,7 +2290,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       t.setAttribute("aria-selected", String(on));
       t.tabIndex = on ? 0 : -1;
       t.classList.toggle("is-done", done);
-      t.querySelector(".w5-tab__st").textContent = done ? "已作答" : (on ? "" : "未作答");
+      t.querySelector(".w5-tab__st").textContent = done ? "已作答" : "";
       w5Panels[j].hidden = !on;
     });
     w5Prev.disabled = i === 0;
