@@ -1006,7 +1006,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-why b{color:var(--text-900);font-weight:600}
 .w5-why h5{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
 .w5 .w5-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
-.w5-confirm{margin-top:8px;padding:16px 20px;border-radius:12px;background:var(--bg-soft);display:flex;flex-direction:column;gap:4px}
+/* 面試確認：文字對齊上方內文左緣，灰底往外推 20 突顯這塊 */
+.w5-confirm{margin:8px -20px 0;padding:16px 20px;border-radius:12px;background:var(--bg-soft);display:flex;flex-direction:column;gap:4px}
 .w5-confirm p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
 .w5-confirm b{color:var(--text-900);font-weight:600}
 .w5-toggle{align-self:flex-end;margin-top:8px;display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;color:var(--red);cursor:pointer}
