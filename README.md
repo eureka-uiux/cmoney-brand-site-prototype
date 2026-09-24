@@ -1,17 +1,28 @@
 # CMoney 形象網站 prototype
 
-單一自我包含的 `index.html`（CSS 與 JS 全部內嵌），圖片放在 `assets/`。
+兩個自我包含的 HTML 頁面（CSS 與 JS 全部內嵌），圖片放在 `assets/`。
 直接開 `index.html` 就能看，部署到 GitHub Pages 不需要任何 build。
 
+> **接手請先看 [handoff/README.md](handoff/README.md)**：修改流程、文案與圖片清單、待確認事項。
+> AI 工具的規則在 [AGENTS.md](AGENTS.md)。
+
 ```
-index.html            # 首頁，全部樣式與腳本內嵌在此
-business-groups.html  # 事業群詳細頁
-assets/               # 47 個圖片檔，首頁與詳細頁共用
+index.html            # 首頁（正本）
+business-groups.html  # 事業群詳細頁（正本）
+assets/               # 圖片，兩頁共用；每張用在哪見 handoff/assets.md
+handoff/              # 交接文件與自動產生的文案／圖片清單
+tools/handoff.py      # 產生清單＋檢查缺圖、色票
+archive/              # 封存版本（index-v2.html），不再維護
 .nojekyll             # GitHub Pages 不要跑 Jekyll
 ```
 
 > **圖片一定要跟著 `assets/` 一起放。** `index.html` 內的圖片全部用相對路徑
-> （`assets/hero.jpg`、`assets/screen-chipk.png` …），單獨把 `index.html` 拿出來開會整頁掉圖。
+> （`assets/hero.jpg`、`assets/screen-chipk.webp` …），單獨把 `index.html` 拿出來開會整頁掉圖。
+
+---
+
+以下是 2026-09 重新切塊那一版的改版紀錄。區塊 id 之後有改名（`who`→`aboutus`、`how`→`work`、
+`what`→`business` 等），**現行區塊以 [handoff/section-map.md](handoff/section-map.md) 為準**。
 
 ## 這一版改了什麼
 
