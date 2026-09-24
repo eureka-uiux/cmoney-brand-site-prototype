@@ -508,242 +508,242 @@ HTML 是正本，這份是從 HTML 抽出來的快照，用來審稿、比對版
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 479 | link | `a.brand` | index.html |
-| 479 | aria-label | `a.brand` | CMoney 首頁 |
-| 481 | aria-label | `svg.brand__logo` | CMoney |
-| 498 | aria-label | `#navToggle` | 開啟選單 |
+| 468 | link | `a.brand` | index.html |
+| 468 | aria-label | `a.brand` | CMoney 首頁 |
+| 470 | aria-label | `svg.brand__logo` | CMoney |
+| 487 | aria-label | `#navToggle` | 開啟選單 |
 
 ## `#primaryNav`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 492 | aria-label | `#primaryNav` | 主要導覽 |
-| 493 | text | `a.nav__link` | 里程碑 |
-| 494 | text | `a.nav__link` | 事業群 |
-| 495 | link | `a.nav__link` | index.html |
-| 495 | text | `a.nav__link` | 回 CMoney 形象官網 |
+| 481 | aria-label | `#primaryNav` | 主要導覽 |
+| 482 | text | `a.nav__link` | 里程碑 |
+| 483 | text | `a.nav__link` | 事業群 |
+| 484 | link | `a.nav__link` | index.html |
+| 484 | text | `a.nav__link` | 回 CMoney 形象官網 |
 
 ## `#rail`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 502 | aria-label | `#rail` | 頁面導覽 |
-| 506 | text | `a.rail__btn` | 金融事業群 |
-| 507 | text | `a.rail__btn` | 合作夥伴事業群 |
-| 508 | text | `a.rail__btn` | 國際金融事業群 |
-| 509 | text | `a.rail__btn` | 消費事業群 |
+| 491 | aria-label | `#rail` | 頁面導覽 |
+| 495 | text | `a.rail__btn` | 金融事業群 |
+| 496 | text | `a.rail__btn` | 合作夥伴事業群 |
+| 497 | text | `a.rail__btn` | 國際金融事業群 |
+| 498 | text | `a.rail__btn` | 消費事業群 |
 
 ## `header.hero`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 519 | text | `h1.hero__title` | 面對不同的人與市場，做的是同一件事 |
-| 520 | text | `p.lede` | 外界看 CMoney，會看到豐富的 App 產品線；在 CMoney，我們打造的是一套決策基礎建設。不同事業面對不同人群、場景與市場，我們做的是同一件事：縮短人與好決定之間的距離。 |
+| 508 | text | `h1.hero__title` | 面對不同的人與市場，做的是同一件事 |
+| 509 | text | `p.lede` | 外界看 CMoney，會看到豐富的 App 產品線；在 CMoney，我們打造的是一套決策基礎建設。不同事業面對不同人群、場景與市場，我們做的是同一件事：縮短人與好決定之間的距離。 |
 
 ## `#ms`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 529 | text | `p.eyebrow` | 重要里程碑 |
-| 530 | text | `#ms-title` | 從一套法人決策工具，到一千萬人的日常 |
-| 531 | text | `p.lede` | 2003 年，CMoney 做的第一套系統只有法人用得到。二十年後，同一件事——把判斷需要的資料與工具交到人手上——換成一千萬人在用。 |
-| 541 | text | `div.row__axis` | 2003 |
-| 543 | text | `h3.card__title` | 創立全曜財經 |
-| 544 | text | `p.card__desc` | 推出 CMoney 法人投資決策支援系統。 |
-| 549 | text | `div.row__axis` | 2010 |
-| 551 | text | `h3.card__title` | 各類投資軟體開發 |
-| 552 | text | `p.card__desc` | 超過 200 家企業使用，市占率第一。 |
-| 557 | text | `div.row__axis` | 2011 |
-| 559 | text | `h3.card__title` | 推出理財寶 |
-| 560 | text | `p.card__desc` | 把原本只有法人用得到的分析能力，做成散戶也打得開的工具。 |
-| 561 | text | `li` | 理財寶 |
-| 566 | text | `div.row__axis` | 2013 |
-| 568 | text | `h3.card__title` | 推出多款 2C 投資工具產品 |
-| 569 | text | `li` | 籌碼K線 |
-| 569 | text | `li` | 投資網誌 |
-| 569 | text | `li` | 股市大富翁 |
-| 569 | text | `li` | 選股勝利組 |
-| 574 | text | `div.row__axis` | 2015 |
-| 576 | text | `h3.card__title` | 大量開發移動端 App 產品 |
-| 577 | text | `li` | 籌碼K線 |
-| 577 | text | `li` | 期貨電子盤 |
-| 577 | text | `li` | 全方位獨門監控 |
-| 582 | text | `div.row__axis` | 2017 |
-| 584 | text | `h3.card__title` | 事業體擴張 |
-| 585 | text | `p.card__desc` | 影音課程製作銷售。 |
-| 586 | text | `li` | Money 錢 |
-| 591 | text | `div.row__axis` | 2018 |
-| 593 | text | `h3.card__title` | 大量開發投資工具類 App |
-| 594 | text | `li` | 發票載具 |
-| 594 | text | `li` | 股市爆料同學會 |
-| 594 | text | `li` | 艾蜜莉定存股 |
-| 599 | text | `div.row__axis` | 2022 |
-| 601 | text | `h3.card__title` | 口袋證券 |
-| 602 | text | `p.card__desc` | 從提供資訊，走到自己承接交易。 |
-| 603 | text | `li` | 口袋證券 |
-| 608 | text | `div.row__axis` | 2023 |
-| 610 | text | `h3.card__title` | 口袋證券投顧成立，會員突破 1000 萬人 |
-| 611 | text | `p.card__desc` | 全權委託、企業員工福利計畫、策略訂閱、基金平台。 |
-| 612 | text | `li` | 口袋證券投資顧問 |
-| 620 | text | `p.payoff__cap` | 走到今天 |
-| 622 | text | `dt.stat__num` | 1000+ |
-| 622 | text | `dd.stat__label` | 萬人 |
-| 622 | text | `dd.stat__desc` | CMoney 會員數 |
-| 623 | text | `dt.stat__num` | 400+ |
-| 623 | text | `dd.stat__label` | 員工 |
-| 623 | text | `dd.stat__desc` | 全集團 |
-| 624 | text | `dt.stat__num` | 160+ |
-| 624 | text | `dd.stat__label` | 工程人員 |
-| 624 | text | `dd.stat__desc` | 約占四成人力 |
-| 625 | text | `dt.stat__num` | 30+ |
-| 625 | text | `dd.stat__label` | 數據科學家 · 分析師 |
-| 625 | text | `dd.stat__desc` | 資料團隊 |
+| 518 | text | `p.eyebrow` | 重要里程碑 |
+| 519 | text | `#ms-title` | 從一套法人決策工具，到一千萬人的日常 |
+| 520 | text | `p.lede` | 2003 年，CMoney 做的第一套系統只有法人用得到。二十年後，同一件事——把判斷需要的資料與工具交到人手上——換成一千萬人在用。 |
+| 530 | text | `div.row__axis` | 2003 |
+| 532 | text | `h3.card__title` | 創立全曜財經 |
+| 533 | text | `p.card__desc` | 推出 CMoney 法人投資決策支援系統。 |
+| 538 | text | `div.row__axis` | 2010 |
+| 540 | text | `h3.card__title` | 各類投資軟體開發 |
+| 541 | text | `p.card__desc` | 超過 200 家企業使用，市占率第一。 |
+| 546 | text | `div.row__axis` | 2011 |
+| 548 | text | `h3.card__title` | 推出理財寶 |
+| 549 | text | `p.card__desc` | 把原本只有法人用得到的分析能力，做成散戶也打得開的工具。 |
+| 550 | text | `li` | 理財寶 |
+| 555 | text | `div.row__axis` | 2013 |
+| 557 | text | `h3.card__title` | 推出多款 2C 投資工具產品 |
+| 558 | text | `li` | 籌碼K線 |
+| 558 | text | `li` | 投資網誌 |
+| 558 | text | `li` | 股市大富翁 |
+| 558 | text | `li` | 選股勝利組 |
+| 563 | text | `div.row__axis` | 2015 |
+| 565 | text | `h3.card__title` | 大量開發移動端 App 產品 |
+| 566 | text | `li` | 籌碼K線 |
+| 566 | text | `li` | 期貨電子盤 |
+| 566 | text | `li` | 全方位獨門監控 |
+| 571 | text | `div.row__axis` | 2017 |
+| 573 | text | `h3.card__title` | 事業體擴張 |
+| 574 | text | `p.card__desc` | 影音課程製作銷售。 |
+| 575 | text | `li` | Money 錢 |
+| 580 | text | `div.row__axis` | 2018 |
+| 582 | text | `h3.card__title` | 大量開發投資工具類 App |
+| 583 | text | `li` | 發票載具 |
+| 583 | text | `li` | 股市爆料同學會 |
+| 583 | text | `li` | 艾蜜莉定存股 |
+| 588 | text | `div.row__axis` | 2022 |
+| 590 | text | `h3.card__title` | 口袋證券 |
+| 591 | text | `p.card__desc` | 從提供資訊，走到自己承接交易。 |
+| 592 | text | `li` | 口袋證券 |
+| 597 | text | `div.row__axis` | 2023 |
+| 599 | text | `h3.card__title` | 口袋證券投顧成立，會員突破 1000 萬人 |
+| 600 | text | `p.card__desc` | 全權委託、企業員工福利計畫、策略訂閱、基金平台。 |
+| 601 | text | `li` | 口袋證券投資顧問 |
+| 609 | text | `p.payoff__cap` | 走到今天 |
+| 611 | text | `dt.stat__num` | 1000+ |
+| 611 | text | `dd.stat__label` | 萬人 |
+| 611 | text | `dd.stat__desc` | CMoney 會員數 |
+| 612 | text | `dt.stat__num` | 400+ |
+| 612 | text | `dd.stat__label` | 員工 |
+| 612 | text | `dd.stat__desc` | 全集團 |
+| 613 | text | `dt.stat__num` | 160+ |
+| 613 | text | `dd.stat__label` | 工程人員 |
+| 613 | text | `dd.stat__desc` | 約占四成人力 |
+| 614 | text | `dt.stat__num` | 30+ |
+| 614 | text | `dd.stat__label` | 數據科學家 · 分析師 |
+| 614 | text | `dd.stat__desc` | 資料團隊 |
 
 ## `#groups`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 635 | text | `p.eyebrow` | 我們的事業群 |
-| 636 | text | `#bridge-t` | 二十年累積下來的能力，現在分別由這些團隊往前推 |
+| 624 | text | `p.eyebrow` | 我們的事業群 |
+| 625 | text | `#bridge-t` | 二十年累積下來的能力，現在分別由這些團隊往前推 |
 
 ## `#finance`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 647 | text | `#finance-name` | 金融事業群 |
-| 649 | text | `p.group__promise` | 陪伴每個人成為更成熟的投資人。 |
-| 652 | text | `p.claim` | 幫助每個人做好投資決策 |
-| 654 | text | `p` | 金融事業群陪伴每個人從新手成長為成熟投資者。 |
-| 655 | text | `p` | 我們提供一站式的投資工具與內容平台，涵蓋從學習、選股、交易到社群討論的完整流程，幫助投資者建立適合自己的投資策略與節奏，在變動的市場中，做好投資決策。 |
-| 659 | text | `p.blk__cap` | 規模 |
-| 661 | text | `dt.stat__num` | 600萬+ |
-| 661 | text | `dd.stat__label` | 網站活躍用戶 |
-| 662 | text | `dt.stat__num` | 500萬+ |
-| 662 | text | `dd.stat__label` | App 活躍用戶 |
-| 663 | text | `dt.stat__num` | 5000萬+ |
-| 663 | text | `dd.stat__label` | 網站月流量 |
-| 664 | text | `dt.stat__num` | 1/2 |
-| 664 | text | `dd.stat__label` | 投資人是 CMoney 用戶 |
-| 664 | text | `dd.stat__desc` | 超過 200 款 App |
-| 669 | text | `p.blk__cap` | 主力產品 |
-| 671 | text | `li` | 籌碼K線股市看盤必備，超過百萬投資人使用 |
-| 672 | text | `li` | 股市爆料同學會全台灣最大的投資討論區 |
-| 673 | text | `li` | 理財寶全台灣最大的投資理財教育平台 |
-| 674 | text | `li` | Money 錢最懂理財趨勢的財經媒體首選 |
-| 679 | text | `p.blk__cap` | 相關公開案例 |
-| 681 | link | `a` | https://blogs.cmoney.tw/data-middle-office |
-| 681 | text | `a` | 為什麼已有自建數據中台，還需要導入第三方數據平台？ 2025-08-22 · CMoney Blog閱讀文章 |
-| 683 | text | `p.reads__d` | 每天近億筆資料，自建中台之後仍要導入第三方平台的取捨。 |
-| 685 | link | `a` | https://blogs.cmoney.tw/fandeng |
-| 685 | text | `a` | CMoney 攜手樊登升級知識版圖 2026-01-29 · CMoney Blog閱讀文章 |
-| 687 | text | `p.reads__d` | 從金融投資領域轉向「全知識平台」的布局。 |
+| 636 | text | `#finance-name` | 金融事業群 |
+| 638 | text | `p.group__promise` | 陪伴每個人成為更成熟的投資人。 |
+| 641 | text | `p.claim` | 幫助每個人做好投資決策 |
+| 643 | text | `p` | 金融事業群陪伴每個人從新手成長為成熟投資者。 |
+| 644 | text | `p` | 我們提供一站式的投資工具與內容平台，涵蓋從學習、選股、交易到社群討論的完整流程，幫助投資者建立適合自己的投資策略與節奏，在變動的市場中，做好投資決策。 |
+| 648 | text | `p.blk__cap` | 規模 |
+| 650 | text | `dt.stat__num` | 600萬+ |
+| 650 | text | `dd.stat__label` | 網站活躍用戶 |
+| 651 | text | `dt.stat__num` | 500萬+ |
+| 651 | text | `dd.stat__label` | App 活躍用戶 |
+| 652 | text | `dt.stat__num` | 5000萬+ |
+| 652 | text | `dd.stat__label` | 網站月流量 |
+| 653 | text | `dt.stat__num` | 1/2 |
+| 653 | text | `dd.stat__label` | 投資人是 CMoney 用戶 |
+| 653 | text | `dd.stat__desc` | 超過 200 款 App |
+| 658 | text | `p.blk__cap` | 主力產品 |
+| 660 | text | `li` | 籌碼K線股市看盤必備，超過百萬投資人使用 |
+| 661 | text | `li` | 股市爆料同學會全台灣最大的投資討論區 |
+| 662 | text | `li` | 理財寶全台灣最大的投資理財教育平台 |
+| 663 | text | `li` | Money 錢最懂理財趨勢的財經媒體首選 |
+| 668 | text | `p.blk__cap` | 相關公開案例 |
+| 670 | link | `a` | https://blogs.cmoney.tw/data-middle-office |
+| 670 | text | `a` | 為什麼已有自建數據中台，還需要導入第三方數據平台？ 2025-08-22 · CMoney Blog閱讀文章 |
+| 672 | text | `p.reads__d` | 每天近億筆資料，自建中台之後仍要導入第三方平台的取捨。 |
+| 674 | link | `a` | https://blogs.cmoney.tw/fandeng |
+| 674 | text | `a` | CMoney 攜手樊登升級知識版圖 2026-01-29 · CMoney Blog閱讀文章 |
+| 676 | text | `p.reads__d` | 從金融投資領域轉向「全知識平台」的布局。 |
 
 ## `#partnership`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 701 | text | `#partnership-name` | 合作夥伴事業群 |
-| 703 | text | `p.group__promise` | 讓專業知識成為真正能被使用的工具。 |
-| 706 | text | `p.claim` | 幫助專業創作者與企業機構，將知識轉化為實用工具 |
-| 708 | text | `p` | 合作夥伴事業群與 50 位以上創作者合作，結合 CMoney 的平台與技術，將專業知識轉化為 App 與影音課程，提供用戶更直覺、實用的操作工具。 |
-| 709 | text | `p` | 同時，也為投信、投顧、銀行與保險等法人機構提供「投資決策支援系統」，市佔率逾九成。 |
-| 710 | text | `p` | 我們攜手創作者與企業，放大專業價值，讓內容與工具為用戶帶來更好的生活。 |
-| 714 | text | `p.blk__cap` | 規模 |
-| 716 | text | `dt.stat__num` | 50+ |
-| 716 | text | `dd.stat__label` | 位專業創作者 |
-| 716 | text | `dd.stat__desc` | 合作開發 App 與課程 |
-| 717 | text | `dt.stat__num` | 90% |
-| 717 | text | `dd.stat__label` | 金融機構深度合作 |
-| 717 | text | `dd.stat__desc` | 法人系統市佔率 |
-| 722 | text | `p.blk__cap` | 合作機構 |
-| 724 | text | `li` | 永豐銀行 |
-| 724 | text | `li` | 玉山銀行 |
-| 724 | text | `li` | 臺灣銀行 |
-| 724 | text | `li` | 元大投信 |
-| 725 | text | `li` | 富邦金控創投 |
-| 725 | text | `li` | 群益金鼎證券 |
-| 725 | text | `li` | 遠雄人壽 |
-| 725 | text | `li` | 新光金控 |
-| 730 | text | `p.blk__cap` | 主力產品 |
-| 732 | text | `li` | 林恩如 — 強棒旺旺來盤中即時選股 App |
-| 733 | text | `li` | 權證小哥 — 當沖飆股神手最強當沖操盤軟體 |
-| 734 | text | `li` | 艾蜜莉定存股找出優質定存股，先領股利再做價差 |
-| 735 | text | `li` | 法人投資決策支援系統90% 法人機構指定投資工具 |
-| 740 | text | `p.blk__cap` | 相關公開案例 |
-| 742 | link | `a` | https://blogs.cmoney.tw/cmoney-corporate-investment-decision-support-system |
-| 742 | text | `a` | 法人投資決策支援系統要如何運用 Gen AI 與數據生態打造新成長動能？ 2025-05-14 · CMoney Blog閱讀文章 |
-| 744 | text | `p.reads__d` | 已經是高市佔的產品，仍要以 GenAI、數據生態、跨市場擴張尋找新的增長曲線。 |
-| 746 | link | `a` | https://blogs.cmoney.tw/financial-creator-management |
-| 746 | text | `a` | CMoney 不只是做好產品，而是讓創作者與用戶共同成長的事業 2026-02-03 · CMoney Blog閱讀文章 |
-| 748 | text | `p.reads__d` | 事業群負責人第一人稱說明三贏結構，並直接寫出什麼樣的人在這裡會很痛苦、什麼樣的人成長得很快。 |
+| 690 | text | `#partnership-name` | 合作夥伴事業群 |
+| 692 | text | `p.group__promise` | 讓專業知識成為真正能被使用的工具。 |
+| 695 | text | `p.claim` | 幫助專業創作者與企業機構，將知識轉化為實用工具 |
+| 697 | text | `p` | 合作夥伴事業群與 50 位以上創作者合作，結合 CMoney 的平台與技術，將專業知識轉化為 App 與影音課程，提供用戶更直覺、實用的操作工具。 |
+| 698 | text | `p` | 同時，也為投信、投顧、銀行與保險等法人機構提供「投資決策支援系統」，市佔率逾九成。 |
+| 699 | text | `p` | 我們攜手創作者與企業，放大專業價值，讓內容與工具為用戶帶來更好的生活。 |
+| 703 | text | `p.blk__cap` | 規模 |
+| 705 | text | `dt.stat__num` | 50+ |
+| 705 | text | `dd.stat__label` | 位專業創作者 |
+| 705 | text | `dd.stat__desc` | 合作開發 App 與課程 |
+| 706 | text | `dt.stat__num` | 90% |
+| 706 | text | `dd.stat__label` | 金融機構深度合作 |
+| 706 | text | `dd.stat__desc` | 法人系統市佔率 |
+| 711 | text | `p.blk__cap` | 合作機構 |
+| 713 | text | `li` | 永豐銀行 |
+| 713 | text | `li` | 玉山銀行 |
+| 713 | text | `li` | 臺灣銀行 |
+| 713 | text | `li` | 元大投信 |
+| 714 | text | `li` | 富邦金控創投 |
+| 714 | text | `li` | 群益金鼎證券 |
+| 714 | text | `li` | 遠雄人壽 |
+| 714 | text | `li` | 新光金控 |
+| 719 | text | `p.blk__cap` | 主力產品 |
+| 721 | text | `li` | 林恩如 — 強棒旺旺來盤中即時選股 App |
+| 722 | text | `li` | 權證小哥 — 當沖飆股神手最強當沖操盤軟體 |
+| 723 | text | `li` | 艾蜜莉定存股找出優質定存股，先領股利再做價差 |
+| 724 | text | `li` | 法人投資決策支援系統90% 法人機構指定投資工具 |
+| 729 | text | `p.blk__cap` | 相關公開案例 |
+| 731 | link | `a` | https://blogs.cmoney.tw/cmoney-corporate-investment-decision-support-system |
+| 731 | text | `a` | 法人投資決策支援系統要如何運用 Gen AI 與數據生態打造新成長動能？ 2025-05-14 · CMoney Blog閱讀文章 |
+| 733 | text | `p.reads__d` | 已經是高市佔的產品，仍要以 GenAI、數據生態、跨市場擴張尋找新的增長曲線。 |
+| 735 | link | `a` | https://blogs.cmoney.tw/financial-creator-management |
+| 735 | text | `a` | CMoney 不只是做好產品，而是讓創作者與用戶共同成長的事業 2026-02-03 · CMoney Blog閱讀文章 |
+| 737 | text | `p.reads__d` | 事業群負責人第一人稱說明三贏結構，並直接寫出什麼樣的人在這裡會很痛苦、什麼樣的人成長得很快。 |
 
 ## `#global`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 762 | text | `#global-name` | 國際金融事業群 |
-| 764 | text | `p.group__promise` | 讓好的投資方法跨越市場與語言。 |
-| 767 | text | `p.claim` | 為全球財經創作者打造國際化投資工具與平台 |
-| 769 | text | `p` | 國際金融事業群成立於 2025 年，以美股為起點，推動海外市場拓展，開發專為全球投資者設計的工具與創作者平台。 |
-| 770 | text | `p` | 我們延伸國內成功經驗，與國際財經創作者共同開發 App 與課程，提供具在地語言與投資情境的內容服務。 |
-| 771 | text | `p` | 透過國際化布局，我們擴大專業內容的全球觸及，讓 CMoney 成為串聯全球用戶與創作者的重要投資平台。 |
-| 775 | text | `p.blk__cap` | 現在在做的事 |
-| 777 | text | `li` | 開拓 CMoney 海外市場 |
-| 777 | text | `li` | 挖掘 GTM 關鍵打法和模式 |
-| 777 | text | `li` | 打造全球財經創作者合作生態系 |
-| 782 | text | `p.blk__cap` | 主力產品 |
-| 784 | text | `li` | Mike 是麥克美股致富指南，把握最佳抄底時機 |
-| 785 | text | `li` | Rich 智富選股技術選股，順勢買入強勢股契機 |
-| 786 | text | `li` | 穹蒼美股全球 ETF 配置，無懼風險資產組合 |
-| 787 | text | `li` | 好葉智能選股價值選股策略，高效穩健獲利 |
-| 792 | text | `p.blk__cap` | 相關公開案例 |
-| 794 | link | `a` | https://blogs.cmoney.tw/market-development-strategies |
-| 794 | text | `a` | 從美股事業商務拓展經驗，反思 CMoney 整體市場開發策略 2025-05-12 · CMoney Blog閱讀文章 |
-| 796 | text | `p.reads__d` | 美股事業的商務開發策略與反思。 |
-| 798 | link | `a` | https://blogs.cmoney.tw/cmoney-taiwan-alternative-data-eagle-alpha |
-| 798 | text | `a` | CMoney 站上華爾街 Alternative Data Conference 2026-03-30 · CMoney Blog閱讀文章 |
-| 800 | text | `p.reads__d` | 2026 年 3 月營運長 Jack 於紐約 Eagle Alpha 發表 Keynote，12 家國際媒體轉載。 |
+| 751 | text | `#global-name` | 國際金融事業群 |
+| 753 | text | `p.group__promise` | 讓好的投資方法跨越市場與語言。 |
+| 756 | text | `p.claim` | 為全球財經創作者打造國際化投資工具與平台 |
+| 758 | text | `p` | 國際金融事業群成立於 2025 年，以美股為起點，推動海外市場拓展，開發專為全球投資者設計的工具與創作者平台。 |
+| 759 | text | `p` | 我們延伸國內成功經驗，與國際財經創作者共同開發 App 與課程，提供具在地語言與投資情境的內容服務。 |
+| 760 | text | `p` | 透過國際化布局，我們擴大專業內容的全球觸及，讓 CMoney 成為串聯全球用戶與創作者的重要投資平台。 |
+| 764 | text | `p.blk__cap` | 現在在做的事 |
+| 766 | text | `li` | 開拓 CMoney 海外市場 |
+| 766 | text | `li` | 挖掘 GTM 關鍵打法和模式 |
+| 766 | text | `li` | 打造全球財經創作者合作生態系 |
+| 771 | text | `p.blk__cap` | 主力產品 |
+| 773 | text | `li` | Mike 是麥克美股致富指南，把握最佳抄底時機 |
+| 774 | text | `li` | Rich 智富選股技術選股，順勢買入強勢股契機 |
+| 775 | text | `li` | 穹蒼美股全球 ETF 配置，無懼風險資產組合 |
+| 776 | text | `li` | 好葉智能選股價值選股策略，高效穩健獲利 |
+| 781 | text | `p.blk__cap` | 相關公開案例 |
+| 783 | link | `a` | https://blogs.cmoney.tw/market-development-strategies |
+| 783 | text | `a` | 從美股事業商務拓展經驗，反思 CMoney 整體市場開發策略 2025-05-12 · CMoney Blog閱讀文章 |
+| 785 | text | `p.reads__d` | 美股事業的商務開發策略與反思。 |
+| 787 | link | `a` | https://blogs.cmoney.tw/cmoney-taiwan-alternative-data-eagle-alpha |
+| 787 | text | `a` | CMoney 站上華爾街 Alternative Data Conference 2026-03-30 · CMoney Blog閱讀文章 |
+| 789 | text | `p.reads__d` | 2026 年 3 月營運長 Jack 於紐約 Eagle Alpha 發表 Keynote，12 家國際媒體轉載。 |
 
 ## `#consumer`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 814 | text | `#consumer-name` | 消費事業群 |
-| 816 | text | `p.group__promise` | 從每一張發票，看見更好的生活選擇。 |
-| 819 | text | `p.claim` | 幫助每個人掌握消費，提升生活品質 |
-| 821 | text | `p` | 消費事業群幫助用戶記錄生活開支，包括發票載具、簡單記帳、CWMoney 等，已經是超過 800 萬名台灣用戶的記帳與發票首選。 |
-| 822 | text | `p` | 同時，我們也運用龐大的消費數據庫，提供市場趨勢及消費者行為分析，幫助企業提供消費者更好的產品與服務，滿足客戶需求。 |
-| 826 | text | `p.blk__cap` | 規模 |
-| 828 | text | `dt.stat__num` | 800萬 |
-| 828 | text | `dd.stat__label` | 用戶記錄消費生活 |
-| 828 | text | `dd.stat__desc` | App Store · Google Play 財經類 NO.1 |
-| 829 | text | `dt.stat__num` | 30億+ |
-| 829 | text | `dd.stat__label` | 消費資料支持企業決策 |
-| 830 | text | `dt.stat__num` | 7500萬+ |
-| 830 | text | `dd.stat__label` | 每月消費紀錄 |
-| 831 | text | `dt.stat__num` | 4000萬+ |
-| 831 | text | `dd.stat__label` | 商品品項識別 |
-| 836 | text | `p.blk__cap` | 主力產品 |
-| 838 | text | `li` | 發票載具百萬用戶推薦，最好用的發票 APP |
-| 839 | text | `li` | 簡單記帳財經App Store排行榜NO.1 |
-| 840 | text | `li` | CWMoney超過 500 萬人推薦的理財神器 |
-| 841 | text | `li` | 夢幻發票最美載具自己做 |
-| 846 | text | `p.blk__cap` | 相關公開案例 |
-| 848 | link | `a` | https://blogs.cmoney.tw/c-talk-16 |
-| 848 | text | `a` | AI 賦能的範例展示：巨量數據結構化的解決方案 2026-05-11 · CMoney Blog閱讀文章 |
-| 850 | text | `p.reads__d` | 發票載具逾 350 萬用戶、累積 50 億張發票、後台逾一億筆非結構化商品名稱，資料如何被結構化為消費趨勢。 |
-| 852 | link | `a` | https://blogs.cmoney.tw/growth-hacker-cmoney |
-| 852 | text | `a` | 如何在一款老產品找到營收成長 5 倍的關鍵密碼 2025-07-23 · CMoney Blog閱讀文章 |
-| 854 | text | `p.reads__d` | 簡單記帳營收成長五倍的完整過程。 |
+| 803 | text | `#consumer-name` | 消費事業群 |
+| 805 | text | `p.group__promise` | 從每一張發票，看見更好的生活選擇。 |
+| 808 | text | `p.claim` | 幫助每個人掌握消費，提升生活品質 |
+| 810 | text | `p` | 消費事業群幫助用戶記錄生活開支，包括發票載具、簡單記帳、CWMoney 等，已經是超過 800 萬名台灣用戶的記帳與發票首選。 |
+| 811 | text | `p` | 同時，我們也運用龐大的消費數據庫，提供市場趨勢及消費者行為分析，幫助企業提供消費者更好的產品與服務，滿足客戶需求。 |
+| 815 | text | `p.blk__cap` | 規模 |
+| 817 | text | `dt.stat__num` | 800萬 |
+| 817 | text | `dd.stat__label` | 用戶記錄消費生活 |
+| 817 | text | `dd.stat__desc` | App Store · Google Play 財經類 NO.1 |
+| 818 | text | `dt.stat__num` | 30億+ |
+| 818 | text | `dd.stat__label` | 消費資料支持企業決策 |
+| 819 | text | `dt.stat__num` | 7500萬+ |
+| 819 | text | `dd.stat__label` | 每月消費紀錄 |
+| 820 | text | `dt.stat__num` | 4000萬+ |
+| 820 | text | `dd.stat__label` | 商品品項識別 |
+| 825 | text | `p.blk__cap` | 主力產品 |
+| 827 | text | `li` | 發票載具百萬用戶推薦，最好用的發票 APP |
+| 828 | text | `li` | 簡單記帳財經App Store排行榜NO.1 |
+| 829 | text | `li` | CWMoney超過 500 萬人推薦的理財神器 |
+| 830 | text | `li` | 夢幻發票最美載具自己做 |
+| 835 | text | `p.blk__cap` | 相關公開案例 |
+| 837 | link | `a` | https://blogs.cmoney.tw/c-talk-16 |
+| 837 | text | `a` | AI 賦能的範例展示：巨量數據結構化的解決方案 2026-05-11 · CMoney Blog閱讀文章 |
+| 839 | text | `p.reads__d` | 發票載具逾 350 萬用戶、累積 50 億張發票、後台逾一億筆非結構化商品名稱，資料如何被結構化為消費趨勢。 |
+| 841 | link | `a` | https://blogs.cmoney.tw/growth-hacker-cmoney |
+| 841 | text | `a` | 如何在一款老產品找到營收成長 5 倍的關鍵密碼 2025-07-23 · CMoney Blog閱讀文章 |
+| 843 | text | `p.reads__d` | 簡單記帳營收成長五倍的完整過程。 |
 
 ## `section.fcta`
 
 | 行 | 類型 | 元素 | 文案 |
 |---|---|---|---|
-| 869 | text | `h2.fcta__t` | 帶著你的問題來， ↵ 帶著答案和能力離開。 |
-| 870 | text | `p.fcta__p` | 如果你讀完後感到更興奮，歡迎帶著你的判斷、作品和最想解決的真問題來認識我們。加入我們，運用你的專業來解決問題！ |
-| 871 | link | `a.fcta__btn` | https://www.104.com.tw/company/10r4uuvc |
-| 871 | text | `a.fcta__btn` | 加入CMoney → |
+| 858 | text | `h2.fcta__t` | 帶著你的問題來， ↵ 帶著答案和能力離開。 |
+| 859 | text | `p.fcta__p` | 如果你讀完後感到更興奮，歡迎帶著你的判斷、作品和最想解決的真問題來認識我們。加入我們，運用你的專業來解決問題！ |
+| 860 | link | `a.fcta__btn` | https://www.104.com.tw/company/10r4uuvc |
+| 860 | text | `a.fcta__btn` | 加入CMoney → |
 
 ## JS 動態文案
 
@@ -751,7 +751,7 @@ HTML 是正本，這份是從 HTML 抽出來的快照，用來審稿、比對版
 
 | 行 | 字串 |
 |---|---|
-| 891 | 關閉選單 |
-| 891 | 開啟選單 |
-| 897 | 開啟選單 |
-| 931 | 跳到  |
+| 880 | 關閉選單 |
+| 880 | 開啟選單 |
+| 886 | 開啟選單 |
+| 920 | 跳到  |

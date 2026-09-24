@@ -871,7 +871,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 }
 
 /* ============================================================
-   v2 檢視版（2026-09-23）— 以下全部是新增／覆寫，原本的規則未刪。
+   2026-09-23 改版 — 以下全部是新增／覆寫，原本的規則未刪。
    色值、字級皆取自既有 9 階與 11 色，未新增 token。
    ============================================================ */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -902,8 +902,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
    不會覆蓋 .bgc / .cmp__row 自己的 transition。 */
 .reveal[data-stagger]{opacity:1;transform:none}
 .reveal[data-stagger]:not(.is-in) > *{opacity:0}
-.reveal[data-stagger].is-in > *{animation:v2-rise .5s var(--ease) var(--d,0ms) backwards}
-@keyframes v2-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.reveal[data-stagger].is-in > *{animation:stagger-rise .5s var(--ease) var(--d,0ms) backwards}
+@keyframes stagger-rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
 
 /* ---------- About：VISION → MISSION → METHOD 跟著捲動變清晰 ----------
    不用節點與軌道（和卡片語彙不搭），改成每張卡的文字依捲動進度 --lit 從淡轉實；
@@ -1143,7 +1143,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       <a class="nav__link" href="#business">事業群</a>
       <a class="nav__link" href="#founder">創辦人的話</a>
     </nav>
-    <!-- v2：Header 常駐求職入口 -->
+    <!-- 2026-09-23 改版：Header 常駐求職入口 -->
     <a class="btn btn--solid header-cta" href="https://www.104.com.tw/company/10r4uuvc" target="_blank" rel="noopener">看職缺</a>
 
     <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="primaryNav" aria-label="開啟選單"><i></i></button>
@@ -1606,7 +1606,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       <h3>自由度越高，<br>越必須說清楚任務、權責、成功標準與失敗代價</h3>
     </div>
 
-    <!-- v2：工作文化結尾的求職入口 -->
+    <!-- 2026-09-23 改版：工作文化結尾的求職入口 -->
     <div class="job-cue reveal">
       <span class="job-cue__line" aria-hidden="true"></span>
       <h3 class="job-cue__q">認同這樣的工作方式？</h3>
@@ -1744,7 +1744,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <h3 class="northstar__title"><span class="nobr">很多產品，很多專業，</span><span class="nobr">一個共同目標。</span></h3>
         <p class="northstar__sub">讓每一次累積，都成為下一次更好決定的基礎。</p>
       </div>
-      <!-- v2：4×4，一列一個事業群（金融／合作夥伴／消費／國際金融），隨捲動由右往左依序淡入（JS：updateNorthstar） -->
+      <!-- 2026-09-23 改版：4×4，一列一個事業群（金融／合作夥伴／消費／國際金融），隨捲動由右往左依序淡入（JS：updateNorthstar） -->
       <div class="nsviz" id="nsviz" aria-hidden="true">
         <img class="nsviz__icon" src="assets/icon-finance-chipk.png" alt="" loading="lazy">
         <img class="nsviz__icon" src="assets/icon-finance-bole.png" alt="" loading="lazy">
@@ -1967,7 +1967,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     el.addEventListener("click", function(e){ e.preventDefault(); });
   });
 
-  /* ---------- 導覽 active 狀態（v2）----------
+  /* ---------- 導覽 active 狀態（2026-09-23 改版）----------
      舊版只在畫面中間 5% 的窄帶偵測，長段落或快速跳轉時會標錯章節。
      改成：每一章＝主標段＋後面所有內容段；畫面 35% 高的那條線落在哪一章，就點亮哪一章。
      落在 Hero / CTA / Footer 時全部熄滅。 */
@@ -2017,7 +2017,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
   /* ---------- Scroll reveal ---------- */
   var revealEls = document.querySelectorAll(".reveal");
-  /* v2：data-stagger 的大區塊不整塊淡入，改成子元素每個間隔 70ms 依序出現 */
+  /* 2026-09-23 改版：data-stagger 的大區塊不整塊淡入，改成子元素每個間隔 70ms 依序出現 */
   function staggerKids(el){
     if (!el.hasAttribute("data-stagger")) return;
     [].forEach.call(el.children, function(k, i){ k.style.setProperty("--d", Math.min(i * 70, 420) + "ms"); });
@@ -2148,7 +2148,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     addEventListener("scroll", requestStack, {passive:true});
     addEventListener("resize", function(){ readStackVars(); requestStack(); });
   }
-  /* ---------- v2：About 三卡跟著捲動變清晰 ----------
+  /* ---------- 2026-09-23 改版：About 三卡跟著捲動變清晰 ----------
      每張卡依自己的位置算 --lit（0＝淡、1＝清晰）：卡片上緣從畫面 85% 走到 50% 的過程中逐漸變實。
      已經清晰、且最靠下的那張卡是「目前」這張，框線轉紅。 */
   var flow = document.getElementById("pillarsFlow");
@@ -2180,7 +2180,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     addEventListener("resize", requestFlow);
   }
 
-  /* ---------- v2：北極星 — 產品 icon 由右往左淡入 ----------
+  /* ---------- 2026-09-23 改版：北極星 — 產品 icon 由右往左淡入 ----------
      4 欄 × 4 列，一列一個事業群。捲動進度 P 推進時，最右一欄先出現、往左一欄一欄接上；
      同一欄上到下再錯開一點。每顆從右側 40px 滑進定位。reduced-motion 直接全部顯示。 */
   var ns = document.getElementById("nsviz");
@@ -2207,7 +2207,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     addEventListener("resize", requestNorthstar);
   }
 
-  /* ---------- v2：逐字柔和淡入（僅創辦人引言）----------
+  /* ---------- 2026-09-23 改版：逐字柔和淡入（僅創辦人引言）----------
      每個字各自 0.8s 淡入並從輕微模糊轉清晰，前後字相隔 28ms 重疊進場，整句像慢慢浮現。
      - 捲動：第一次露出 60% 時播一次，之後來回捲不重播。
      - 點對應錨點（例如導覽「創辦人的話」→ #founder）：每次清空重播。

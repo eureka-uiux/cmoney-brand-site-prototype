@@ -360,17 +360,6 @@ a{color:inherit}
 .prods span{font-size:14px;line-height:20px;color:var(--tx-3)}
 .prods .todo{color:var(--accent-tx);border:1px solid var(--accent-tx);border-radius:999px;padding:3px 9px;font-size:12px;line-height:16px}
 
-/* 產品牆：沿用設計稿 5717:10949 的手法，最後一排淡出，表示看到的不是全部 */
-.wall{
-  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));
-  gap:10px;margin:0;padding:0;list-style:none;max-width:440px;
-  -webkit-mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.15) 100%);
-          mask-image:linear-gradient(180deg,#000 62%,rgba(0,0,0,.15) 100%);
-}
-.wall img{width:100%;aspect-ratio:1;border-radius:12px;display:block}
-.wall__note{margin:12px 0 0;font-size:12px;line-height:16px;color:var(--tx-3)}
-@media (max-width:520px){.wall{grid-template-columns:repeat(5,minmax(0,1fr))}}
-
 /* 兩句主張：與事業群敘述同層級，但用線分隔成獨立的兩件事 */
 .claims{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule)}
 .claims li{
@@ -411,7 +400,7 @@ a{color:inherit}
 }
 
 /* ---------- 結尾 Footer CTA — Figma node 6704:2543「Footer CTA - Slogan C」
-   固定深底 #111 ＋辦公室實景，不隨頁面深／淺底切換，與 site-header 同一套處理 ---------- */
+   固定深底 --ink-fixed（#262626）＋辦公室實景，不隨頁面深／淺底切換，與 site-header 同一套處理 ---------- */
 .fcta{
   position:relative;overflow:hidden;
   background:var(--ink-fixed);border-top:1px solid rgba(255,255,255,.08);

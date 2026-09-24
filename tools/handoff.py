@@ -22,6 +22,13 @@ OUT_DIR = "handoff"
 PALETTE = {"#e21e28", "#a0151c", "#811117", "#f39ea3", "#262626", "#595959",
            "#959595", "#bfbfbf", "#d9d9d9", "#f6f6f6", "#ffffff", "#fff"}
 
+# DESIGN-SYSTEM.md「刻意破格的色值」：(頁面, CSS 選擇器, 色值)
+COLOR_EXCEPTIONS = {
+    ("index.html", ".btn--ghost:active", "#000"),
+    ("index.html", ".hero__stats::before", "#25282f"),
+    ("index.html", ".hero__stats::before", "#030508"),
+}
+
 CONTAINERS = {"head", "section", "header", "footer", "nav"}
 BLOCKS = {"title", "h1", "h2", "h3", "h4", "h5", "h6", "p", "li", "a", "button", "label",
           "figcaption", "blockquote", "dt", "dd", "td", "th", "caption", "summary",
@@ -300,11 +307,18 @@ def check():
             problems.append("過期  %s 和 HTML 不一致，跑 `python3 tools/handoff.py inventory` 後檢查 git diff" % path)
 
     for page in PAGES:
-        src = read(page)
+        # 註解裡提到的色值不算（保留長度，行號才對得上）
+        src = re.sub(r"/\*.*?\*/|<!--.*?-->", lambda x: re.sub(r"[^\n]", " ", x.group(0)), read(page), flags=re.S)
         for m in HEX_RE.finditer(src):
-            if m.group(0).lower() not in PALETTE:
-                line = src.count("\n", 0, m.start()) + 1
-                warnings.append("色票外  %s:%d %s" % (page, line, m.group(0)))
+            hex_ = m.group(0).lower()
+            if hex_ in PALETTE:
+                continue
+            rule_start = max(src.rfind("}", 0, m.start()), src.rfind(";", 0, src.rfind("{", 0, m.start())))
+            selector = norm(src[rule_start + 1:src.rfind("{", 0, m.start())])
+            if (page, selector, hex_) in COLOR_EXCEPTIONS:
+                continue
+            line = src.count("\n", 0, m.start()) + 1
+            warnings.append("色票外  %s:%d %s（%s）" % (page, line, m.group(0), selector))
 
     for w in warnings:
         print("⚠️ ", w)
