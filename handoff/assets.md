@@ -14,7 +14,7 @@
 | `footer-cta-office.jpg` | 659 × 440 | 159 | business-groups.html:841 `section.fcta` |
 | `founder.jpg` | 832 × 1248 | 128 | index.html:1786 `#founder` |
 | `hero-groups.jpg` | 1264 × 843 | 197 | business-groups.html:491 `header.hero` |
-| `hero.jpg` | 1248 × 832 | 204 | index.html:11 `head`<br>index.html:1159 `#hero` |
+| `hero.jpg` | 1248 × 832 | 204 | index.html:11 `head`<br>index.html:1163 `#hero` |
 | `icon-consumer-cwmoney.png` | 110 × 110 | 8 | index.html:1703 `#groups`<br>index.html:1759 `#northstar`<br>business-groups.html:816 `#consumer` |
 | `icon-consumer-dreamfapiao.png` | 220 × 220 | 31 | index.html:1704 `#groups`<br>index.html:1760 `#northstar`<br>business-groups.html:817 `#consumer` |
 | `icon-consumer-easynote.png` | 220 × 220 | 64 | index.html:1702 `#groups`<br>index.html:1758 `#northstar`<br>business-groups.html:815 `#consumer` |
