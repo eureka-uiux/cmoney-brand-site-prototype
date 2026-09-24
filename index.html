@@ -992,8 +992,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-panel{display:flex;flex-direction:column;gap:32px}
 .wt-h{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
 .wt-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
-.wt-diff{display:flex;flex-direction:column;gap:16px}
-.wt-diff>.wt-h{margin-bottom:8px}
+/* 兩個預設差異卡：切換題目後固定在 header 下方，下方內容在它底下捲動 */
+.wt-pin{position:sticky;top:64px;z-index:2;margin-top:-35px;padding:35px 0 16px;background:var(--bg);display:flex;flex-direction:column;gap:16px}
+.wt-pin>.wt-h{margin-bottom:8px}
+.wt-diff{margin-top:-16px;display:flex;flex-direction:column;gap:16px}
 .wt-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
 .wt-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:8px}
 .wt-card p,.wt-card h4{margin:0}
@@ -1004,7 +1006,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-card--old .wt-card__k,.wt-card--old p:last-child{color:var(--text-600)}
 .wt-card--new{background:var(--ink);color:#fff}
 .wt-card--new .wt-card__k,.wt-card--new p:last-child{color:var(--on-dark-2)}
-.wt-why,.wt-work{max-width:760px;margin-top:16px;display:flex;flex-direction:column;gap:4px}
+.wt-why,.wt-work{max-width:760px;display:flex;flex-direction:column;gap:4px}
+.wt-work{margin-top:16px}
 .wt-why h5{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
 .wt-why>p:not(.wt-kicker),.wt-work>p:not(.wt-kicker){margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
 .wt-why b{color:var(--text-900);font-weight:600}
@@ -1073,6 +1076,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wt-tabs{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
   .wt-tabs::-webkit-scrollbar{display:none}
   .wt-tab{flex:0 0 auto;width:auto;min-width:176px}
+  .wt-pin{position:static;margin-top:0;padding:0}
+  .wt-diff{margin-top:0}
 }
 @media (max-width:768px){
   .wt-cards{grid-template-columns:1fr}
@@ -1352,12 +1357,14 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       </div>
       <div class="wt-main">
         <div class="wt-panel" role="tabpanel" id="wtPanel1" aria-labelledby="wtTab1">
-          <div class="wt-diff">
+          <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
               <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>職務先被定義</h4><p>在既定範圍把事情做好</p></div>
               <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>問題先被定義</h4><p>角色跟著問題與能力改變</p></div>
             </div>
+          </div>
+          <div class="wt-diff">
             <div class="wt-why">
               <p class="wt-kicker">為什麼會不同</p>
               <h5>新事業一開始，連「真正的問題」都還沒有被完全確認。</h5>
@@ -1406,12 +1413,14 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           </div>
         </div>
         <div class="wt-panel" role="tabpanel" id="wtPanel2" aria-labelledby="wtTab2" hidden>
-          <div class="wt-diff">
+          <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
               <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>計畫爭取資源</h4><p>先說服主管，再開始執行</p></div>
               <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>實驗換取資源</h4><p>先用低成本取得市場證據</p></div>
             </div>
+          </div>
+          <div class="wt-diff">
             <div class="wt-why">
               <p class="wt-kicker">為什麼會不同</p>
               <h5>新事業最大的風險，不是資源不夠，而是方向還沒確認就投入太多。</h5>
@@ -1460,12 +1469,14 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           </div>
         </div>
         <div class="wt-panel" role="tabpanel" id="wtPanel3" aria-labelledby="wtTab3" hidden>
-          <div class="wt-diff">
+          <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
               <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>績效看完成度</h4><p>是否準時交付承諾項目</p></div>
               <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4><p>有沒有讓未知變少、價值變大</p></div>
             </div>
+          </div>
+          <div class="wt-diff">
             <div class="wt-why">
               <p class="wt-kicker">為什麼會不同</p>
               <h5>最大的浪費，往往不是事情沒做完，而是很努力地做完了錯的事情。</h5>
@@ -1514,12 +1525,14 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           </div>
         </div>
         <div class="wt-panel" role="tabpanel" id="wtPanel4" aria-labelledby="wtTab4" hidden>
-          <div class="wt-diff">
+          <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
               <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>權責跟著職級</h4><p>職位越高，決定越多</p></div>
               <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4><p>誰最接近事實，誰應該做決定</p></div>
             </div>
+          </div>
+          <div class="wt-diff">
             <div class="wt-why">
               <p class="wt-kicker">為什麼會不同</p>
               <h5>離客戶最近、真正承擔題目的人，必須有足以讓結果發生的決策權。</h5>
