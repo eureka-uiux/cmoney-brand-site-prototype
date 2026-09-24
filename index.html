@@ -980,7 +980,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-head p{margin:0;padding:16px 28px;border-radius:12px;font-size:24px;line-height:32px;font-weight:600;color:#fff}
 .w5-head__old{background:var(--ink)}
 .w5-head__new{background:var(--red)}
-.w5-row{row-gap:20px;padding:24px 0;border-bottom:1px solid var(--line-200)}
+.w5-row{row-gap:10px;padding:12px 0;border-bottom:1px solid var(--line-200)}
 .w5-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:8px}
 .w5-card p,.w5-card h4{margin:0}
 .w5-card__k{display:none;font-size:16px;line-height:24px;font-weight:600}
@@ -990,7 +990,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-card--old .w5-card__k{color:var(--text-600)}
 .w5-card--new{background:rgba(226,30,40,.06)}
 .w5-card--new .w5-card__k{color:var(--red)}
-.w5-more{grid-column:1 / -1;display:flex;flex-direction:column;gap:16px}
+.w5-more{grid-column:1 / -1;display:flex;flex-direction:column;gap:8px}
 .w5-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px}
 .w5-why,.w5-work{display:flex;flex-direction:column;gap:8px}
 .w5-why p,.w5-work>p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
@@ -1000,7 +1000,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-confirm{margin-top:8px;padding:16px 20px;border-radius:12px;background:var(--bg-soft);display:flex;flex-direction:column;gap:4px}
 .w5-confirm p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
 .w5-confirm b{color:var(--text-900);font-weight:600}
-.w5-toggle{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;color:var(--red);cursor:pointer}
+.w5-toggle{align-self:flex-end;display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;color:var(--red);cursor:pointer}
 .w5-toggle svg{transition:transform .2s var(--ease)}
 .w5-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 .w5-toggle:hover{color:var(--red-hover)}
@@ -1380,7 +1380,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d2"><span>為什麼會不同？實際工作時</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d2"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
         <div class="w5-row">
@@ -1400,7 +1400,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d3"><span>為什麼會不同？實際工作時</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d3"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
         <div class="w5-row">
@@ -1420,7 +1420,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d4"><span>為什麼會不同？實際工作時</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d4"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
       </div>
@@ -2253,7 +2253,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     b.addEventListener("click", function(){
       var open = b.getAttribute("aria-expanded") !== "true";
       b.setAttribute("aria-expanded", String(open));
-      b.querySelector("span").textContent = open ? "收合說明" : "為什麼會不同？實際工作時";
+      b.querySelector("span").textContent = open ? "收合說明" : "展開看我們不同的原因";
       document.getElementById(b.getAttribute("aria-controls")).hidden = !open;
     });
   });
