@@ -1054,7 +1054,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-panel.is-answered .w5-opt--ours{border-color:var(--red)}
 .w5-panel.is-answered .w5-opt__verdict{display:flex}
 .w5-panel.is-answered .w5-opt__badge{display:inline-block}
-.w5-lock{position:relative;margin-top:24px;min-height:320px;border-radius:16px;overflow:hidden}
+/* 解鎖區只要放得下鎖頭＋兩行說明＋提示；解析內容展開後自然長高 */
+.w5-lock{position:relative;margin-top:16px;min-height:240px;border-radius:16px;overflow:hidden}
 .w5-lock__blur{display:flex;flex-direction:column;gap:16px;max-width:860px;filter:blur(6px);opacity:.6;user-select:none;pointer-events:none}
 .w5-lock__cover{position:absolute;inset:0;background:rgba(255,255,255,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
 .w5-lock__cover p{margin:0}
@@ -1106,7 +1107,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .w5-q p{font-size:16px;line-height:24px;padding-top:4px}
   .w5-opts{grid-template-columns:1fr;grid-template-rows:none;row-gap:12px}
   .w5-opt{grid-row:auto;grid-template-rows:none;padding:16px}
-  .w5-lock{min-height:300px}
+  .w5-lock{min-height:272px}
   .w5-lock__t,.w5-lead{font-size:20px;line-height:28px}
   .w5-field img{width:72px;height:72px}
   .w5-pager .btn{flex:1 1 0;min-width:0}
