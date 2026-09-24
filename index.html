@@ -988,7 +988,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-head p{margin:0;padding:16px 28px;border-radius:12px;font-size:24px;line-height:32px;font-weight:600;color:#fff}
 .w5-head__old{background:var(--ink)}
 .w5-head__new{background:var(--red)}
-.w5-row{row-gap:10px;padding:12px 0}
+.w5-row{row-gap:0;padding:12px 0}
 .w5-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:8px}
 .w5-card p,.w5-card h4{margin:0}
 .w5-card__k{display:none;font-size:16px;line-height:24px;font-weight:600}
@@ -998,8 +998,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-card--old .w5-card__k{color:var(--text-600)}
 .w5-card--new{background:rgba(226,30,40,.06)}
 .w5-card--new .w5-card__k{color:var(--red)}
-.w5-more{grid-column:1 / -1;display:flex;flex-direction:column;gap:8px}
-.w5-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+.w5-more{grid-column:1 / -1;display:flex;flex-direction:column}
+.w5-detail{margin-top:20px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
 /* 說明文字左右各內縮 28，跟上方卡片內文對齊 */
 .w5-why,.w5-work{display:flex;flex-direction:column;gap:8px;padding-inline:28px}
 .w5-why p,.w5-work>p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
@@ -1009,7 +1009,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-confirm{margin-top:8px;padding:16px 20px;border-radius:12px;background:var(--bg-soft);display:flex;flex-direction:column;gap:4px}
 .w5-confirm p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
 .w5-confirm b{color:var(--text-900);font-weight:600}
-.w5-toggle{align-self:flex-end;margin-right:28px;display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;color:var(--red);cursor:pointer}
+.w5-toggle{align-self:flex-end;margin-top:8px;display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;color:var(--red);cursor:pointer}
 .w5-toggle svg{transition:transform .2s var(--ease)}
 .w5-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 .w5-toggle:hover{color:var(--red-hover)}
@@ -1028,8 +1028,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-tab.is-done .w5-tab__s{color:var(--text-900)}
 .w5-tab.is-done .w5-tab__ok{display:block}
 .w5-tab__t{font-size:18px;line-height:28px;font-weight:600}
-.w5-tab[aria-selected="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset;color:var(--text-900)}
-.w5-tab[aria-selected="true"] .w5-tab__n{color:var(--red)}
+.w5-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.w5-tab[aria-selected="true"] .w5-tab__n,.w5-tab[aria-selected="true"] .w5-tab__s{color:var(--text-300)}
 /* 題目區：Q 掛在左側留白，選項、解析、上下題都對齊題目文字左緣（40 + Q 40 + 間距 20） */
 .w5-box{display:flex;flex-direction:column;padding:40px 40px 40px 100px;border-radius:16px;background:var(--bg)}
 .w5-panel{display:flex;flex-direction:column;gap:16px}
@@ -1101,7 +1101,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .w5-card h4{font-size:20px;line-height:28px}
   .w5-detail{grid-template-columns:1fr;row-gap:24px}
   .w5-why,.w5-work{padding-inline:20px}
-  .w5-toggle{margin-right:20px}
   .w5-q{gap:12px}
   .w5-q__mark{width:30px;margin-left:-42px;font-size:30px;line-height:36px}
   .w5-q p{font-size:16px;line-height:24px;padding-top:4px}
@@ -1361,7 +1360,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <div class="w5-head" aria-hidden="true"><p class="w5-head__old">常見公司的預設</p><p class="w5-head__new">CMoney 的預設</p></div>
         <div class="w5-row">
           <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>職務先被定義</h4><p>在既定範圍把事情做好</p></div>
-          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>問題先被定義</h4><p>角色跟著問題與能力改變</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>問題先被定義</h4><p>角色跟著問題與能力改變</p><button class="w5-toggle" type="button" aria-expanded="true" aria-controls="w5d1"><span>收合說明</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div>
           <div class="w5-more">
             <div class="w5-detail" id="w5d1">
               <div class="w5-why">
@@ -1376,12 +1375,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="true" aria-controls="w5d1"><span>收合說明</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
         <div class="w5-row">
           <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>計畫爭取資源</h4><p>先說服主管，再開始執行</p></div>
-          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>實驗換取資源</h4><p>先用低成本取得市場證據</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>實驗換取資源</h4><p>先用低成本取得市場證據</p><button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d2"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div>
           <div class="w5-more">
             <div class="w5-detail" id="w5d2" hidden>
               <div class="w5-why">
@@ -1396,12 +1394,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d2"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
         <div class="w5-row">
           <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>績效看完成度</h4><p>是否準時交付承諾項目</p></div>
-          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4><p>有沒有讓未知變少、價值變大</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4><p>有沒有讓未知變少、價值變大</p><button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d3"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div>
           <div class="w5-more">
             <div class="w5-detail" id="w5d3" hidden>
               <div class="w5-why">
@@ -1416,12 +1413,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d3"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
         <div class="w5-row">
           <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>權責跟著職級</h4><p>職位越高，決定越多</p></div>
-          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4><p>誰最接近事實，誰應該做決定</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4><p>誰最接近事實，誰應該做決定</p><button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d4"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div>
           <div class="w5-more">
             <div class="w5-detail" id="w5d4" hidden>
               <div class="w5-why">
@@ -1436,7 +1432,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</b></p></div>
               </div>
             </div>
-            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d4"><span>展開看我們不同的原因</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
           </div>
         </div>
       </div>
@@ -1445,7 +1440,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <h3 class="w5-h">看懂差異之後，試試真實情境</h3>
         <div class="w5-tabs" role="tablist" aria-label="四個情境">
           <button class="w5-tab" type="button" role="tab" id="w5Tab1" aria-controls="w5Panel1" aria-selected="true">
-            <span class="w5-tab__top"><span class="w5-tab__n">情境 01</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">作答中</span></span></span>
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 01</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st"></span></span></span>
             <span class="w5-tab__t">工作怎麼定義？</span>
           </button>
           <button class="w5-tab" type="button" role="tab" id="w5Tab2" aria-controls="w5Panel2" aria-selected="false" tabindex="-1">
@@ -2281,7 +2276,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     });
     /* 點同一列的卡片也能展開／收合 */
     b.closest(".w5-row").querySelectorAll(".w5-card").forEach(function(c){
-      c.addEventListener("click", function(){ b.click(); });
+      c.addEventListener("click", function(e){ if (!e.target.closest(".w5-toggle")) b.click(); });
     });
   });
   var w5Tabs = Array.prototype.slice.call(w5.querySelectorAll(".w5-tab"));
@@ -2295,7 +2290,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
       t.setAttribute("aria-selected", String(on));
       t.tabIndex = on ? 0 : -1;
       t.classList.toggle("is-done", done);
-      t.querySelector(".w5-tab__st").textContent = done ? "已作答" : (on ? "作答中" : "未作答");
+      t.querySelector(".w5-tab__st").textContent = done ? "已作答" : (on ? "" : "未作答");
       w5Panels[j].hidden = !on;
     });
     w5Prev.disabled = i === 0;
