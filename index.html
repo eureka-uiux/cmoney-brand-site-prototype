@@ -968,158 +968,138 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
 
 /* ============================================================
-   運作方式：左側題目清單（sticky）＋右側內容，未作答時解析模糊鎖住
-   只用 11 色與字級規範，文字不小於 16px
+   運作方式 V5：先認識差異（黑底／紅底欄位標頭＋灰卡／淡紅卡對照）→ 再試真實情境（淺灰底框）
+   只用官網色（淡紅卡＝主色 #e21e28 × 6%）與字級規範，文字不小於 16px
    ============================================================ */
 #work-compare{background:var(--bg)}
-.wt{display:grid;grid-template-columns:280px minmax(0,1fr);gap:0 56px;align-items:stretch;padding-top:60px}
-.wt-title{margin-bottom:24px}
-.wt-tabs{position:sticky;top:99px;display:flex;flex-direction:column;gap:8px}
-.wt-tab{
-  display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;
-  padding:16px 20px;border-radius:12px;border:1px solid var(--line-200);background:var(--bg);
-  color:var(--text-900);font:inherit;cursor:pointer;transition:border-color .25s var(--ease),background-color .25s var(--ease)
-}
-.wt-tab:hover{border-color:var(--text-900)}
-.wt-tab:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.wt-tab__top{align-self:stretch;display:flex;justify-content:space-between;gap:8px}
-.wt-tab__n{font-size:16px;line-height:24px;font-weight:600;color:var(--text-600)}
-.wt-tab__s{display:inline-flex;align-items:center;gap:4px;font-size:16px;line-height:24px;font-weight:600;color:var(--text-400)}
-.wt-tab__ok{display:none}
-.wt-tab.is-done .wt-tab__s{color:var(--text-900)}
-.wt-tab.is-done .wt-tab__ok{display:block}
-.wt-tab__t{font-size:18px;line-height:28px;font-weight:600}
-.wt-tab[aria-current="step"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.wt-tab[aria-current="step"] .wt-tab__n,.wt-tab[aria-current="step"] .wt-tab__s{color:var(--text-300)}
-.wt-main{min-width:0;display:flex;flex-direction:column}
-/* 四題上下接續；差異卡的固定範圍＝整題，題目結束時被下一題的差異卡往上推走 */
-.wt-panel{display:flex;flex-direction:column;gap:32px;padding-bottom:120px}
-/* 左側清單與最後一題差異卡一起離開：清單底 483（距頂 99 + 高 384）、差異卡底 267（64 + 203），
-   最後一題底部多留 216 讓兩者同時放開；.how-outro 只再留 40 與清單拉開 */
-.wt-panel:last-child{padding-bottom:216px}
-#work-compare .how-outro{margin-top:40px}
-.wt-tail{padding-top:16px;display:flex;flex-direction:column}
-.wt-h{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
-.wt-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
-/* 兩個預設差異卡：固定在 header 下方，該題內容在它底下捲動 */
-.wt-pin{position:sticky;top:64px;z-index:2;margin-top:-35px;height:203px;pointer-events:none}
-.wt-pin__box{pointer-events:auto;background:var(--bg);padding:35px 0 16px;box-shadow:0 1px 0 rgba(217,217,217,0);transition:padding .3s var(--ease),box-shadow .3s var(--ease)}
-/* 捲到第一個紅字「為什麼會不同」碰到差異卡下緣就縮成精簡 bar（外框高度不變，版面不跳；透明處可點到下方內容）。上緣維持與左側清單同水平 */
-.wt-panel.is-compact .wt-pin__box{padding-bottom:12px;box-shadow:0 1px 0 var(--line-200)}
-.wt-diff{margin-top:-16px;display:flex;flex-direction:column;gap:16px}
-.wt-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;transition:gap .3s var(--ease)}
-.wt-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;transition:padding .3s var(--ease),border-radius .3s var(--ease)}
-.wt-card p,.wt-card h4{margin:0}
-.wt-card__row{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
-.wt-card__k{font-size:16px;line-height:24px;font-weight:600;white-space:nowrap}
-.wt-card h4{font-size:24px;line-height:32px;font-weight:600;transition:font-size .3s var(--ease),line-height .3s var(--ease)}
-.wt-card__d{margin-top:8px!important;max-height:48px;overflow:hidden;font-size:16px;line-height:24px;transition:max-height .3s var(--ease),opacity .3s var(--ease),margin .3s var(--ease)}
-.wt-card--old{background:var(--bg-soft)}
-.wt-card--old .wt-card__k,.wt-card--old .wt-card__d{color:var(--text-600)}
-.wt-card--new{background:var(--ink);color:#fff}
-.wt-card--new .wt-card__k,.wt-card--new .wt-card__d{color:var(--on-dark-2)}
-.wt-panel.is-compact .wt-cards{gap:12px}
-.wt-panel.is-compact .wt-card{padding:12px 20px;border-radius:12px}
-.wt-panel.is-compact .wt-card__row{flex-direction:row;align-items:baseline;gap:12px}
-.wt-panel.is-compact .wt-card h4{font-size:18px;line-height:28px}
-.wt-panel.is-compact .wt-card__d{max-height:0;opacity:0;margin-top:0!important}
-.wt-why,.wt-work{max-width:760px;display:flex;flex-direction:column;gap:4px}
-.wt-work{margin-top:16px}
-.wt-why h5{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
-.wt-why>p:not(.wt-kicker),.wt-work>p:not(.wt-kicker){margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
-.wt-why b{color:var(--text-900);font-weight:600}
-.wt-confirm{margin-top:12px;padding:16px 20px;border-radius:12px;background:var(--bg-soft);display:flex;flex-direction:column;gap:4px}
-.wt-confirm p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
-.wt-confirm b{color:var(--text-900);font-weight:600}
-.wt-case{display:flex;flex-direction:column;gap:16px;padding-top:32px}
-.wt-case__head{display:flex;flex-direction:column;gap:4px;margin-bottom:8px}
-.wt-q{display:flex;gap:20px;align-items:flex-start;padding:24px 28px;border-radius:16px;background:var(--bg-soft)}
-.wt-q__mark{flex:0 0 auto;font-size:40px;line-height:40px;font-weight:600;color:var(--text-300)}
-.wt-q p{margin:0;max-width:820px;padding-top:8px;font-size:16px;line-height:24px;font-weight:600;color:var(--text-900)}
-/* A/B 兩張卡用 subgrid 讓 key 列、選項文字、解析三列左右對齊 */
-.wt-opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:16px;row-gap:0}
-.wt-opt{
-  display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:12px;align-items:start;justify-items:start;text-align:start;width:100%;
-  border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;background:var(--bg);
-  font:inherit;color:var(--text-900);cursor:pointer;
-  transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease)
-}
-.wt-opt:hover{border-color:var(--red)}
-.wt-opt:focus-visible{outline:2px solid var(--red);outline-offset:2px}
-.wt-opt__head{justify-self:stretch;display:flex;justify-content:space-between;align-items:center;gap:12px}
-.wt-opt__key{width:32px;height:32px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;line-height:24px;font-weight:600;background:var(--bg-soft);color:var(--text-600)}
-.wt-opt__badge{display:none;font-size:16px;line-height:24px;font-weight:600;padding:2px 12px;border-radius:100px;background:var(--red);color:#fff}
-.wt-opt__text{font-size:16px;line-height:24px;font-weight:600}
-.wt-opt__verdict{display:none;justify-self:stretch;margin-top:4px;padding-top:16px;border-top:1px dashed var(--line-200);flex-direction:column;gap:4px}
-.wt-opt__vh{font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
-.wt-opt__vh b{font-weight:600}
-.wt-opt--ours .wt-opt__vh b{color:var(--red)}
-.wt-opt__vp{font-size:16px;line-height:24px;color:var(--text-600)}
-.wt-opt[aria-pressed="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
-.wt-opt[aria-pressed="true"] .wt-opt__key{background:var(--ink);color:#fff}
-.is-answered .wt-opt[aria-pressed="false"]{opacity:.8}
-.is-answered .wt-opt--ours{border-color:var(--red)}
-.is-answered .wt-opt__verdict{display:flex}
-.is-answered .wt-opt__badge{display:inline-block}
-.wt-lock{position:relative;margin-top:24px;min-height:360px;border-radius:16px;overflow:hidden}
-.wt-lock__blur{display:flex;flex-direction:column;gap:16px;max-width:820px;filter:blur(6px);opacity:.6;user-select:none;pointer-events:none}
-.wt-lock__cover{position:absolute;inset:0;background:rgba(255,255,255,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
-.wt-lock__icon{width:64px;height:64px;border-radius:100px;background:var(--ink);display:inline-flex;align-items:center;justify-content:center}
-.wt-lock__cover p{margin:0}
-.wt-lock__t{font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
-.wt-lock__sub{font-size:16px;line-height:24px;color:var(--text-600)}
-.wt-lock__hint{margin-top:4px!important;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
-.wt-result{display:none;margin-top:24px;max-width:820px;flex-direction:column;gap:16px}
-.is-answered .wt-lock{display:none}
-.is-answered .wt-result{display:flex;animation:wtIn .4s var(--ease)}
-@keyframes wtIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.wt-rule{width:22px;height:3px;border-radius:100px;background:var(--red)}
-.wt-lead{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
-.wt-ask{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--text-600)}
-.wt-field{margin-top:16px;display:flex;gap:16px;align-items:center;max-width:560px;padding:12px;border-radius:12px;background:var(--bg-soft);color:var(--text-900);text-decoration:none}
-.wt-field img{width:96px;height:96px;object-fit:cover;border-radius:8px;flex:0 0 auto}
-.wt-field>span{display:flex;flex-direction:column;gap:4px}
-.wt-field span span{font-size:16px;line-height:24px}
-.wt-field__t{font-weight:600}
-.wt-field__d{color:var(--text-600)}
-.wt-field:hover .wt-field__t{text-decoration:underline}
-/* 每題結尾：提示繼續往下捲，按鈕直接捲到下一題 */
-.wt-nextrow{margin-top:16px;padding-top:24px;border-top:1px solid var(--line-200);display:flex;justify-content:space-between;align-items:center;gap:16px}
-.wt-nextrow p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+.w5{padding-top:60px;display:flex;flex-direction:column;gap:72px}
+.w5-h{margin:0;font-size:30px;line-height:36px;font-weight:600;color:var(--text-900)}
+.w5-table{display:flex;flex-direction:column;margin-top:-40px}
+.w5>.w5-h{margin-bottom:0}
+.w5-head,.w5-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:16px}
+.w5-head p{margin:0;padding:16px 28px;border-radius:12px;font-size:24px;line-height:32px;font-weight:600;color:#fff}
+.w5-head__old{background:var(--ink)}
+.w5-head__new{background:var(--red)}
+.w5-row{row-gap:20px;padding:24px 0;border-bottom:1px solid var(--line-200)}
+.w5-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:8px}
+.w5-card p,.w5-card h4{margin:0}
+.w5-card__k{display:none;font-size:16px;line-height:24px;font-weight:600}
+.w5-card h4{font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
+.w5-card h4+p{font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-card--old{background:var(--bg-soft)}
+.w5-card--old .w5-card__k{color:var(--text-600)}
+.w5-card--new{background:rgba(226,30,40,.06)}
+.w5-card--new .w5-card__k{color:var(--red)}
+.w5-more{grid-column:1 / -1;display:flex;flex-direction:column;gap:16px}
+.w5-detail{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:48px}
+.w5-why,.w5-work{display:flex;flex-direction:column;gap:8px}
+.w5-why p,.w5-work>p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-why b{color:var(--text-900);font-weight:600}
+.w5-why h5{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5 .w5-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
+.w5-confirm{margin-top:8px;padding:16px 20px;border-radius:12px;background:var(--bg-soft);display:flex;flex-direction:column;gap:4px}
+.w5-confirm p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-confirm b{color:var(--text-900);font-weight:600}
+.w5-toggle{align-self:flex-start;display:inline-flex;align-items:center;gap:4px;padding:0;border:0;background:none;font:inherit;font-size:16px;line-height:24px;font-weight:600;color:var(--red);cursor:pointer}
+.w5-toggle svg{transition:transform .2s var(--ease)}
+.w5-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
+.w5-toggle:hover{color:var(--red-hover)}
+.w5-toggle:focus-visible,.w5-tab:focus-visible,.w5-opt:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+/* 第二區：淺灰底框 */
+.w5-try{display:flex;flex-direction:column;gap:32px;padding:72px 64px;border-radius:24px;background:var(--bg-soft)}
+.w5-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.w5-tab{display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;padding:16px 20px;border-radius:12px;border:1px solid var(--line-200);background:var(--bg);color:var(--text-600);font:inherit;cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease)}
+.w5-tab:hover{border-color:var(--text-900)}
+.w5-tab__top{align-self:stretch;display:flex;justify-content:space-between;gap:8px}
+.w5-tab__n{font-size:16px;line-height:24px;font-weight:600;color:var(--text-400)}
+.w5-tab__s{display:inline-flex;align-items:center;gap:4px;font-size:16px;line-height:24px;font-weight:600;color:var(--text-400)}
+.w5-tab__ok{display:none}
+.w5-tab.is-done .w5-tab__s{color:var(--text-900)}
+.w5-tab.is-done .w5-tab__ok{display:block}
+.w5-tab__t{font-size:18px;line-height:28px;font-weight:600}
+.w5-tab[aria-selected="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink) inset;color:var(--text-900)}
+.w5-tab[aria-selected="true"] .w5-tab__n{color:var(--red)}
+.w5-box{display:flex;flex-direction:column;padding:40px;border-radius:16px;background:var(--bg)}
+.w5-panel{display:flex;flex-direction:column;gap:16px}
+.w5-q{display:flex;gap:20px;align-items:flex-start}
+.w5-q__mark{flex:0 0 auto;font-size:40px;line-height:40px;font-weight:600;color:var(--text-300)}
+.w5-q p{margin:0;max-width:860px;padding-top:6px;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-opts{margin-top:8px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:auto auto auto;column-gap:16px}
+.w5-opt{display:grid;grid-row:span 3;grid-template-rows:subgrid;row-gap:12px;align-items:start;justify-items:start;text-align:start;width:100%;border:1px solid var(--line-200);border-radius:12px;padding:20px 24px;background:var(--bg);font:inherit;color:var(--text-900);cursor:pointer;transition:border-color .25s var(--ease),box-shadow .25s var(--ease),opacity .25s var(--ease)}
+.w5-opt:hover{border-color:var(--red)}
+.w5-opt__head{justify-self:stretch;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.w5-opt__key{width:32px;height:32px;border-radius:100px;display:inline-flex;align-items:center;justify-content:center;font-size:16px;line-height:24px;font-weight:600;background:var(--bg-soft);color:var(--text-600)}
+.w5-opt__badge{display:none;font-size:16px;line-height:24px;font-weight:600;padding:2px 12px;border-radius:100px;background:var(--red);color:#fff}
+.w5-opt__text{font-size:16px;line-height:24px;font-weight:600}
+.w5-opt__verdict{display:none;justify-self:stretch;margin-top:4px;padding-top:16px;border-top:1px dashed var(--line-200);flex-direction:column;gap:4px}
+.w5-opt__vh{font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
+.w5-opt__vh b{font-weight:600}
+.w5-opt--ours .w5-opt__vh b{color:var(--red)}
+.w5-opt__vp{font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-opt[aria-pressed="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red) inset}
+.w5-opt[aria-pressed="true"] .w5-opt__key{background:var(--ink);color:#fff}
+.w5-panel.is-answered .w5-opt[aria-pressed="false"]{opacity:.8}
+.w5-panel.is-answered .w5-opt--ours{border-color:var(--red)}
+.w5-panel.is-answered .w5-opt__verdict{display:flex}
+.w5-panel.is-answered .w5-opt__badge{display:inline-block}
+.w5-lock{position:relative;margin-top:24px;min-height:320px;border-radius:16px;overflow:hidden}
+.w5-lock__blur{display:flex;flex-direction:column;gap:16px;max-width:860px;filter:blur(6px);opacity:.6;user-select:none;pointer-events:none}
+.w5-lock__cover{position:absolute;inset:0;background:rgba(255,255,255,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px}
+.w5-lock__cover p{margin:0}
+.w5-lock__icon{width:64px;height:64px;border-radius:100px;background:var(--ink);display:inline-flex;align-items:center;justify-content:center}
+.w5-lock__t{font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
+.w5-lock__sub{font-size:16px;line-height:24px;color:var(--text-600)}
+.w5-lock__hint{margin-top:4px!important;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
+.w5-result{display:none;margin-top:24px;max-width:860px;flex-direction:column;gap:16px}
+.w5-panel.is-answered .w5-lock{display:none}
+.w5-panel.is-answered .w5-result{display:flex;animation:w5In .4s var(--ease)}
+@keyframes w5In{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.w5-rule{width:22px;height:3px;border-radius:100px;background:var(--red)}
+.w5-lead{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
+.w5-ask{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--text-600)}
+.w5-field{margin-top:16px;display:flex;gap:16px;align-items:center;max-width:560px;padding:12px;border-radius:12px;background:var(--bg-soft);color:var(--text-900);text-decoration:none}
+.w5-field img{width:96px;height:96px;object-fit:cover;border-radius:8px;flex:0 0 auto}
+.w5-field>span{display:flex;flex-direction:column;gap:4px}
+.w5-field span span{font-size:16px;line-height:24px}
+.w5-field__t{font-weight:600}
+.w5-field__d{color:var(--text-600)}
+.w5-field:hover .w5-field__t{text-decoration:underline}
+.w5-pager{margin-top:24px;padding-top:24px;border-top:1px solid var(--line-200);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.w5-prev .btn__icon{transform:scaleX(-1)}
+.w5-prev:hover .btn__icon{transform:scaleX(-1) translateX(4px)}
+.w5-prev:disabled{border-color:var(--line-200);background:transparent;color:var(--text-400);transform:none;cursor:default}
+.w5-prev:disabled .btn__icon{transform:scaleX(-1)}
 @media (max-width:980px){
-  .wt{grid-template-columns:minmax(0,1fr);gap:32px;padding-top:40px}
-  .wt-gap{display:none}
-  .wt-side{order:-1}
-  .wt-title{margin-bottom:-8px}
-  .wt-tabs{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
-  .wt-tabs::-webkit-scrollbar{display:none}
-  .wt-tab{flex:0 0 auto;width:auto;min-width:176px}
-  .wt-pin{position:static;margin-top:0;height:auto}
-  .wt-pin__box{padding:0}
-  .wt-diff{margin-top:0}
-  .wt-panel{padding-bottom:80px}
-  .wt-panel:last-child{padding-bottom:0}
-  #work-compare .how-outro{margin-top:var(--block-gap)}
+  .w5{padding-top:40px;gap:56px}
+  .w5-table{margin-top:-32px}
+  .w5-try{padding:48px 24px;margin-inline:-24px;border-radius:0}
+  .w5-tabs{display:flex;overflow-x:auto;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
+  .w5-tabs::-webkit-scrollbar{display:none}
+  .w5-tab{flex:0 0 auto;width:auto;min-width:176px}
+  .w5-box{padding:24px}
 }
 @media (max-width:768px){
-  .wt-cards{grid-template-columns:1fr}
-  .wt-card{padding:24px}
-  .wt-card h4{font-size:20px;line-height:28px}
-  .wt-q{padding:20px;gap:12px}
-  .wt-q__mark{font-size:30px;line-height:36px}
-  .wt-q p{padding-top:6px}
-  .wt-opts{grid-template-columns:1fr;grid-template-rows:none;row-gap:12px}
-  .wt-opt{grid-row:auto;grid-template-rows:none;padding:16px}
-  .wt-lock{min-height:320px}
-  .wt-lock__t,.wt-lead{font-size:20px;line-height:28px}
-  .wt-field img{width:72px;height:72px}
-  .wt-nextrow{flex-direction:column;align-items:stretch}
-  .wt-nextrow .btn{min-width:0}
-  .wt-next__l{overflow:hidden;text-overflow:ellipsis}
+  .w5-h{font-size:24px;line-height:32px}
+  .w5-head{display:none}
+  .w5-row{grid-template-columns:1fr;row-gap:12px}
+  .w5-card{padding:20px}
+  .w5-card__k{display:block}
+  .w5-card h4{font-size:20px;line-height:28px}
+  .w5-detail{grid-template-columns:1fr;row-gap:24px}
+  .w5-q{gap:12px}
+  .w5-q__mark{font-size:30px;line-height:36px}
+  .w5-q p{font-size:16px;line-height:24px;padding-top:4px}
+  .w5-opts{grid-template-columns:1fr;grid-template-rows:none;row-gap:12px}
+  .w5-opt{grid-row:auto;grid-template-rows:none;padding:16px}
+  .w5-lock{min-height:300px}
+  .w5-lock__t,.w5-lead{font-size:20px;line-height:28px}
+  .w5-field img{width:72px;height:72px}
+  .w5-pager .btn{flex:1 1 0;min-width:0}
+  .w5-next__l{overflow:hidden;text-overflow:ellipsis}
 }
 @media (prefers-reduced-motion:reduce){
-  .wt-opt,.wt-tab,.wt-pin__box,.wt-cards,.wt-card,.wt-card h4,.wt-card__d{transition:none}
-  .is-answered .wt-result{animation:none}
+  .w5-opt,.w5-tab,.w5-toggle svg{transition:none}
+  .w5-panel.is-answered .w5-result{animation:none}
 }
 </style>
 
@@ -1358,281 +1338,251 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
 <section class="section" id="work-compare">
   <div class="container">
-    <!-- 運作方式：四題上下接續，讀完一題往下捲就進到下一題；左側清單（捲動時固定）跟著換到「閱讀中」。
-         每題「差異 → 為什麼 → 實際工作時 → 二選一 → 解析」，未作答時解析模糊鎖住 -->
-    <div class="wt reveal" id="wtTabs">
-      <!-- 標題獨立一列只佔右欄，讓差異卡上緣和左側題目清單同一水平 -->
-      <div class="wt-gap" aria-hidden="true"></div>
-      <h3 class="wt-h wt-title">多數公司與我們的差異</h3>
-      <div class="wt-side">
-      <nav class="wt-tabs" aria-label="四個主題">
-        <button class="wt-tab" type="button" id="wtTab1" data-go="0" aria-current="step">
-          <span class="wt-tab__top"><span class="wt-tab__n">01</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">閱讀中</span></span></span>
-          <span class="wt-tab__t">工作怎麼定義？</span>
-        </button>
-        <button class="wt-tab" type="button" id="wtTab2" data-go="1">
-          <span class="wt-tab__top"><span class="wt-tab__n">02</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">未作答</span></span></span>
-          <span class="wt-tab__t">資源怎麼取得？</span>
-        </button>
-        <button class="wt-tab" type="button" id="wtTab3" data-go="2">
-          <span class="wt-tab__top"><span class="wt-tab__n">03</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">未作答</span></span></span>
-          <span class="wt-tab__t">成果怎麼衡量？</span>
-        </button>
-        <button class="wt-tab" type="button" id="wtTab4" data-go="3">
-          <span class="wt-tab__top"><span class="wt-tab__n">04</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">未作答</span></span></span>
-          <span class="wt-tab__t">誰來做決定？</span>
-        </button>
-      </nav>
+    <!-- 運作方式：先認識差異（四項對照＋為什麼會不同＋實際工作時，預設只展開第一項）→ 再試真實情境（四個情境二選一，未作答時解析模糊鎖住） -->
+    <div class="w5 reveal" id="w5">
+      <h3 class="w5-h">多數公司與我們的差異</h3>
+      <div class="w5-table">
+        <div class="w5-head" aria-hidden="true"><p class="w5-head__old">常見公司的預設</p><p class="w5-head__new">CMoney 的預設</p></div>
+        <div class="w5-row">
+          <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>職務先被定義</h4><p>在既定範圍把事情做好</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>問題先被定義</h4><p>角色跟著問題與能力改變</p></div>
+          <div class="w5-more">
+            <div class="w5-detail" id="w5d1">
+              <div class="w5-why">
+                <p class="w5-kicker">為什麼會不同</p>
+                <h5>新事業一開始，連「真正的問題」都還沒有被完全確認。</h5>
+                <p>當商業模式已經穩定，工作可以被切成明確職能：產品、行銷、業務各自把分內工作做好。但新事業看起來像行銷問題，實際可能是產品價值不夠；看起來缺業務，可能其實是客群選錯了。</p>
+                <p>所以在 CMoney，我們不希望一開始就把人關進職稱裡，而是先問：<b>現在最值得解決的問題是什麼？誰最適合把它推進？</b></p>
+              </div>
+              <div class="w5-work">
+                <p class="w5-kicker">實際工作時</p>
+                <p>你仍然會有清楚的任務、權責與成功標準，但解法不會全部預先寫好。隨著市場回饋，你負責的範圍、合作對象，甚至團隊組成都可能改變。</p>
+                <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</b></p></div>
+              </div>
+            </div>
+            <button class="w5-toggle" type="button" aria-expanded="true" aria-controls="w5d1"><span>收合說明</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          </div>
+        </div>
+        <div class="w5-row">
+          <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>計畫爭取資源</h4><p>先說服主管，再開始執行</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>實驗換取資源</h4><p>先用低成本取得市場證據</p></div>
+          <div class="w5-more">
+            <div class="w5-detail" id="w5d2" hidden>
+              <div class="w5-why">
+                <p class="w5-kicker">為什麼會不同</p>
+                <h5>新事業最大的風險，不是資源不夠，而是方向還沒確認就投入太多。</h5>
+                <p>簡報完整、預測漂亮，不代表客戶真的需要。因此，我們傾向先用最小成本取得真實答案，再依據市場證據增加投入。</p>
+                <p>成熟事業除了創造現金流，也提供新產品實驗所需的資料、流量與基礎建設；而新產品要用證據證明，下一步值得被加碼。</p>
+              </div>
+              <div class="w5-work">
+                <p class="w5-kicker">實際工作時</p>
+                <p>一開始你可能不會立刻獲得完整團隊與大筆預算，而是先說清楚：最關鍵的假設、最小驗證方法、多久看見訊號，以及什麼結果代表應該加碼、調整或停止。</p>
+                <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</b></p></div>
+              </div>
+            </div>
+            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d2"><span>為什麼會不同？實際工作時</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          </div>
+        </div>
+        <div class="w5-row">
+          <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>績效看完成度</h4><p>是否準時交付承諾項目</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4><p>有沒有讓未知變少、價值變大</p></div>
+          <div class="w5-more">
+            <div class="w5-detail" id="w5d3" hidden>
+              <div class="w5-why">
+                <p class="w5-kicker">為什麼會不同</p>
+                <h5>最大的浪費，往往不是事情沒做完，而是很努力地做完了錯的事情。</h5>
+                <p>因此，CMoney 重視的不只是執行力，也包括你能不能找出真正的 Top 1 Thing：目前哪一個問題，最限制產品或事業的成長？</p>
+                <p>一次實驗即使沒有成功，只要它排除重要假設、讓團隊停止錯誤投入，也可能是有價值的進展。但這不代表失敗沒有責任，我們仍會看假設、執行與學習是否紮實。</p>
+              </div>
+              <div class="w5-work">
+                <p class="w5-kicker">實際工作時</p>
+                <p>你可能完成十項功能，但如果留存率、付費率或客戶價值沒有改善，我們不會因為工作很忙，就認定問題已經解決。新證據出現時，原定工作甚至應該被停止。</p>
+                <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</b></p></div>
+              </div>
+            </div>
+            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d3"><span>為什麼會不同？實際工作時</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          </div>
+        </div>
+        <div class="w5-row">
+          <div class="w5-card w5-card--old"><p class="w5-card__k">常見公司的預設</p><h4>權責跟著職級</h4><p>職位越高，決定越多</p></div>
+          <div class="w5-card w5-card--new"><p class="w5-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4><p>誰最接近事實，誰應該做決定</p></div>
+          <div class="w5-more">
+            <div class="w5-detail" id="w5d4" hidden>
+              <div class="w5-why">
+                <p class="w5-kicker">為什麼會不同</p>
+                <h5>離客戶最近、真正承擔題目的人，必須有足以讓結果發生的決策權。</h5>
+                <p>新事業的資訊變化很快。如果每個決定都要逐層請示，最接近事實的人反而無法即時行動。因此，決策權不應只跟著年資或職稱，而應跟著對問題的理解與承擔。</p>
+                <p>但這不是無條件自由。權力增加的同時，對結果、判斷品質與資訊透明的責任也會增加。</p>
+              </div>
+              <div class="w5-work">
+                <p class="w5-kicker">實際工作時</p>
+                <p>Project Owner 可以在約定範圍內決定客群、優先順序、產品範圍與測試方法。主管則必須說清楚目標、資源上限、不可跨越的邊界與檢查節點。授權不是一句「你自己想辦法」。</p>
+                <div class="w5-confirm"><p>面試時，建議你確認</p><p><b>「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</b></p></div>
+              </div>
+            </div>
+            <button class="w5-toggle" type="button" aria-expanded="false" aria-controls="w5d4"><span>為什麼會不同？實際工作時</span><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button>
+          </div>
+        </div>
       </div>
-      <div class="wt-main">
-        <section class="wt-panel" id="wtPanel1" aria-label="01 工作怎麼定義？">
-          <div class="wt-pin">
-            <div class="wt-pin__box">
-              <div class="wt-cards">
-                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>職務先被定義</h4></div><p class="wt-card__d">在既定範圍把事情做好</p></div>
-                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>問題先被定義</h4></div><p class="wt-card__d">角色跟著問題與能力改變</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="wt-diff">
-            <div class="wt-why">
-              <p class="wt-kicker">為什麼會不同</p>
-              <h5>新事業一開始，連「真正的問題」都還沒有被完全確認。</h5>
-              <p>當商業模式已經穩定，工作可以被切成明確職能：產品、行銷、業務各自把分內工作做好。但新事業看起來像行銷問題，實際可能是產品價值不夠；看起來缺業務，可能其實是客群選錯了。</p>
-              <p>所以在 CMoney，我們不希望一開始就把人關進職稱裡，而是先問：<b>現在最值得解決的問題是什麼？誰最適合把它推進？</b></p>
-            </div>
-            <div class="wt-work">
-              <p class="wt-kicker">實際工作時</p>
-              <p>你仍然會有清楚的任務、權責與成功標準，但解法不會全部預先寫好。隨著市場回饋，你負責的範圍、合作對象，甚至團隊組成都可能改變。</p>
-              <div class="wt-confirm"><p>面試時，建議你確認</p><p><b>「這個職位有哪些核心責任會保持穩定？哪些範圍可能隨問題與能力而調整？」</b></p></div>
-            </div>
-          </div>
-          <div class="wt-case">
-            <div class="wt-case__head"><p class="wt-kicker">問問你自己</p><h3 class="wt-h">了解差異後，實際情境你會怎麼做？</h3></div>
-            <div class="wt-q"><span class="wt-q__mark" aria-hidden="true">Q</span><p>你到職第六週，負責的新事業線成長停滯。翻完數據、也跟第一線用戶與業務談過後，你判斷卡住的不是流量或素材，而是我們對這群客戶的「價值主張」可能一開始就說錯了。但產品定位不在你的職權範圍，而你的季度 OKR 只寫著「達成成長數字」，此時你會？</p></div>
-            <div class="wt-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="wt-opt" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">A</span></span>
-                <span class="wt-opt__text">先用增長實驗把現有產品的轉換極限跑出來，拿到「行銷做對了用戶依然不買單」的硬數據，再去跟產品團隊談定位調整。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>歸因</b>負責</span><span class="wt-opt__vp">先排除自己這端的變因，用完整數據推動轉向。</span></span>
+
+      <div class="w5-try">
+        <h3 class="w5-h">看懂差異之後，試試真實情境</h3>
+        <div class="w5-tabs" role="tablist" aria-label="四個情境">
+          <button class="w5-tab" type="button" role="tab" id="w5Tab1" aria-controls="w5Panel1" aria-selected="true">
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 01</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">作答中</span></span></span>
+            <span class="w5-tab__t">工作怎麼定義？</span>
+          </button>
+          <button class="w5-tab" type="button" role="tab" id="w5Tab2" aria-controls="w5Panel2" aria-selected="false" tabindex="-1">
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 02</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">未作答</span></span></span>
+            <span class="w5-tab__t">資源怎麼取得？</span>
+          </button>
+          <button class="w5-tab" type="button" role="tab" id="w5Tab3" aria-controls="w5Panel3" aria-selected="false" tabindex="-1">
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 03</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">未作答</span></span></span>
+            <span class="w5-tab__t">成果怎麼衡量？</span>
+          </button>
+          <button class="w5-tab" type="button" role="tab" id="w5Tab4" aria-controls="w5Panel4" aria-selected="false" tabindex="-1">
+            <span class="w5-tab__top"><span class="w5-tab__n">情境 04</span><span class="w5-tab__s"><svg class="w5-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="w5-tab__st">未作答</span></span></span>
+            <span class="w5-tab__t">誰來做決定？</span>
+          </button>
+        </div>
+        <div class="w5-box">
+          <div class="w5-panel" role="tabpanel" id="w5Panel1" aria-labelledby="w5Tab1">
+            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>你到職第六週，負責的新事業線成長停滯。翻完數據、也跟第一線用戶與業務談過後，你判斷卡住的不是流量或素材，而是我們對這群客戶的「價值主張」可能一開始就說錯了。但產品定位不在你的職權範圍，此時你會怎麼做？</p></div>
+            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+              <button class="w5-opt" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
+                <span class="w5-opt__text">先用增長實驗把現有產品的轉換極限跑出來，拿到「行銷做對了用戶依然不買單」的硬數據，再去跟產品團隊談定位調整。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>歸因</b>負責</span><span class="w5-opt__vp">先排除自己這端的變因，用完整數據推動轉向。</span></span>
               </button>
-              <button class="wt-opt wt-opt--ours" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">B</span><span class="wt-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="wt-opt__text">整理目前的證據與「價值主張可能有誤」的假設，和相關負責人討論最小驗證方式，一起判斷哪些投入應先暫停。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>真問題</b>負責</span><span class="wt-opt__vp">證據足以支持假設時就提出討論，讓驗證與資源調整同時進行。</span></span>
+              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
+                <span class="w5-opt__text">整理目前的證據與「價值主張可能有誤」的假設，和相關負責人討論最小驗證方式，一起判斷哪些投入應先暫停。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>真問題</b>負責</span><span class="w5-opt__vp">證據足以支持假設時就提出討論，讓驗證與資源調整同時進行。</span></span>
               </button>
             </div>
-          </div>
-          <div class="wt-tail">
-            <div class="wt-lock">
-              <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對真問題負責的人：發現疑點不等於已證明方向錯誤；但若等數據完整才提出，團隊可能已在錯的方向上投入更多成本。我們期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p><p class="wt-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p></div>
-              <div class="wt-lock__cover">
-                <span class="wt-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="wt-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="wt-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="wt-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-lock">
+              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p><p class="w5-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p></div>
+              <div class="w5-lock__cover">
+                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
               </div>
             </div>
-            <div class="wt-result" aria-live="polite">
-              <span class="wt-rule" aria-hidden="true"></span>
-              <p class="wt-lead">CMoney 期待對真問題負責的人：發現疑點不等於已證明方向錯誤；但若等數據完整才提出，團隊可能已在錯的方向上投入更多成本。我們期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p>
-              <p class="wt-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p>
-              <a class="wt-field" href="https://blogs.cmoney.tw/problem-solving-framework" target="_blank" rel="noopener">
+            <div class="w5-result" aria-live="polite">
+              <span class="w5-rule" aria-hidden="true"></span>
+              <p class="w5-lead">CMoney 期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p>
+              <p class="w5-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p>
+              <a class="w5-field" href="https://blogs.cmoney.tw/problem-solving-framework" target="_blank" rel="noopener">
                 <img src="assets/field-problem-solving.jpg" alt="CMoney 同事在辦公室圍著螢幕一起討論問題" loading="lazy">
-                <span><span class="wt-field__t">運用 Problem Solving 框架解題</span><span class="wt-field__d">我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</span><span class="wt-field__l">閱讀工作現場文章 →</span></span>
+                <span><span class="w5-field__t">運用 Problem Solving 框架解題</span><span class="w5-field__d">我們用「Problem Solving」框架把問題思考清楚，從表象出發，深挖真正的問題是什麼。</span><span>閱讀工作現場文章 →</span></span>
               </a>
             </div>
           </div>
-          <div class="wt-nextrow">
-            <p>繼續往下捲，進到下一題</p>
-            <button class="btn btn--line wt-next" type="button" data-go="1"><span class="wt-next__l">下一題：資源怎麼取得？</span><svg class="btn__icon btn__icon--down" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.41074 8.92259C4.73618 8.59715 5.26382 8.59715 5.58926 8.92259L9.16667 12.5V3.33333C9.16667 2.8731 9.53976 2.5 10 2.5C10.4602 2.5 10.8333 2.8731 10.8333 3.33333V12.5L14.4107 8.92259C14.7362 8.59715 15.2638 8.59715 15.5893 8.92259C15.9147 9.24803 15.9147 9.77567 15.5893 10.1011L10.5893 15.1011C10.2638 15.4265 9.73618 15.4265 9.41074 15.1011L4.41074 10.1011C4.08531 9.77567 4.08531 9.24803 4.41074 8.92259Z"></path></svg></button>
-          </div>
-        </section>
-        <section class="wt-panel" id="wtPanel2" aria-label="02 資源怎麼取得？">
-          <div class="wt-pin">
-            <div class="wt-pin__box">
-              <div class="wt-cards">
-                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>計畫爭取資源</h4></div><p class="wt-card__d">先說服主管，再開始執行</p></div>
-                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>實驗換取資源</h4></div><p class="wt-card__d">先用低成本取得市場證據</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="wt-diff">
-            <div class="wt-why">
-              <p class="wt-kicker">為什麼會不同</p>
-              <h5>新事業最大的風險，不是資源不夠，而是方向還沒確認就投入太多。</h5>
-              <p>簡報完整、預測漂亮，不代表客戶真的需要。因此，我們傾向先用最小成本取得真實答案，再依據市場證據增加投入。</p>
-              <p>成熟事業除了創造現金流，也提供新產品實驗所需的資料、流量與基礎建設；而新產品要用證據證明，下一步值得被加碼。</p>
-            </div>
-            <div class="wt-work">
-              <p class="wt-kicker">實際工作時</p>
-              <p>一開始你可能不會立刻獲得完整團隊與大筆預算，而是先說清楚：最關鍵的假設、最小驗證方法、多久看見訊號，以及什麼結果代表應該加碼、調整或停止。</p>
-              <div class="wt-confirm"><p>面試時，建議你確認</p><p><b>「這個職位最先要驗證什麼？起始資源有哪些？出現什麼證據後，公司會增加投入？」</b></p></div>
-            </div>
-          </div>
-          <div class="wt-case">
-            <div class="wt-case__head"><p class="wt-kicker">問問你自己</p><h3 class="wt-h">了解差異後，實際情境你會怎麼做？</h3></div>
-            <div class="wt-q"><span class="wt-q__mark" aria-hidden="true">Q</span><p>你在負責一款投資產品時，社群與客服陸續收到少數用戶詢問「希望提供美股個股籌碼分析」。這代表了一個潛在機會，但目前市場訊號仍相當微弱且充滿未知。作為專案負責人，你會如何驗證這個潛在機會？</p></div>
-            <div class="wt-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="wt-opt" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">A</span></span>
-                <span class="wt-opt__text">投入資源建置基礎數據庫串接與完整 UI 圖表後正式推出，提供體驗順暢的功能，透過測試檢驗真實的用戶留存與使用頻率。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>完整度</b>負責</span><span class="wt-opt__vp">把功能做到體驗順暢再推出，用完整的產品換取真實數據。</span></span>
+          <div class="w5-panel" role="tabpanel" id="w5Panel2" aria-labelledby="w5Tab2" hidden>
+            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>你在負責一款投資產品時，社群與客服陸續收到少數用戶詢問「希望提供美股個股籌碼分析」。這代表了一個潛在機會，但目前市場訊號仍相當微弱且充滿未知。作為專案負責人，你會如何驗證這個潛在機會？</p></div>
+            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+              <button class="w5-opt" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
+                <span class="w5-opt__text">投入資源建置基礎數據庫串接與完整 UI 圖表後正式推出，提供體驗順暢的功能，透過測試檢驗真實的用戶留存與使用頻率。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>完整度</b>負責</span><span class="w5-opt__vp">把功能做到體驗順暢再推出，用完整的產品換取真實數據。</span></span>
               </button>
-              <button class="wt-opt wt-opt--ours" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">B</span><span class="wt-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="wt-opt__text">拆解各階段要驗證的假設，先用輕量測試觀察市場反應；有初步興趣後，再驗證實際使用與付費意願，並依結果爭取研發資源。如果反應冷淡，先檢查觸達對象與測試方式，再判斷是否止損。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>證據</b>負責</span><span class="wt-opt__vp">每個階段驗證一件事，用最低代價取得下一步的決策依據。</span></span>
+              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
+                <span class="w5-opt__text">拆解各階段要驗證的假設，先用輕量測試觀察市場反應；有初步興趣後，再驗證實際使用與付費意願，並依結果爭取研發資源。如果反應冷淡，先檢查觸達對象與測試方式，再判斷是否止損。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>證據</b>負責</span><span class="w5-opt__vp">每個階段驗證一件事，用最低代價取得下一步的決策依據。</span></span>
               </button>
             </div>
-          </div>
-          <div class="wt-tail">
-            <div class="wt-lock">
-              <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對證據負責的人：在未知尚未減少前就預先投入研發資源，是高代價的賭博。我們期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p><p class="wt-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p></div>
-              <div class="wt-lock__cover">
-                <span class="wt-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="wt-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="wt-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="wt-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-lock">
+              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p><p class="w5-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p></div>
+              <div class="w5-lock__cover">
+                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
               </div>
             </div>
-            <div class="wt-result" aria-live="polite">
-              <span class="wt-rule" aria-hidden="true"></span>
-              <p class="wt-lead">CMoney 期待對證據負責的人：在未知尚未減少前就預先投入研發資源，是高代價的賭博。我們期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p>
-              <p class="wt-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p>
-              <a class="wt-field" href="https://blogs.cmoney.tw/product-decision" target="_blank" rel="noopener">
+            <div class="w5-result" aria-live="polite">
+              <span class="w5-rule" aria-hidden="true"></span>
+              <p class="w5-lead">CMoney 期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p>
+              <p class="w5-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p>
+              <a class="w5-field" href="https://blogs.cmoney.tw/product-decision" target="_blank" rel="noopener">
                 <img src="assets/field-live-feature-decision.jpg" alt="CMoney 同事在雙螢幕前一邊看直播畫面、一邊追即時數據" loading="lazy">
-                <span><span class="wt-field__t">我們如何在兩個極端的害怕中做出決定</span><span class="wt-field__d">直播功能在供給、需求、成本三重不確定下，用「不要預測，用驗證的」推進。</span><span class="wt-field__l">閱讀工作現場文章 →</span></span>
+                <span><span class="w5-field__t">我們如何在兩個極端的害怕中做出決定</span><span class="w5-field__d">直播功能在供給、需求、成本三重不確定下，用「不要預測，用驗證的」推進。</span><span>閱讀工作現場文章 →</span></span>
               </a>
             </div>
           </div>
-          <div class="wt-nextrow">
-            <p>繼續往下捲，進到下一題</p>
-            <button class="btn btn--line wt-next" type="button" data-go="2"><span class="wt-next__l">下一題：成果怎麼衡量？</span><svg class="btn__icon btn__icon--down" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.41074 8.92259C4.73618 8.59715 5.26382 8.59715 5.58926 8.92259L9.16667 12.5V3.33333C9.16667 2.8731 9.53976 2.5 10 2.5C10.4602 2.5 10.8333 2.8731 10.8333 3.33333V12.5L14.4107 8.92259C14.7362 8.59715 15.2638 8.59715 15.5893 8.92259C15.9147 9.24803 15.9147 9.77567 15.5893 10.1011L10.5893 15.1011C10.2638 15.4265 9.73618 15.4265 9.41074 15.1011L4.41074 10.1011C4.08531 9.77567 4.08531 9.24803 4.41074 8.92259Z"></path></svg></button>
-          </div>
-        </section>
-        <section class="wt-panel" id="wtPanel3" aria-label="03 成果怎麼衡量？">
-          <div class="wt-pin">
-            <div class="wt-pin__box">
-              <div class="wt-cards">
-                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>績效看完成度</h4></div><p class="wt-card__d">是否準時交付承諾項目</p></div>
-                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4></div><p class="wt-card__d">有沒有讓未知變少、價值變大</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="wt-diff">
-            <div class="wt-why">
-              <p class="wt-kicker">為什麼會不同</p>
-              <h5>最大的浪費，往往不是事情沒做完，而是很努力地做完了錯的事情。</h5>
-              <p>因此，CMoney 重視的不只是執行力，也包括你能不能找出真正的 Top 1 Thing：目前哪一個問題，最限制產品或事業的成長？</p>
-              <p>一次實驗即使沒有成功，只要它排除重要假設、讓團隊停止錯誤投入，也可能是有價值的進展。但這不代表失敗沒有責任，我們仍會看假設、執行與學習是否紮實。</p>
-            </div>
-            <div class="wt-work">
-              <p class="wt-kicker">實際工作時</p>
-              <p>你可能完成十項功能，但如果留存率、付費率或客戶價值沒有改善，我們不會因為工作很忙，就認定問題已經解決。新證據出現時，原定工作甚至應該被停止。</p>
-              <div class="wt-confirm"><p>面試時，建議你確認</p><p><b>「這個職位目前的 Top 1 Thing 是什麼？哪個使用者結果或事業指標，代表它真的前進？」</b></p></div>
-            </div>
-          </div>
-          <div class="wt-case">
-            <div class="wt-case__head"><p class="wt-kicker">問問你自己</p><h3 class="wt-h">了解差異後，實際情境你會怎麼做？</h3></div>
-            <div class="wt-q"><span class="wt-q__mark" aria-hidden="true">Q</span><p>A 專案以「提升留存率」為目標列出 5 個假設，做到第 3 個時數據已大幅突破，並超越 OKR 10% 的目標（提升 25%）。剩下 2 個假設，你會選擇怎麼做？</p></div>
-            <div class="wt-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="wt-opt" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">A</span></span>
-                <span class="wt-opt__text">繼續完成既有計畫，按原計畫把剩餘 2 個假設做完，維持專案完整度與排程貫徹力，發揮既有規劃的邊際效益。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>承諾</b>負責</span><span class="wt-opt__vp">把答應的事按質按量交完，用計畫完整度對團隊負責。</span></span>
+          <div class="w5-panel" role="tabpanel" id="w5Panel3" aria-labelledby="w5Tab3" hidden>
+            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>A 專案以「提升留存率」為目標列出 5 個假設，做到第 3 個時數據已大幅突破，並超越 OKR 10% 的目標（提升 25%）。剩下 2 個假設，你會選擇怎麼做？</p></div>
+            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+              <button class="w5-opt" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
+                <span class="w5-opt__text">繼續完成既有計畫，按原計畫把剩餘 2 個假設做完，維持專案完整度與排程貫徹力，發揮既有規劃的邊際效益。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>承諾</b>負責</span><span class="w5-opt__vp">把答應的事按質按量交完，用計畫完整度對團隊負責。</span></span>
               </button>
-              <button class="wt-opt wt-opt--ours" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">B</span><span class="wt-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="wt-opt__text">暫停照原計畫推進，重新比較剩下 2 個假設與其他產品瓶頸的預期價值，再決定續做、調整或轉移資源。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>目標</b>負責</span><span class="wt-opt__vp">依當下的目標與瓶頸重新排序，而不是照原清單做到底。</span></span>
+              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
+                <span class="w5-opt__text">暫停照原計畫推進，重新比較剩下 2 個假設與其他產品瓶頸的預期價值，再決定續做、調整或轉移資源。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>目標</b>負責</span><span class="w5-opt__vp">依當下的目標與瓶頸重新排序，而不是照原清單做到底。</span></span>
               </button>
             </div>
-          </div>
-          <div class="wt-tail">
-            <div class="wt-lock">
-              <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對目標負責的人：數據超標不代表剩下的假設沒有價值，它們仍可能帶來更高回報，是否續做取決於和其他瓶頸相比的預期價值。我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p><p class="wt-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p></div>
-              <div class="wt-lock__cover">
-                <span class="wt-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="wt-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="wt-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="wt-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-lock">
+              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p><p class="w5-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p></div>
+              <div class="w5-lock__cover">
+                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
               </div>
             </div>
-            <div class="wt-result" aria-live="polite">
-              <span class="wt-rule" aria-hidden="true"></span>
-              <p class="wt-lead">CMoney 期待對目標負責的人：數據超標不代表剩下的假設沒有價值，它們仍可能帶來更高回報，是否續做取決於和其他瓶頸相比的預期價值。我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p>
-              <p class="wt-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p>
-              <a class="wt-field" href="https://blogs.cmoney.tw/cmoney-goal-misalignment" target="_blank" rel="noopener">
+            <div class="w5-result" aria-live="polite">
+              <span class="w5-rule" aria-hidden="true"></span>
+              <p class="w5-lead">CMoney 期待對目標負責的人，我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p>
+              <p class="w5-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p>
+              <a class="w5-field" href="https://blogs.cmoney.tw/cmoney-goal-misalignment" target="_blank" rel="noopener">
                 <img src="assets/field-quick-decision.jpg" alt="CMoney 同事在書牆前的沙發上圍著筆電一起討論" loading="lazy">
-                <span><span class="wt-field__t">流程都做對了，為什麼問題還是沒解決？</span><span class="wt-field__d">在 CMoney，我們願意為了用戶的真實感受，推翻一套已經「看起來很完整」的做法。</span><span class="wt-field__l">閱讀工作現場文章 →</span></span>
+                <span><span class="w5-field__t">流程都做對了，為什麼問題還是沒解決？</span><span class="w5-field__d">在 CMoney，我們願意為了用戶的真實感受，推翻一套已經「看起來很完整」的做法。</span><span>閱讀工作現場文章 →</span></span>
               </a>
             </div>
           </div>
-          <div class="wt-nextrow">
-            <p>繼續往下捲，進到下一題</p>
-            <button class="btn btn--line wt-next" type="button" data-go="3"><span class="wt-next__l">下一題：誰來做決定？</span><svg class="btn__icon btn__icon--down" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.41074 8.92259C4.73618 8.59715 5.26382 8.59715 5.58926 8.92259L9.16667 12.5V3.33333C9.16667 2.8731 9.53976 2.5 10 2.5C10.4602 2.5 10.8333 2.8731 10.8333 3.33333V12.5L14.4107 8.92259C14.7362 8.59715 15.2638 8.59715 15.5893 8.92259C15.9147 9.24803 15.9147 9.77567 15.5893 10.1011L10.5893 15.1011C10.2638 15.4265 9.73618 15.4265 9.41074 15.1011L4.41074 10.1011C4.08531 9.77567 4.08531 9.24803 4.41074 8.92259Z"></path></svg></button>
-          </div>
-        </section>
-        <section class="wt-panel" id="wtPanel4" aria-label="04 誰來做決定？">
-          <div class="wt-pin">
-            <div class="wt-pin__box">
-              <div class="wt-cards">
-                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>權責跟著職級</h4></div><p class="wt-card__d">職位越高，決定越多</p></div>
-                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4></div><p class="wt-card__d">誰最接近事實，誰應該做決定</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="wt-diff">
-            <div class="wt-why">
-              <p class="wt-kicker">為什麼會不同</p>
-              <h5>離客戶最近、真正承擔題目的人，必須有足以讓結果發生的決策權。</h5>
-              <p>新事業的資訊變化很快。如果每個決定都要逐層請示，最接近事實的人反而無法即時行動。因此，決策權不應只跟著年資或職稱，而應跟著對問題的理解與承擔。</p>
-              <p>但這不是無條件自由。權力增加的同時，對結果、判斷品質與資訊透明的責任也會增加。</p>
-            </div>
-            <div class="wt-work">
-              <p class="wt-kicker">實際工作時</p>
-              <p>Project Owner 可以在約定範圍內決定客群、優先順序、產品範圍與測試方法。主管則必須說清楚目標、資源上限、不可跨越的邊界與檢查節點。授權不是一句「你自己想辦法」。</p>
-              <div class="wt-confirm"><p>面試時，建議你確認</p><p><b>「這個職位可以獨立決定什麼？哪些事情需要共同決定？主管會在哪些節點介入與校正？」</b></p></div>
-            </div>
-          </div>
-          <div class="wt-case">
-            <div class="wt-case__head"><p class="wt-kicker">問問你自己</p><h3 class="wt-h">了解差異後，實際情境你會怎麼做？</h3></div>
-            <div class="wt-q"><span class="wt-q__mark" aria-hidden="true">Q</span><p>線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間，目前沒有既定 SOP，跨部門權責未明。你會？</p></div>
-            <div class="wt-opts" role="group" aria-label="兩種做法，你會選哪一個？">
-              <button class="wt-opt" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">A</span></span>
-                <span class="wt-opt__text">立即通報跨部門主管並成立緊急應對小組，快速確定權責分工與處理程序，補償方案經財務與法務確認後一致對外。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>流程</b>負責</span><span class="wt-opt__vp">先把權責與程序定下來，讓每一步都有依據。</span></span>
+          <div class="w5-panel" role="tabpanel" id="w5Panel4" aria-labelledby="w5Tab4" hidden>
+            <div class="w5-q"><span class="w5-q__mark" aria-hidden="true">Q</span><p>線上系統突發大規模用戶客訴，原因介於「產品邏輯瑕疵」與「營運活動規則漏洞」之間，目前沒有既定 SOP，跨部門權責未明。你會？</p></div>
+            <div class="w5-opts" role="group" aria-label="兩種做法，你會選哪一個？">
+              <button class="w5-opt" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">A</span></span>
+                <span class="w5-opt__text">立即通報跨部門主管並成立緊急應對小組，快速確定權責分工與處理程序，補償方案經財務與法務確認後一致對外。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>流程</b>負責</span><span class="w5-opt__vp">先把權責與程序定下來，讓每一步都有依據。</span></span>
               </button>
-              <button class="wt-opt wt-opt--ours" type="button" aria-pressed="false">
-                <span class="wt-opt__head"><span class="wt-opt__key">B</span><span class="wt-opt__badge">更接近 CMoney 的做法</span></span>
-                <span class="wt-opt__text">不等待權責完全釐清才開始處理。先接住用戶、確認影響並採取可逆的止損措施，同步找到決策負責人。涉及超出授權的補償與對外承諾，立即升級，不讓問題停在部門邊界。</span>
-                <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>現場</b>負責</span><span class="wt-opt__vp">授權範圍內的事先處理，超出範圍的決策同步升級。</span></span>
+              <button class="w5-opt w5-opt--ours" type="button" aria-pressed="false">
+                <span class="w5-opt__head"><span class="w5-opt__key">B</span><span class="w5-opt__badge">更接近 CMoney 的做法</span></span>
+                <span class="w5-opt__text">不等待權責完全釐清才開始處理。先接住用戶、確認影響並採取可逆的止損措施，同步找到決策負責人。涉及超出授權的補償與對外承諾，立即升級，不讓問題停在部門邊界。</span>
+                <span class="w5-opt__verdict"><span class="w5-opt__vh">對<b>現場</b>負責</span><span class="w5-opt__vp">授權範圍內的事先處理，超出範圍的決策同步升級。</span></span>
               </button>
             </div>
-          </div>
-          <div class="wt-tail">
-            <div class="wt-lock">
-              <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p><p class="wt-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p></div>
-              <div class="wt-lock__cover">
-                <span class="wt-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
-                <p class="wt-lock__t">選一個做法，解鎖 CMoney 的看法</p>
-                <p class="wt-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
-                <p class="wt-lock__hint">↑ 先從上面選 A 或 B</p>
+            <div class="w5-lock">
+              <div class="w5-lock__blur" aria-hidden="true"><span class="w5-rule"></span><p class="w5-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p><p class="w5-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p></div>
+              <div class="w5-lock__cover">
+                <span class="w5-lock__icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg></span>
+                <p class="w5-lock__t">選一個做法，解鎖 CMoney 的看法</p>
+                <p class="w5-lock__sub">兩種做法都合理。選你真的會做的那個，看看各自在對什麼負責。</p>
+                <p class="w5-lock__hint">↑ 先從上面選 A 或 B</p>
               </div>
             </div>
-            <div class="wt-result" aria-live="polite">
-              <span class="wt-rule" aria-hidden="true"></span>
-              <p class="wt-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p>
-              <p class="wt-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p>
-              <a class="wt-field" href="https://blogs.cmoney.tw/make-proper-decision" target="_blank" rel="noopener">
+            <div class="w5-result" aria-live="polite">
+              <span class="w5-rule" aria-hidden="true"></span>
+              <p class="w5-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p>
+              <p class="w5-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p>
+              <a class="w5-field" href="https://blogs.cmoney.tw/make-proper-decision" target="_blank" rel="noopener">
                 <img src="assets/field-decision-quality.jpg" alt="CMoney 同事站在開放式辦公區前" loading="lazy">
-                <span><span class="wt-field__t">如何鍛鍊「決策正確」的能力？</span><span class="wt-field__d">「決策」是一種極度個人化且極具價值的技能，也需要在不同場景中不斷磨練。</span><span class="wt-field__l">閱讀工作現場文章 →</span></span>
+                <span><span class="w5-field__t">如何鍛鍊「決策正確」的能力？</span><span class="w5-field__d">「決策」是一種極度個人化且極具價值的技能，也需要在不同場景中不斷磨練。</span><span>閱讀工作現場文章 →</span></span>
               </a>
             </div>
           </div>
-        </section>
+          <div class="w5-pager">
+            <button class="btn btn--line w5-prev" type="button" data-step="-1" disabled><svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg>上一個情境</button>
+            <button class="btn btn--solid w5-next" type="button" data-step="1"><span class="w5-next__l">下一個情境：資源怎麼取得？</span> <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -2297,54 +2247,60 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
      逐字淡入只留給創辦人引言，避免整頁動態過多 */
   fadeChars(document.querySelector(".founder__quote p"), ["#founder"]);
 
-  /* ---------- 運作方式：四題上下接續 + 每題二選一（未作答時解析鎖住） ---------- */
-  var wt = document.getElementById("wtTabs");
-  var wtTabs = Array.prototype.slice.call(wt.querySelectorAll(".wt-tab"));
-  var wtPanels = Array.prototype.slice.call(wt.querySelectorAll(".wt-panel"));
-  var wtWide = window.matchMedia("(min-width: 981px)"), wtRaf = 0, wtKey = "";
-  function wtNav(cur){
-    wtTabs.forEach(function(t, j){
-      var on = cur === j, done = wtPanels[j].classList.contains("is-answered");
-      if (on) t.setAttribute("aria-current", "step"); else t.removeAttribute("aria-current");
+  /* ---------- 運作方式 V5：差異說明收合 + 四個情境二選一（未作答時解析鎖住） ---------- */
+  var w5 = document.getElementById("w5");
+  w5.querySelectorAll(".w5-toggle").forEach(function(b){
+    b.addEventListener("click", function(){
+      var open = b.getAttribute("aria-expanded") !== "true";
+      b.setAttribute("aria-expanded", String(open));
+      b.querySelector("span").textContent = open ? "收合說明" : "為什麼會不同？實際工作時";
+      document.getElementById(b.getAttribute("aria-controls")).hidden = !open;
+    });
+  });
+  var w5Tabs = Array.prototype.slice.call(w5.querySelectorAll(".w5-tab"));
+  var w5Panels = w5Tabs.map(function(t){ return document.getElementById(t.getAttribute("aria-controls")); });
+  var w5Prev = w5.querySelector(".w5-prev"), w5Next = w5.querySelector(".w5-next");
+  var w5Cur = 0;
+  function w5Show(i, focus){
+    w5Cur = i;
+    w5Tabs.forEach(function(t, j){
+      var on = i === j, done = w5Panels[j].classList.contains("is-answered");
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
       t.classList.toggle("is-done", done);
-      t.querySelector(".wt-tab__st").textContent = done ? "已作答" : (on ? "閱讀中" : "未作答");
+      t.querySelector(".w5-tab__st").textContent = done ? "已作答" : (on ? "作答中" : "未作答");
+      w5Panels[j].hidden = !on;
     });
+    w5Prev.disabled = i === 0;
+    w5Next.querySelector(".w5-next__l").textContent = i < w5Tabs.length - 1 ? "下一個情境：" + w5Tabs[i + 1].querySelector(".w5-tab__t").textContent : "回到第一個情境";
+    if (focus) w5Tabs[i].focus();
   }
-  /* 題目上緣過了畫面 40% 就算「閱讀中」；
-     每題第一個紅字「為什麼會不同」碰到差異卡下緣（64 + 203）時，該題差異卡縮成精簡 bar（≤980 不固定也不縮） */
-  function wtScroll(){
-    var vh = window.innerHeight, cur = 0, key = "";
-    wtPanels.forEach(function(p, i){
-      if (p.getBoundingClientRect().top < vh * .4) cur = i;
-      var sm = wtWide.matches && p.querySelector(".wt-why").getBoundingClientRect().top < 267;
-      p.classList.toggle("is-compact", sm);
-      key += sm ? 1 : 0;
-    });
-    key = cur + ":" + key;
-    if (key !== wtKey){ wtKey = key; wtNav(cur); }
+  function w5Top(){
+    var t = w5.querySelector(".w5-tabs").getBoundingClientRect().top + window.pageYOffset - 88;
+    if (window.pageYOffset > t) window.scrollTo({ top: t, behavior: reduce ? "auto" : "smooth" });
   }
-  window.addEventListener("scroll", function(){
-    if (wtRaf) return;
-    wtRaf = requestAnimationFrame(function(){ wtRaf = 0; wtScroll(); });
-  }, { passive: true });
-  window.addEventListener("resize", wtScroll);
-  wtScroll();
-  /* 捲到該題：題目上緣對齊左側清單（距頂 99），差異卡剛好貼在 header 下方；≤980 清單不固定，對齊 header 下方 */
-  function wtGo(i){
-    var y = wtPanels[i].getBoundingClientRect().top + window.pageYOffset - (wtWide.matches ? 99 : 88);
-    window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
-  }
-  wt.addEventListener("click", function(e){
-    var go = e.target.closest("[data-go]");
-    if (go){ wtGo(+go.getAttribute("data-go")); return; }
-    var opt = e.target.closest(".wt-opt");
+  w5.querySelector(".w5-try").addEventListener("click", function(e){
+    var tab = e.target.closest(".w5-tab");
+    if (tab){ w5Show(w5Tabs.indexOf(tab)); return; }
+    var opt = e.target.closest(".w5-opt");
     if (opt){
-      var c = opt.closest(".wt-panel");
-      c.querySelectorAll(".wt-opt").forEach(function(o){ o.setAttribute("aria-pressed", String(o === opt)); });
-      c.classList.add("is-answered");
-      wtKey = "";
-      wtScroll();
+      var p = opt.closest(".w5-panel");
+      p.querySelectorAll(".w5-opt").forEach(function(o){ o.setAttribute("aria-pressed", String(o === opt)); });
+      p.classList.add("is-answered");
+      w5Show(w5Cur);
+      return;
     }
+    var step = e.target.closest("[data-step]");
+    if (step && !step.disabled){
+      w5Show((w5Cur + +step.getAttribute("data-step") + w5Tabs.length) % w5Tabs.length);
+      w5Top();
+    }
+  });
+  w5.querySelector(".w5-tabs").addEventListener("keydown", function(e){
+    var i = w5Tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    if (e.key === "ArrowRight"){ e.preventDefault(); w5Show((i + 1) % w5Tabs.length, true); }
+    if (e.key === "ArrowLeft"){ e.preventDefault(); w5Show((i + w5Tabs.length - 1) % w5Tabs.length, true); }
   });
 })();
 </script>
