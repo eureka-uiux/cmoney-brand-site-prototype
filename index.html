@@ -972,7 +972,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
    只用 11 色與字級規範，文字不小於 16px
    ============================================================ */
 #work-compare{background:var(--bg)}
-.wt{display:grid;grid-template-columns:280px minmax(0,1fr);gap:56px;align-items:stretch;padding-top:60px}
+.wt{display:grid;grid-template-columns:280px minmax(0,1fr);gap:0 56px;align-items:stretch;padding-top:60px}
+.wt-title{margin-bottom:24px}
 /* 左側清單等「上一題／下一題」到畫面底部才放開，左右兩欄一起離開（483 = 清單距頂 99 + 清單高 384） */
 .wt-side{margin-bottom:max(0px,calc(100vh - 483px))}
 .wt-tabs{position:sticky;top:99px;display:flex;flex-direction:column;gap:8px}
@@ -996,24 +997,32 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-panel{display:flex;flex-direction:column}
 /* 差異卡的固定範圍只到 A/B 選項；之後差異卡跟著解鎖區／解析、上下題一起走 */
 .wt-scope{display:flex;flex-direction:column;gap:32px}
-/* 結尾一屏＝header 64 + 差異卡 259 + 解鎖區／解析 + 上下題 97，補滿視窗 */
-.wt-tail{min-height:calc(100vh - 420px);padding-top:16px;display:flex;flex-direction:column}
+/* 結尾一屏＝header 64 + 差異卡 203 + 解鎖區／解析 + 上下題 97，補滿視窗 */
+.wt-tail{min-height:calc(100vh - 364px);padding-top:16px;display:flex;flex-direction:column}
 .wt-h{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
 .wt-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
 /* 兩個預設差異卡：切換題目後固定在 header 下方，下方內容在它底下捲動 */
-.wt-pin{position:sticky;top:64px;z-index:2;margin-top:-35px;padding:35px 0 16px;background:var(--bg);display:flex;flex-direction:column;gap:16px}
-.wt-pin>.wt-h{margin-bottom:8px}
+.wt-pin{position:sticky;top:64px;z-index:2;margin-top:-35px;height:203px;pointer-events:none}
+.wt-pin__box{pointer-events:auto;background:var(--bg);padding:35px 0 16px;box-shadow:0 1px 0 rgba(217,217,217,0);transition:padding .3s var(--ease),box-shadow .3s var(--ease)}
+/* 捲到「問問你自己」後縮成精簡 bar（外框高度不變，版面不跳；透明處可點到下方內容）。上緣維持與左側清單同水平 */
+.wt.is-compact .wt-pin__box{padding-bottom:12px;box-shadow:0 1px 0 var(--line-200)}
 .wt-diff{margin-top:-16px;display:flex;flex-direction:column;gap:16px}
-.wt-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.wt-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;gap:8px}
+.wt-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;transition:gap .3s var(--ease)}
+.wt-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;transition:padding .3s var(--ease),border-radius .3s var(--ease)}
 .wt-card p,.wt-card h4{margin:0}
-.wt-card__k{font-size:16px;line-height:24px;font-weight:600}
-.wt-card h4{font-size:24px;line-height:32px;font-weight:600}
-.wt-card p:last-child{font-size:16px;line-height:24px}
+.wt-card__row{display:flex;flex-direction:column;align-items:flex-start;gap:8px}
+.wt-card__k{font-size:16px;line-height:24px;font-weight:600;white-space:nowrap}
+.wt-card h4{font-size:24px;line-height:32px;font-weight:600;transition:font-size .3s var(--ease),line-height .3s var(--ease)}
+.wt-card__d{margin-top:8px!important;max-height:48px;overflow:hidden;font-size:16px;line-height:24px;transition:max-height .3s var(--ease),opacity .3s var(--ease),margin .3s var(--ease)}
 .wt-card--old{background:var(--bg-soft)}
-.wt-card--old .wt-card__k,.wt-card--old p:last-child{color:var(--text-600)}
+.wt-card--old .wt-card__k,.wt-card--old .wt-card__d{color:var(--text-600)}
 .wt-card--new{background:var(--ink);color:#fff}
-.wt-card--new .wt-card__k,.wt-card--new p:last-child{color:var(--on-dark-2)}
+.wt-card--new .wt-card__k,.wt-card--new .wt-card__d{color:var(--on-dark-2)}
+.wt.is-compact .wt-cards{gap:12px}
+.wt.is-compact .wt-card{padding:12px 20px;border-radius:12px}
+.wt.is-compact .wt-card__row{flex-direction:row;align-items:baseline;gap:12px}
+.wt.is-compact .wt-card h4{font-size:18px;line-height:28px}
+.wt.is-compact .wt-card__d{max-height:0;opacity:0;margin-top:0!important}
 .wt-why,.wt-work{max-width:760px;display:flex;flex-direction:column;gap:4px}
 .wt-work{margin-top:16px}
 .wt-why h5{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
@@ -1081,10 +1090,14 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-prev:disabled .btn__icon{transform:scaleX(-1)}
 @media (max-width:980px){
   .wt{grid-template-columns:minmax(0,1fr);gap:32px;padding-top:40px}
+  .wt-gap{display:none}
+  .wt-side{order:-1}
+  .wt-title{margin-bottom:-8px}
   .wt-tabs{position:static;flex-direction:row;overflow-x:auto;scrollbar-width:none;margin-inline:-24px;padding-inline:24px}
   .wt-tabs::-webkit-scrollbar{display:none}
   .wt-tab{flex:0 0 auto;width:auto;min-width:176px}
-  .wt-pin{position:static;margin-top:0;padding:0}
+  .wt-pin{position:static;margin-top:0;height:auto}
+  .wt-pin__box{padding:0}
   .wt-side{margin-bottom:0}
   .wt-tail{min-height:0}
   .wt-diff{margin-top:0}
@@ -1105,7 +1118,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wt-next__l{overflow:hidden;text-overflow:ellipsis}
 }
 @media (prefers-reduced-motion:reduce){
-  .wt-opt,.wt-tab{transition:none}
+  .wt-opt,.wt-tab,.wt-pin__box,.wt-cards,.wt-card,.wt-card h4,.wt-card__d{transition:none}
   .is-answered .wt-result{animation:none}
 }
 </style>
@@ -1347,6 +1360,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   <div class="container">
     <!-- 運作方式：左側四題清單（捲動時固定）＋右側「差異 → 為什麼 → 實際工作時 → 二選一 → 解析」；未作答時解析模糊鎖住 -->
     <div class="wt reveal" id="wtTabs">
+      <!-- 標題獨立一列只佔右欄，讓差異卡上緣和左側題目清單同一水平 -->
+      <div class="wt-gap" aria-hidden="true"></div>
+      <h3 class="wt-h wt-title">多數公司與我們的差異</h3>
       <div class="wt-side">
       <div class="wt-tabs" role="tablist" aria-label="四個主題" aria-orientation="vertical">
         <button class="wt-tab" type="button" role="tab" id="wtTab1" aria-controls="wtPanel1" aria-selected="true">
@@ -1371,10 +1387,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <div class="wt-panel" role="tabpanel" id="wtPanel1" aria-labelledby="wtTab1">
           <div class="wt-scope">
           <div class="wt-pin">
-            <h3 class="wt-h">多數公司與我們的差異</h3>
-            <div class="wt-cards">
-              <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>職務先被定義</h4><p>在既定範圍把事情做好</p></div>
-              <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>問題先被定義</h4><p>角色跟著問題與能力改變</p></div>
+            <div class="wt-pin__box">
+              <div class="wt-cards">
+                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>職務先被定義</h4></div><p class="wt-card__d">在既定範圍把事情做好</p></div>
+                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>問題先被定義</h4></div><p class="wt-card__d">角色跟著問題與能力改變</p></div>
+              </div>
             </div>
           </div>
           <div class="wt-diff">
@@ -1431,10 +1448,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <div class="wt-panel" role="tabpanel" id="wtPanel2" aria-labelledby="wtTab2" hidden>
           <div class="wt-scope">
           <div class="wt-pin">
-            <h3 class="wt-h">多數公司與我們的差異</h3>
-            <div class="wt-cards">
-              <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>計畫爭取資源</h4><p>先說服主管，再開始執行</p></div>
-              <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>實驗換取資源</h4><p>先用低成本取得市場證據</p></div>
+            <div class="wt-pin__box">
+              <div class="wt-cards">
+                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>計畫爭取資源</h4></div><p class="wt-card__d">先說服主管，再開始執行</p></div>
+                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>實驗換取資源</h4></div><p class="wt-card__d">先用低成本取得市場證據</p></div>
+              </div>
             </div>
           </div>
           <div class="wt-diff">
@@ -1491,10 +1509,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <div class="wt-panel" role="tabpanel" id="wtPanel3" aria-labelledby="wtTab3" hidden>
           <div class="wt-scope">
           <div class="wt-pin">
-            <h3 class="wt-h">多數公司與我們的差異</h3>
-            <div class="wt-cards">
-              <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>績效看完成度</h4><p>是否準時交付承諾項目</p></div>
-              <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4><p>有沒有讓未知變少、價值變大</p></div>
+            <div class="wt-pin__box">
+              <div class="wt-cards">
+                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>績效看完成度</h4></div><p class="wt-card__d">是否準時交付承諾項目</p></div>
+                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>績效看問題是否前進</h4></div><p class="wt-card__d">有沒有讓未知變少、價值變大</p></div>
+              </div>
             </div>
           </div>
           <div class="wt-diff">
@@ -1551,10 +1570,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         <div class="wt-panel" role="tabpanel" id="wtPanel4" aria-labelledby="wtTab4" hidden>
           <div class="wt-scope">
           <div class="wt-pin">
-            <h3 class="wt-h">多數公司與我們的差異</h3>
-            <div class="wt-cards">
-              <div class="wt-card wt-card--old"><p class="wt-card__k">常見公司的預設</p><h4>權責跟著職級</h4><p>職位越高，決定越多</p></div>
-              <div class="wt-card wt-card--new"><p class="wt-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4><p>誰最接近事實，誰應該做決定</p></div>
+            <div class="wt-pin__box">
+              <div class="wt-cards">
+                <div class="wt-card wt-card--old"><div class="wt-card__row"><p class="wt-card__k">常見公司的預設</p><h4>權責跟著職級</h4></div><p class="wt-card__d">職位越高，決定越多</p></div>
+                <div class="wt-card wt-card--new"><div class="wt-card__row"><p class="wt-card__k">CMoney 的預設</p><h4>權責跟著承擔</h4></div><p class="wt-card__d">誰最接近事實，誰應該做決定</p></div>
+              </div>
             </div>
           </div>
           <div class="wt-diff">
@@ -2295,9 +2315,21 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     wtPrev.disabled = i === 0;
     wtNext.querySelector(".wt-next__l").textContent = i < wtTabs.length - 1 ? "下一題：" + wtTabs[i + 1].querySelector(".wt-tab__t").textContent : "回到第一題";
     if (focus) wtTabs[i].focus();
+    wtCompact();
   }
+  /* 捲到「問問你自己」碰到差異卡下緣（64 + 203）時，差異卡縮成精簡 bar；≤980 不固定也不縮 */
+  var wtWide = window.matchMedia("(min-width: 981px)"), wtRaf = 0;
+  function wtCompact(){
+    var head = wtPanels[wtCur].querySelector(".wt-case__head");
+    wt.classList.toggle("is-compact", wtWide.matches && head.getBoundingClientRect().top < 267);
+  }
+  window.addEventListener("scroll", function(){
+    if (wtRaf) return;
+    wtRaf = requestAnimationFrame(function(){ wtRaf = 0; wtCompact(); });
+  }, { passive: true });
+  window.addEventListener("resize", wtCompact);
   function wtTop(){
-    var top = wt.getBoundingClientRect().top + window.pageYOffset - 99;
+    var top = wt.querySelector(".wt-main").getBoundingClientRect().top + window.pageYOffset - 99;
     if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
   }
   wt.addEventListener("click", function(e){
