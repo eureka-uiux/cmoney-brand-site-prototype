@@ -1013,15 +1013,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .w5-toggle svg{transition:transform .2s var(--ease)}
 .w5-toggle[aria-expanded="true"] svg{transform:rotate(180deg)}
 .w5-toggle:hover{color:var(--red-hover)}
-/* 整列兩張卡都可點，點了等同按下方的展開／收合（鍵盤仍走 .w5-toggle 按鈕） */
-.w5-row .w5-card{cursor:pointer;transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
-/* hover 任一張，同列兩張一起微浮＋陰影（沿用 .cmp__row:hover 陰影），箭頭往下推一點（同 .btn__icon--down）；
-   只在有滑鼠的裝置上做，觸控點擊不會殘留 hover 狀態 */
-@media (hover:hover){
-  .w5-row:has(.w5-card:hover) .w5-card{transform:translateY(-2px);box-shadow:0 22px 48px -26px rgba(38,38,38,.45)}
-  .w5-row:has(.w5-card:hover) .w5-toggle{color:var(--red-hover)}
-  .w5-row:has(.w5-card:hover) .w5-toggle[aria-expanded="false"] svg{transform:translateY(3px)}
-}
+/* 整列兩張卡都可點，點了等同按下方的展開／收合（鍵盤仍走 .w5-toggle 按鈕）；hover 只換游標，不做其他視覺變化 */
+.w5-row .w5-card{cursor:pointer}
 .w5-toggle:focus-visible,.w5-tab:focus-visible,.w5-opt:focus-visible{outline:2px solid var(--red);outline-offset:2px}
 /* 第二區：淺灰底框 */
 .w5-try{display:flex;flex-direction:column;gap:32px;padding:72px 64px;border-radius:24px;background:var(--bg-soft)}
