@@ -974,8 +974,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 #work-compare{background:var(--bg)}
 .wt{display:grid;grid-template-columns:280px minmax(0,1fr);gap:0 56px;align-items:stretch;padding-top:60px}
 .wt-title{margin-bottom:24px}
-/* 左側清單等「上一題／下一題」到畫面底部才放開，左右兩欄一起離開（483 = 清單距頂 99 + 清單高 384） */
-.wt-side{margin-bottom:max(0px,calc(100vh - 483px))}
 .wt-tabs{position:sticky;top:99px;display:flex;flex-direction:column;gap:8px}
 .wt-tab{
   display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;
@@ -991,21 +989,23 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-tab.is-done .wt-tab__s{color:var(--text-900)}
 .wt-tab.is-done .wt-tab__ok{display:block}
 .wt-tab__t{font-size:18px;line-height:28px;font-weight:600}
-.wt-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
-.wt-tab[aria-selected="true"] .wt-tab__n,.wt-tab[aria-selected="true"] .wt-tab__s{color:var(--text-300)}
-.wt-main{min-width:0;display:flex;flex-direction:column;gap:32px}
-.wt-panel{display:flex;flex-direction:column}
-/* 差異卡的固定範圍只到 A/B 選項；之後差異卡跟著解鎖區／解析、上下題一起走 */
-.wt-scope{display:flex;flex-direction:column;gap:32px}
-/* 結尾一屏＝header 64 + 差異卡 203 + 解鎖區／解析 + 上下題 97，補滿視窗 */
-.wt-tail{min-height:calc(100vh - 364px);padding-top:16px;display:flex;flex-direction:column}
+.wt-tab[aria-current="step"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.wt-tab[aria-current="step"] .wt-tab__n,.wt-tab[aria-current="step"] .wt-tab__s{color:var(--text-300)}
+.wt-main{min-width:0;display:flex;flex-direction:column}
+/* 四題上下接續；差異卡的固定範圍＝整題，題目結束時被下一題的差異卡往上推走 */
+.wt-panel{display:flex;flex-direction:column;gap:32px;padding-bottom:120px}
+/* 左側清單與最後一題差異卡一起離開：清單底 483（距頂 99 + 高 384）、差異卡底 267（64 + 203），
+   最後一題底部多留 216 讓兩者同時放開；.how-outro 只再留 40 與清單拉開 */
+.wt-panel:last-child{padding-bottom:216px}
+#work-compare .how-outro{margin-top:40px}
+.wt-tail{padding-top:16px;display:flex;flex-direction:column}
 .wt-h{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
 .wt-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
-/* 兩個預設差異卡：切換題目後固定在 header 下方，下方內容在它底下捲動 */
+/* 兩個預設差異卡：固定在 header 下方，該題內容在它底下捲動 */
 .wt-pin{position:sticky;top:64px;z-index:2;margin-top:-35px;height:203px;pointer-events:none}
 .wt-pin__box{pointer-events:auto;background:var(--bg);padding:35px 0 16px;box-shadow:0 1px 0 rgba(217,217,217,0);transition:padding .3s var(--ease),box-shadow .3s var(--ease)}
-/* 捲到「問問你自己」後縮成精簡 bar（外框高度不變，版面不跳；透明處可點到下方內容）。上緣維持與左側清單同水平 */
-.wt.is-compact .wt-pin__box{padding-bottom:12px;box-shadow:0 1px 0 var(--line-200)}
+/* 捲到第一個紅字「為什麼會不同」碰到差異卡下緣就縮成精簡 bar（外框高度不變，版面不跳；透明處可點到下方內容）。上緣維持與左側清單同水平 */
+.wt-panel.is-compact .wt-pin__box{padding-bottom:12px;box-shadow:0 1px 0 var(--line-200)}
 .wt-diff{margin-top:-16px;display:flex;flex-direction:column;gap:16px}
 .wt-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;transition:gap .3s var(--ease)}
 .wt-card{border-radius:16px;padding:28px;display:flex;flex-direction:column;transition:padding .3s var(--ease),border-radius .3s var(--ease)}
@@ -1018,11 +1018,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-card--old .wt-card__k,.wt-card--old .wt-card__d{color:var(--text-600)}
 .wt-card--new{background:var(--ink);color:#fff}
 .wt-card--new .wt-card__k,.wt-card--new .wt-card__d{color:var(--on-dark-2)}
-.wt.is-compact .wt-cards{gap:12px}
-.wt.is-compact .wt-card{padding:12px 20px;border-radius:12px}
-.wt.is-compact .wt-card__row{flex-direction:row;align-items:baseline;gap:12px}
-.wt.is-compact .wt-card h4{font-size:18px;line-height:28px}
-.wt.is-compact .wt-card__d{max-height:0;opacity:0;margin-top:0!important}
+.wt-panel.is-compact .wt-cards{gap:12px}
+.wt-panel.is-compact .wt-card{padding:12px 20px;border-radius:12px}
+.wt-panel.is-compact .wt-card__row{flex-direction:row;align-items:baseline;gap:12px}
+.wt-panel.is-compact .wt-card h4{font-size:18px;line-height:28px}
+.wt-panel.is-compact .wt-card__d{max-height:0;opacity:0;margin-top:0!important}
 .wt-why,.wt-work{max-width:760px;display:flex;flex-direction:column;gap:4px}
 .wt-work{margin-top:16px}
 .wt-why h5{margin:0;font-size:18px;line-height:28px;font-weight:600;color:var(--text-900)}
@@ -1083,11 +1083,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-field__t{font-weight:600}
 .wt-field__d{color:var(--text-600)}
 .wt-field:hover .wt-field__t{text-decoration:underline}
-.wt-pager{display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:24px;border-top:1px solid var(--line-200)}
-.wt-prev .btn__icon{transform:scaleX(-1)}
-.wt-prev:hover .btn__icon{transform:scaleX(-1) translateX(4px)}
-.wt-prev:disabled{border-color:var(--line-200);background:transparent;color:var(--text-400);transform:none;cursor:default}
-.wt-prev:disabled .btn__icon{transform:scaleX(-1)}
+/* 每題結尾：提示繼續往下捲，按鈕直接捲到下一題 */
+.wt-nextrow{margin-top:16px;padding-top:24px;border-top:1px solid var(--line-200);display:flex;justify-content:space-between;align-items:center;gap:16px}
+.wt-nextrow p{margin:0;font-size:16px;line-height:24px;color:var(--text-600)}
 @media (max-width:980px){
   .wt{grid-template-columns:minmax(0,1fr);gap:32px;padding-top:40px}
   .wt-gap{display:none}
@@ -1098,9 +1096,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wt-tab{flex:0 0 auto;width:auto;min-width:176px}
   .wt-pin{position:static;margin-top:0;height:auto}
   .wt-pin__box{padding:0}
-  .wt-side{margin-bottom:0}
-  .wt-tail{min-height:0}
   .wt-diff{margin-top:0}
+  .wt-panel{padding-bottom:80px}
+  .wt-panel:last-child{padding-bottom:0}
+  #work-compare .how-outro{margin-top:var(--block-gap)}
 }
 @media (max-width:768px){
   .wt-cards{grid-template-columns:1fr}
@@ -1114,7 +1113,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wt-lock{min-height:320px}
   .wt-lock__t,.wt-lead{font-size:20px;line-height:28px}
   .wt-field img{width:72px;height:72px}
-  .wt-pager .btn{flex:1 1 0;min-width:0}
+  .wt-nextrow{flex-direction:column;align-items:stretch}
+  .wt-nextrow .btn{min-width:0}
   .wt-next__l{overflow:hidden;text-overflow:ellipsis}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1358,34 +1358,34 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 
 <section class="section" id="work-compare">
   <div class="container">
-    <!-- 運作方式：左側四題清單（捲動時固定）＋右側「差異 → 為什麼 → 實際工作時 → 二選一 → 解析」；未作答時解析模糊鎖住 -->
+    <!-- 運作方式：四題上下接續，讀完一題往下捲就進到下一題；左側清單（捲動時固定）跟著換到「閱讀中」。
+         每題「差異 → 為什麼 → 實際工作時 → 二選一 → 解析」，未作答時解析模糊鎖住 -->
     <div class="wt reveal" id="wtTabs">
       <!-- 標題獨立一列只佔右欄，讓差異卡上緣和左側題目清單同一水平 -->
       <div class="wt-gap" aria-hidden="true"></div>
       <h3 class="wt-h wt-title">多數公司與我們的差異</h3>
       <div class="wt-side">
-      <div class="wt-tabs" role="tablist" aria-label="四個主題" aria-orientation="vertical">
-        <button class="wt-tab" type="button" role="tab" id="wtTab1" aria-controls="wtPanel1" aria-selected="true">
+      <nav class="wt-tabs" aria-label="四個主題">
+        <button class="wt-tab" type="button" id="wtTab1" data-go="0" aria-current="step">
           <span class="wt-tab__top"><span class="wt-tab__n">01</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">閱讀中</span></span></span>
           <span class="wt-tab__t">工作怎麼定義？</span>
         </button>
-        <button class="wt-tab" type="button" role="tab" id="wtTab2" aria-controls="wtPanel2" aria-selected="false" tabindex="-1">
+        <button class="wt-tab" type="button" id="wtTab2" data-go="1">
           <span class="wt-tab__top"><span class="wt-tab__n">02</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">未作答</span></span></span>
           <span class="wt-tab__t">資源怎麼取得？</span>
         </button>
-        <button class="wt-tab" type="button" role="tab" id="wtTab3" aria-controls="wtPanel3" aria-selected="false" tabindex="-1">
+        <button class="wt-tab" type="button" id="wtTab3" data-go="2">
           <span class="wt-tab__top"><span class="wt-tab__n">03</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">未作答</span></span></span>
           <span class="wt-tab__t">成果怎麼衡量？</span>
         </button>
-        <button class="wt-tab" type="button" role="tab" id="wtTab4" aria-controls="wtPanel4" aria-selected="false" tabindex="-1">
+        <button class="wt-tab" type="button" id="wtTab4" data-go="3">
           <span class="wt-tab__top"><span class="wt-tab__n">04</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">未作答</span></span></span>
           <span class="wt-tab__t">誰來做決定？</span>
         </button>
-      </div>
+      </nav>
       </div>
       <div class="wt-main">
-        <div class="wt-panel" role="tabpanel" id="wtPanel1" aria-labelledby="wtTab1">
-          <div class="wt-scope">
+        <section class="wt-panel" id="wtPanel1" aria-label="01 工作怎麼定義？">
           <div class="wt-pin">
             <div class="wt-pin__box">
               <div class="wt-cards">
@@ -1423,7 +1423,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </button>
             </div>
           </div>
-          </div>
           <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對真問題負責的人：發現疑點不等於已證明方向錯誤；但若等數據完整才提出，團隊可能已在錯的方向上投入更多成本。我們期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p><p class="wt-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p></div>
@@ -1444,9 +1443,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </a>
             </div>
           </div>
-        </div>
-        <div class="wt-panel" role="tabpanel" id="wtPanel2" aria-labelledby="wtTab2" hidden>
-          <div class="wt-scope">
+          <div class="wt-nextrow">
+            <p>繼續往下捲，進到下一題</p>
+            <button class="btn btn--line wt-next" type="button" data-go="1"><span class="wt-next__l">下一題：資源怎麼取得？</span><svg class="btn__icon btn__icon--down" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.41074 8.92259C4.73618 8.59715 5.26382 8.59715 5.58926 8.92259L9.16667 12.5V3.33333C9.16667 2.8731 9.53976 2.5 10 2.5C10.4602 2.5 10.8333 2.8731 10.8333 3.33333V12.5L14.4107 8.92259C14.7362 8.59715 15.2638 8.59715 15.5893 8.92259C15.9147 9.24803 15.9147 9.77567 15.5893 10.1011L10.5893 15.1011C10.2638 15.4265 9.73618 15.4265 9.41074 15.1011L4.41074 10.1011C4.08531 9.77567 4.08531 9.24803 4.41074 8.92259Z"></path></svg></button>
+          </div>
+        </section>
+        <section class="wt-panel" id="wtPanel2" aria-label="02 資源怎麼取得？">
           <div class="wt-pin">
             <div class="wt-pin__box">
               <div class="wt-cards">
@@ -1484,7 +1486,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </button>
             </div>
           </div>
-          </div>
           <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對證據負責的人：在未知尚未減少前就預先投入研發資源，是高代價的賭博。我們期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p><p class="wt-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p></div>
@@ -1505,9 +1506,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </a>
             </div>
           </div>
-        </div>
-        <div class="wt-panel" role="tabpanel" id="wtPanel3" aria-labelledby="wtTab3" hidden>
-          <div class="wt-scope">
+          <div class="wt-nextrow">
+            <p>繼續往下捲，進到下一題</p>
+            <button class="btn btn--line wt-next" type="button" data-go="2"><span class="wt-next__l">下一題：成果怎麼衡量？</span><svg class="btn__icon btn__icon--down" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.41074 8.92259C4.73618 8.59715 5.26382 8.59715 5.58926 8.92259L9.16667 12.5V3.33333C9.16667 2.8731 9.53976 2.5 10 2.5C10.4602 2.5 10.8333 2.8731 10.8333 3.33333V12.5L14.4107 8.92259C14.7362 8.59715 15.2638 8.59715 15.5893 8.92259C15.9147 9.24803 15.9147 9.77567 15.5893 10.1011L10.5893 15.1011C10.2638 15.4265 9.73618 15.4265 9.41074 15.1011L4.41074 10.1011C4.08531 9.77567 4.08531 9.24803 4.41074 8.92259Z"></path></svg></button>
+          </div>
+        </section>
+        <section class="wt-panel" id="wtPanel3" aria-label="03 成果怎麼衡量？">
           <div class="wt-pin">
             <div class="wt-pin__box">
               <div class="wt-cards">
@@ -1545,7 +1549,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </button>
             </div>
           </div>
-          </div>
           <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對目標負責的人：數據超標不代表剩下的假設沒有價值，它們仍可能帶來更高回報，是否續做取決於和其他瓶頸相比的預期價值。我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p><p class="wt-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p></div>
@@ -1566,9 +1569,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </a>
             </div>
           </div>
-        </div>
-        <div class="wt-panel" role="tabpanel" id="wtPanel4" aria-labelledby="wtTab4" hidden>
-          <div class="wt-scope">
+          <div class="wt-nextrow">
+            <p>繼續往下捲，進到下一題</p>
+            <button class="btn btn--line wt-next" type="button" data-go="3"><span class="wt-next__l">下一題：誰來做決定？</span><svg class="btn__icon btn__icon--down" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M4.41074 8.92259C4.73618 8.59715 5.26382 8.59715 5.58926 8.92259L9.16667 12.5V3.33333C9.16667 2.8731 9.53976 2.5 10 2.5C10.4602 2.5 10.8333 2.8731 10.8333 3.33333V12.5L14.4107 8.92259C14.7362 8.59715 15.2638 8.59715 15.5893 8.92259C15.9147 9.24803 15.9147 9.77567 15.5893 10.1011L10.5893 15.1011C10.2638 15.4265 9.73618 15.4265 9.41074 15.1011L4.41074 10.1011C4.08531 9.77567 4.08531 9.24803 4.41074 8.92259Z"></path></svg></button>
+          </div>
+        </section>
+        <section class="wt-panel" id="wtPanel4" aria-label="04 誰來做決定？">
           <div class="wt-pin">
             <div class="wt-pin__box">
               <div class="wt-cards">
@@ -1606,7 +1612,6 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </button>
             </div>
           </div>
-          </div>
           <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p><p class="wt-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p></div>
@@ -1627,11 +1632,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
               </a>
             </div>
           </div>
-        </div>
-        <div class="wt-pager">
-          <button class="btn btn--line wt-prev" type="button" data-step="-1" disabled><svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg>上一題</button>
-          <button class="btn btn--solid wt-next" type="button" data-step="1"><span class="wt-next__l">下一題：資源怎麼取得？</span> <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></button>
-        </div>
+        </section>
       </div>
     </div>
 
@@ -2296,65 +2297,54 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
      逐字淡入只留給創辦人引言，避免整頁動態過多 */
   fadeChars(document.querySelector(".founder__quote p"), ["#founder"]);
 
-  /* ---------- 運作方式：左側題目清單 + 每題二選一（未作答時解析鎖住） ---------- */
+  /* ---------- 運作方式：四題上下接續 + 每題二選一（未作答時解析鎖住） ---------- */
   var wt = document.getElementById("wtTabs");
   var wtTabs = Array.prototype.slice.call(wt.querySelectorAll(".wt-tab"));
-  var wtPanels = wtTabs.map(function(t){ return document.getElementById(t.getAttribute("aria-controls")); });
-  var wtPrev = wt.querySelector(".wt-prev"), wtNext = wt.querySelector(".wt-next");
-  var wtCur = 0;
-  function wtShow(i, focus){
-    wtCur = i;
+  var wtPanels = Array.prototype.slice.call(wt.querySelectorAll(".wt-panel"));
+  var wtWide = window.matchMedia("(min-width: 981px)"), wtRaf = 0, wtKey = "";
+  function wtNav(cur){
     wtTabs.forEach(function(t, j){
-      var on = i === j, done = wtPanels[j].classList.contains("is-answered");
-      t.setAttribute("aria-selected", String(on));
-      t.tabIndex = on ? 0 : -1;
+      var on = cur === j, done = wtPanels[j].classList.contains("is-answered");
+      if (on) t.setAttribute("aria-current", "step"); else t.removeAttribute("aria-current");
       t.classList.toggle("is-done", done);
       t.querySelector(".wt-tab__st").textContent = done ? "已作答" : (on ? "閱讀中" : "未作答");
-      wtPanels[j].hidden = !on;
     });
-    wtPrev.disabled = i === 0;
-    wtNext.querySelector(".wt-next__l").textContent = i < wtTabs.length - 1 ? "下一題：" + wtTabs[i + 1].querySelector(".wt-tab__t").textContent : "回到第一題";
-    if (focus) wtTabs[i].focus();
-    wtCompact();
   }
-  /* 捲到「問問你自己」碰到差異卡下緣（64 + 203）時，差異卡縮成精簡 bar；≤980 不固定也不縮 */
-  var wtWide = window.matchMedia("(min-width: 981px)"), wtRaf = 0;
-  function wtCompact(){
-    var head = wtPanels[wtCur].querySelector(".wt-case__head");
-    wt.classList.toggle("is-compact", wtWide.matches && head.getBoundingClientRect().top < 267);
+  /* 題目上緣過了畫面 40% 就算「閱讀中」；
+     每題第一個紅字「為什麼會不同」碰到差異卡下緣（64 + 203）時，該題差異卡縮成精簡 bar（≤980 不固定也不縮） */
+  function wtScroll(){
+    var vh = window.innerHeight, cur = 0, key = "";
+    wtPanels.forEach(function(p, i){
+      if (p.getBoundingClientRect().top < vh * .4) cur = i;
+      var sm = wtWide.matches && p.querySelector(".wt-why").getBoundingClientRect().top < 267;
+      p.classList.toggle("is-compact", sm);
+      key += sm ? 1 : 0;
+    });
+    key = cur + ":" + key;
+    if (key !== wtKey){ wtKey = key; wtNav(cur); }
   }
   window.addEventListener("scroll", function(){
     if (wtRaf) return;
-    wtRaf = requestAnimationFrame(function(){ wtRaf = 0; wtCompact(); });
+    wtRaf = requestAnimationFrame(function(){ wtRaf = 0; wtScroll(); });
   }, { passive: true });
-  window.addEventListener("resize", wtCompact);
-  function wtTop(){
-    var top = wt.querySelector(".wt-main").getBoundingClientRect().top + window.pageYOffset - 99;
-    if (window.pageYOffset > top) window.scrollTo({ top: top, behavior: reduce ? "auto" : "smooth" });
+  window.addEventListener("resize", wtScroll);
+  wtScroll();
+  /* 捲到該題：題目上緣對齊左側清單（距頂 99），差異卡剛好貼在 header 下方；≤980 清單不固定，對齊 header 下方 */
+  function wtGo(i){
+    var y = wtPanels[i].getBoundingClientRect().top + window.pageYOffset - (wtWide.matches ? 99 : 88);
+    window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
   }
   wt.addEventListener("click", function(e){
-    var tab = e.target.closest(".wt-tab");
-    if (tab){ wtShow(wtTabs.indexOf(tab)); wtTop(); return; }
+    var go = e.target.closest("[data-go]");
+    if (go){ wtGo(+go.getAttribute("data-go")); return; }
     var opt = e.target.closest(".wt-opt");
     if (opt){
       var c = opt.closest(".wt-panel");
       c.querySelectorAll(".wt-opt").forEach(function(o){ o.setAttribute("aria-pressed", String(o === opt)); });
       c.classList.add("is-answered");
-      wtShow(wtCur);
-      return;
+      wtKey = "";
+      wtScroll();
     }
-    var step = e.target.closest("[data-step]");
-    if (step && !step.disabled){
-      wtShow((wtCur + +step.getAttribute("data-step") + wtTabs.length) % wtTabs.length);
-      wtTop();
-    }
-  });
-  wt.querySelector(".wt-tabs").addEventListener("keydown", function(e){
-    var i = wtTabs.indexOf(document.activeElement);
-    if (i < 0) return;
-    var fwd = e.key === "ArrowDown" || e.key === "ArrowRight", back = e.key === "ArrowUp" || e.key === "ArrowLeft";
-    if (fwd){ e.preventDefault(); wtShow((i + 1) % wtTabs.length, true); }
-    if (back){ e.preventDefault(); wtShow((i + wtTabs.length - 1) % wtTabs.length, true); }
   });
 })();
 </script>
