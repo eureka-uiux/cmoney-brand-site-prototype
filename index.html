@@ -970,7 +970,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
    只用 11 色與字級規範，文字不小於 16px
    ============================================================ */
 #work-compare{background:var(--bg)}
-.wt{display:grid;grid-template-columns:280px minmax(0,1fr);gap:56px;align-items:start}
+.wt{display:grid;grid-template-columns:280px minmax(0,1fr);gap:56px;align-items:stretch}
+/* 左側清單等「上一題／下一題」到畫面底部才放開，左右兩欄一起離開（483 = 清單距頂 99 + 清單高 384） */
+.wt-side{margin-bottom:max(0px,calc(100vh - 483px))}
 .wt-tabs{position:sticky;top:99px;display:flex;flex-direction:column;gap:8px}
 .wt-tab{
   display:flex;flex-direction:column;gap:4px;align-items:flex-start;text-align:start;width:100%;
@@ -989,7 +991,11 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 .wt-tab[aria-selected="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
 .wt-tab[aria-selected="true"] .wt-tab__n,.wt-tab[aria-selected="true"] .wt-tab__s{color:var(--text-300)}
 .wt-main{min-width:0;display:flex;flex-direction:column;gap:32px}
-.wt-panel{display:flex;flex-direction:column;gap:32px}
+.wt-panel{display:flex;flex-direction:column}
+/* 差異卡的固定範圍只到 A/B 選項；之後差異卡跟著解鎖區／解析、上下題一起走 */
+.wt-scope{display:flex;flex-direction:column;gap:32px}
+/* 結尾一屏＝header 64 + 差異卡 259 + 解鎖區／解析 + 上下題 97，補滿視窗 */
+.wt-tail{min-height:calc(100vh - 420px);padding-top:16px;display:flex;flex-direction:column}
 .wt-h{margin:0;font-size:24px;line-height:32px;font-weight:600;color:var(--text-900)}
 .wt-kicker{margin:0;font-size:16px;line-height:24px;font-weight:600;color:var(--red)}
 /* 兩個預設差異卡：切換題目後固定在 header 下方，下方內容在它底下捲動 */
@@ -1077,6 +1083,8 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   .wt-tabs::-webkit-scrollbar{display:none}
   .wt-tab{flex:0 0 auto;width:auto;min-width:176px}
   .wt-pin{position:static;margin-top:0;padding:0}
+  .wt-side{margin-bottom:0}
+  .wt-tail{min-height:0}
   .wt-diff{margin-top:0}
 }
 @media (max-width:768px){
@@ -1337,6 +1345,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   <div class="container">
     <!-- 運作方式：左側四題清單（捲動時固定）＋右側「差異 → 為什麼 → 實際工作時 → 二選一 → 解析」；未作答時解析模糊鎖住 -->
     <div class="wt reveal" id="wtTabs">
+      <div class="wt-side">
       <div class="wt-tabs" role="tablist" aria-label="四個主題" aria-orientation="vertical">
         <button class="wt-tab" type="button" role="tab" id="wtTab1" aria-controls="wtPanel1" aria-selected="true">
           <span class="wt-tab__top"><span class="wt-tab__n">01</span><span class="wt-tab__s"><svg class="wt-tab__ok" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"></path></svg><span class="wt-tab__st">閱讀中</span></span></span>
@@ -1355,8 +1364,10 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           <span class="wt-tab__t">誰來做決定？</span>
         </button>
       </div>
+      </div>
       <div class="wt-main">
         <div class="wt-panel" role="tabpanel" id="wtPanel1" aria-labelledby="wtTab1">
+          <div class="wt-scope">
           <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
@@ -1392,6 +1403,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>真問題</b>負責</span><span class="wt-opt__vp">證據足以支持假設時就提出討論，讓驗證與資源調整同時進行。</span></span>
               </button>
             </div>
+          </div>
+          </div>
+          <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對真問題負責的人：發現疑點不等於已證明方向錯誤；但若等數據完整才提出，團隊可能已在錯的方向上投入更多成本。我們期待你在發現問題時跨出職責邊界，和相關負責人一起決定怎麼驗證、哪些投入先暫停。</p><p class="wt-ask">請回想最近一次「真正的問題不在你的職責範圍內」：你怎麼判斷該不該走進去？你帶著什麼證據、和誰一起決定下一步？最後那個問題有沒有前進？</p></div>
               <div class="wt-lock__cover">
@@ -1413,6 +1427,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           </div>
         </div>
         <div class="wt-panel" role="tabpanel" id="wtPanel2" aria-labelledby="wtTab2" hidden>
+          <div class="wt-scope">
           <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
@@ -1448,6 +1463,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>證據</b>負責</span><span class="wt-opt__vp">每個階段驗證一件事，用最低代價取得下一步的決策依據。</span></span>
               </button>
             </div>
+          </div>
+          </div>
+          <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對證據負責的人：在未知尚未減少前就預先投入研發資源，是高代價的賭博。我們期待夥伴具備「強判斷」的特質：用最低成本，取得足以改變決策的新資訊。</p><p class="wt-ask">請回想最近一次你手上只有很微弱的訊號，卻想確認它值不值得做：你把驗證拆成哪幾個階段？看到什麼結果讓你決定繼續、調整或止損？那個證據有沒有替你換到資源？</p></div>
               <div class="wt-lock__cover">
@@ -1469,6 +1487,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           </div>
         </div>
         <div class="wt-panel" role="tabpanel" id="wtPanel3" aria-labelledby="wtTab3" hidden>
+          <div class="wt-scope">
           <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
@@ -1504,6 +1523,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>目標</b>負責</span><span class="wt-opt__vp">依當下的目標與瓶頸重新排序，而不是照原清單做到底。</span></span>
               </button>
             </div>
+          </div>
+          </div>
+          <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對目標負責的人：數據超標不代表剩下的假設沒有價值，它們仍可能帶來更高回報，是否續做取決於和其他瓶頸相比的預期價值。我們看的是：未知是否減少、使用者價值是否增加，以及資源是否投在當下槓桿最高的地方。</p><p class="wt-ask">請回想最近一次你中途重新評估自己承諾過的計畫：你看到什麼新證據？怎麼決定續做或停止？怎麼跟相關的人說？</p></div>
               <div class="wt-lock__cover">
@@ -1525,6 +1547,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
           </div>
         </div>
         <div class="wt-panel" role="tabpanel" id="wtPanel4" aria-labelledby="wtTab4" hidden>
+          <div class="wt-scope">
           <div class="wt-pin">
             <h3 class="wt-h">多數公司與我們的差異</h3>
             <div class="wt-cards">
@@ -1560,6 +1583,9 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
                 <span class="wt-opt__verdict"><span class="wt-opt__vh">對<b>現場</b>負責</span><span class="wt-opt__vp">授權範圍內的事先處理，超出範圍的決策同步升級。</span></span>
               </button>
             </div>
+          </div>
+          </div>
+          <div class="wt-tail">
             <div class="wt-lock">
               <div class="wt-lock__blur" aria-hidden="true"><span class="wt-rule"></span><p class="wt-lead">CMoney 期待對現場負責的人：誰最接近事實、願意承擔結果，誰就應擁有相應的決策權。</p><p class="wt-ask">請回想最近一次你在權責未明時先動手：你怎麼判斷哪些事自己可以決定、哪些需要升級？</p></div>
               <div class="wt-lock__cover">
@@ -2257,7 +2283,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   function wtShow(i, focus){
     wtCur = i;
     wtTabs.forEach(function(t, j){
-      var on = i === j, done = wtPanels[j].querySelector(".wt-case").classList.contains("is-answered");
+      var on = i === j, done = wtPanels[j].classList.contains("is-answered");
       t.setAttribute("aria-selected", String(on));
       t.tabIndex = on ? 0 : -1;
       t.classList.toggle("is-done", done);
@@ -2277,7 +2303,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
     if (tab){ wtShow(wtTabs.indexOf(tab)); wtTop(); return; }
     var opt = e.target.closest(".wt-opt");
     if (opt){
-      var c = opt.closest(".wt-case");
+      var c = opt.closest(".wt-panel");
       c.querySelectorAll(".wt-opt").forEach(function(o){ o.setAttribute("aria-pressed", String(o === opt)); });
       c.classList.add("is-answered");
       wtShow(wtCur);
