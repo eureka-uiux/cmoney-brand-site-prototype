@@ -600,8 +600,11 @@ svg.btn__icon{display:block;width:20px;height:20px;fill:currentColor}
    全幅版面（不套 .container）：左欄 640px 人像出血到瀏覽器邊緣，
    右欄 800px 內容，內距 100/100/100/80，三個區塊間距 48。
    ============================================================ */
+/* 區塊本身鋪深底：北極星 → 創辦人 → CTA 三段都是 --ink，
+   子元素還沒淡入或照片還沒載完時，透出來的是深色而不是頁面白底（避免捲入時露白） */
+#founder{background:var(--ink)}
 .founder{display:grid;grid-template-columns:640px minmax(0,1fr);align-items:stretch}
-.founder__media{position:relative;min-height:920px;overflow:hidden}
+.founder__media{position:relative;min-height:920px;overflow:hidden;background:var(--ink)}
 .founder__media img{
   position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
   transition:transform .9s var(--ease);
@@ -888,7 +891,12 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 /* ---------- 進場動畫 ---------- */
 .reveal{transform:translateY(16px)}
 /* 深色宣言帶：文字不從全透明開始，快速捲動時不會出現一整片空的深色塊 */
-.section--statement .reveal:not(.is-in){opacity:.4}
+.section--statement .reveal:not(.is-in),
+#founder .reveal:not(.is-in),
+.cta .reveal:not(.is-in){opacity:.4}
+/* 出血大圖（創辦人照、CTA 背景）載入完成才從深底淡入，不會「啪」一下蓋上來 */
+.js-img-fade{opacity:0;transition:opacity .6s var(--ease)}
+.js-img-fade.is-loaded{opacity:1}
 /* 大區塊（對照表、事業群）：容器本身不動，子元素依序出現。
    用 animation + backwards 而不是 transition：動畫跑完就交還原本的 hover 位移，
    不會覆蓋 .bgc / .cmp__row 自己的 transition。 */
@@ -955,7 +963,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 }
 @media (prefers-reduced-motion:reduce){
   .reveal[data-stagger] > *{opacity:1!important;animation:none!important}
-  .section--statement .reveal:not(.is-in){opacity:1}
+  .section--statement .reveal:not(.is-in),#founder .reveal:not(.is-in),.cta .reveal:not(.is-in){opacity:1}
 }
 /* 北極星主標：以逗號為斷點，不再斷成「一個共／同目標」 */
 .northstar__title .nobr{display:inline-block}
@@ -1774,16 +1782,16 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <!-- Figma node 6727:13541 variation-a-editorial：全幅版面，人像出血，故不套 .container -->
 <section id="founder">
   <div class="founder">
-    <div class="founder__media reveal">
-      <img src="assets/founder.jpg" alt="CMoney 創辦人暨執行長 Ken 的人物照" width="832" height="1248">
+    <div class="founder__media">
+      <img class="js-img-fade" src="assets/founder.jpg" alt="CMoney 創辦人暨執行長 Ken 的人物照" width="832" height="1248">
     </div>
-    <div class="founder__body reveal">
-      <div class="founder__head">
+    <div class="founder__body">
+      <div class="founder__head reveal">
         <p class="founder__kicker">29歲時，寫下第一套投資分析工具</p>
         <h2 class="founder__title">我最早想做的，只是一個能幫助人<span class="is-red">驗證投資判斷</span>的工具。</h2>
       </div>
 
-      <div class="founder__grid">
+      <div class="founder__grid reveal">
         <div class="founder__paras">
           <p>大學時接觸投資，我得到的不只是投資上的經驗，而是開始理解：面對不確定，我們必須蒐集資訊、形成判斷，也承擔結果。</p>
           <p>29歲時，我看見金融研究人員每天處理大量資料，卻缺少真正能驗證判斷的工具，於是自己動手寫下分析軟體。</p>
@@ -1795,7 +1803,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
         </blockquote>
       </div>
 
-      <div class="founder__foot">
+      <div class="founder__foot reveal">
         <div class="founder__by"><b>Ken</b><span>CMoney 創辦人暨執行長</span></div>
         <a class="btn btn--ghost" href="https://blogs.cmoney.tw/letter-from-the-founder" target="_blank" rel="noopener">閱讀完整創辦人文章 <svg class="btn__icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path fill-rule="evenodd" clip-rule="evenodd" d="M11.0774 4.41074C11.4028 4.08531 11.9305 4.08531 12.2559 4.41074L17.2559 9.41074C17.5814 9.73618 17.5814 10.2638 17.2559 10.5893L12.2559 15.5893C11.9305 15.9147 11.4028 15.9147 11.0774 15.5893C10.752 15.2638 10.752 14.7362 11.0774 14.4107L14.6548 10.8333H3.33333C2.8731 10.8333 2.5 10.4602 2.5 10C2.5 9.53976 2.8731 9.16667 3.33333 9.16667H14.6548L11.0774 5.58926C10.752 5.26382 10.752 4.73618 11.0774 4.41074Z"></path></svg></a>
       </div>
@@ -1806,7 +1814,7 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
 <!-- ========================= CTA ========================= -->
 <section class="cta" id="cta">
   <div class="cta__bg">
-    <img src="assets/cta-team.jpg" alt="CMoney 同事在書牆前的沙發區，各自看著筆電與雜誌討論" loading="lazy">
+    <img class="js-img-fade" src="assets/cta-team.jpg" alt="CMoney 同事在書牆前的沙發區，各自看著筆電與雜誌討論" loading="lazy">
   </div>
   <div class="cta__scrim" aria-hidden="true"></div>
   <div class="container">
@@ -1999,6 +2007,13 @@ html{scroll-padding-top:calc(64px + env(safe-area-inset-top,0px))}
   updateNav();
   addEventListener("scroll", requestNav, {passive:true});
   addEventListener("resize", requestNav);
+
+  /* ---------- 出血大圖：載入完成才淡入（失敗也顯示，至少不會留一塊空的） ---------- */
+  document.querySelectorAll(".js-img-fade").forEach(function(img){
+    function done(){ img.classList.add("is-loaded"); }
+    if (img.complete) done();
+    else { img.addEventListener("load", done); img.addEventListener("error", done); }
+  });
 
   /* ---------- Scroll reveal ---------- */
   var revealEls = document.querySelectorAll(".reveal");
