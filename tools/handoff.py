@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""交接包盤點與檢查（只用 Python 標準庫，不需安裝任何套件）。
+"""交接包盤點與檢查（inventory／check／pack 只用 Python 標準庫；shots 需要 Playwright）。
 
     python3 tools/handoff.py inventory   # 從 HTML 重新產生 handoff/content.md、handoff/assets.md
-    python3 tools/handoff.py check       # 改完 HTML 後跑：缺圖、清單過期、色票外的色值
+    python3 tools/handoff.py check       # 改完 HTML 後跑：缺圖、清單過期、錨點失效、圖片路徑、色票外的色值
+    python3 tools/handoff.py shots       # 重拍 handoff/screens/ 的截圖（需要 Playwright，見 handoff/README.md）
+    python3 tools/handoff.py pack        # 打包交接用 zip 到 dist/
 
 HTML 是正本。content.md / assets.md 都是這支腳本產生的，不要手改。
 """
@@ -10,6 +12,8 @@ import os
 import re
 import struct
 import sys
+import zipfile
+from datetime import date
 from html.parser import HTMLParser
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -306,6 +310,29 @@ def check():
         if not os.path.exists(full) or read(path) != text:
             problems.append("過期  %s 和 HTML 不一致，跑 `python3 tools/handoff.py inventory` 後檢查 git diff" % path)
 
+    ids = {page: set(re.findall(r'\bid="([^"]+)"', read(page))) for page in PAGES}
+    for page in PAGES:
+        # script 與註解不算（保留長度，行號才對得上）
+        src = re.sub(r"<script\b.*?</script>|<!--.*?-->", lambda x: re.sub(r"[^\n]", " ", x.group(0)), read(page), flags=re.S)
+        for m in re.finditer(r'href="([^"]*)"', src):
+            href = m.group(1)
+            if re.match(r"(https?:|mailto:|tel:|javascript:|//)", href) or href in ("", "#"):
+                continue
+            target, _, frag = href.partition("#")
+            target = target or page
+            line = src.count("\n", 0, m.start()) + 1
+            if not os.path.exists(os.path.join(ROOT, target)):
+                problems.append("連結失效  %s:%d %s（找不到 %s）" % (page, line, href, target))
+            elif frag and target in ids and frag not in ids[target]:
+                problems.append("錨點失效  %s:%d %s（%s 裡沒有 id=\"%s\"）" % (page, line, href, target, frag))
+        for m in re.finditer(r'(?:src|href|srcset)="([^"]+)"|url\(["\']?([^"\')]+)', src):
+            val = m.group(1) or m.group(2)
+            line = src.count("\n", 0, m.start()) + 1
+            if val.startswith("data:image"):
+                problems.append("圖片路徑  %s:%d 用了 data URI，圖片要放 assets/ 用相對路徑" % (page, line))
+            elif re.match(r"(https?:)?//", val) and re.search(r"\.(png|jpe?g|webp|svg|gif|avif)(\?|$)", val, re.I):
+                problems.append("圖片路徑  %s:%d 用了外部圖片 %s，要下載到 assets/" % (page, line, val))
+
     for page in PAGES:
         # 註解裡提到的色值不算（保留長度，行號才對得上）
         src = re.sub(r"/\*.*?\*/|<!--.*?-->", lambda x: re.sub(r"[^\n]", " ", x.group(0)), read(page), flags=re.S)
@@ -328,12 +355,98 @@ def check():
     return 1 if problems else 0
 
 
+# ---------- 截圖 ----------
+
+SHOT_WIDTHS = (1440, 768, 375)
+SHOTS_DIR = os.path.join(OUT_DIR, "screens")
+
+
+def shots():
+    try:
+        from playwright.sync_api import sync_playwright
+    except ImportError:
+        print("需要 Playwright：pip install playwright && python3 -m playwright install chromium")
+        return 1
+    os.makedirs(os.path.join(ROOT, SHOTS_DIR), exist_ok=True)
+    prep = ("document.querySelectorAll('img').forEach(i=>i.loading='eager');"
+            "Promise.all([...document.images].map(i=>i.complete?0:new Promise(r=>{i.onload=i.onerror=r})))")
+    states = [  # (檔名, 頁面, 寬, 要做的事, 截哪個元素)
+        ("index-差異表全部展開", "index.html",
+         "document.querySelectorAll('.w5-toggle').forEach(t=>{if(t.getAttribute('aria-expanded')!=='true')t.click()})", ".w5-table"),
+    ] + [("index-情境題%d作答後" % i, "index.html",
+          "document.getElementById('w5Tab%d').click();document.querySelectorAll('#w5Panel%d .w5-opt')[1].click()" % (i, i), ".w5-try")
+         for i in range(1, 5)]
+    with sync_playwright() as p:
+        b = p.chromium.launch()
+        for page in PAGES:
+            for w in SHOT_WIDTHS:
+                pg = b.new_page(viewport={"width": w, "height": 900}, reduced_motion="reduce")
+                pg.goto("file://" + os.path.join(ROOT, page))
+                pg.evaluate(prep)
+                pg.wait_for_timeout(500)
+                out = os.path.join(SHOTS_DIR, "%s-%d.jpg" % (page[:-5], w))
+                pg.screenshot(path=os.path.join(ROOT, out), full_page=True, type="jpeg", quality=70)
+                print("寫入", out)
+                pg.close()
+        for name, page, js, sel in states:
+            pg = b.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+            pg.goto("file://" + os.path.join(ROOT, page))
+            pg.evaluate(prep)
+            pg.evaluate(js)
+            pg.wait_for_timeout(300)
+            out = os.path.join(SHOTS_DIR, "%s-1440.jpg" % name)
+            pg.locator(sel).screenshot(path=os.path.join(ROOT, out), type="jpeg", quality=80)
+            print("寫入", out)
+            pg.close()
+        for i in range(4):
+            pg = b.new_page(viewport={"width": 1440, "height": 900}, reduced_motion="reduce")
+            pg.goto("file://" + os.path.join(ROOT, "index.html"))
+            pg.evaluate(prep)
+            card = pg.locator(".bgc").nth(i)
+            card.scroll_into_view_if_needed()
+            card.hover()
+            pg.wait_for_timeout(500)
+            out = os.path.join(SHOTS_DIR, "index-事業群卡hover%d-1440.jpg" % (i + 1))
+            card.screenshot(path=os.path.join(ROOT, out), type="jpeg", quality=80)
+            print("寫入", out)
+            pg.close()
+        b.close()
+    return 0
+
+
+# ---------- 打包 ----------
+
+PACK_SKIP_DIRS = {"dist", "__pycache__", ".claude", "node_modules"}
+
+
+def pack():
+    name = "CMoney形象網站_交接包_%s" % date.today().isoformat()
+    os.makedirs(os.path.join(ROOT, "dist"), exist_ok=True)
+    out = os.path.join("dist", name + ".zip")
+    n = 0
+    with zipfile.ZipFile(os.path.join(ROOT, out), "w", zipfile.ZIP_DEFLATED) as z:
+        for d, dirs, files in os.walk(ROOT):
+            dirs[:] = sorted(x for x in dirs if x not in PACK_SKIP_DIRS)
+            for f in sorted(files):
+                if f == ".DS_Store":
+                    continue
+                full = os.path.join(d, f)
+                z.write(full, os.path.join(name, os.path.relpath(full, ROOT)))
+                n += 1
+    print("寫入 %s（%d 個檔案，%.1f MB）" % (out, n, os.path.getsize(os.path.join(ROOT, out)) / 1048576))
+    return 0
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else ""
     if cmd == "inventory":
         inventory()
     elif cmd == "check":
         sys.exit(check())
+    elif cmd == "shots":
+        sys.exit(shots())
+    elif cmd == "pack":
+        sys.exit(pack())
     else:
         print(__doc__)
         sys.exit(2)
