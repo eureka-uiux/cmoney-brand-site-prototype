@@ -36,12 +36,13 @@ python3 tools/handoff.py check
 ```
 
 - `inventory` 會從 HTML 重新產生 `handoff/content.md`、`handoff/assets.md`。**用 `git diff handoff/` 確認文案差異只包含你打算改的部分**；多出來或消失的字就是改壞了。
-- `check` 出現 ❌ 必須處理；⚠️ 是既有的已知提醒（見 `handoff/README.md` 待確認），不要新增。
+- `check` 出現 ❌ 必須處理；目前是 0 個 ⚠️，改完出現新的 ⚠️ 要說明原因或修掉。
 - 至少用 1440、768、375 三個寬度看過改動的區塊。
 - 如果改到 token、元件規則或刻意破格，同步更新 `DESIGN-SYSTEM.md`；改到區塊結構，同步更新 `handoff/section-map.md`。
 - 改到版面時跑 `python3 tools/handoff.py shots` 重拍 `handoff/screens/`（沒裝 Playwright 就跳過，並告訴使用者）。
 - 向使用者回報：這次 `content.md` 增減了哪些字、改了哪些檔案。使用者同意後 commit（訊息規則見下方）。
-- 使用者要交給工程師時：寫一段修改說明（改了哪些區塊、哪些檔案、有沒有待確認事項），再提醒使用者把整個資料夾含 `.git` 壓縮交出。
+- 使用者要交給工程師時：把修改說明寫進 commit 訊息內文，並原文貼給使用者。格式固定三段：**改了什麼**（區塊 id＋一句話）、**檔案**（含 `content.md` 增減的字）、**待確認**（沒有就寫「無」）。最後提醒使用者把整個資料夾含 `.git` 壓縮交出。
+- `content.md` 的「元素」欄沒有 class 時會寫成「父元素 > 標籤」（例如 `blockquote.vcard__quote > p`），用它對回 HTML。
 
 ## 從 Figma 回改
 

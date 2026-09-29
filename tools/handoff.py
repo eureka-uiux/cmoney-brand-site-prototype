@@ -82,6 +82,12 @@ class Page(HTMLParser):
             return
         cls = (a.get("class") or "").split()
         label = "#" + a["id"] if a.get("id") else tag + ("." + cls[0] if cls else "")
+        if label == tag:
+            # 沒有 class／id 的元素，帶上最近一層有名字的父元素，才找得到是哪個元件
+            for c in reversed(self.stack):
+                if c[1] != c[0]:
+                    label = c[1] + " > " + tag
+                    break
         if tag == "br":
             for c in reversed(self.stack):
                 if c[2]:
