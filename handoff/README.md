@@ -9,7 +9,8 @@ CMoney 形象網站的 HTML prototype。**HTML 是正本**，Figma 稿是從 HTM
 - 線上預覽：https://eureka-uiux.github.io/cmoney-brand-site-prototype/index.html
 - 本機預覽：直接用瀏覽器開 `index.html`，不需要安裝任何東西。
 - Figma 交接稿：https://www.figma.com/design/1sL3DgPchc2IEgcwHCs0ws/?node-id=6866-2795（各區塊的 frame 連結見 [section-map.md](section-map.md)）
-- 部署：由工程師負責。工程師把修改 push 到 `main` 後，GitHub Pages 會自動更新。設計師不需要碰 GitHub。
+- 原始來源：https://github.com/eureka-uiux/cmoney-brand-site-prototype（交接包的 git 已移除這個連線）。
+- 部署：接手人部署到自己的環境（GitHub Pages／Vercel／Netlify），步驟見 [開始這裡.md](../開始這裡.md)〈部署到你自己的環境〉。
 
 ## 檔案
 
@@ -36,29 +37,14 @@ archive/                封存版本，不再維護
 2. AI 改完會跑 `python3 tools/handoff.py inventory` 和 `check`。
 3. **看 `handoff/content.md` 的前後差異**（AI 用 git diff 比對，會唸給你聽）：只該出現你要改的字。多了或少了，就是改到不該改的地方。
 4. 用瀏覽器在電腦、平板、手機寬度各看一次。
-5. 請 AI 把修改 commit 起來，並寫一段給工程師的說明。
-
-### 交給工程師上版
-
-設計師不碰 GitHub。改完把整個資料夾（含隱藏的 `.git`）壓縮交給工程師，附上 AI 整理的修改說明。
-
-工程師端：
-
-```bash
-# 在自己的 repo 裡，把設計師的資料夾當成來源拉進來
-git fetch /path/to/設計師的資料夾 HEAD:designer-update
-git log main..designer-update          # 看設計師這次的 commit
-git diff main designer-update -- handoff/content.md   # 確認文案差異
-python3 tools/handoff.py check
-# 沒問題就合併到 main 並 push，GitHub Pages 會自動更新
-```
+5. 請 AI 把修改 commit 起來；已經連上你自己的 repo 的話，一起推上去部署。
 
 ### 產生新的交接包
 
 ```bash
 python3 tools/handoff.py inventory && python3 tools/handoff.py check
 python3 tools/handoff.py shots   # 版面有改時重拍截圖（需要 pip install playwright && python3 -m playwright install chromium）
-python3 tools/handoff.py pack    # 輸出 dist/CMoney形象網站_交接包_日期.zip（含 .git，不含 dist/）
+python3 tools/handoff.py pack    # 輸出 dist/CMoney形象網站_交接包_日期.zip（git 只帶目前分支、改名為 main，並移除原始 repo 的 remote）
 ```
 
 ### 要改文案
