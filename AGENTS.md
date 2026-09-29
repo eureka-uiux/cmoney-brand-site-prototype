@@ -1,6 +1,8 @@
 # CMoney 形象網站 prototype｜AI 協作規則
 
-給 Claude Code、Cursor 等 AI 工具讀的規則。人類接手請先看 [handoff/README.md](handoff/README.md)。
+給 Claude Code、Cursor 等 AI 工具讀的規則。人類接手請先看 [開始這裡.md](開始這裡.md)。
+
+**使用者多半是不會用 git 的設計師。** git 操作（diff、commit）由你代勞並用白話說明結果；不要 push、不要要求使用者自己下 git 指令。上線由工程師負責。
 
 ## 正本
 
@@ -34,9 +36,13 @@ python3 tools/handoff.py check
 ```
 
 - `inventory` 會從 HTML 重新產生 `handoff/content.md`、`handoff/assets.md`。**用 `git diff handoff/` 確認文案差異只包含你打算改的部分**；多出來或消失的字就是改壞了。
-- `check` 出現 ❌ 必須處理；⚠️ 是既有的已知提醒（見 `handoff/README.md` 待確認），不要新增。
+- `check` 出現 ❌ 必須處理；目前是 0 個 ⚠️，改完出現新的 ⚠️ 要說明原因或修掉。
 - 至少用 1440、768、375 三個寬度看過改動的區塊。
 - 如果改到 token、元件規則或刻意破格，同步更新 `DESIGN-SYSTEM.md`；改到區塊結構，同步更新 `handoff/section-map.md`。
+- 只要改了 HTML，就跑 `python3 tools/handoff.py shots` 重拍 `handoff/screens/`，並用這些截圖檢查改動區塊在 1440／768／375 的樣子（截圖要跟 HTML 保持一致，跟著一起 commit）。沒裝 Playwright 就跳過，並請使用者照 `開始這裡.md` 用瀏覽器看三種寬度。
+- 向使用者回報：這次 `content.md` 增減了哪些字、改了哪些檔案。使用者同意後 commit（訊息規則見下方）。
+- 使用者要交給工程師時：把修改說明寫進 commit 訊息內文，並原文貼給使用者。格式固定三段：**改了什麼**（區塊 id＋一句話）、**檔案**（含 `content.md` 增減的字）、**待確認**（沒有就寫「無」）。最後提醒使用者把整個資料夾含 `.git` 壓縮交出。
+- `content.md` 的「元素」欄沒有 class 時會寫成「父元素 > 標籤」（例如 `blockquote.vcard__quote > p`），用它對回 HTML。
 
 ## 從 Figma 回改
 
@@ -48,5 +54,5 @@ python3 tools/handoff.py check
 
 ## Commit
 
-- 訊息用繁體中文，一句話說明改了哪個區塊的什麼，例如：`運作方式差異卡：拿掉 hover 浮起`。
+- 訊息用繁體中文，一句話說明改了哪個區塊的什麼，例如：`運作方式差異卡：拿掉 hover 浮起`。一次改到多個區塊時，標題用「、」並列，例如 `首頁 Hero 按鈕、事業群頁消費事業群規模：改文案`。
 - `handoff/*.md` 跟著 HTML 一起 commit。

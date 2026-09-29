@@ -1,6 +1,6 @@
 # 交接說明
 
-給接手的設計師。AI 工具的規則在根目錄 [AGENTS.md](../AGENTS.md)（Claude Code 透過 `CLAUDE.md` 讀同一份）。
+給接手的設計師。**第一次打開請先看根目錄的 [開始這裡.md](../開始這裡.md)**，這份是比較完整的說明。AI 工具的規則在根目錄 [AGENTS.md](../AGENTS.md)（Claude Code 透過 `CLAUDE.md` 讀同一份）。
 
 ## 這個專案是什麼
 
@@ -8,7 +8,8 @@ CMoney 形象網站的 HTML prototype。**HTML 是正本**，Figma 稿是從 HTM
 
 - 線上預覽：https://eureka-uiux.github.io/cmoney-brand-site-prototype/index.html
 - 本機預覽：直接用瀏覽器開 `index.html`，不需要安裝任何東西。
-- 部署：push 到 `main`，GitHub Pages 自動更新。
+- Figma 交接稿：https://www.figma.com/design/1sL3DgPchc2IEgcwHCs0ws/?node-id=6866-2795（各區塊的 frame 連結見 [section-map.md](section-map.md)）
+- 部署：由工程師負責。工程師把修改 push 到 `main` 後，GitHub Pages 會自動更新。設計師不需要碰 GitHub。
 
 ## 檔案
 
@@ -23,7 +24,9 @@ handoff/
   section-map.md        區塊地圖（id、內容、互動、Figma frame）
   content.md            全站文案清單（腳本產生，不要手改）
   assets.md             圖片清單（腳本產生，不要手改）
-tools/handoff.py        產生清單＋檢查
+  screens/              兩頁 1440／768／375 截圖＋互動狀態截圖（`handoff.py shots` 產生）
+tools/handoff.py        產生清單、檢查、截圖、打包
+開始這裡.md             給接手設計師的第一份說明
 archive/                封存版本，不再維護
 ```
 
@@ -31,8 +34,32 @@ archive/                封存版本，不再維護
 
 1. 用 Claude Code 或 Cursor 開這個資料夾，直接用中文描述要改什麼（例如「把 #hero 的主標改成…」、「把 founder.jpg 換成這張」）。
 2. AI 改完會跑 `python3 tools/handoff.py inventory` 和 `check`。
-3. **看 `handoff/content.md` 的 git diff**：只該出現你要改的字。多了或少了，就是改到不該改的地方。
+3. **看 `handoff/content.md` 的前後差異**（AI 用 git diff 比對，會唸給你聽）：只該出現你要改的字。多了或少了，就是改到不該改的地方。
 4. 用瀏覽器在電腦、平板、手機寬度各看一次。
+5. 請 AI 把修改 commit 起來，並寫一段給工程師的說明。
+
+### 交給工程師上版
+
+設計師不碰 GitHub。改完把整個資料夾（含隱藏的 `.git`）壓縮交給工程師，附上 AI 整理的修改說明。
+
+工程師端：
+
+```bash
+# 在自己的 repo 裡，把設計師的資料夾當成來源拉進來
+git fetch /path/to/設計師的資料夾 HEAD:designer-update
+git log main..designer-update          # 看設計師這次的 commit
+git diff main designer-update -- handoff/content.md   # 確認文案差異
+python3 tools/handoff.py check
+# 沒問題就合併到 main 並 push，GitHub Pages 會自動更新
+```
+
+### 產生新的交接包
+
+```bash
+python3 tools/handoff.py inventory && python3 tools/handoff.py check
+python3 tools/handoff.py shots   # 版面有改時重拍截圖（需要 pip install playwright && python3 -m playwright install chromium）
+python3 tools/handoff.py pack    # 輸出 dist/CMoney形象網站_交接包_日期.zip（含 .git，不含 dist/）
+```
 
 ### 要改文案
 

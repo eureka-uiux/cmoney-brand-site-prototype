@@ -3,7 +3,7 @@
 兩個自我包含的 HTML 頁面（CSS 與 JS 全部內嵌），圖片放在 `assets/`。
 直接開 `index.html` 就能看，部署到 GitHub Pages 不需要任何 build。
 
-> **接手請先看 [handoff/README.md](handoff/README.md)**：修改流程、文案與圖片清單、待確認事項。
+> **接手請先看 [開始這裡.md](開始這裡.md)**；較完整的修改流程、待確認事項在 [handoff/README.md](handoff/README.md)。
 > AI 工具的規則在 [AGENTS.md](AGENTS.md)。
 
 ```
@@ -11,7 +11,8 @@ index.html            # 首頁（正本）
 business-groups.html  # 事業群詳細頁（正本）
 assets/               # 圖片，兩頁共用；每張用在哪見 handoff/assets.md
 handoff/              # 交接文件與自動產生的文案／圖片清單
-tools/handoff.py      # 產生清單＋檢查缺圖、色票
+tools/handoff.py      # 產生清單、檢查（缺圖、錨點、色票）、截圖、打包
+開始這裡.md           # 給接手設計師的第一份說明
 archive/              # 封存版本（index-v2.html），不再維護
 .nojekyll             # GitHub Pages 不要跑 Jekyll
 ```
@@ -113,11 +114,7 @@ reveal 觸發門檻太深，捲動時會出現整片空白的視窗。已改為
 
 ## 部署
 
-```bash
-git add -A
-git commit -m "重新切塊：8 段 → 12 段，新增深色宣言段與暖灰底色；hero 數據卡越界與收束漸層"
-git push
-```
+由工程師負責：修改合併到 `main` 並 push 後，GitHub Pages 自動更新。設計師不需要碰 GitHub，交回流程見 [handoff/README.md](handoff/README.md)〈交給工程師上版〉。
 
 GitHub Pages 設定在 Settings → Pages → Source 選 `main` / `root`，
 `.nojekyll` 已經在 repo 根目錄。
