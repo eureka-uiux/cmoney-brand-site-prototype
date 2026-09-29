@@ -433,6 +433,10 @@ def pack():
     import tempfile
     git = lambda *a, **k: subprocess.run(["git", *a], cwd=k.pop("cwd", ROOT), check=True,
                                          capture_output=True, text=True).stdout.strip()
+    if git("rev-parse", "--is-shallow-repository") == "true":
+        print("這個 repo 是淺複製（只有部分紀錄），打包後接手人推不上自己的 GitHub。"
+              "先跑 `git fetch --unshallow origin` 再打包")
+        return 1
     if git("status", "--porcelain"):
         print("有尚未 commit 的修改，先 commit 再打包（交接包只放已 commit 的內容）")
         return 1
