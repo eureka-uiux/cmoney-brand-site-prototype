@@ -114,7 +114,7 @@ reveal 觸發門檻太深，捲動時會出現整片空白的視窗。已改為
 
 ## 部署
 
-由工程師負責：修改合併到 `main` 並 push 後，GitHub Pages 自動更新。設計師不需要碰 GitHub，交回流程見 [handoff/README.md](handoff/README.md)〈交給工程師上版〉。
+這個 repo（原始來源）合併到 `main` 並 push 後，GitHub Pages 自動更新。交接出去的版本由接手人部署到自己的環境，見 [開始這裡.md](開始這裡.md)〈部署到你自己的環境〉。
 
 GitHub Pages 設定在 Settings → Pages → Source 選 `main` / `root`，
 `.nojekyll` 已經在 repo 根目錄。

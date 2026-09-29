@@ -4,7 +4,7 @@
     python3 tools/handoff.py inventory   # 從 HTML 重新產生 handoff/content.md、handoff/assets.md
     python3 tools/handoff.py check       # 改完 HTML 後跑：缺圖、清單過期、錨點失效、圖片路徑、色票外的色值
     python3 tools/handoff.py shots       # 重拍 handoff/screens/ 的截圖（需要 Playwright，見 handoff/README.md）
-    python3 tools/handoff.py pack        # 打包交接用 zip 到 dist/
+    python3 tools/handoff.py pack        # 打包交接用 zip 到 dist/（git 只帶目前分支、不帶原始 repo 的連線）
 
 HTML 是正本。content.md / assets.md 都是這支腳本產生的，不要手改。
 """
@@ -426,19 +426,41 @@ PACK_SKIP_DIRS = {"dist", "__pycache__", ".claude", "node_modules"}
 
 
 def pack():
+    """打包交接用 zip。git 紀錄只帶目前分支，並移除指向原始 repo 的 remote，
+    接手人部署時再由 AI 連到他自己的 GitHub／Vercel。"""
+    import shutil
+    import subprocess
+    import tempfile
+    git = lambda *a, **k: subprocess.run(["git", *a], cwd=k.pop("cwd", ROOT), check=True,
+                                         capture_output=True, text=True).stdout.strip()
+    if git("rev-parse", "--is-shallow-repository") == "true":
+        print("這個 repo 是淺複製（只有部分紀錄），打包後接手人推不上自己的 GitHub。"
+              "先跑 `git fetch --unshallow origin` 再打包")
+        return 1
+    if git("status", "--porcelain"):
+        print("有尚未 commit 的修改，先 commit 再打包（交接包只放已 commit 的內容）")
+        return 1
+    branch = git("rev-parse", "--abbrev-ref", "HEAD")
     name = "CMoney形象網站_交接包_%s" % date.today().isoformat()
     os.makedirs(os.path.join(ROOT, "dist"), exist_ok=True)
     out = os.path.join("dist", name + ".zip")
-    n = 0
-    with zipfile.ZipFile(os.path.join(ROOT, out), "w", zipfile.ZIP_DEFLATED) as z:
-        for d, dirs, files in os.walk(ROOT):
-            dirs[:] = sorted(x for x in dirs if x not in PACK_SKIP_DIRS)
-            for f in sorted(files):
-                if f == ".DS_Store":
-                    continue
-                full = os.path.join(d, f)
-                z.write(full, os.path.join(name, os.path.relpath(full, ROOT)))
-                n += 1
+    tmp = tempfile.mkdtemp()
+    try:
+        repo = os.path.join(tmp, "repo")
+        git("clone", "-q", "--no-local", "--single-branch", "--branch", branch, ROOT, repo)
+        git("remote", "remove", "origin", cwd=repo)
+        if branch != "main":
+            git("branch", "-m", branch, "main", cwd=repo)
+        n = 0
+        with zipfile.ZipFile(os.path.join(ROOT, out), "w", zipfile.ZIP_DEFLATED) as z:
+            for d, dirs, files in os.walk(repo):
+                dirs[:] = sorted(x for x in dirs if x not in PACK_SKIP_DIRS)
+                for f in sorted(files):
+                    full = os.path.join(d, f)
+                    z.write(full, os.path.join(name, os.path.relpath(full, repo)))
+                    n += 1
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
     print("寫入 %s（%d 個檔案，%.1f MB）" % (out, n, os.path.getsize(os.path.join(ROOT, out)) / 1048576))
     return 0
 
